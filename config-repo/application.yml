@@ -1,0 +1,3 @@
+authserver:
+  hostname: auth
+  port: 5000

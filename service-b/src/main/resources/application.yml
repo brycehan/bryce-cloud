@@ -1,0 +1,38 @@
+server:
+  port: 8070
+  
+eureka:
+  instance:
+    hostname: service-b
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/  
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+security:
+  oauth2:
+    client:
+      client-id: auth
+      client-secret: 123456
+      access-token-uri: http://auth:8050/oauth/token
+    resource:
+      user-info-uri: http://auth:8050/current
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+ 
+logging:
+  level:
+    com.brycehan.cloud: debug
