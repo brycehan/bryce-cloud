@@ -1,5 +1,5 @@
 server:
-  port: 8060
+  port: 8061
   
 eureka:
   instance:
@@ -9,14 +9,11 @@ eureka:
     service-url:
       defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+spring:
+  rabbitmq:
+    host: rabbitmq
+    username: admin
+    password: 123456
 
 security:
   oauth2:
@@ -26,6 +23,15 @@ security:
       access-token-uri: http://auth:8050/oauth/token
     resource:
       user-info-uri: http://auth:8050/current
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
   
 logging:
   level:

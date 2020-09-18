@@ -22,6 +22,7 @@
   
   <modules>
   	<module>discovery</module>
+  	<module>config</module>
   	<module>gateway</module>
   	<module>monitor</module>
   	<module>auth</module>

@@ -7,16 +7,13 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/  
+      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 
 security:
   oauth2:
@@ -27,11 +24,14 @@ security:
     resource:
       user-info-uri: http://auth:8050/current
 
-spring:
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
  
 logging:
   level:
