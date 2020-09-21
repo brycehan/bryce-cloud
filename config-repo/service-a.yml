@@ -9,7 +9,7 @@ eureka:
     service-url:
       defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/
 
-name: brycehan
+name: brycehan4
 
 spring:
   rabbitmq:
