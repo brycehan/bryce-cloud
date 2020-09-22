@@ -16,11 +16,17 @@ spring:
         uri: lb://auth
         predicates:
         - Path=/auth/**
+        filters:
+        - StripPrefix=1
       - id: service-a
         uri: lb://service-a
         predicates:
         - Path=/a/**
+        filters:
+        - StripPrefix=1
       - id: service-b
         uri: lb://service-b
         predicates:
         - Path=/b/**
+        filters:
+        - StripPrefix=1
