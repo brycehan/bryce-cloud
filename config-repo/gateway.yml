@@ -1,19 +1,26 @@
 server:
   port: 8080
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/  
+
 spring:
   cloud:
     gateway:
       routes:
       - id: auth
-        uri: http://auth:8050/
+        uri: lb://auth
         predicates:
-        - Path=/auth
+        - Path=/auth/**
       - id: service-a
-        uri: http://service-a:8060/
+        uri: lb://service-a
         predicates:
-        - Path=/a
+        - Path=/a/**
       - id: service-b
-        uri: http://service-b:8070/
+        uri: lb://service-b
         predicates:
-        - Path=/b
+        - Path=/b/**
