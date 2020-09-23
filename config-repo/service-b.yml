@@ -14,6 +14,9 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+    circuitbreaker:
+      hystrix:
+        enabled: false    
   rabbitmq:
     host: rabbitmq
     username: admin
