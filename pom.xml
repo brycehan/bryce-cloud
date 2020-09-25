@@ -17,7 +17,8 @@
   	<java.version>1.8</java.version>
   	<spring-boot-admin.version>2.2.4</spring-boot-admin.version>
   	<spring-cloud.version>Hoxton.SR7</spring-cloud.version>
-  	<mybatis-plus.version></mybatis-plus.version>
+  	<resilience4j.version>1.3.1</resilience4j.version>
+  	<docker-maven-plugin.version>1.2.2</docker-maven-plugin.version>
   </properties>
   
   <modules>
@@ -46,6 +47,42 @@
   			<type>pom</type>
   			<scope>import</scope>
   		</dependency>
+  		<dependency>
+  			<groupId>io.github.resilience4j</groupId>
+  			<artifactId>resilience4j-spring-cloud2</artifactId>
+  			<version>${resilience4j.version}</version>
+  		</dependency>
   	</dependencies>
   </dependencyManagement>
+  
+  <build>
+  	<pluginManagement>
+  		<plugins>
+  			<plugin>
+  				<groupId>com.spotify</groupId>
+  				<artifactId>docker-maven-plugin</artifactId>
+  				<version>${docker-maven-plugin.version}</version>
+  				<executions>
+  					<execution>
+  						<phase>package</phase>
+  						<goals>
+  							<goal>build</goal>
+  						</goals>
+  					</execution>
+  				</executions>
+  				<configuration>
+  					<imageName>${project.parent.artifactId}/${project.artifactId}</imageName>
+  					<dockerDirectory>${project.basedir}</dockerDirectory>
+  					<resources>
+  						<resource>
+  							<targetPath>/</targetPath>
+  							<directory>${project.build.directory}</directory>
+  							<include>${project.build.finalName}.jar</include>
+  						</resource>
+  					</resources>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</pluginManagement>
+  </build>
 </project>
