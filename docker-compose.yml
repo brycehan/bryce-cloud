@@ -4,33 +4,33 @@ services:
     image: rabbitmq:3-management
     retart: always
     ports: 
-    - 15672:15672
+      - 15672:15672
   discovery:
     image: cloud/discovery
     ports:
-    - "8761:8761"
+      - "8761:8761"
   config:
     image: cloud/config
     ports:
-    - "8888:8888"
+      - "8888:8888"
   monitor:
     image: cloud/monitor
     ports:
-    - "8040:8040"
+      - "8040:8040"
   gateway:
     image: cloud/gateway
     ports:
-    - "8080:8080"
+      - "8080:8080"
   auth:
     image: cloud/auth
     ports:
-    - "8050:8050"
+      - "8050:8050"
   service-a:
     image: cloud/service-a
     ports:
-    - "8060:8060"
+      - "8060:8060"
   service-b:
     image: cloud/service-b
     ports:
-    - "8070:8070"                          
+      - "8070:8070"                          
       

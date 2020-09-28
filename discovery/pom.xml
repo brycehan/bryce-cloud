@@ -6,7 +6,6 @@
 		<groupId>com.brycehan</groupId>
 		<artifactId>cloud</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.brycehan.cloud</groupId>
 	<artifactId>discovery</artifactId>
