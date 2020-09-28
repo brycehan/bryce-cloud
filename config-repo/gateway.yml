@@ -9,6 +9,10 @@ eureka:
       defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/  
 
 spring:
+  rabbitmq:
+    host: rabbitmq
+    username: admin
+    password: 123456
   cloud:
     gateway:
       routes:
