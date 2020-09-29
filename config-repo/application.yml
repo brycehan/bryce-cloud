@@ -1,3 +1,14 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+    username: admin
+    password: 123456
+
 authserver:
   hostname: auth
-  port: 5000
+  port: 8050

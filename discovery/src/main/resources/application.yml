@@ -19,8 +19,3 @@ spring:
       name: user
       password: ${DISCOVERY_SERVER_PASSWORD:password}
     
-logging:
-  level:
-    org.springframework: info
- 
-    

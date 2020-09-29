@@ -53,14 +53,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients
 		.inMemory()
-		.withClient("auth")
-		.secret(passwordEncoder.encode("123456"))
-		.autoApprove(true)
-		.redirectUris("http://localhost:8060/")
-		.scopes("user")
-		.authorizedGrantTypes("authorization_code")
-		.accessTokenValiditySeconds(2 * 3600) // 2 hours
-		.and()
 		.withClient("client")
 		.secret(passwordEncoder.encode("secret"))
 		.authorizedGrantTypes("password", "refresh_token")
@@ -69,12 +61,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		.refreshTokenValiditySeconds(30 * 24 * 3600) // 30 days
 		.and()
 		.withClient("service-a")
-		.secret("password")
+		.secret(passwordEncoder.encode("password"))
 		.authorizedGrantTypes("client_credentials", "refresh_token")
 		.scopes("server")
 		.and()
 		.withClient("service-b")
-		.secret("password")
+		.secret(passwordEncoder.encode("password"))
 		.authorizedGrantTypes("client_credentials", "refresh_token")
 		.scopes("server");
 	}

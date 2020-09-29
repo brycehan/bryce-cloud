@@ -1,5 +1,5 @@
 # cloud
-本项目是一个基于Spring Boot、Spring Cloud等框架构建的微服务项目。
+本项目是一个基于 Spring Boot、Spring Cloud 等框架构建的微服务项目。
 
 # 应用架构
 该项目包含 7 个服务
@@ -27,7 +27,7 @@
 # 接口测试
 1. 密码模式获取 Token
 ```
-curl -X POST -vu client:secret http://auth:8050/oauth/token -H "Accept: application/json" -d "username=admin&password=123456&grant_type=password"
+curl -X POST -vu client:secret http://localhost:8080/auth/oauth/token -H "Accept: application/json" -d "username=admin&password=123456&grant_type=password"
 ```
 返回如下格式数据：
 ```
@@ -35,23 +35,23 @@ curl -X POST -vu client:secret http://auth:8050/oauth/token -H "Accept: applicat
 ```
 2. 使用 access token 访问 service a 接口
 ```
-curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://service-a:8060/
+curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://localhost:8080/a/
 ```
 返回如下格式数据：
 ```
-service service-a ( 192.168.56.1:8060 ) is OK.
+service service-a ( 192.168.56.1:8060 ) is OK. ===> name: brycehan
 ```
 3. 使用 access token 访问 service b 接口
 ```
-curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://service-b:8070/
+curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://localhost:8080/b/
 ```
 返回如下格式数据：
 ```
-service service-b (192.168.56.1:8070) is OK.<br/>service service-a ( 192.168.56.1:8060 ) is OK.
+service service-b (192.168.56.1:8070) is OK. 8070 8070<br/>service service-a ( 192.168.56.1:8060 ) is OK. ===> name: brycehan
 ```
 4. 使用 refresh token 刷新 token
 ```
-curl -X POST -vu client:secret http://auth:8050/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=be9c21eb-54d4-4c74-81e3-b049af76d737"
+curl -X POST -vu client:secret http://localhost:8080/auth/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=be9c21eb-54d4-4c74-81e3-b049af76d737"
 ```
 返回如下格式数据：
 ```

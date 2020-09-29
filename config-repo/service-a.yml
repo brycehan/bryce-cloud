@@ -5,17 +5,10 @@ eureka:
   instance:
     hostname: service-a
     prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://user:${DISCOVERY_SERVER_PASSWORD:password}@discovery:8761/eureka/
 
 name: brycehan
 
 spring:
-  rabbitmq:
-    host: rabbitmq
-    username: admin
-    password: 123456
   cloud:
     bus:
       trace:
@@ -24,11 +17,11 @@ spring:
 security:
   oauth2:
     client:
-      client-id: client
-      client-secret: secret
-      access-token-uri: http://auth:8050/oauth/token
+      client-id: service-a
+      client-secret: password
+      access-token-uri: http://${authserver.hostname}:${authserver.port}/oauth/token
     resource:
-      user-info-uri: http://auth:8050/current
+      user-info-uri: http://${authserver.hostname}:${authserver.port}/current
 
 management:
   endpoints:
@@ -37,9 +30,5 @@ management:
         include: '*'
   endpoint:
     health:
-      show-details: always
-
-logging:
-  level:
-    com.brycehan.cloud: debug      
+      show-details: always  
             
