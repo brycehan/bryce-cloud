@@ -9,7 +9,10 @@ spring:
   zipkin:
     sender:
       type: rabbit
-  cloud:         
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false   
     gateway:
       httpclient:
         connect-timeout: 10000
