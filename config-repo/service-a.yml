@@ -9,10 +9,9 @@ eureka:
 name: brycehan
 
 spring:
-  cloud:
-    bus:
-      trace:
-        enabled: true
+  zipkin:
+    sender:
+      type: rabbit
 
 security:
   oauth2:
