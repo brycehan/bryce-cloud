@@ -14,7 +14,10 @@ spring:
     circuitbreaker:
       hystrix:
         enabled: false
-
+  zipkin:
+    sender:
+      type: rabbit
+      
 security:
   oauth2:
     client:
