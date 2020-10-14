@@ -16,6 +16,9 @@ spring:
     user:
       name: user
       password: ${AUTH_SERVER_PASSWORD:password}
+  zipkin:
+    sender:
+      type: rabbit
 
 management:
   endpoints:
