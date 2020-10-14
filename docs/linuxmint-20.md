@@ -47,3 +47,28 @@ export KEY=VALUE
 ```
 source /etc/profile
 ```
+# 常用命令
+```
+sudo docker-compose up -d
+sudo docker-compose logs serivce-a
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+# 系统安装后
+```
+apt update
+apt upgrade
+apt install chromium-browser
+sudo apt install vim
+
+
+```
+# 启动 Zipkin 绑定 rabbitmq
+docker run -d --restart=always -p 9411:9411 --name zipkin \
+-e TZ='Asia/Shanghai' \
+-e LANG="en_US.UTF-8" \
+--link rabbitmq \
+-e RABBIT_ADDRESSES=rabbitmq:5672 \
+-e RABBIT_USER=admin \
+-e RABBIT_PASSWORD=123456 \
+openzipkin/zipkin
