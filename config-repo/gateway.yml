@@ -6,13 +6,10 @@ eureka:
     prefer-ip-address: true
 
 spring:
-#  cloud:
-#    loadbalancer:
-#      ribbon:
-#        enabled: false
   zipkin:
     sender:
-      type: rabbit     
+      type: rabbit
+  cloud:         
     gateway:
       httpclient:
         connect-timeout: 10000
