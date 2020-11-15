@@ -71,6 +71,7 @@
   					</execution>
   				</executions>
   				<configuration>
+  					<dockerHost>http://192.168.0.104:2375</dockerHost>
   					<imageName>${project.parent.artifactId}/${project.artifactId}</imageName>
   					<dockerDirectory>${project.basedir}</dockerDirectory>
   					<resources>

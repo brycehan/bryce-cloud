@@ -9,6 +9,9 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
+/**
+ * 后期可调整为别的方式
+ */
 @Configuration
 public class FeignOAuth2RequestInterceptor implements RequestInterceptor {
 
