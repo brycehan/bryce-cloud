@@ -17,6 +17,11 @@ spring:
       httpclient:
         connect-timeout: 10000
         response-timeout: 10s
+#      default-filters:
+#      - name: CircuitBreaker
+#        args:
+#          name: myCircuitBreaker
+#          fallbackUri: forward:/  
       routes:
       - id: auth
         uri: lb://auth
