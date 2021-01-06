@@ -6,6 +6,11 @@
 # XMind 8
 # Lingoes
 # Everything
+# 在线思维导图
+```
+https://www.freedgo.com
+https://processon.com/popular
+```
 # Curl
 ```
 https://curl.haxx.se/download.html
