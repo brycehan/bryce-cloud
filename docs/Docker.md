@@ -13,19 +13,35 @@ docker run -d --name nexus3 --restart=always \
 --mount src=nexus-data,target=/nexus-data \
 sonatype/nexus3
 ```
-# MySQL 安装
+## MySQL 安装
 ```
 docker pull mysql
 docker run \
     -d \
     -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=123456 \
-    -v /home/data/mysql/data:/var/lib/mysql:rw \
-    -v /home/data/mysql/log:/var/log/mysql:rw \
+    -v /opt/data/mysql/data:/var/lib/mysql:rw \
+    -v /opt/data/mysql/log:/var/log/mysql:rw \
+    -v /opt/data/mysql/conf:/etc/mysql:rw \
     -v /etc/localtime:/etc/localtime:ro \
     --name mysql8 \
     --restart=always \
     mysql
+```
+## Redis 安装
+```
+mkdir -p /opt/data/redis/conf
+touch /opt/data/redis/conf/redis.conf
+echo "appendonly yes" > /opt/data/redis/conf/redis.conf
+
+docker pull redis
+docker run -d \
+    -p 6379:6379 \
+    -v /opt/data/redis/data:/data \
+    -v /opt/data/redis/conf:/usr/local/etc/redis \
+    --name redis \
+    --restart=always \
+    redis redis-server /usr/local/etc/redis/redis.conf
 ```
 # RabbitMQ安装
 1.查找镜像

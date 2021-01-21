@@ -1,0 +1,325 @@
+#---- discovery ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0    
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: discovery
+    spec:
+      containers:
+      - image: cloud/discovery:latest
+        imagePullPolicy: IfNotPresent
+        name: discovery
+        ports:
+        - containerPort: 8761
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery
+spec:
+  ports:
+  - name: http
+    port: 8761
+    protocol: TCP
+    targetPort: 8761
+  selector:
+    app: discovery
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: discovery-nginx
+spec:
+  rules:
+  - host: discovery.cloud.com
+    http:
+      paths:
+      - backend:
+          serviceName: discovery
+          servicePort: 8761
+#---- config ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: config
+    spec:
+      containers:
+      - image: cloud/config:latest
+        imagePullPolicy: IfNotPresent
+        name: config
+        ports:
+        - containerPort: 8888
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config
+spec:
+  ports:
+  - name: http
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: config
+#---- service a ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-a
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+      - image: cloud/service-a:latest
+        imagePullPolicy: IfNotPresent
+        name: service-a
+        ports:
+        - containerPort: 8060
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a
+spec:
+  ports:
+  - name: http
+    port: 8060
+    protocol: TCP
+    targetPort: 8060
+  selector:
+    app: service-a
+#---- service b ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-b
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: service-b
+    spec:
+      containers:
+      - image: cloud/service-b:latest
+        imagePullPolicy: IfNotPresent
+        name: service-b
+        ports:
+        - containerPort: 8070
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-b
+spec:
+  ports:
+  - name: http
+    port: 8070
+    protocol: TCP
+    targetPort: 8070
+  selector:
+    app: service-b
+#---- auth ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - image: cloud/auth:latest
+        imagePullPolicy: IfNotPresent
+        name: auth
+        ports:
+        - containerPort: 8050
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth
+spec:
+  ports:
+  - name: http
+    port: 8050
+    protocol: TCP
+    targetPort: 8050
+  selector:
+    app: auth    
+#---- gateway ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - image: cloud/gateway:latest
+        imagePullPolicy: IfNotPresent
+        name: gateway
+        ports:
+        - containerPort: 8080
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: gateway
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway-nginx
+spec:
+  rules:
+  - host: gateway.cloud.com
+    http:
+      paths:
+      - backend:
+          serviceName: gateway
+          servicePort: 8080
+#---- monitor ----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitor
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: monitor
+    spec:
+      containers:
+      - image: cloud/monitor:latest
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        ports:
+        - containerPort: 8040
+          protocol: TCP                           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitor
+spec:
+  ports:
+  - name: http
+    port: 8040
+    protocol: TCP
+    targetPort: 8040
+  selector:
+    app: monitor
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: monitor-nginx
+spec:
+  rules:
+  - host: monitor.cloud.com
+    http:
+      paths:
+      - backend:
+          serviceName: monitor
+          servicePort: 8040
