@@ -82,14 +82,9 @@ location = "mirror.baidubce.com"
 systemctl status NetworkManager
 ip addr
 rm -fr rancher/
-docker rm -f b05be3312383
 chown -R 1000:1000 /data/jenkins_home/
-docker logs -f jenkins
 ```
-1. 进入容器内部, 2fc48be79267 为 Container ID
-```
- docker exec -it 2fc48be79267 /bin/bash
-```
+
 2. 重启网卡
 ```
 nmcli c reload

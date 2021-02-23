@@ -78,3 +78,12 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 \
 -v /opt/data_volume/rancher/auditlog:/var/log/auditlog \
 rancher/rancher:stable
 ```
+
+### 常用命令
+```
+docker --help
+docker exec --help
+docker exec -it mysql8 /bin/bash
+docker rm -f b05be3312383
+docker logs -f jenkins
+```
