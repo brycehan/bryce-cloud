@@ -18,6 +18,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-framework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-cloud-api</artifactId>
+        </dependency>
         <!-- 监控工具 -->
         <dependency>
             <groupId>com.github.oshi</groupId>

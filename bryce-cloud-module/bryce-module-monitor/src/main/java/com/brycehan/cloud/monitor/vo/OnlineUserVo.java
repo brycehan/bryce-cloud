@@ -1,5 +1,6 @@
 package com.brycehan.cloud.monitor.vo;
 
+import com.brycehan.cloud.api.module.ServerNames;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "在级用户 vo")
-public class OnlineUserVo implements Serializable {
+public class OnlineUserVo implements Serializable, TransPojo {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,7 @@ public class OnlineUserVo implements Serializable {
     /**
      * 机构ID
      */
+    @Trans(type = TransType.RPC, targetClassName = "com.brycehan.cloud.system.entity.SysOrg", fields = "name", serviceName = ServerNames.BRYCE_CLOUD_SYSTEM, ref = "orgName")
     @Schema(description = "机构ID")
     private Long orgId;
 
