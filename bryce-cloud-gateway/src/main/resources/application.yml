@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: bryce-cloud-gateway
+  cloud:
+    nacos:
+      server-addr: @nacos.server-addr@
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        namespace: @nacos.namespace@
+        group: @nacos.groupname@
+      config:
+        namespace: @nacos.namespace@
+        group: @nacos.groupname@
+  config:
+    import:
+      - optional:nacos:application.yaml
+      - optional:nacos:bryce-cloud-gateway.yaml

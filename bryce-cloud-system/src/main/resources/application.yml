@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: bryce-cloud-system
+  cloud:
+    nacos:
+      server-addr: @nacos.server-addr@
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        namespace: @nacos.namespace@
+        group: @nacos.groupname@
+      config:
+        namespace: @nacos.namespace@
+        group: @nacos.groupname@
+  config:
+    import:
+      - optional:nacos:application.yaml
+      - optional:nacos:application-bryce.yaml
+      - optional:nacos:application-task.yaml
+      - optional:nacos:application-sms.yaml
+      - optional:nacos:application-spy.yaml
+      - optional:nacos:bryce-cloud-system.yaml
+
+logging:
+  level:
+    com.brycehan: debug

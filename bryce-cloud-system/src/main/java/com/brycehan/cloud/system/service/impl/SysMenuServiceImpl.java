@@ -1,0 +1,111 @@
+package com.brycehan.cloud.system.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.base.entity.PageResult;
+import com.brycehan.cloud.common.constant.DataConstants;
+import com.brycehan.cloud.common.util.ExcelUtils;
+import com.brycehan.cloud.common.util.TreeUtils;
+import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.system.convert.SysMenuConvert;
+import com.brycehan.cloud.system.dto.SysMenuDto;
+import com.brycehan.cloud.system.dto.SysMenuPageDto;
+import com.brycehan.cloud.system.entity.SysMenu;
+import com.brycehan.cloud.system.mapper.SysMenuMapper;
+import com.brycehan.cloud.system.service.SysMenuService;
+import com.brycehan.cloud.system.vo.SysMenuVo;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+/**
+ * 系统菜单服务实现
+ *
+ * @since 2022/5/15
+ * @author Bryce Han
+ */
+@Service
+@RequiredArgsConstructor
+public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
+
+    @Override
+    public PageResult<SysMenuVo> page(SysMenuPageDto sysMenuPageDto) {
+
+        IPage<SysMenu> page = this.baseMapper.selectPage(getPage(sysMenuPageDto), getWrapper(sysMenuPageDto));
+
+        return new PageResult<>(page.getTotal(), SysMenuConvert.INSTANCE.convert(page.getRecords()));
+    }
+
+    /**
+     * 封装查询条件
+     *
+     * @param sysMenuPageDto 系统菜单分页dto
+     * @return 查询条件Wrapper
+     */
+    private Wrapper<SysMenu> getWrapper(SysMenuPageDto sysMenuPageDto) {
+        LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StringUtils.isNotBlank(sysMenuPageDto.getName()), SysMenu::getName, sysMenuPageDto.getName());
+        wrapper.eq(StringUtils.isNotBlank(sysMenuPageDto.getType()), SysMenu::getType, sysMenuPageDto.getType());
+        wrapper.eq(Objects.nonNull(sysMenuPageDto.getStatus()), SysMenu::getStatus, sysMenuPageDto.getStatus());
+        return wrapper;
+    }
+
+    @Override
+    public void export(SysMenuPageDto sysMenuPageDto) {
+        List<SysMenu> sysMenuList = this.baseMapper.selectList(getWrapper(sysMenuPageDto));
+        List<SysMenuVo> sysMenuVoList = SysMenuConvert.INSTANCE.convert(sysMenuList);
+        ExcelUtils.export(SysMenuVo.class, "系统菜单", "系统菜单", sysMenuVoList);
+    }
+
+    @Override
+    public List<SysMenuVo> list(SysMenuDto sysMenuDto) {
+        LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(StringUtils.isNotBlank(sysMenuDto.getName()), SysMenu::getName, sysMenuDto.getName());
+        queryWrapper.eq(Objects.nonNull(sysMenuDto.getStatus()), SysMenu::getStatus, sysMenuDto.getStatus());
+        queryWrapper.orderByAsc(SysMenu::getSort);
+        List<SysMenu> list = this.baseMapper.selectList(queryWrapper);
+
+        return TreeUtils.build(SysMenuConvert.INSTANCE.convert(list), 0L);
+    }
+
+    @Override
+    public Set<String> findAuthority(LoginUser loginUser) {
+        // 超级管理员，拥有最高权限
+        Set<String> authoritySet;
+        if (loginUser.getSuperAdmin()) {
+            LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
+            wrapper.select(SysMenu::getAuthority);
+
+            List<String> authortityList = this.listObjs(wrapper, Object::toString);
+            authoritySet = new HashSet<>(authortityList);
+        } else {
+            authoritySet = this.baseMapper.findAuthorityByUserId(loginUser.getId());
+        }
+        return authoritySet;
+    }
+
+    @Override
+    public List<SysMenuVo> getMenuTreeList(LoginUser loginUser, String type) {
+        List<SysMenu> menuList;
+
+        if (loginUser.getSuperAdmin()) {
+            // 超级管理员菜单处理
+            LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(SysMenu::getStatus, DataConstants.ENABLE);
+            queryWrapper.eq(StringUtils.isNotEmpty(type), SysMenu::getType, type);
+            queryWrapper.orderByAsc(Arrays.asList(SysMenu::getParentId, SysMenu::getSort));
+
+            menuList = this.baseMapper.selectList(queryWrapper);
+        } else {
+            // 普通用户菜单处理
+            menuList = this.baseMapper.selectMenuTreeList(loginUser.getId(), type);
+        }
+
+        return TreeUtils.build(SysMenuConvert.INSTANCE.convert(menuList));
+    }
+
+}

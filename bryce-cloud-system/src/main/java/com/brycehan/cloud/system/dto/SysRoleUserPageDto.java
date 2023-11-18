@@ -1,0 +1,29 @@
+package com.brycehan.cloud.system.dto;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serial;
+
+/**
+ * 系统角色用户PageDto
+ *
+ * @since 2023/09/11
+ * @author Bryce Han
+ */
+@Data
+@Schema(description = "系统角色用户PageDto")
+@EqualsAndHashCode(callSuper = true)
+public class SysRoleUserPageDto extends SysUserPageDto {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 角色ID
+     */
+    @Schema(description = "角色ID")
+    private Long roleId;
+
+}

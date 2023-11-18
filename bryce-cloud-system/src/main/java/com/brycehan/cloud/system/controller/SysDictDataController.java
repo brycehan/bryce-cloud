@@ -1,0 +1,123 @@
+package com.brycehan.cloud.system.controller;
+
+import com.brycehan.cloud.common.base.dto.IdsDto;
+import com.brycehan.cloud.common.base.entity.PageResult;
+import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.validator.SaveGroup;
+import com.brycehan.cloud.common.validator.UpdateGroup;
+import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
+import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
+import com.brycehan.cloud.system.convert.SysDictDataConvert;
+import com.brycehan.cloud.system.dto.SysDictDataDto;
+import com.brycehan.cloud.system.dto.SysDictDataPageDto;
+import com.brycehan.cloud.system.entity.SysDictData;
+import com.brycehan.cloud.system.service.SysDictDataService;
+import com.brycehan.cloud.system.vo.SysDictDataVo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 系统字典数据API
+ *
+ * @since 2023/09/08
+ * @author Bryce Han
+ */
+@Tag(name = "系统字典数据", description = "sysDictData")
+@RequestMapping("/system/dictData")
+@RestController
+@RequiredArgsConstructor
+public class SysDictDataController {
+
+    private final SysDictDataService sysDictDataService;
+
+    /**
+     * 保存系统字典数据
+     *
+     * @param sysDictDataDto 系统字典数据Dto
+     * @return 响应结果
+     */
+    @Operation(summary = "保存系统字典数据")
+    @OperateLog(type = OperateType.INSERT)
+    @PreAuthorize("hasAuthority('system:dictData:save')")
+    @PostMapping
+    public ResponseResult<Void> save(@Validated(value = SaveGroup.class) @RequestBody SysDictDataDto sysDictDataDto) {
+        this.sysDictDataService.save(sysDictDataDto);
+        return ResponseResult.ok();
+    }
+
+    /**
+     * 更新系统字典数据
+     *
+     * @param sysDictDataDto 系统字典数据Dto
+     * @return 响应结果
+     */
+    @Operation(summary = "更新系统字典数据")
+    @OperateLog(type = OperateType.UPDATE)
+    @PreAuthorize("hasAuthority('system:dictData:update')")
+    @PutMapping
+    public ResponseResult<Void> update(@Validated(value = UpdateGroup.class) @RequestBody SysDictDataDto sysDictDataDto) {
+        this.sysDictDataService.update(sysDictDataDto);
+        return ResponseResult.ok();
+    }
+
+    /**
+     * 删除系统字典数据
+     *
+     * @param idsDto ID列表Dto
+     * @return 响应结果
+     */
+    @Operation(summary = "删除系统字典数据")
+    @OperateLog(type = OperateType.DELETE)
+    @PreAuthorize("hasAuthority('system:dictData:delete')")
+    @DeleteMapping
+    public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {
+        this.sysDictDataService.delete(idsDto);
+        return ResponseResult.ok();
+    }
+
+    /**
+     * 查询系统字典数据详情
+     *
+     * @param id 系统字典数据ID
+     * @return 响应结果
+     */
+    @Operation(summary = "查询系统字典数据详情")
+    @PreAuthorize("hasAuthority('system:dictData:info')")
+    @GetMapping(path = "/{id}")
+    public ResponseResult<SysDictDataVo> get(@Parameter(description = "系统字典数据ID", required = true) @PathVariable Long id) {
+        SysDictData sysDictData = this.sysDictDataService.getById(id);
+        return ResponseResult.ok(SysDictDataConvert.INSTANCE.convert(sysDictData));
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param sysDictDataPageDto 查询条件
+     * @return 系统字典数据分页列表
+     */
+    @Operation(summary = "分页查询")
+    @PreAuthorize("hasAuthority('system:dictData:page')")
+    @PostMapping(path = "/page")
+    public ResponseResult<PageResult<SysDictDataVo>> page(@Validated @RequestBody SysDictDataPageDto sysDictDataPageDto) {
+        PageResult<SysDictDataVo> page = this.sysDictDataService.page(sysDictDataPageDto);
+        return ResponseResult.ok(page);
+    }
+
+    /**
+     * 系统字典数据导出数据
+     *
+     * @param sysDictDataPageDto 查询条件
+     */
+    @Operation(summary = "系统字典数据导出")
+    @PreAuthorize("hasAuthority('system:dictData:export')")
+    @PostMapping(path = "/export")
+    public void export(@Validated @RequestBody SysDictDataPageDto sysDictDataPageDto) {
+        this.sysDictDataService.export(sysDictDataPageDto);
+    }
+
+}
