@@ -30,6 +30,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-framework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-cloud-api</artifactId>
+        </dependency>
         <!-- aop 框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

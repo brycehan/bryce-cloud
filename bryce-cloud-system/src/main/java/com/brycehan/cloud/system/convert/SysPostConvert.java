@@ -4,6 +4,7 @@ import com.brycehan.cloud.system.dto.SysPostDto;
 import com.brycehan.cloud.system.entity.SysPost;
 import com.brycehan.cloud.system.vo.SysPostVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2023/09/28
  * @author Bryce Han
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SysPostConvert {
 
     SysPostConvert INSTANCE = Mappers.getMapper(SysPostConvert.class);

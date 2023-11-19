@@ -10,8 +10,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @since 2023/11/15
  * @author Bryce Han
  */
-@SpringBootApplication
 @EnableDiscoveryClient
+@SpringBootApplication
 public class BryceGatewayApplication {
 
 	public static void main(String[] args) {

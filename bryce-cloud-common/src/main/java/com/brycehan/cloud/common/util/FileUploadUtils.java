@@ -61,11 +61,11 @@ public class FileUploadUtils {
 //        // 1、文件名长度校验
 //        int fileNameLength = Objects.requireNonNull(file.getOriginalFilename()).length();
 //        if (fileNameLength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH) {
-//            throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
+//            throw demo FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
 //        }
 //        // 2、文件大小校验
 //        if (file.getSize() > DEFAULT_FILE_MAX_SIZE) {
-//            throw new FileSizeLimitExceededException(DEFAULT_FILE_MAX_SIZE / 1024 / 1024);
+//            throw demo FileSizeLimitExceededException(DEFAULT_FILE_MAX_SIZE / 1024 / 1024);
 //        }
 //        // 3、文件扩展名校验
 //        String originalFilename = file.getOriginalFilename();
@@ -73,7 +73,7 @@ public class FileUploadUtils {
 //
 //        if (Arrays.stream(allowedExtension)
 //                .noneMatch(item -> item.equalsIgnoreCase(extensionName))) {
-//            throw new InvalidExtensionException(originalFilename, extensionName, allowedExtension);
+//            throw demo InvalidExtensionException(originalFilename, extensionName, allowedExtension);
 //        }
 //    }
 

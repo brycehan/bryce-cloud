@@ -4,6 +4,7 @@ import com.brycehan.cloud.quartz.dto.QuartzJobLogDto;
 import com.brycehan.cloud.quartz.entity.QuartzJobLog;
 import com.brycehan.cloud.quartz.vo.QuartzJobLogVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2023/10/19
  * @author Bryce Han
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuartzJobLogConvert {
 
     QuartzJobLogConvert INSTANCE = Mappers.getMapper(QuartzJobLogConvert.class);

@@ -1,7 +1,7 @@
-package com.brycehan.cloud.api.module.system;
+package com.brycehan.cloud.api.system;
 
-import com.brycehan.cloud.api.module.ServerNames;
-import com.brycehan.cloud.api.module.system.vo.StorageVo;
+import com.brycehan.cloud.api.ServerNames;
+import com.brycehan.cloud.api.system.vo.StorageVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,6 @@
-package com.brycehan.cloud.api.module.sms;
+package com.brycehan.cloud.api.sms;
 
-import com.brycehan.cloud.api.module.ServerNames;
+import com.brycehan.cloud.api.ServerNames;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

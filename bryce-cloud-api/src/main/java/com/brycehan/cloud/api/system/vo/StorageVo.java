@@ -1,4 +1,4 @@
-package com.brycehan.cloud.api.module.system.vo;
+package com.brycehan.cloud.api.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.monitor.vo;
 
-import com.brycehan.cloud.api.module.ServerNames;
+import com.brycehan.cloud.api.ServerNames;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;

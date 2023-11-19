@@ -4,6 +4,7 @@ import com.brycehan.cloud.system.dto.SysAttachmentDto;
 import com.brycehan.cloud.system.entity.SysAttachment;
 import com.brycehan.cloud.system.vo.SysAttachmentVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2023/10/01
  * @author Bryce Han
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SysAttachmentConvert {
 
     SysAttachmentConvert INSTANCE = Mappers.getMapper(SysAttachmentConvert.class);

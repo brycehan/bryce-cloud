@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.api;
 
-import com.brycehan.cloud.api.module.system.StorageApi;
-import com.brycehan.cloud.api.module.system.vo.StorageVo;
+import com.brycehan.cloud.api.system.StorageApi;
+import com.brycehan.cloud.api.system.vo.StorageVo;
 import com.brycehan.cloud.framework.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

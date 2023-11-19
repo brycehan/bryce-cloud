@@ -1,5 +1,8 @@
 package com.brycehan.cloud.wechat.controller;
 
+import com.brycehan.cloud.api.system.SysParamApi;
+import com.brycehan.cloud.api.system.dto.SysParamApiDto;
+import com.brycehan.cloud.api.system.vo.SysParamApiVo;
 import com.brycehan.cloud.common.base.http.ResponseResult;
 import com.brycehan.cloud.common.constant.CommonConstants;
 import com.brycehan.cloud.common.util.JsonUtils;
@@ -40,6 +43,8 @@ public class WechatMenuController {
 
     private final WxMpService wxMpService;
 
+    private final SysParamApi sysParamApi;
+
     /**
      * 更新微信菜单
      *
@@ -66,25 +71,25 @@ public class WechatMenuController {
         wxMenu.setButtons(wxMenuButtons);
 
         String paramKey = CommonConstants.WECHAT_PARAM.concat(appId);
-//        boolean exists = this.sysParamService.exists(paramKey);
-//        if(exists) {
+        boolean exists = this.sysParamApi.exists(paramKey);
+        if(exists) {
             // 更新
-//            SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
-//
-//            SysParamDto sysParamDto = new SysParamDto();
-//            sysParamDto.setId(sysParamVo.getId());
-//            sysParamDto.setParamKey(paramKey);
-//            sysParamDto.setParamValue(JsonUtils.writeValueAsString(wxMenuButtons));
-//
-//            this.sysParamService.update(sysParamDto);
-//        } else {
-//            // 添加
-//            SysParamDto sysParamDto = new SysParamDto();
-//            sysParamDto.setParamName("公众号AppID（".concat(appId).concat("）菜单"));
-//            sysParamDto.setParamKey(CommonConstants.WECHAT_PARAM.concat(appId));
-//            sysParamDto.setParamValue(JsonUtils.writeValueAsString(itemDtoList));
-//            this.sysParamService.save(sysParamDto);
-//        }
+            SysParamApiVo sysParamVo = this.sysParamApi.getByParamKey(paramKey);
+
+            SysParamApiDto sysParamDto = new SysParamApiDto();
+            sysParamDto.setId(sysParamVo.getId());
+            sysParamDto.setParamKey(paramKey);
+            sysParamDto.setParamValue(JsonUtils.writeValueAsString(wxMenuButtons));
+
+            this.sysParamApi.update(sysParamDto);
+        } else {
+            // 添加
+            SysParamApiDto sysParamDto = new SysParamApiDto();
+            sysParamDto.setParamName("公众号AppID（".concat(appId).concat("）菜单"));
+            sysParamDto.setParamKey(CommonConstants.WECHAT_PARAM.concat(appId));
+            sysParamDto.setParamValue(JsonUtils.writeValueAsString(itemDtoList));
+            this.sysParamApi.save(sysParamDto);
+        }
 
         try {
             menuService.menuCreate(wxMenu);
@@ -130,11 +135,11 @@ public class WechatMenuController {
 
 
             String paramKey = CommonConstants.WECHAT_PARAM.concat(appId);
-//            boolean exists = this.sysParamService.exists(paramKey);
-//            if(exists) {
-//                String paramValue = this.sysParamService.getString(paramKey);
-//                return ResponseResult.ok((List<?>) JsonUtils.readValue(paramValue, List.class));
-//            }
+            Boolean exists = this.sysParamApi.exists(paramKey);
+            if(exists) {
+                String paramValue = this.sysParamApi.getString(paramKey);
+                return ResponseResult.ok((List<?>) JsonUtils.readValue(paramValue, List.class));
+            }
 
         return ResponseResult.ok(new ArrayList<>());
     }

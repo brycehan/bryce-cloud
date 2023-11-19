@@ -1,8 +1,9 @@
-package com.brycehan.cloud.wechat;
+package com.brycehan.cloud;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Bryce Wechat 应用
@@ -10,7 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2023/11/18
  * @author Bryce Han
  */
-@MapperScan(basePackages = "com.brycehan.cloud.*.mapper")
+@EnableFeignClients
+@EnableDiscoveryClient
 @SpringBootApplication
 public class BryceWechatApplication {
 

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.security;
 
-import com.brycehan.cloud.api.module.sms.SmsApi;
+import com.brycehan.cloud.api.sms.SmsApi;
 import com.brycehan.cloud.framework.security.phone.PhoneCodeValidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

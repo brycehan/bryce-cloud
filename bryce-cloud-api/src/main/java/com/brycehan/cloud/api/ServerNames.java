@@ -1,4 +1,4 @@
-package com.brycehan.cloud.api.module;
+package com.brycehan.cloud.api;
 
 /**
  * 服务名称集合

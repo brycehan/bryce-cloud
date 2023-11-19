@@ -1,6 +1,6 @@
 package com.brycehan.cloud.sms.controller;
 
-import com.brycehan.cloud.api.module.sms.SmsApi;
+import com.brycehan.cloud.api.sms.SmsApi;
 import com.brycehan.cloud.common.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
