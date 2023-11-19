@@ -4,10 +4,7 @@ import com.brycehan.cloud.api.ServerNames;
 import com.brycehan.cloud.api.system.dto.SysParamApiDto;
 import com.brycehan.cloud.api.system.vo.SysParamApiVo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统参数 Api
@@ -24,7 +21,7 @@ public interface SysParamApi {
      * @param sysParamApiDto 系统参数Dto
      */
     @PostMapping(path = "/api/system/param")
-    void save(SysParamApiDto sysParamApiDto);
+    void save(@RequestBody SysParamApiDto sysParamApiDto);
 
     /**
      * 更新系统参数
@@ -32,7 +29,7 @@ public interface SysParamApi {
      * @param sysParamApiDto 系统参数Dto
      */
     @PutMapping(path = "/api/system/param")
-    void update(SysParamApiDto sysParamApiDto);
+    void update(@RequestBody SysParamApiDto sysParamApiDto);
 
     /**
      * 判断 paramKey 是否存在
@@ -42,7 +39,7 @@ public interface SysParamApi {
      * @return paramKey 是否存在
      */
     @GetMapping(path = "/api/system/param/exists")
-    Boolean exists(String paramKey);
+    Boolean exists(@RequestParam String paramKey);
 
     /**
      * 获取参数对象
@@ -51,7 +48,7 @@ public interface SysParamApi {
      * @return 参数对象
      */
     @GetMapping(path = "/api/system/param/getByParamKey")
-    SysParamApiVo getByParamKey(String paramKey);
+    SysParamApiVo getByParamKey(@RequestParam String paramKey);
 
     /**
      * 根据paramKey，查询字符串类型的参数值
@@ -60,7 +57,7 @@ public interface SysParamApi {
      * @return 参数值
      */
     @GetMapping(path = "/api/system/param/getString")
-    String getString(String paramKey);
+    String getString(@RequestParam String paramKey);
 
     /**
      * 根据paramKey，查询boolean类型的参数值
