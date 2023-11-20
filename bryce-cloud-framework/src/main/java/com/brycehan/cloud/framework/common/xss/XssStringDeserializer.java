@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.xss;
+package com.brycehan.cloud.framework.common.xss;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

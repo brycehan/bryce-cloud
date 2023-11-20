@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.base.RedisKeys;
-import com.brycehan.cloud.framework.config.properties.CaptchaProperties;
+import com.brycehan.cloud.framework.common.config.properties.CaptchaProperties;
 import com.brycehan.cloud.system.service.CaptchaService;
 import com.brycehan.cloud.system.service.SysParamService;
 import com.brycehan.cloud.system.vo.CaptchaVo;

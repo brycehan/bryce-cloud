@@ -1,7 +1,6 @@
 package com.brycehan.cloud.framework.security.config;
 
-import com.brycehan.cloud.framework.config.properties.AuthProperties;
-import com.brycehan.cloud.framework.filter.JwtAuthenticationFilter;
+import com.brycehan.cloud.framework.security.JwtAuthenticationFilter;
 import com.brycehan.cloud.framework.security.JwtAccessDeniedHandler;
 import com.brycehan.cloud.framework.security.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;

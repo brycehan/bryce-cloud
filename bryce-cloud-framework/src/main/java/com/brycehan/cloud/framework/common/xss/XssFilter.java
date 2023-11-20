@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.xss;
+package com.brycehan.cloud.framework.common.xss;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

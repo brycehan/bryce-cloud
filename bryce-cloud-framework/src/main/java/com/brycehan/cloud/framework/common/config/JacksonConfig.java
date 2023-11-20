@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;

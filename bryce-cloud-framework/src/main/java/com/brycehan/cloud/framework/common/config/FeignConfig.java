@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.handler;
+package com.brycehan.cloud.framework.common;
 
 import com.brycehan.cloud.common.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.base.http.ResponseResult;

@@ -1,7 +1,7 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
 import com.brycehan.cloud.common.util.ThreadUtils;
-import com.brycehan.cloud.framework.config.properties.ThreadPoolProperties;
+import com.brycehan.cloud.framework.common.config.properties.ThreadPoolProperties;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

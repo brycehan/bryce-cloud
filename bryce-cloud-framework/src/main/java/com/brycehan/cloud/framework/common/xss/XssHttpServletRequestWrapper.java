@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.xss;
+package com.brycehan.cloud.framework.common.xss;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;

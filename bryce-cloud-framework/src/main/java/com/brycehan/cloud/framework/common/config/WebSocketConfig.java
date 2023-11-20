@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

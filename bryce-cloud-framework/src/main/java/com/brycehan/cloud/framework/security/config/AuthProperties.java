@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config.properties;
+package com.brycehan.cloud.framework.security.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

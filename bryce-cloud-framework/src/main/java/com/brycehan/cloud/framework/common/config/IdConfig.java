@@ -1,6 +1,6 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.common.config;
 
-import com.brycehan.cloud.framework.config.properties.IdProperties;
+import com.brycehan.cloud.framework.common.config.properties.IdProperties;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
 import jakarta.annotation.PostConstruct;
