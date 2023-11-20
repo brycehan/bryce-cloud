@@ -1,6 +1,6 @@
 package com.brycehan.cloud.framework.config;
 
-import com.brycehan.cloud.common.util.Threads;
+import com.brycehan.cloud.common.util.ThreadUtils;
 import com.brycehan.cloud.framework.config.properties.ThreadPoolProperties;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -52,7 +52,7 @@ public class ThreadPoolConfig {
             @Override
             protected void afterExecute(Runnable r, Throwable t) {
                 super.afterExecute(r, t);
-                Threads.printException(r, t);
+                ThreadUtils.printException(r, t);
             }
         };
     }

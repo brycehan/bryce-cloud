@@ -1,9 +1,9 @@
 package com.brycehan.cloud.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.base.RedisKeys;
 import com.brycehan.cloud.common.base.dto.RegisterDto;
 import com.brycehan.cloud.common.base.http.UserResponseStatus;
-import com.brycehan.cloud.common.constant.CacheConstants;
 import com.brycehan.cloud.common.exception.BusinessException;
 import com.brycehan.cloud.common.util.PasswordUtils;
 import com.brycehan.cloud.system.entity.SysUser;
@@ -70,7 +70,7 @@ public class SysRegisterServiceImpl implements SysRegisterService {
         }
 
         // 获取缓存验证码
-        String captchaKey = CacheConstants.CAPTCHA_CODE_KEY.concat(key);
+        String captchaKey = RedisKeys.getCaptchaKey(key);
         String captchaValue = this.stringRedisTemplate.opsForValue()
                 .getAndDelete(captchaKey);
 

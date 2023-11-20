@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.base.mapper;
+package com.brycehan.cloud.framework.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

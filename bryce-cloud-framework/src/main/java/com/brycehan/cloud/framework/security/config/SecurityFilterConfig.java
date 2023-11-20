@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.config;
+package com.brycehan.cloud.framework.security.config;
 
 import com.brycehan.cloud.framework.config.properties.AuthProperties;
 import com.brycehan.cloud.framework.filter.JwtAuthenticationFilter;

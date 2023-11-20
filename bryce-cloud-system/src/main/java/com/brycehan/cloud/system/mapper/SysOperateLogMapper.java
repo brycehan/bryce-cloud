@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.mapper;
 
-import com.brycehan.cloud.common.base.mapper.BryceBaseMapper;
+import com.brycehan.cloud.framework.mybatis.mapper.BryceBaseMapper;
 import com.brycehan.cloud.system.entity.SysOperateLog;
 import org.apache.ibatis.annotations.Mapper;
 

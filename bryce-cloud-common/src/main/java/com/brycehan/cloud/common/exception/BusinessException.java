@@ -1,5 +1,6 @@
 package com.brycehan.cloud.common.exception;
 
+import com.brycehan.cloud.common.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.base.http.ResponseStatus;
 import com.brycehan.cloud.common.util.MessageUtils;
 import com.brycehan.cloud.common.util.StringFormatUtils;
@@ -50,12 +51,14 @@ public class BusinessException extends RuntimeException {
 
     protected BusinessException(String message) {
         super(message);
-        code = 500;
+        code = HttpResponseStatus.HTTP_INTERNAL_ERROR.code();
+        this.message = message;
     }
 
     protected BusinessException(Integer code, String message) {
         super(message);
         this.code = code;
+        this.message = message;
     }
 
     protected BusinessException(ResponseStatus responseStatus) {
