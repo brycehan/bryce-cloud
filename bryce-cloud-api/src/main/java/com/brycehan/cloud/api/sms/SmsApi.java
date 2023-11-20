@@ -45,6 +45,6 @@ public interface SmsApi {
      * @return 开启标识（true：开启，false：关闭）
      */
     @GetMapping(path = "/api/sms/isSmsEnabled")
-    boolean isSmsEnabled();
+    Boolean isSmsEnabled();
 
 }

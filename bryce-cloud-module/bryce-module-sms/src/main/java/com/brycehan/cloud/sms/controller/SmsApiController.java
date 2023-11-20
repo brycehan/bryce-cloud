@@ -53,7 +53,7 @@ public class SmsApiController implements SmsApi {
     }
 
     @Override
-    public boolean isSmsEnabled() {
+    public Boolean isSmsEnabled() {
         return this.smsService.isSmsEnabled();
     }
 

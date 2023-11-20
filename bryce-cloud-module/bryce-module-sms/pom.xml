@@ -14,7 +14,6 @@
 
     <!-- 依赖 -->
     <dependencies>
-        <!-- Bryce System 组件 -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-framework</artifactId>
@@ -23,9 +22,19 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-api</artifactId>
         </dependency>
+        <!-- sms 短信 -->
         <dependency>
             <groupId>org.dromara.sms4j</groupId>
             <artifactId>sms4j-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+        </dependency>
+        <!-- 腾讯云 SDK -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
         </dependency>
     </dependencies>
 
