@@ -1,4 +1,4 @@
-package com.brycehan.cloud.system.enums;
+package com.brycehan.cloud.system.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

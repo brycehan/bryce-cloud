@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.security.listener;
 
 import com.brycehan.cloud.common.constant.CommonConstants;
 import com.brycehan.cloud.common.constant.DataConstants;
-import com.brycehan.cloud.system.enums.LoginInfoType;
+import com.brycehan.cloud.system.common.LoginInfoType;
 import com.brycehan.cloud.system.service.AuthService;
 import com.brycehan.cloud.system.service.SysLoginLogService;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +35,9 @@ public class UserLoginListener {
     public void onSuccess(AuthenticationSuccessEvent event) {
         // 用户信息
         UserDetails user = (UserDetails) event.getAuthentication().getPrincipal();
-        // 1、记录登录日志
+        // 记录登录日志
         this.sysLoginLogService.save(user.getUsername(), DataConstants.SUCCESS, LoginInfoType.LOGIN_SUCCESS.getValue());
-        // 2、更新用户登录信息
+        // 更新用户登录信息
         this.authService.updateLoginInfo(user);
     }
 

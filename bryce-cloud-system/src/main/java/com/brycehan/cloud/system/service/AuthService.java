@@ -2,6 +2,7 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.base.dto.AccountLoginDto;
 import com.brycehan.cloud.common.base.dto.PhoneLoginDto;
+import com.brycehan.cloud.common.base.vo.LoginVo;
 import com.brycehan.cloud.framework.security.context.LoginUser;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,17 +21,17 @@ public interface AuthService {
      * 账号登录
      *
      * @param accountLoginDto 账号登录dto
-     * @return 令牌 jwt token
+     * @return 登录 Vo
      */
-    String login(AccountLoginDto accountLoginDto);
+    LoginVo loginByAccount(AccountLoginDto accountLoginDto);
 
     /**
      * 手机号登录
      *
      * @param phoneLoginDto 手机号登录dto
-     * @return 令牌 jwt token
+     * @return 登录 Vo
      */
-    String login(PhoneLoginDto phoneLoginDto);
+    LoginVo loginByPhone(PhoneLoginDto phoneLoginDto);
 
     /**
      * 获取用户的角色权限

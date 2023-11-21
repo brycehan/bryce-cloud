@@ -3,15 +3,18 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.brycehan.cloud.common.base.dto.AccountLoginDto;
 import com.brycehan.cloud.common.base.dto.PhoneLoginDto;
+import com.brycehan.cloud.common.base.vo.LoginVo;
 import com.brycehan.cloud.common.constant.DataConstants;
+import com.brycehan.cloud.common.constant.JwtConstants;
 import com.brycehan.cloud.common.util.IpUtils;
 import com.brycehan.cloud.common.util.ServletUtils;
 import com.brycehan.cloud.framework.security.JwtTokenProvider;
 import com.brycehan.cloud.framework.security.context.LoginUser;
 import com.brycehan.cloud.framework.security.phone.PhoneCodeAuthenticationToken;
 import com.brycehan.cloud.system.entity.SysUser;
-import com.brycehan.cloud.system.enums.LoginInfoType;
+import com.brycehan.cloud.system.common.LoginInfoType;
 import com.brycehan.cloud.system.service.*;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +56,9 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordRetryService passwordRetryService;
 
     @Override
-    public String login(@NotNull AccountLoginDto accountLoginDto) {
+    public LoginVo loginByAccount(@NotNull AccountLoginDto accountLoginDto) {
 
-        // 1、校验验证码
+        // 校验验证码
         boolean validated = this.captchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode());
         if (!validated) {
             // 保存登录日志
@@ -63,29 +66,27 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("验证码错误");
         }
 
-        // 2、账号密码验证
+        // 账号密码验证
         Authentication authentication;
         try {
-            // 3、设置需要认证的用户信息
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(accountLoginDto.getUsername(), accountLoginDto.getPassword());
-            authentication = this.authenticationManager.authenticate(authenticationToken);
+            // 设置需要认证的用户信息
+            authentication = this.authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(accountLoginDto.getUsername(), accountLoginDto.getPassword()));
         } catch (AuthenticationException e) {
             log.info("认证失败，{}", e.getMessage());
             // 添加密码错误重试缓存
             this.passwordRetryService.retryCount(accountLoginDto.getUsername());
-            throw e;
+            throw new RuntimeException("用户名或密码错误");
         }
 
         // 清除密码错误重试缓存
         this.passwordRetryService.deleteCount(accountLoginDto.getUsername());
 
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        // 4、生成令牌token
-        return this.jwtTokenProvider.generateToken(loginUser);
+        return getLoginVo(authentication);
     }
 
     @Override
-    public String login(PhoneLoginDto phoneLoginDto) {
+    public LoginVo loginByPhone(PhoneLoginDto phoneLoginDto) {
         // 1、账号密码验证
         Authentication authentication;
         try {
@@ -97,11 +98,27 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("手机号或验证码错误");
         }
 
-        // 用户信息
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        return getLoginVo(authentication);
+    }
 
-        // 3、生成令牌token
-        return this.jwtTokenProvider.generateToken(loginUser);
+    /**
+     * 通过认证信息获取登录 Vo
+     *
+     * @param authentication 认证信息
+     * @return 登录 Vo
+     */
+    private LoginVo getLoginVo(Authentication authentication) {
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        // 生成令牌 jwt token
+        String jwt = this.jwtTokenProvider.generateToken(loginUser);
+
+        // 将 jwt token 添加到响应头
+        HttpServletResponse response = ServletUtils.getResponse();
+        response.setHeader(JwtConstants.AUTHORIZATION_HEADER, JwtConstants.TOKEN_PREFIX.concat(jwt));
+
+        return LoginVo.builder()
+                .token(JwtConstants.TOKEN_PREFIX.concat(jwt))
+                .build();
     }
 
     @Override
