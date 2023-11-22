@@ -116,7 +116,6 @@ public class SysUserController {
     @GetMapping(path = "/{id}")
     public ResponseResult<SysUserVo> get(@Parameter(description = "系统用户ID", required = true) @PathVariable Long id) {
         SysUser sysUser = this.sysUserService.getById(id);
-        sysUser.setPassword(null);
 
         SysUserVo sysUserVo = SysUserConvert.INSTANCE.convert(sysUser);
 
@@ -157,17 +156,22 @@ public class SysUserController {
     }
 
     /**
-     * 导入系统用户
+     * 导入用户
      *
-     * @param file          上传的文件
-     * @param updateSupport 更新支持
+     * @param file 文件的 Excel 文件
+     * @return 响应结果
      */
-    @Operation(summary = "导入系统用户")
+    @Operation(summary = "导入用户")
     @OperateLog(type = OperateType.IMPORT)
-    @Secured(value = "system:user:import")
-    @PostMapping(path = "/importData")
-    public void importData(MultipartFile file, boolean updateSupport) {
+    @PreAuthorize("hasAuthority('system:user:import')")
+    @PostMapping(path = "/import")
+    public ResponseResult<Void> importByExcel(@RequestParam MultipartFile file) {
+        if(file.isEmpty()) {
+            return ResponseResult.error("请选择需要上传的文件");
+        }
 
+        this.sysUserService.importByExcel(file, "123456");
+        return ResponseResult.ok();
     }
 
     /**
@@ -224,7 +228,7 @@ public class SysUserController {
      */
     @Secured(value = "system:user:query")
     @GetMapping(path = "/authRole/{userId}")
-    public ResponseResult authRole(@PathVariable(value = "userId") Long userId) {
+    public ResponseResult<Void> authRole(@PathVariable(value = "userId") Long userId) {
         SysUser sysUser = this.sysUserService.getById(userId);
         List<SysRole> strings = this.sysRoleService.selectRolesByUserId(userId);
 //        Set<SysRole> stringss = Sets.newHashSet(strings);

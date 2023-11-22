@@ -2,6 +2,7 @@ package com.brycehan.cloud.system.convert;
 
 import com.brycehan.cloud.framework.security.context.LoginUser;
 import com.brycehan.cloud.system.dto.SysUserDto;
+import com.brycehan.cloud.system.dto.SysUserExcelDto;
 import com.brycehan.cloud.system.entity.SysUser;
 import com.brycehan.cloud.system.vo.SysUserVo;
 import org.mapstruct.Mapper;
@@ -25,8 +26,12 @@ public interface SysUserConvert {
 
     SysUserVo convert(SysUser sysUser);
 
+    SysUserVo convert(LoginUser loginUser);
+
     List<SysUserVo> convert(List<SysUser> sysUserList);
 
     LoginUser convertLoginUser(SysUser sysUser);
+
+    List<SysUser> convertList(List<SysUserExcelDto> list);
 
 }
