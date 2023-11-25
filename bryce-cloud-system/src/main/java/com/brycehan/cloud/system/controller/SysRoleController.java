@@ -124,16 +124,17 @@ public class SysRoleController {
     }
 
     /**
-     * 分页查询
+     * 角色用户分页查询
      *
      * @param sysRolePageDto 查询条件
      * @return 系统角色分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "角色用户分页查询")
     @PreAuthorize("hasAuthority('system:role:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysRoleVo>> page(@Validated @RequestBody SysRolePageDto sysRolePageDto) {
         PageResult<SysRoleVo> page = this.sysRoleService.page(sysRolePageDto);
+
         return ResponseResult.ok(page);
     }
 

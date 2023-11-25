@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service.impl;
 
 import com.brycehan.cloud.common.constant.CacheConstants;
-import com.brycehan.cloud.system.service.PasswordRetryService;
+import com.brycehan.cloud.system.service.SysPasswordRetryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @RequiredArgsConstructor
-public class PasswordRetryServiceImpl implements PasswordRetryService {
+public class SysPasswordRetryServiceImpl implements SysPasswordRetryService {
 
     private final RedisTemplate<String, Integer> redisTemplate;
 

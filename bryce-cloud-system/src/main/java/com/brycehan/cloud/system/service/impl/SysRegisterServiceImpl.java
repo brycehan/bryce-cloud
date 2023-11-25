@@ -1,18 +1,16 @@
 package com.brycehan.cloud.system.service.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.brycehan.cloud.common.base.RedisKeys;
 import com.brycehan.cloud.common.base.dto.RegisterDto;
 import com.brycehan.cloud.common.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.exception.BusinessException;
-import com.brycehan.cloud.common.util.PasswordUtils;
 import com.brycehan.cloud.system.entity.SysUser;
+import com.brycehan.cloud.system.service.CaptchaService;
 import com.brycehan.cloud.system.service.SysParamService;
 import com.brycehan.cloud.system.service.SysRegisterService;
 import com.brycehan.cloud.system.service.SysUserService;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,59 +21,42 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SysRegisterServiceImpl implements SysRegisterService {
 
     private final SysUserService sysUserService;
 
     private final SysParamService sysParamService;
 
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    private final PasswordEncoder passwordEncoder;
 
-    public SysRegisterServiceImpl(SysUserService sysUserService, SysParamService sysParamService) {
-        this.sysUserService = sysUserService;
-        this.sysParamService = sysParamService;
-    }
+    private final CaptchaService captchaService;
 
     @Override
     public void register(RegisterDto registerDto) {
-        // 1、验证码开关
+        // 验证码开关
         boolean validated = this.validate(registerDto.getKey(), registerDto.getCode());
         if (!validated) {
             throw new RuntimeException("验证码错误");
         }
 
-        // 2、用户账号唯一校验
+        // 用户账号唯一校验
         SysUser sysUser = new SysUser();
         sysUser.setUsername(registerDto.getUsername().trim());
         boolean usernameUnique = this.sysUserService.checkUsernameUnique(sysUser);
         if (!usernameUnique) {
             throw BusinessException.responseStatus(UserResponseStatus.USER_REGISTER_EXISTS, sysUser.getUsername());
         }
-        // 3、注册
+
+        // 注册
         sysUser.setFullName(sysUser.getUsername());
-        sysUser.setPassword(PasswordUtils.encode(registerDto.getPassword().trim()));
+        sysUser.setPassword(passwordEncoder.encode(registerDto.getPassword().trim()));
         this.sysUserService.registerUser(sysUser);
     }
 
     @Override
     public boolean validate(String key, String code) {
-        // 如果关闭了验证码，则直接校验通过
-        if (!isCaptchaEnabled()) {
-            return true;
-        }
-
-        if (StrUtil.isBlank(key) || StrUtil.isBlank(code)) {
-            return false;
-        }
-
-        // 获取缓存验证码
-        String captchaKey = RedisKeys.getCaptchaKey(key);
-        String captchaValue = this.stringRedisTemplate.opsForValue()
-                .getAndDelete(captchaKey);
-
-        // 校验
-        return code.equalsIgnoreCase(captchaValue);
+        return this.captchaService.validate(key, code);
     }
 
     @Override
