@@ -1,7 +1,7 @@
 FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre
 
 LABEL org.opencontainers.image.authors="Bryce Han"
-ADD ./bryce-server/target/bryce-server-0.0.1-SNAPSHOT.jar /app.jar
+ADD ./bryce-server/target/bryce-server-${revision}.jar /app.jar
 WORKDIR /
 # 设置时区
 ENV TZ=Asia/Shanghai

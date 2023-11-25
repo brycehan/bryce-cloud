@@ -9,13 +9,14 @@
 	</parent>
 	<groupId>com.brycehan.cloud</groupId>
 	<artifactId>bryce-cloud</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<name>bryce-cloud</name>
 	<description>spring cloud microservices architecture project</description>
 	<packaging>pom</packaging>
 
 	<!-- 属性 -->
 	<properties>
+		<revision>0.0.1-SNAPSHOT</revision>
 		<!-- Java 版本 -->
 		<java.version>17</java.version>
 		<skipTests>true</skipTests>
@@ -61,6 +62,7 @@
 		<okio.version>3.6.0</okio.version>
 		<oshi.version>6.4.6</oshi.version>
 		<binarywang-weixin.version>4.3.0</binarywang-weixin.version>
+		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 	</properties>
 
 	<!-- 模块 -->
@@ -149,7 +151,7 @@
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-module-sms</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>${revision}</version>
 			</dependency>
 			<!-- wechat 模块 -->
 			<dependency>
@@ -429,6 +431,32 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>${flatten-maven-plugin.version}</version>
+					<configuration>
+						<flattenMode>oss</flattenMode>
+					</configuration>
+					<executions>
+						<!-- enable flattening -->
+						<execution>
+							<id>flatten</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>flatten</goal>
+							</goals>
+						</execution>
+						<!-- ensure proper cleanup -->
+						<execution>
+							<id>flatten.clean</id>
+							<phase>clean</phase>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<executions>
@@ -446,6 +474,10 @@
 
 		<!-- 插件 -->
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
 			<!-- 源码插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

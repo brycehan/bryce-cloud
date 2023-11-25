@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.brycehan.cloud</groupId>
         <artifactId>bryce-cloud</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>bryce-cloud-common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>bryce-cloud-common</name>
     <description>bryce-cloud-common</description>
     <packaging>jar</packaging>

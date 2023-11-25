@@ -5,10 +5,10 @@
     <parent>
         <groupId>com.brycehan.cloud</groupId>
         <artifactId>bryce-cloud</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>bryce-cloud-system</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>bryce-cloud-system</name>
     <description>bryce-cloud-system</description>
 

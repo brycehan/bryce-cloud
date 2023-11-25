@@ -1,40 +1,15 @@
 version: '3'
 services:
-  rabbitmq:
-    image: rabbitmq:3-management
-    restart: always
-    ports: 
-      - 5672:5672
-      - 15672:15672
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123456  
-  discovery:
-    image: cloud/discovery
-    ports:
-      - "8761:8761"
-  config:
-    image: cloud/config
-    ports:
-      - "8888:8888"
-  monitor:
-    image: cloud/monitor
-    ports:
-      - "8040:8040"
-  gateway:
+  bryce-cloud-gateway:
     image: cloud/gateway
     ports:
-      - "8080:8080"
-  auth:
-    image: cloud/auth
+      - "8090:8090"
+  bryce-cloud-system:
+    image: cloud/system
     ports:
-      - "8050:8050"
-  service-a:
-    image: cloud/service-a
+      - "8091:8091"
+  bryce-cloud-wechat:
+    image: cloud/wechat
     ports:
-      - "8060:8060"
-  service-b:
-    image: cloud/service-b
-    ports:
-      - "8070:8070"                          
+      - "8092:8092"
       
