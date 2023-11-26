@@ -1,10 +1,9 @@
 package com.brycehan.cloud.system.mapper;
 
-import com.brycehan.cloud.framework.mybatis.mapper.BryceBaseMapper;
+import com.brycehan.cloud.framework.mybatis.BryceBaseMapper;
 import com.brycehan.cloud.system.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
 import java.util.Set;
 
 /**

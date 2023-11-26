@@ -4,7 +4,7 @@ import com.brycehan.cloud.common.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.base.http.ResponseResult;
 import com.brycehan.cloud.common.base.http.UploadResponseStatus;
 import com.brycehan.cloud.common.base.http.UserResponseStatus;
-import com.brycehan.cloud.common.exception.BusinessException;
+import com.brycehan.cloud.common.base.ServerException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -158,14 +158,14 @@ public class ServerExceptionHandler {
     }
 
     /**
-     * 业务异常处理
+     * 服务器异常处理
      *
-     * @param e 业务异常
+     * @param e 服务器异常
      * @return 响应结果
      */
-    @ExceptionHandler(BusinessException.class)
-    public ResponseResult<Void> handleException(BusinessException e) {
-        log.info("业务异常", e);
+    @ExceptionHandler(ServerException.class)
+    public ResponseResult<Void> handleException(ServerException e) {
+        log.info("服务器异常", e);
         return ResponseResult.error(e.getCode(), e.getMessage());
     }
 

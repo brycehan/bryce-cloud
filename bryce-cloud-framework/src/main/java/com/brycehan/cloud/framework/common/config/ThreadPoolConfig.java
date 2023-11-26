@@ -46,6 +46,7 @@ public class ThreadPoolConfig {
      */
     @Bean
     public ScheduledExecutorService scheduledExecutorService(ThreadPoolProperties threadPoolProperties) {
+
         return new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize(),
                 new BasicThreadFactory.Builder().namingPattern("thread-pool-%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy()) {

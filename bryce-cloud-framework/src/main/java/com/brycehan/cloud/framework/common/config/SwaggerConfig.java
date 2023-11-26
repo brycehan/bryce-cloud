@@ -29,11 +29,11 @@ public class SwaggerConfig {
     private static final String SECURITY_SCHEME_KEY = "Authorization";
 
     @Bean
-    public GroupedOpenApi bryceBootApi() {
+    public GroupedOpenApi bryceCloudApi() {
         String[] paths = { "/**" };
         String[] packagesToScan = { "com.brycehan" };
         return GroupedOpenApi.builder()
-                .group("BryceBoot")
+                .group("BryceCloud")
                 .pathsToMatch(paths)
                 .packagesToScan(packagesToScan)
                 .build();

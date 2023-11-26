@@ -25,7 +25,6 @@ import java.util.Map;
  */
 public class DataScopeInnerInterceptor implements InnerInterceptor {
 
-
     @Override
     public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
         DataScope scope = getDataScope(parameter);

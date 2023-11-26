@@ -1,17 +1,17 @@
-package com.brycehan.cloud.system.common;
+package com.brycehan.cloud.common.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 数据状态类型
+ * 数据状态枚举
  *
+ * @since 2022/5/9
  * @author Bryce Han
- * @since 2023/11/23
  */
 @Getter
 @RequiredArgsConstructor
-public enum StatusType {
+public enum DataStatusType {
     /**
      * 正常
      */
@@ -22,4 +22,5 @@ public enum StatusType {
     DISABLE(false);
 
     private final boolean value;
+
 }

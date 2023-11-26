@@ -1,6 +1,6 @@
 package com.brycehan.cloud.common.base.http;
 
-import com.brycehan.cloud.common.exception.BusinessException;
+import com.brycehan.cloud.common.base.ServerException;
 import com.brycehan.cloud.common.util.StringFormatUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -90,8 +90,8 @@ public class ResponseResult<T> implements Serializable {
         return error(responseStatus.code(), StringFormatUtils.format(responseStatus.message(), params));
     }
 
-    public static <T> ResponseResult<T> error(BusinessException businessException) {
-        return error(businessException.getCode(), businessException.getMessage());
+    public static <T> ResponseResult<T> error(ServerException serverException) {
+        return error(serverException.getCode(), serverException.getMessage());
     }
 
 }
