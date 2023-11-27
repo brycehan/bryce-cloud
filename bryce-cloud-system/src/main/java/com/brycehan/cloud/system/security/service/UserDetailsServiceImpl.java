@@ -1,4 +1,4 @@
-package com.brycehan.cloud.system.security;
+package com.brycehan.cloud.system.security.service;
 
 import com.brycehan.cloud.common.util.MessageUtils;
 import com.brycehan.cloud.system.convert.SysUserConvert;

@@ -19,7 +19,7 @@ import java.io.Serial;
  */
 @Slf4j
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class ServerException extends RuntimeException {
 
     @Serial

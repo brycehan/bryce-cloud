@@ -1,4 +1,4 @@
-package com.brycehan.cloud.system.security;
+package com.brycehan.cloud.system.security.service;
 
 import com.brycehan.cloud.framework.security.phone.PhoneCodeUserDetailsService;
 import com.brycehan.cloud.system.convert.SysUserConvert;

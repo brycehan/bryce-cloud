@@ -46,12 +46,6 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-module-quartz</artifactId>
         </dependency>
-        <!-- aop框架 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
         <!-- 测试框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -68,6 +62,7 @@
 
     <!-- 构建 -->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <!-- 插件 -->
         <plugins>
             <plugin>

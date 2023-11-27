@@ -88,12 +88,13 @@ public class SysSmsController {
 
         // 生成6位验证码
         String code = RandomStringUtils.randomNumeric(6);
-
+        
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("code", code);
 
         // 发送短信
         boolean result = this.smsApi.send(phone, templateId, params);
+
         return ResponseResult.ok(result);
     }
 

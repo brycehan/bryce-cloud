@@ -1,4 +1,4 @@
-package com.brycehan.cloud.system.security;
+package com.brycehan.cloud.system.security.service;
 
 import com.brycehan.cloud.api.sms.SmsApi;
 import com.brycehan.cloud.framework.security.phone.PhoneCodeValidateService;
