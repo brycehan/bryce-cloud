@@ -402,8 +402,8 @@
 			<properties>
 				<!-- 生产环境，打包命令：mvn clean install -Pprod -->
 				<profile.name>prod</profile.name>
-				<nacos.server-addr>127.0.0.1:8848</nacos.server-addr>
-				<nacos.namespace>test</nacos.namespace>
+				<nacos.server-addr>nacos:8848</nacos.server-addr>
+				<nacos.namespace>prod</nacos.namespace>
 				<nacos.groupname>bryce-cloud</nacos.groupname>
 				<nacos.username></nacos.username>
 				<nacos.password></nacos.password>

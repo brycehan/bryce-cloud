@@ -1,7 +1,3 @@
--- 0、创建数据库
-create database if not exists bryce_boot default charset utf8mb4 collate utf8mb4_0900_ai_ci;
-use bryce_boot;
-
 -- 1、系统机构表
 drop table if exists brc_sys_org;
 create table brc_sys_org

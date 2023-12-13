@@ -1,0 +1,59 @@
+stages:
+  - build
+  - package
+  - deploy
+
+variables:
+  HARBOR_HOST: core.harbor.brycehan.com
+  APP_HOST: api.cloud.brycehan.com
+  NAMESPACE: bryce-cloud
+  WORKLOAD_GATEWAY: bryce-cloud-gateway
+  WORKLOAD_SYSTEM: bryce-cloud-system
+  WORKLOAD_WECHAT: bryce-cloud-wechat
+  IMAGE_NAME_GATEWAY: $HARBOR_HOST/bryce/bryce-cloud-gateway:latest
+  IMAGE_NAME_SYSTEM: $HARBOR_HOST/bryce/bryce-cloud-system:latest
+  IMAGE_NAME_WECHAT: $HARBOR_HOST/bryce/bryce-cloud-wechat:latest
+
+build:
+  stage: build
+  image: $HARBOR_HOST/bryce-docker/maven:latest
+  when: always
+  only:
+    - main
+  script:
+    - mvn package -Dmaven.test.skip=true -Pprod
+  artifacts:
+    name: "${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
+    expire_in: 1hrs
+    paths:
+      - bryce-cloud-gateway/target/*.jar
+      - bryce-cloud-system/target/*.jar
+      - bryce-cloud-wechat/target/*.jar
+  tags:
+    - bryce-runner
+
+package:
+  stage: package
+  image: $HARBOR_HOST/bryce-docker/buildah:latest
+  when: on_success
+  only:
+    - main
+  script:
+    - /buildah.sh -f=deploy/gateway/Dockerfile -t=$IMAGE_NAME_GATEWAY
+    - /buildah.sh -f=deploy/system/Dockerfile -t=$IMAGE_NAME_SYSTEM
+    - /buildah.sh -f=deploy/wechat/Dockerfile -t=$IMAGE_NAME_WECHAT
+  tags:
+    - bryce-runner
+
+deploy:
+  stage: deploy
+  image: $HARBOR_HOST/bryce-docker/kubectl:latest
+  when: on_success
+  only:
+    - main
+  script:
+    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_GATEWAY -i=$IMAGE_NAME_GATEWAY -h=$APP_HOST -p=8090
+    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_SYSTEM -i=$IMAGE_NAME_SYSTEM -r=2 -p=8091
+    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_WECHAT -i=$IMAGE_NAME_WECHAT -r=2 -p=8092
+  tags:
+    - bryce-runner
