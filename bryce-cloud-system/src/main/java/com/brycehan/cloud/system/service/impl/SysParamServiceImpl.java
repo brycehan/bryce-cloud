@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -93,16 +94,19 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
             return;
         }
 
-        // 删除数据
-        this.baseMapper.deleteBatchIds(ids);
-
         // 查询列表
         List<SysParam> sysParams = this.baseMapper.selectBatchIds(ids);
 
+        // 删除数据
+        this.baseMapper.deleteBatchIds(ids);
+
         // 删除缓存
-        Object[] paramKeys = sysParams.stream().map(SysParam::getParamKey).toArray();
-        this.stringRedisTemplate.opsForHash()
-                .delete(CacheConstants.SYSTEM_PARAM_KEY, paramKeys);
+        Object[] paramKeys = sysParams.stream().map(SysParam::getParamKey)
+                .filter(StrUtil::isNotBlank).toArray();
+        if(ArrayUtil.isNotEmpty(paramKeys)) {
+            this.stringRedisTemplate.opsForHash()
+                    .delete(CacheConstants.SYSTEM_PARAM_KEY, paramKeys);
+        }
     }
 
     @Override

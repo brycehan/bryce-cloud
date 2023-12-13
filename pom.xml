@@ -32,6 +32,7 @@
 		<dameng.version>8.1.2.79</dameng.version>
 		<!-- redis -->
 		<redisson.version>3.24.3</redisson.version>
+		<jetcache.version>2.7.4</jetcache.version>
 		<!-- 验证码组件 -->
 		<captcha.version>1.6.2</captcha.version>
 		<!-- ID 生成 -->
@@ -206,6 +207,11 @@
 				<groupId>org.redisson</groupId>
 				<artifactId>redisson-spring-boot-starter</artifactId>
 				<version>${redisson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alicp.jetcache</groupId>
+				<artifactId>jetcache-starter-redis</artifactId>
+				<version>${jetcache.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.whvcse</groupId>

@@ -1,5 +1,6 @@
 package com.brycehan.cloud;
 
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -13,6 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author Bryce Han
  */
 @EnableFeignClients
+@EnableMethodCache(basePackages = "com.brycehan.cloud")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class BryceSystemApplication {
