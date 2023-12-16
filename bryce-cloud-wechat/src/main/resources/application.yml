@@ -18,7 +18,7 @@ spring:
       - optional:nacos:application-bryce.yaml
       - optional:nacos:application-task.yaml
       - optional:nacos:application-sms.yaml
-      - optional:nacos:application-spy.yaml
+      - optional:nacos:application-cache.yaml
       - optional:nacos:bryce-cloud-wechat.yaml
 
 logging:

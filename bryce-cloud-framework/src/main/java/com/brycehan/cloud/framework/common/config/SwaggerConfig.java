@@ -31,13 +31,14 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi bryceCloudApi() {
         String[] paths = { "/**" };
-        String[] packagesToScan = { "com.brycehan" };
+        String[] packagesToScan = { "com.brycehan.cloud" };
         return GroupedOpenApi.builder()
-                .group("BryceCloud")
+                .group("default")
                 .pathsToMatch(paths)
                 .packagesToScan(packagesToScan)
                 .build();
     }
+
     @Bean
     public OpenAPI customOpenAPI() {
         Contact contact = new Contact();
