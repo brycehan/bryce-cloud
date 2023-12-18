@@ -63,18 +63,6 @@
     <!-- 构建 -->
     <build>
         <finalName>${project.artifactId}</finalName>
-        <!-- 资源 -->
-        <resources>
-            <!-- 编译时包含 resources 文件夹下资源 -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- 开启过滤，用指定的参数替换 directory 下的文件中的参数 -->
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
         <!-- 插件 -->
         <plugins>
             <plugin>

@@ -64,6 +64,7 @@
 		<oshi.version>6.4.6</oshi.version>
 		<binarywang-weixin.version>4.3.0</binarywang-weixin.version>
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+		<loki.version>1.4.2</loki.version>
 	</properties>
 
 	<!-- 模块 -->
@@ -365,6 +366,11 @@
 				<groupId>com.github.binarywang</groupId>
 				<artifactId>weixin-java-pay</artifactId>
 				<version>${binarywang-weixin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.loki4j</groupId>
+				<artifactId>loki-logback-appender</artifactId>
+				<version>${loki.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
