@@ -87,15 +87,16 @@
             </label>
             <message>
                 <pattern>
-                    {
-                        "requestId": "%X{X-Request-ID}",
-                        "level": "%level",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger{40}",
-                        "message": "%message",
-                        "exception": "%exception"
-                    }
+                {
+                "traceId": "%X{traceId:-}",
+                "spanId": "%X{spanId:-}",
+                "level": "%level",
+                "pid": "${PID:-}",
+                "thread": "%thread",
+                "class": "%logger{40}",
+                "message": "%message",
+                "exception": "%exception"
+                }
                 </pattern>
             </message>
             <sortByTime>true</sortByTime>

@@ -103,6 +103,11 @@
             <groupId>com.github.loki4j</groupId>
             <artifactId>loki-logback-appender</artifactId>
         </dependency>
+        <!-- zipkin brave 链路追踪 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
