@@ -367,6 +367,7 @@
 				<artifactId>weixin-java-pay</artifactId>
 				<version>${binarywang-weixin.version}</version>
 			</dependency>
+			<!-- loki 日志平台 -->
 			<dependency>
 				<groupId>com.github.loki4j</groupId>
 				<artifactId>loki-logback-appender</artifactId>
