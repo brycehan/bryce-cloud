@@ -78,7 +78,7 @@
     <!-- 输出到LOKI日志平台 -->
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
         <http>
-            <url>http://loki.loki:3100/loki/api/v1/push</url>
+            <url>http://loki.logging:3100/loki/api/v1/push</url>
         </http>
         <format>
             <label>
