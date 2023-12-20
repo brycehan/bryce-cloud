@@ -20,7 +20,3 @@ spring:
       - optional:nacos:application-sms.yaml
       - optional:nacos:application-cache.yaml
       - optional:nacos:bryce-cloud-wechat.yaml
-
-logging:
-  level:
-    com.brycehan: debug
