@@ -1,63 +1,21 @@
-# cloud
-本项目是一个基于 Spring Boot、Spring Cloud 等框架构建的微服务项目。
+## Bryce Cloud
 
-# 应用架构
-该项目包含 7 个服务
-* discovery - 服务注册与发现
-* config - 配置中心
-* gateway - 网关
-* monitor - 服务监控
-* auth - OAuth2 认证
-* service-a - 业务服务 A
-* service-b - 业务服务 B
+* 本项目是一个基于 Spring Cloud、Spring Cloud Alibaba、Spring Boot、Spring Security 等框架构建的微服务项目。
+* 前端工程：[https://github.com/brycehan/bryce-admin](https://github.com/brycehan/bryce-admin)
 
-# 启动项目
-* 使用 Docker 快速启动
-    1. 配置 Docker 环境
-    2. mvn clean package -DskipTests 打包项目和 Docker 镜像
-    3. 在项目根目录下执行 docker-compose up -d 启动所有项目
-* 本地手动启动
-    1. 配置rabbitmq
-    2. 修改 hosts 将主机名指向本地
-    127.0.0.1 discovery config rabbitmq gateway monitor auth service-a service-b
-    或者修改各服务配置文件中的相应主机名为本地IP
-    3. 启动 discovery、config、monitor
-    4. 启动 gateway、auth、service-a、service-b
+## 应用架构
 
-# 接口测试
-1. 密码模式获取 Token
-```
-curl -X POST -vu client:secret http://localhost:8080/auth/oauth/token -H "Accept: application/json" -d "username=admin&password=123456&grant_type=password"
-```
-返回如下格式数据：
-```
-{"access_token":"5ce01020-0665-4053-bdd8-0ac8af7372a5","token_type":"bearer","refresh_token":"be9c21eb-54d4-4c74-81e3-b049af76d737","expires_in":3571,"scope":"read write"}
-```
-2. 使用 access token 访问 service a 接口
-```
-curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://localhost:8080/a/
-```
-返回如下格式数据：
-```
-service service-a ( 192.168.56.1:8060 ) is OK. ===> name: brycehan
-```
-3. 使用 access token 访问 service b 接口
-```
-curl -i -H "Authorization: Bearer 5ce01020-0665-4053-bdd8-0ac8af7372a5" http://localhost:8080/b/
-```
-返回如下格式数据：
-```
-service service-b (192.168.56.1:8070) is OK. 8070 8070<br/>service service-a ( 192.168.56.1:8060 ) is OK. ===> name: brycehan
-```
-4. 使用 refresh token 刷新 token
-```
-curl -X POST -vu client:secret http://localhost:8080/auth/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=be9c21eb-54d4-4c74-81e3-b049af76d737"
-```
-返回如下格式数据：
-```
-{"access_token":"465beb52-11e6-421e-a9fc-e2715fd76b45","token_type":"bearer","refresh_token":"be9c21eb-54d4-4c74-81e3-b049af76d737","expires_in":3599,"scope":"read write"}
-```
-5. 刷新配置
-```
-curl -X POST -vu user:password http://localhost:8888/actuator/bus-refresh
-```
+该项目包含 3 个服务
+
+* bryce-cloud-gateway - 网关
+* bryce-cloud-system - 系统
+* bryce-cloud-wechat - 微信
+
+## 开源汇总
+
+* 前端工程：[https://github.com/brycehan/bryce-admin](https://github.com/brycehan/bryce-admin)
+* 开发平台后端工程（单体版）：[https://github.com/brycehan/bryce-boot](https://github.com/brycehan/bryce-boot)
+* 开发平台后端工程（微服务）：[https://github.com/brycehan/bryce-cloud](https://github.com/brycehan/bryce-cloud)
+* 超好用的代码生成器：[https://github.com/brycehan/bryce-generator](https://github.com/brycehan/bryce-generator)
+
+
