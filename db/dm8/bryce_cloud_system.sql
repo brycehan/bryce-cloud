@@ -1,4 +1,4 @@
--- create schema if not exists bryce_boot;
+create schema if not exists bryce_boot;
 -- 1、系统机构表
 drop table if exists brc_sys_org;
 create table brc_sys_org
@@ -18,9 +18,9 @@ create table brc_sys_org
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_org is '系统机构表';
@@ -37,7 +37,7 @@ comment on column brc_sys_org.sort is '显示顺序';
 comment on column brc_sys_org.status is '状态（0：停用，1：正常）';
 comment on column brc_sys_org.tenant_id is '租户ID';
 comment on column brc_sys_org.version is '版本号';
-comment on column brc_sys_org.deleted is '删除标识（0：存在，1：已删除）';
+comment on column brc_sys_org.deleted is '删除标识（false：存在，true：已删除）';
 comment on column brc_sys_org.created_user_id is '创建者ID';
 comment on column brc_sys_org.created_time is '创建时间';
 comment on column brc_sys_org.updated_user_id is '修改者ID';
@@ -78,14 +78,14 @@ create table brc_sys_user
     remark             varchar(500),
     account_non_locked boolean  default true,
     last_login_ip      varchar(128),
-    last_login_time    timestamp,
+    last_login_time    datetime,
     tenant_id          bigint,
     version            integer,
     deleted            boolean  default false,
     created_user_id    bigint,
-    created_time       timestamp,
+    created_time       datetime,
     updated_user_id    bigint,
-    updated_time       timestamp,
+    updated_time       datetime,
     constraint ck_gender check (gender in ('M', 'F'))
 );
 
@@ -110,7 +110,7 @@ comment on column brc_sys_user.last_login_ip is '最后登录IP';
 comment on column brc_sys_user.last_login_time is '最后登录时间';
 comment on column brc_sys_user.tenant_id is '租户ID';
 comment on column brc_sys_user.version is '版本号';
-comment on column brc_sys_user.deleted is '删除标识（0：存在，1：已删除）';
+comment on column brc_sys_user.deleted is '删除标识（false：存在，true：已删除）';
 comment on column brc_sys_user.created_user_id is '创建者ID';
 comment on column brc_sys_user.created_time is '创建时间';
 comment on column brc_sys_user.updated_user_id is '修改者ID';
@@ -136,9 +136,9 @@ create table brc_sys_role
     version         integer,
     deleted         boolean default false,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_role is '系统角色表';
@@ -172,9 +172,9 @@ create table brc_sys_user_role
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_user_role is '系统用户角色关系表';
@@ -205,9 +205,9 @@ create table brc_sys_post
     version         integer,
     deleted         boolean default false,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_post is '系统岗位表';
@@ -241,9 +241,9 @@ create table brc_sys_user_post
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_user_post is '系统用户岗位关系表';
@@ -278,9 +278,9 @@ create table brc_sys_menu
     version         integer,
     deleted         boolean default false,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_menu is '系统菜单表';
@@ -318,11 +318,12 @@ INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (112, '数据字典', 'M', 2, 'system/dict/index', 'system:dictType:page', 'icon-insertrowabove', false, 2, '数据字典菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (113, '参数设置', 'M', 2, 'system/param/index', 'system:param:page', 'icon-control', false, 3, '参数设置菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (114, '附件管理', 'M', 2, 'system/attachment/index', 'system:attachment:page', 'icon-folder', false, 4, '参数设置菜单', true, null, false, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (116, '通知公告', 'M', 2, 'system/notice/index', 'system:notice:page', 'icon-message', false, 5, '通知公告菜单', true, null, false, 1, now(), null, null);
+INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (116, '通知公告', 'M', 2, 'system/notice/index', 'system:notice:page', 'icon-message', false, 8, '通知公告菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (117, '租户管理', 'M', 2, 'system/tenant/index', 'system:tenant:page', 'icon-deploymentunit', false, 6, '系统租户菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (121, '在线用户', 'M', 3, 'monitor/onlineUser/index', 'monitor:onlineUser:page', 'icon-solution', false, 1, '在线用户菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (122, '服务监控', 'M', 3, 'monitor/server/index', 'monitor:server:info', 'icon-sever', false, 2, '服务监控菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (123, '缓存监控', 'M', 3, 'monitor/cache/index', 'monitor:cache:info', 'icon-fund', false, 3, '缓存监控菜单', true, null, false, 1, now(), null, null);
+INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (131, '代码生成', 'M', 4, '{{apiUrl}}/generator-ui/index.html', 'generator:generator:page', 'icon-code', true, 1, '代码生成菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (132, '接口文档', 'M', 4, '{{apiUrl}}/doc.html', 'system:swagger:page', 'icon-file-text', true, 2, '接口文档菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (141, '登录日志', 'M', 5, 'system/loginLog/index', 'system:loginLog:page', 'icon-solution', false, 1, '登录日志菜单', true, null, false, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (142, '操作日志', 'M', 5, 'system/operateLog/index', 'system:operateLog:page', 'icon-file-text', false, 2, '操作日志菜单', true, null, false, 1, now(), null, null);
@@ -412,9 +413,9 @@ create table brc_sys_role_menu
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_role_menu is '系统角色菜单关系表';
@@ -441,9 +442,9 @@ create table brc_sys_role_data_scope
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_role_data_scope is '系统角色数据范围表';
@@ -470,9 +471,9 @@ create table brc_sys_login_log
     os           varchar(50),
     user_agent   varchar(500),
     status       boolean,
-    access_time  timestamp,
+    access_time  datetime,
     tenant_id    bigint,
-    created_time timestamp
+    created_time datetime
 );
 
 comment on table brc_sys_login_log is '系统登录日志表';
@@ -501,7 +502,7 @@ create table brc_sys_operate_log
     request_param  text,
     result_message varchar(500),
     operated_type  varchar(20),
-    operated_time  timestamp,
+    operated_time  datetime,
     duration       integer,
     status         boolean,
     user_agent     varchar(500),
@@ -511,7 +512,7 @@ create table brc_sys_operate_log
     username       varchar(50),
     org_id         bigint,
     tenant_id      bigint,
-    created_time   timestamp
+    created_time   datetime
 );
 
 comment on table brc_sys_operate_log is '系统操作日志表';
@@ -549,9 +550,9 @@ create table brc_sys_dict_type
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp,
+    updated_time    datetime,
     constraint uk_dict_type unique (dict_type)
 );
 
@@ -597,9 +598,9 @@ create table brc_sys_dict_data
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_dict_data is '系统字典数据表';
@@ -668,9 +669,9 @@ create table brc_sys_param
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp,
+    updated_time    datetime,
     constraint uk_param_key unique (param_key)
 );
 
@@ -704,14 +705,14 @@ create table brc_sys_tenant
     site_url        varchar(100) not null,
     site_logo       varchar(200),
     config          text,
-    expires_time    timestamp,
+    expires_time    datetime,
     status          boolean default true,
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_tenant is '系统租户表';
@@ -746,9 +747,9 @@ create table brc_sys_attachment
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_attachment is '系统附件表';
@@ -784,9 +785,9 @@ create table brc_sys_notice
     version         integer,
     deleted         boolean,
     created_user_id bigint,
-    created_time    timestamp,
+    created_time    datetime,
     updated_user_id bigint,
-    updated_time    timestamp
+    updated_time    datetime
 );
 
 comment on table brc_sys_notice is '系统通知公告表';

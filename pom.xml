@@ -65,6 +65,7 @@
 		<binarywang-weixin.version>4.3.0</binarywang-weixin.version>
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<loki.version>1.4.2</loki.version>
+		<xxl-job.version>2.4.0</xxl-job.version>
 	</properties>
 
 	<!-- 模块 -->
@@ -141,12 +142,6 @@
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-module-monitor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<!-- quartz 模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-module-quartz</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- 短信模块 -->
@@ -385,7 +380,7 @@
 			<properties>
 				<!-- 开发环境 -->
 				<profile.name>dev</profile.name>
-				<nacos.server-addr>127.0.0.1:8848</nacos.server-addr>
+				<nacos.server-addr>192.168.0.20:8848</nacos.server-addr>
 				<nacos.namespace>dev</nacos.namespace>
 				<nacos.groupname>bryce-cloud</nacos.groupname>
 				<nacos.username></nacos.username>

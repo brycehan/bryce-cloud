@@ -19,6 +19,7 @@ spring:
       - optional:nacos:application-task.yaml
       - optional:nacos:application-sms.yaml
       - optional:nacos:application-cache.yaml
+      - optional:nacos:application-xxl-job.yaml
       - optional:nacos:bryce-cloud-system.yaml
 
 logging:
