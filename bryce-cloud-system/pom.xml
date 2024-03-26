@@ -36,13 +36,13 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-module-generator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-module-monitor</artifactId>
         </dependency>
-
+        <!-- 代码生成器 -->
+        <dependency>
+            <groupId>com.brycehan.boot</groupId>
+            <artifactId>bryce-generator-boot-starter</artifactId>
+        </dependency>
         <!-- 测试框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

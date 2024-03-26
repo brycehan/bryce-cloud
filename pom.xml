@@ -25,7 +25,7 @@
 		<!-- Swagger 接口文档 -->
 		<knife4j.version>4.4.0</knife4j.version>
 		<!-- Mybatis Plus -->
-		<mybatis-plus.version>3.5.4</mybatis-plus.version>
+		<mybatis-plus.version>3.5.5</mybatis-plus.version>
 		<mybatis-plus-join.version>1.4.7</mybatis-plus-join.version>
 		<dynamic-datasource.version>3.6.1</dynamic-datasource.version>
 		<p6spy.version>3.9.1</p6spy.version>

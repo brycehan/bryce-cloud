@@ -15,7 +15,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bryce-module-generator</module>
         <module>bryce-module-monitor</module>
         <module>bryce-module-sms</module>
     </modules>
