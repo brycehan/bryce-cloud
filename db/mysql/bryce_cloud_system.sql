@@ -1,3 +1,6 @@
+drop database if exists bryce_cloud_system;
+create database bryce_cloud_system default character set utf8mb4 collate utf8mb4_0900_ai_ci;
+use bryce_cloud_system;
 -- 1、系统机构表
 drop table if exists brc_sys_org;
 create table brc_sys_org

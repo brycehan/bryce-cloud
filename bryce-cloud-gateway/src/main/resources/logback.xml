@@ -134,10 +134,10 @@
         <appender-ref ref="INFO_FILE" />
         <appender-ref ref="WARN_FILE" />
         <appender-ref ref="ERROR_FILE" />
-        <appender-ref ref="LOKI" />
+<!--        <appender-ref ref="LOKI" />-->
     </root>
 
-    <logger name="ch.qos.logback" level="WARN" />
+    <logger name="ch.qos.logback" level="ERROR" />
     <logger name="org.quartz" level="ERROR" />
 
 </configuration>
