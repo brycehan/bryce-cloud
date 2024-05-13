@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-common</artifactId>
+            <artifactId>bryce-common-core</artifactId>
         </dependency>
         <!-- Web安全 -->
         <dependency>

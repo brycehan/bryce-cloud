@@ -76,8 +76,6 @@
 		<module>bryce-cloud-framework</module>
 		<module>bryce-cloud-gateway</module>
 		<module>bryce-cloud-module</module>
-		<module>bryce-cloud-system</module>
-		<module>bryce-cloud-wechat</module>
 	</modules>
 
 	<!-- 依赖管理 -->
@@ -115,41 +113,35 @@
 				<artifactId>bryce-cloud-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-common-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<!-- 框架模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-framework</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- 系统模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-cloud-system</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<!-- wechat 模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-cloud-wechat</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+
 			<!-- 模块组件 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-module</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- 监控模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-module-monitor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<!-- 短信模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-module-sms</artifactId>
+				<artifactId>bryce-cloud-sms</artifactId>
 				<version>${revision}</version>
+			</dependency>
+			<!-- 系统模块 -->
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-cloud-system</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.brycehan.boot</groupId>

@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bryce-module-monitor</module>
-        <module>bryce-module-sms</module>
+        <module>bryce-cloud-sms</module>
+        <module>bryce-cloud-system</module>
     </modules>
 
 </project>
