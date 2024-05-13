@@ -1,6 +1,8 @@
 package com.brycehan.cloud.api.sms;
 
 import com.brycehan.cloud.api.ServerNames;
+import com.brycehan.cloud.api.fallback.SmsFallbackFactory;
+import com.brycehan.cloud.common.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,7 @@ import java.util.LinkedHashMap;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, contextId = "sms")
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SMS, contextId = "sms", fallbackFactory = SmsFallbackFactory.class)
 public interface SmsApi {
 
     /**
@@ -25,8 +27,8 @@ public interface SmsApi {
      * @param params 参数
      * @return 是否发送成功
      */
-    @PostMapping(path = "/api/sms/send")
-    Boolean send(@RequestParam String phone, @RequestParam String templateId, @RequestParam LinkedHashMap<String, String> params);
+    @PostMapping(path = "/sms/api/send")
+    ResponseResult<Boolean> send(@RequestParam String phone, @RequestParam String templateId, @RequestParam LinkedHashMap<String, String> params);
 
     /**
      * 校验短信验证码
@@ -36,15 +38,15 @@ public interface SmsApi {
      * @param code 验证码
      * @return 是否校验成功
      */
-    @PostMapping(path = "/api/sms/validate")
-    Boolean validate(@RequestParam String phone, @RequestParam String templateId, @RequestParam String code);
+    @PostMapping(path = "/sms/api/validate")
+    ResponseResult<Boolean> validate(@RequestParam String phone, @RequestParam String templateId, @RequestParam String code);
 
     /**
      * 是否开启短信功能
      *
      * @return 开启标识（true：开启，false：关闭）
      */
-    @GetMapping(path = "/api/sms/isSmsEnabled")
-    Boolean isSmsEnabled();
+    @GetMapping(path = "/sms/api/isSmsEnabled")
+    ResponseResult<Boolean> isSmsEnabled();
 
 }

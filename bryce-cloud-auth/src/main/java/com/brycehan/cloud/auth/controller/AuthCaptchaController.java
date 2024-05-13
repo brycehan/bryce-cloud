@@ -1,8 +1,8 @@
-package com.brycehan.cloud.system.controller;
+package com.brycehan.cloud.auth.controller;
 
+import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.system.service.CaptchaService;
-import com.brycehan.cloud.system.vo.CaptchaVo;
+import com.brycehan.cloud.auth.vo.CaptchaVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Bryce Han
  */
 @Slf4j
-@Tag(name = "验证码", description = "captcha")
+@Tag(name = "验证码")
 @RequestMapping("/captcha")
 @RestController
 @RequiredArgsConstructor
-public class CaptchaController {
+public class AuthCaptchaController {
 
-    private final CaptchaService captchaService;
+    private final AuthCaptchaService authCaptchaService;
 
     /**
      * 生成验证码
@@ -34,7 +34,7 @@ public class CaptchaController {
     @Operation(summary = "生成验证码")
     @GetMapping(path = "/generate")
     public ResponseResult<CaptchaVo> generate() {
-        CaptchaVo captchaVo = this.captchaService.generate();
+        CaptchaVo captchaVo = this.authCaptchaService.generate();
         return ResponseResult.ok(captchaVo);
     }
 
@@ -46,7 +46,7 @@ public class CaptchaController {
     @Operation(summary = "是否开启登录验证码")
     @GetMapping(path = "/enabled")
     public ResponseResult<Boolean> enabled() {
-        boolean enabled = this.captchaService.isCaptchaEnabled();
+        boolean enabled = this.authCaptchaService.isCaptchaEnabled();
         return ResponseResult.ok(enabled);
     }
 

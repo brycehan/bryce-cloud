@@ -10,7 +10,7 @@ import com.brycehan.cloud.common.util.DateTimeUtils;
 import com.brycehan.cloud.common.util.ExcelUtils;
 import com.brycehan.cloud.common.util.TreeUtils;
 import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.system.convert.SysMenuConvert;
 import com.brycehan.cloud.system.dto.SysMenuDto;
 import com.brycehan.cloud.system.dto.SysMenuPageDto;

@@ -1,6 +1,7 @@
-package com.brycehan.cloud.system.security.service;
+package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.sms.SmsApi;
+import com.brycehan.cloud.common.base.http.ResponseResult;
 import com.brycehan.cloud.framework.security.phone.PhoneCodeValidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,11 @@ public class PhoneCodeValidateServiceImpl implements PhoneCodeValidateService {
 
     @Override
     public boolean validate(String phone, String code) {
-        return this.smsApi.validate(phone, loginTemplateId, code);
+        ResponseResult<Boolean> responseResult = this.smsApi.validate(phone, loginTemplateId, code);
+        if (responseResult.getCode() == 200) {
+            return responseResult.getData();
+        }
+        return false;
     }
 
 }

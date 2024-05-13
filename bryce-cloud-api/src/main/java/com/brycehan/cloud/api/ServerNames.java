@@ -12,5 +12,6 @@ public interface ServerNames {
      * bryce-cloud-system 服务
      */
     String BRYCE_CLOUD_SYSTEM = "bryce-cloud-system";
+    String BRYCE_CLOUD_SMS = "bryce-cloud-sms";
 
 }

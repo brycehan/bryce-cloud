@@ -18,7 +18,7 @@ import java.io.IOException;
  * @since 2023/11/16
  */
 @Slf4j
-@Tag(name = "存储 Api 实现", description = "storage")
+@Tag(name = "存储Api实现")
 @RestController
 @RequiredArgsConstructor
 public class StorageApiController implements StorageApi {

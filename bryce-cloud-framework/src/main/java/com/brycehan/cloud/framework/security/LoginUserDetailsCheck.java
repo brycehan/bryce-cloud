@@ -1,8 +1,8 @@
 package com.brycehan.cloud.framework.security;
 
+import com.brycehan.cloud.common.base.ServerException;
 import com.brycehan.cloud.common.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.constant.CacheConstants;
-import com.brycehan.cloud.common.base.ServerException;
 import com.brycehan.cloud.common.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,9 @@ public class LoginUserDetailsCheck implements UserDetailsChecker {
 
     @Override
     public void check(UserDetails toCheck) {
-        log.debug(JsonUtils.writeValueAsString(toCheck));
+        // 用户已删除
+
+        log.debug("用户参数：{}", JsonUtils.writeValueAsString(toCheck));
 
         // 超过密码错误最大次数锁定账户
         Integer retryCount = this.redisTemplate.opsForValue()

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**

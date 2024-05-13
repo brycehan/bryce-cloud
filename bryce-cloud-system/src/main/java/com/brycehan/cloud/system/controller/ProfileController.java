@@ -6,7 +6,7 @@ import com.brycehan.cloud.common.base.http.UserResponseStatus;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
 import com.brycehan.cloud.framework.security.JwtTokenProvider;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.framework.security.context.LoginUserContext;
 import com.brycehan.cloud.system.dto.SysUserPasswordDto;
 import com.brycehan.cloud.system.entity.SysUser;
@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 2022/10/31
  * @author Bryce Han
  */
-@Tag(name = "用户个人中心", description = "profile")
+@Tag(name = "用户个人中心")
 @RequestMapping(path = "/profile")
 @RestController
 @RequiredArgsConstructor

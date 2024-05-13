@@ -1,7 +1,7 @@
 package com.brycehan.cloud.framework.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.framework.security.context.LoginUserContext;
 import org.apache.ibatis.reflection.MetaObject;
 

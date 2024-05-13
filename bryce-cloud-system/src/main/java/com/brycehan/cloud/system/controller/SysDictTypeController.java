@@ -30,8 +30,8 @@ import java.util.List;
  * @since 2023/09/05
  * @author Bryce Han
  */
-@Tag(name = "系统字典类型", description = "sysDictType")
-@RequestMapping("/system/dictType")
+@Tag(name = "系统字典类型")
+@RequestMapping("/dictType")
 @RestController
 @RequiredArgsConstructor
 public class SysDictTypeController {

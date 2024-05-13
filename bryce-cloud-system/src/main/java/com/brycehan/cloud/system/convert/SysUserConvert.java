@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.convert;
 
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.system.dto.SysUserDto;
 import com.brycehan.cloud.system.dto.SysUserExcelDto;
 import com.brycehan.cloud.system.entity.SysUser;

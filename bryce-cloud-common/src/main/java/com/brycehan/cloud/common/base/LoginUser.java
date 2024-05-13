@@ -1,4 +1,4 @@
-package com.brycehan.cloud.framework.security.context;
+package com.brycehan.cloud.common.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

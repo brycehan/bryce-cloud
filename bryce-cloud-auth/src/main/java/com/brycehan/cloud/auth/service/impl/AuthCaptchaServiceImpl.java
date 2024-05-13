@@ -1,12 +1,12 @@
-package com.brycehan.cloud.system.service.impl;
+package com.brycehan.cloud.auth.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.api.system.SysParamApi;
+import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.base.RedisKeys;
 import com.brycehan.cloud.framework.common.config.properties.CaptchaProperties;
 import com.brycehan.cloud.framework.security.TokenUtils;
-import com.brycehan.cloud.system.service.CaptchaService;
-import com.brycehan.cloud.system.service.SysParamService;
-import com.brycehan.cloud.system.vo.CaptchaVo;
+import com.brycehan.cloud.auth.vo.CaptchaVo;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +23,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @RequiredArgsConstructor
-public class CaptchaServiceImpl implements CaptchaService {
+public class AuthCaptchaServiceImpl implements AuthCaptchaService {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    private final SysParamService sysParamService;
+    private final SysParamApi sysParamApi;
 
     private final CaptchaProperties captchaProperties;
 
@@ -78,6 +78,6 @@ public class CaptchaServiceImpl implements CaptchaService {
 
     @Override
     public boolean isCaptchaEnabled() {
-        return this.sysParamService.getBoolean("system.account.captchaEnabled");
+        return this.sysParamApi.getBoolean("system.account.captchaEnabled");
     }
 }

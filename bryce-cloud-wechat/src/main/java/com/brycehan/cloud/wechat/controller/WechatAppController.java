@@ -35,7 +35,7 @@ import java.util.List;
  * @author Bryce Han
  * @since 2023/11/06
  */
-@Tag(name = "微信应用", description = "wechatApp")
+@Tag(name = "微信应用")
 @RequestMapping("/wechat/app")
 @RestController
 @RequiredArgsConstructor

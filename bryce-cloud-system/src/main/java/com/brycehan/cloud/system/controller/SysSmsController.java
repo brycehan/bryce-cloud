@@ -24,8 +24,8 @@ import java.util.LinkedHashMap;
  * @author Bryce Han
  */
 @Slf4j
-@Tag(name = "短信", description = "sms")
-@RequestMapping("/system/sms")
+@Tag(name = "短信")
+@RequestMapping("/sms")
 @RestController
 @RequiredArgsConstructor
 public class SysSmsController {
@@ -70,13 +70,22 @@ public class SysSmsController {
     @Operation(summary = "是否开启短信功能")
     @GetMapping(path = "/enabled")
     public ResponseResult<Boolean> enabled() {
-        boolean enabled = this.smsApi.isSmsEnabled();
-        return ResponseResult.ok(enabled);
+        ResponseResult<Boolean> responseResult = this.smsApi.isSmsEnabled();
+        if (responseResult.getCode() != 200) {
+            return responseResult;
+        }
+        return ResponseResult.ok(responseResult.getData());
     }
 
     @NotNull
     private ResponseResult<?> sendCode(String phone, String templateId) {
-        boolean smsEnabled = this.smsApi.isSmsEnabled();
+        ResponseResult<Boolean> responseResult = this.smsApi.isSmsEnabled();
+
+        if (responseResult.getCode() != 200) {
+            return responseResult;
+        }
+
+        boolean smsEnabled = responseResult.getData();
         if (!smsEnabled) {
             return ResponseResult.error("短信功能未开启");
         }
@@ -93,9 +102,12 @@ public class SysSmsController {
         params.put("code", code);
 
         // 发送短信
-        boolean result = this.smsApi.send(phone, templateId, params);
+        ResponseResult<Boolean> send = this.smsApi.send(phone, templateId, params);
+        if (send.getCode() != 200) {
+            throw new RuntimeException("短信发送失败".concat(send.getMessage()));
+        }
 
-        return ResponseResult.ok(result);
+        return ResponseResult.ok(send.getData());
     }
 
 }

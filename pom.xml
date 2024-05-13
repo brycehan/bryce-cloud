@@ -70,13 +70,14 @@
 
 	<!-- 模块 -->
 	<modules>
+		<module>bryce-cloud-api</module>
+		<module>bryce-cloud-auth</module>
 		<module>bryce-cloud-common</module>
 		<module>bryce-cloud-framework</module>
-		<module>bryce-cloud-api</module>
+		<module>bryce-cloud-gateway</module>
 		<module>bryce-cloud-module</module>
 		<module>bryce-cloud-system</module>
 		<module>bryce-cloud-wechat</module>
-		<module>bryce-cloud-gateway</module>
 	</modules>
 
 	<!-- 依赖管理 -->
@@ -96,6 +97,18 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- api 模块 -->
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-cloud-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- api 模块 -->
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-cloud-auth</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<!-- 公共模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
@@ -106,12 +119,6 @@
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-framework</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<!-- api 模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-cloud-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- 系统模块 -->

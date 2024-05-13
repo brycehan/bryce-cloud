@@ -1,0 +1,31 @@
+# Tomcat
+server:
+  port: 8091
+
+# Spring
+spring:
+  application:
+    name: bryce-cloud-auth
+  cloud:
+    nacos:
+      # 服务地址
+      server-addr: localhost:8848
+      discovery:
+        namespace: dev
+        group: bryce-cloud
+      config:
+        namespace: dev
+        group: bryce-cloud
+  config:
+    import:
+      - optional:nacos:application.yaml
+      - optional:nacos:application-bryce.yaml
+      - optional:nacos:application-task.yaml
+      - optional:nacos:application-sms.yaml
+      - optional:nacos:application-cache.yaml
+      - optional:nacos:bryce-cloud-auth.yaml
+
+logging:
+  level:
+    com.brycehan: info
+

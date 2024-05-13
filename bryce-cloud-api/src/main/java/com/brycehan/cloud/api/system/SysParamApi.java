@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 系统参数 Api
+ * 系统参数Api
  *
  * @since 2022/1/1
  * @author Bryce Han
@@ -20,7 +20,7 @@ public interface SysParamApi {
      *
      * @param sysParamApiDto 系统参数Dto
      */
-    @PostMapping(path = "/api/system/param")
+    @PostMapping(path = "/api/param")
     void save(@RequestBody SysParamApiDto sysParamApiDto);
 
     /**
@@ -28,7 +28,7 @@ public interface SysParamApi {
      *
      * @param sysParamApiDto 系统参数Dto
      */
-    @PutMapping(path = "/api/system/param")
+    @PutMapping(path = "/api/param")
     void update(@RequestBody SysParamApiDto sysParamApiDto);
 
     /**
@@ -38,7 +38,7 @@ public interface SysParamApi {
      *
      * @return paramKey 是否存在
      */
-    @GetMapping(path = "/api/system/param/exists")
+    @GetMapping(path = "/api/param/exists")
     Boolean exists(@RequestParam String paramKey);
 
     /**
@@ -47,7 +47,7 @@ public interface SysParamApi {
      * @param paramKey 参数key
      * @return 参数对象
      */
-    @GetMapping(path = "/api/system/param/getByParamKey")
+    @GetMapping(path = "/api/param/getByParamKey")
     SysParamApiVo getByParamKey(@RequestParam String paramKey);
 
     /**
@@ -56,7 +56,7 @@ public interface SysParamApi {
      * @param paramKey 参数key
      * @return 参数值
      */
-    @GetMapping(path = "/api/system/param/getString")
+    @GetMapping(path = "/api/param/getString")
     String getString(@RequestParam String paramKey);
 
     /**
@@ -65,7 +65,7 @@ public interface SysParamApi {
      * @param paramKey 参数Key
      * @return 参数值
      */
-    @GetMapping(path = "/api/system/param/getBoolean")
+    @GetMapping(path = "/api/param/getBoolean")
     Boolean getBoolean(@RequestParam String paramKey);
 
 }

@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.security.config;
 
 import com.brycehan.cloud.api.sms.SmsApi;
+import com.brycehan.cloud.common.base.http.ResponseResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,18 +22,18 @@ public class LoginConfig {
     SmsApi smsApi() {
         return new SmsApi() {
             @Override
-            public Boolean send(String phone, String templateId, LinkedHashMap<String, String> params) {
-                return false;
+            public ResponseResult<Boolean> send(String phone, String templateId, LinkedHashMap<String, String> params) {
+                return ResponseResult.error("短信服务没有开启");
             }
 
             @Override
-            public Boolean validate(String phone, String templateId, String code) {
-                return false;
+            public ResponseResult<Boolean> validate(String phone, String templateId, String code) {
+                return ResponseResult.ok(false);
             }
 
             @Override
-            public Boolean isSmsEnabled() {
-                return false;
+            public ResponseResult<Boolean> isSmsEnabled() {
+                return ResponseResult.ok(false);
             }
         };
     }

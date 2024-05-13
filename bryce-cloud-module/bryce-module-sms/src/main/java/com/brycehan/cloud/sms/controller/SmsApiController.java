@@ -1,6 +1,7 @@
 package com.brycehan.cloud.sms.controller;
 
 import com.brycehan.cloud.api.sms.SmsApi;
+import com.brycehan.cloud.common.base.http.ResponseResult;
 import com.brycehan.cloud.common.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,7 +19,7 @@ import java.util.LinkedHashMap;
  * @author Bryce Han
  */
 @Slf4j
-@Tag(name = "短信 Api 实现", description = "sms")
+@Tag(name = "短信Api实现")
 @RestController
 @RequiredArgsConstructor
 public class SmsApiController implements SmsApi {
@@ -28,15 +29,16 @@ public class SmsApiController implements SmsApi {
     private final StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public Boolean send(String phone, String templateId, LinkedHashMap<String, String> params) {
-        return this.smsService.send(phone, templateId, params);
+    public ResponseResult<Boolean> send(String phone, String templateId, LinkedHashMap<String, String> params) {
+        boolean send = this.smsService.send(phone, templateId, params);
+        return ResponseResult.ok(send);
     }
 
     @Override
-    public Boolean validate(String phone, String templateId, String code) {
+    public ResponseResult<Boolean> validate(String phone, String templateId, String code) {
         // 如果关闭了短信功能，则直接校验不通过
         if (!this.smsService.isSmsEnabled()) {
-            return false;
+            return ResponseResult.ok(false);
         }
 
         // 获取缓存验证码
@@ -46,15 +48,16 @@ public class SmsApiController implements SmsApi {
 
         if(codeValue != null) {
             // 校验
-            return code.equalsIgnoreCase(codeValue);
+            return ResponseResult.ok(code.equalsIgnoreCase(codeValue));
         }
 
-        return false;
+        return ResponseResult.ok(false);
     }
 
     @Override
-    public Boolean isSmsEnabled() {
-        return this.smsService.isSmsEnabled();
+    public ResponseResult<Boolean> isSmsEnabled() {
+        Boolean smsEnabled = this.smsService.isSmsEnabled();
+        return ResponseResult.ok(smsEnabled);
     }
 
 }

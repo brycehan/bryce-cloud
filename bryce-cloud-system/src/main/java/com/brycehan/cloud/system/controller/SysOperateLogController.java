@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/09/27
  * @author Bryce Han
  */
-@Tag(name = "系统操作日志", description = "sysOperateLog")
-@RequestMapping("/system/operateLog")
+@Tag(name = "系统操作日志")
+@RequestMapping("/operateLog")
 @RestController
 @RequiredArgsConstructor
 public class SysOperateLogController {

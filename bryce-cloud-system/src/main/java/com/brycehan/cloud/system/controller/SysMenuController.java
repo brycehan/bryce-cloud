@@ -7,6 +7,8 @@ import com.brycehan.cloud.common.validator.SaveGroup;
 import com.brycehan.cloud.common.validator.UpdateGroup;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
+import com.brycehan.cloud.framework.security.context.LoginUserContext;
+import com.brycehan.cloud.system.common.MenuType;
 import com.brycehan.cloud.system.convert.SysMenuConvert;
 import com.brycehan.cloud.system.dto.SysMenuDto;
 import com.brycehan.cloud.system.dto.SysMenuPageDto;
@@ -22,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -30,8 +33,8 @@ import java.util.List;
  * @since 2022/5/15
  * @author Bryce Han
  */
-@Tag(name = "系统菜单", description = "sysMenu")
-@RequestMapping("/system/menu")
+@Tag(name = "系统菜单")
+@RequestMapping("/menu")
 @RestController
 @RequiredArgsConstructor
 public class SysMenuController {
@@ -151,5 +154,30 @@ public class SysMenuController {
         List<SysMenuVo> list = this.sysMenuService.list(sysMenuDto);
         return ResponseResult.ok(list);
     }
+
+    /**
+     * 获取用户权限标识
+     *
+     * @return 响应结果
+     */
+    @Operation(summary = "获取用户权限标识", description = "用户权限标识集合")
+    @GetMapping(path = "/authority")
+    public ResponseResult<Set<String>> authority() {
+        Set<String> authoritySet = this.sysMenuService.findAuthority(LoginUserContext.currentUser());
+        return ResponseResult.ok(authoritySet);
+    }
+
+    /**
+     * 获取路由信息
+     *
+     * @return 路由列表
+     */
+    @Operation(summary = "获取菜单列表")
+    @GetMapping(path = "/nav")
+    public ResponseResult<List<SysMenuVo>> nav() {
+        List<SysMenuVo> list = this.sysMenuService.getMenuTreeList(LoginUserContext.currentUser(), MenuType.MENU.getValue());
+        return ResponseResult.ok(list);
+    }
+
 }
 

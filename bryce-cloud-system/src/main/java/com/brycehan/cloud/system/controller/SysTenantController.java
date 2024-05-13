@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/11/06
  * @author Bryce Han
  */
-@Tag(name = "系统租户", description = "sysTenant")
-@RequestMapping("/system/tenant")
+@Tag(name = "系统租户")
+@RequestMapping("/tenant")
 @RestController
 @RequiredArgsConstructor
 public class SysTenantController {

@@ -24,8 +24,8 @@ import java.io.IOException;
  * @since 2022/7/15
  * @author Bryce Han
  */
-@Tag(name = "上传文件", description = "sysUploadFile")
-@RequestMapping("/system/uploadFile")
+@Tag(name = "上传文件")
+@RequestMapping("/uploadFile")
 @RestController
 @RequiredArgsConstructor
 public class SysUploadFileController {

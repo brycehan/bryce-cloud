@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.security;
 
 import com.brycehan.cloud.common.constant.CommonConstants;
 import com.brycehan.cloud.common.constant.DataConstants;
-import com.brycehan.cloud.system.common.LoginOperateType;
+import com.brycehan.cloud.common.enums.LoginOperateType;
 import com.brycehan.cloud.system.service.AuthService;
 import com.brycehan.cloud.system.service.SysLoginLogService;
 import lombok.RequiredArgsConstructor;

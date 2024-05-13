@@ -1,8 +1,5 @@
 package com.brycehan.cloud.system.security.config;
 
-import com.brycehan.cloud.framework.security.phone.PhoneCodeAuthenticationProvider;
-import com.brycehan.cloud.framework.security.phone.PhoneCodeUserDetailsService;
-import com.brycehan.cloud.framework.security.phone.PhoneCodeValidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +11,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -34,10 +30,6 @@ public class SecurityConfig {
 
     private final UserDetailsChecker userDetailsChecker;
 
-    private final PhoneCodeUserDetailsService phoneCodeUserDetailsService;
-
-    private final PhoneCodeValidateService phoneCodeValidateService;
-
     private final PasswordEncoder passwordEncoder;
 
     private final ApplicationEventPublisher applicationEventPublisher;
@@ -46,7 +38,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager() {
         List<AuthenticationProvider> providers = new ArrayList<>();
         providers.add(daoAuthenticationProvider());
-        providers.add(phoneCodeAuthenticationProvider());
 
         ProviderManager providerManager = new ProviderManager(providers);
         providerManager.setAuthenticationEventPublisher(new DefaultAuthenticationEventPublisher(applicationEventPublisher));
@@ -62,11 +53,6 @@ public class SecurityConfig {
         daoAuthenticationProvider.setPreAuthenticationChecks(userDetailsChecker);
 
         return daoAuthenticationProvider;
-    }
-
-    @Bean
-    PhoneCodeAuthenticationProvider phoneCodeAuthenticationProvider() {
-        return new PhoneCodeAuthenticationProvider(phoneCodeUserDetailsService, phoneCodeValidateService);
     }
 
 }

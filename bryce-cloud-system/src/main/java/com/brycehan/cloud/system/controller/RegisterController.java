@@ -6,7 +6,6 @@ import com.brycehan.cloud.common.base.http.UserResponseStatus;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.service.SysParamService;
-import com.brycehan.cloud.system.service.SysRegisterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,13 +19,11 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022/9/20
  * @author Bryce Han
  */
-@Tag(name = "注册", description = "register")
+@Tag(name = "注册")
 @RequestMapping(path = "/register")
 @RestController
 @RequiredArgsConstructor
 public class RegisterController {
-
-    private final SysRegisterService sysRegisterService;
 
     private final SysParamService sysParamService;
 
@@ -44,7 +41,7 @@ public class RegisterController {
         boolean registerEnabled = this.sysParamService.getBoolean("system.account.registerEnabled");
         if (registerEnabled) {
             // 2、注册
-            this.sysRegisterService.register(registerDto);
+//            this.sysRegisterService.register(registerDto);
             return ResponseResult.ok();
         }
 

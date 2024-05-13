@@ -35,7 +35,7 @@ import java.util.List;
  * @since 2023/11/06
  */
 @Slf4j
-@Tag(name = "微信菜单", description = "wechatMenu")
+@Tag(name = "微信菜单")
 @RequestMapping("/wechat/menu")
 @RestController
 @RequiredArgsConstructor

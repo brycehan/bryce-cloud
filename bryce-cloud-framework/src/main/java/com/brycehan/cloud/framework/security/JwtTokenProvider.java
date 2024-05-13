@@ -15,7 +15,7 @@ import com.brycehan.cloud.common.constant.JwtConstants;
 import com.brycehan.cloud.common.util.IpUtils;
 import com.brycehan.cloud.common.util.LocationUtils;
 import com.brycehan.cloud.common.util.ServletUtils;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

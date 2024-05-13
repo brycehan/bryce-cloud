@@ -40,9 +40,8 @@ public class SmsServiceImpl implements SmsService {
         if (smsBlend == null) {
             throw new RuntimeException("短信配置错误");
         }
-
         SmsResponse smsResponse = smsBlend.sendMessage(phone, templateId, params);
-        log.debug("短信发送，手机号：{}，响应：{}", phone, smsResponse);
+        log.info("短信发送，手机号：{}，模板ID：{}，参数：{}，响应：{}", phone, templateId, params, smsResponse);
         if(smsResponse.isSuccess()) {
             String codeKey = CacheConstants.SMS_CODE_KEY.concat(templateId).concat(":").concat(phone);
             String code = params.get("code");

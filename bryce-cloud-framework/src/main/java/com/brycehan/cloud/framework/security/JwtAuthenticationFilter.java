@@ -1,7 +1,7 @@
 package com.brycehan.cloud.framework.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain) throws ServletException, IOException {
 
+        log.info("请求URI，{}", request.getRequestURI());
         String accessToken = TokenUtils.getAccessToken(request);
         // accessToken 为空，表示未登录
         if(StrUtil.isBlank(accessToken)) {

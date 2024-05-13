@@ -16,7 +16,7 @@ import com.brycehan.cloud.common.constant.DataConstants;
 import com.brycehan.cloud.common.util.JsonUtils;
 import com.brycehan.cloud.framework.mybatis.interceptor.DataScope;
 import com.brycehan.cloud.framework.mybatis.service.BaseService;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.framework.security.context.LoginUserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

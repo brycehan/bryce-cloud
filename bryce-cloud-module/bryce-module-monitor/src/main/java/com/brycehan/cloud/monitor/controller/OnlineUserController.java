@@ -7,7 +7,7 @@ import com.brycehan.cloud.common.constant.CacheConstants;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
 import com.brycehan.cloud.framework.security.JwtTokenProvider;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.monitor.dto.OnlineUserPageDto;
 import com.brycehan.cloud.monitor.vo.OnlineUserVo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ import java.util.Set;
  * @since 2023/10/12
  * @author Bryce Han
  */
-@Tag(name = "在线用户", description = "onlineUser")
+@Tag(name = "在线用户")
 @RestController
 @RequestMapping(path = "/monitor/onlineUser")
 @RequiredArgsConstructor

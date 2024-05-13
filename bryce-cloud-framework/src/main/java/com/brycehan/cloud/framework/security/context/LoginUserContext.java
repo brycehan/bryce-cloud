@@ -1,5 +1,6 @@
 package com.brycehan.cloud.framework.security.context;
 
+import com.brycehan.cloud.common.base.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

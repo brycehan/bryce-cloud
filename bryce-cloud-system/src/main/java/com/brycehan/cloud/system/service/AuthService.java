@@ -1,8 +1,5 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.base.dto.AccountLoginDto;
-import com.brycehan.cloud.common.base.dto.PhoneLoginDto;
-import com.brycehan.cloud.common.base.vo.LoginVo;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -15,33 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface AuthService {
 
     /**
-     * 账号登录
-     *
-     * @param accountLoginDto 账号登录dto
-     * @return 登录 Vo
-     */
-    LoginVo loginByAccount(AccountLoginDto accountLoginDto);
-
-    /**
-     * 手机号登录
-     *
-     * @param phoneLoginDto 手机号登录dto
-     * @return 登录 Vo
-     */
-    LoginVo loginByPhone(PhoneLoginDto phoneLoginDto);
-
-    /**
      * 更新用户登录信息
      *
      * @param loginUser 登录用户
      */
     void updateLoginInfo(UserDetails loginUser);
-
-    /**
-     * 退出登录
-     *
-     * @param accessToken 访问令牌
-     */
-    void logout(String accessToken);
 
 }

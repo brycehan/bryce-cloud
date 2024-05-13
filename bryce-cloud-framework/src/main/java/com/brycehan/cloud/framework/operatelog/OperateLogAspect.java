@@ -6,7 +6,7 @@ import com.brycehan.cloud.common.util.IpUtils;
 import com.brycehan.cloud.common.util.LocationUtils;
 import com.brycehan.cloud.common.util.ServletUtils;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.framework.security.context.LoginUserContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

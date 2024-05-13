@@ -7,7 +7,7 @@ import com.brycehan.cloud.common.validator.SaveGroup;
 import com.brycehan.cloud.common.validator.UpdateGroup;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
-import com.brycehan.cloud.framework.security.context.LoginUser;
+import com.brycehan.cloud.common.base.LoginUser;
 import com.brycehan.cloud.framework.security.context.LoginUserContext;
 import com.brycehan.cloud.system.convert.SysRoleConvert;
 import com.brycehan.cloud.system.dto.SysRoleDataScopeDto;
@@ -35,8 +35,8 @@ import java.util.List;
  * @since 2023/09/13
  * @author Bryce Han
  */
-@Tag(name = "系统角色", description = "sysRole")
-@RequestMapping("/system/role")
+@Tag(name = "系统角色")
+@RequestMapping("/role")
 @RestController
 @RequiredArgsConstructor
 public class SysRoleController {
