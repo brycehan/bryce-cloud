@@ -1,0 +1,27 @@
+# Tomcat
+server:
+  port: 9001
+
+# Spring
+spring:
+  application:
+    name: bryce-cloud-monitor
+  cloud:
+    nacos:
+      # 服务地址
+      server-addr: localhost:8848
+      discovery:
+        namespace: dev
+        group: bryce-cloud
+      config:
+        namespace: dev
+        group: bryce-cloud
+  config:
+    import:
+      - optional:nacos:application.yaml
+      - optional:nacos:application-bryce.yaml
+      - optional:nacos:application-cache.yaml
+
+logging:
+  level:
+    com.brycehan: info

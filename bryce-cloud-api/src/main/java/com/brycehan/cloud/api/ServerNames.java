@@ -9,9 +9,16 @@ package com.brycehan.cloud.api;
 public interface ServerNames {
 
     /**
-     * bryce-cloud-system 服务
+     * bryce cloud 短信服务
+     */
+    String BRYCE_CLOUD_SMS = "bryce-cloud-sms";
+    /**
+     * bryce cloud 存储服务
+     */
+    String BRYCE_CLOUD_STORAGE = "bryce-cloud-storage";
+    /**
+     * bryce cloud 系统服务
      */
     String BRYCE_CLOUD_SYSTEM = "bryce-cloud-system";
-    String BRYCE_CLOUD_SMS = "bryce-cloud-sms";
 
 }

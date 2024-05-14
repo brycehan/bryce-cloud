@@ -15,7 +15,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>bryce-common-cloud</module>
         <module>bryce-common-core</module>
+        <module>bryce-common-mybatis</module>
+        <module>bryce-common-seata</module>
     </modules>
 
 </project>

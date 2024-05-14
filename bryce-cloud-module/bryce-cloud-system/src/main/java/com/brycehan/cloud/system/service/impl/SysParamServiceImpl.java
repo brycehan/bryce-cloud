@@ -12,7 +12,7 @@ import com.brycehan.cloud.common.constant.CacheConstants;
 import com.brycehan.cloud.common.util.DateTimeUtils;
 import com.brycehan.cloud.common.util.ExcelUtils;
 import com.brycehan.cloud.common.util.JsonUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysParamConvert;
 import com.brycehan.cloud.system.dto.SysParamDto;
 import com.brycehan.cloud.system.dto.SysParamPageDto;

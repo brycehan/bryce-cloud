@@ -3,7 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.common.base.id.IdGenerator;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.entity.SysUserPost;
 import com.brycehan.cloud.system.mapper.SysUserPostMapper;
 import com.brycehan.cloud.system.service.SysUserPostService;

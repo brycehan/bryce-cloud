@@ -25,7 +25,7 @@ public class AuthProperties {
         /**
          * GET 类型忽略的资源地址
          */
-        private String[] get = { "/webjars/**", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**"};
+        private String[] get = { "/webjars/**", "/swagger-ui/**", "/swagger-resources/**", "/v3/controller-docs/**"};
 
         /**
          * POST 类型忽略的资源地址

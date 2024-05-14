@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.util.ExcelUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysDictDataConvert;
 import com.brycehan.cloud.system.dto.SysDictDataPageDto;
 import com.brycehan.cloud.system.entity.SysDictData;

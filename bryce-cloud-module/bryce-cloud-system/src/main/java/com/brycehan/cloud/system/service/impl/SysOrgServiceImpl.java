@@ -7,7 +7,7 @@ import com.brycehan.cloud.common.base.dto.IdsDto;
 import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.constant.DataConstants;
 import com.brycehan.cloud.common.util.TreeUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysOrgConvert;
 import com.brycehan.cloud.system.dto.SysOrgDto;
 import com.brycehan.cloud.system.dto.SysOrgPageDto;

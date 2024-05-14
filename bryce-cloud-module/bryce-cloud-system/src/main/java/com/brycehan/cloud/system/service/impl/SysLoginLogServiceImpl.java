@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.base.id.IdGenerator;
 import com.brycehan.cloud.common.util.*;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.SysLoginLog;

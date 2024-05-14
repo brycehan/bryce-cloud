@@ -9,7 +9,7 @@ import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.base.id.IdGenerator;
 import com.brycehan.cloud.common.util.DateTimeUtils;
 import com.brycehan.cloud.common.util.ExcelUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.framework.operatelog.OperateLogDto;
 import com.brycehan.cloud.system.convert.SysOperateLogConvert;
 import com.brycehan.cloud.system.dto.SysOperateLogPageDto;

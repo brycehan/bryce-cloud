@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.util.DateTimeUtils;
 import com.brycehan.cloud.common.util.ExcelUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysDictTypeConvert;
 import com.brycehan.cloud.system.dto.SysDictTypePageDto;
 import com.brycehan.cloud.system.entity.SysDictData;

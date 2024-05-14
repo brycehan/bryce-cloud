@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.brycehan.cloud.framework.mybatis.BryceBaseMapper;
+import com.brycehan.cloud.common.mybatis.BryceBaseMapper;
 import com.brycehan.cloud.system.entity.SysParam;
 import org.apache.ibatis.annotations.Mapper;
 

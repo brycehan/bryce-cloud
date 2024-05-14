@@ -3,7 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.common.base.id.IdGenerator;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.entity.SysRoleDataScope;
 import com.brycehan.cloud.system.mapper.SysRoleDataScopeMapper;
 import com.brycehan.cloud.system.service.SysRoleDataScopeService;

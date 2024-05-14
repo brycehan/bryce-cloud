@@ -95,13 +95,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- api 模块 -->
+			<!-- controller 模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- api 模块 -->
+			<!-- controller 模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-auth</artifactId>
@@ -115,7 +115,22 @@
 			</dependency>
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-common-cloud</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-common-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-common-mybatis</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-common-seata</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- 框架模块 -->

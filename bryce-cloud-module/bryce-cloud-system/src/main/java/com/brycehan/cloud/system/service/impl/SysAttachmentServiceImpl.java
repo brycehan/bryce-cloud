@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.util.DateTimeUtils;
 import com.brycehan.cloud.common.util.ExcelUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysAttachmentConvert;
 import com.brycehan.cloud.system.dto.SysAttachmentPageDto;
 import com.brycehan.cloud.system.entity.SysAttachment;

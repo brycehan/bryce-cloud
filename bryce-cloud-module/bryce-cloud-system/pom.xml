@@ -15,20 +15,16 @@
     <!-- 依赖 -->
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-cloud</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-mybatis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>

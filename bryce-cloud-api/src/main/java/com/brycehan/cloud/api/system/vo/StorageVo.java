@@ -14,10 +14,45 @@ import lombok.Data;
 @Tag(name = "存储 vo")
 public class StorageVo {
 
-    @Schema(description = "URL")
+    /**
+     * 文件名称
+     */
+    @Schema(description = "文件名称")
+    private String name;
+
+    /**
+     * 文件地址
+     */
+    @Schema(description = "文件地址")
     private String url;
 
-    @Schema(description = "文件大小")
+    /**
+     * 文件大小（单位字节）
+     */
+    @Schema(description = "文件大小（单位字节）")
     private Long size;
 
+    /**
+     * 附件类型
+     */
+    @Schema(description = "附件类型")
+    private String type;
+
+    /**
+     * 附件名后缀
+     */
+    @Schema(description = "附件名后缀")
+    private String suffix;
+
+    /**
+     * 哈希码
+     */
+    @Schema(description = "哈希码")
+    private String hash;
+
+    /**
+     * 存储平台
+     */
+    @Schema(description = "存储平台")
+    private String platform;
 }

@@ -8,7 +8,7 @@ import com.brycehan.cloud.common.base.entity.PageResult;
 import com.brycehan.cloud.common.base.id.IdGenerator;
 import com.brycehan.cloud.common.enums.DataScopeType;
 import com.brycehan.cloud.common.util.ExcelUtils;
-import com.brycehan.cloud.framework.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.convert.SysRoleConvert;
 import com.brycehan.cloud.system.dto.SysRoleDataScopeDto;
 import com.brycehan.cloud.system.dto.SysRoleDto;
