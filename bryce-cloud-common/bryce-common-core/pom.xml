@@ -62,31 +62,6 @@
             <groupId>com.fhs-opensource</groupId>
             <artifactId>easy-trans-mybatis-plus-extend</artifactId>
         </dependency>
-<!--        &lt;!&ndash; Minio 对象存储服务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.minio</groupId>-->
-<!--            <artifactId>minio</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 阿里云对象存储服务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.aliyun.oss</groupId>-->
-<!--            <artifactId>aliyun-sdk-oss</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 腾讯云对象存储服务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.qcloud</groupId>-->
-<!--            <artifactId>cos_api</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 七牛云对象存储服务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.qiniu</groupId>-->
-<!--            <artifactId>qiniu-java-sdk</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; 华为云对象存储服务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.huaweicloud</groupId>-->
-<!--            <artifactId>esdk-obs-java-bundle</artifactId>-->
-<!--        </dependency>-->
         <!-- 糊涂工具 -->
         <dependency>
             <groupId>cn.hutool</groupId>

@@ -4,23 +4,25 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.brycehan.cloud</groupId>
-        <artifactId>bryce-cloud</artifactId>
+        <artifactId>bryce-cloud-common</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>bryce-cloud-common</artifactId>
+    <artifactId>bryce-common-rabbitmq</artifactId>
     <version>${revision}</version>
-    <name>bryce-cloud-common</name>
-    <description>bryce-cloud-common</description>
+    <name>bryce-common-rabbitmq</name>
+    <description>bryce-common-rabbitmq</description>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>bryce-common-cloud</module>
-        <module>bryce-common-core</module>
-        <module>bryce-common-elasticsearch</module>
-        <module>bryce-common-mybatis</module>
-        <module>bryce-common-rabbitmq</module>
-        <module>bryce-common-seata</module>
-    </modules>
+    <!-- 依赖 -->
+    <dependencies>
+
+        <!-- rabbitmq -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

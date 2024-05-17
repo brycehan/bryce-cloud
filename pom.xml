@@ -95,13 +95,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- controller 模块 -->
+			<!-- api接口模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- controller 模块 -->
+			<!-- 认证模块 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-auth</artifactId>
@@ -126,6 +126,11 @@
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-common-mybatis</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-common-rabbitmq</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -493,8 +498,8 @@
 	<repositories>
 		<repository>
 			<id>public</id>
-			<name>华为云公共仓库</name>
-			<url>https://repo.huaweicloud.com/repository/maven/</url>
+			<name>阿里云公共仓库</name>
+			<url>https://maven.aliyun.com/repository/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -503,8 +508,8 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>public</id>
-			<name>华为云公共仓库</name>
-			<url>https://repo.huaweicloud.com/repository/maven/</url>
+			<name>阿里云公共仓库</name>
+			<url>https://maven.aliyun.com/repository/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
