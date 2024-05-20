@@ -147,12 +147,6 @@ public class SysUserDto implements Serializable {
     private LocalDateTime lastLoginTime;
 
     /**
-     * 租户ID
-     */
-    @Schema(description = "租户ID")
-    private Long tenantId;
-
-    /**
      * 角色IDs
      */
     @Schema(description = "角色IDs")

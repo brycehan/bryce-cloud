@@ -65,11 +65,6 @@ public class SysRoleVo implements Serializable {
     @Schema(description = "机构ID")
     private Long orgId;
 
-    /**
-     * 租户ID
-     */
-    @Schema(description = "租户ID")
-    private Long tenantId;
 
     /**
      * 创建时间

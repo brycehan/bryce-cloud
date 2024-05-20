@@ -1,9 +1,27 @@
-drop database if exists bryce_cloud_system;
-create database bryce_cloud_system default character set utf8mb4 collate utf8mb4_0900_ai_ci;
+create database if not exists bryce_cloud_system default character set utf8mb4 collate utf8mb4_0900_ai_ci;
 use bryce_cloud_system;
 
+/*
+    -- 删除表
+    drop table if exists brc_sys_org;
+    drop table if exists brc_sys_user;
+    drop table if exists brc_sys_role;
+    drop table if exists brc_sys_user_role;
+    drop table if exists brc_sys_post;
+    drop table if exists brc_sys_user_post;
+    drop table if exists brc_sys_menu;
+    drop table if exists brc_sys_role_menu;
+    drop table if exists brc_sys_role_data_scope;
+    drop table if exists brc_sys_login_log;
+    drop table if exists brc_sys_operate_log;
+    drop table if exists brc_sys_dict_type;
+    drop table if exists brc_sys_dict_data;
+    drop table if exists brc_sys_param;
+    drop table if exists brc_sys_attachment;
+    drop table if exists brc_sys_notice;
+*/
+
 -- 1、系统机构表
-drop table if exists brc_sys_org;
 create table brc_sys_org
 (
     id              bigint            primary key comment 'ID',
@@ -40,7 +58,6 @@ INSERT INTO brc_sys_org (id, name, code, parent_id, ancestor, leader, contact_nu
 INSERT INTO brc_sys_org (id, name, code, parent_id, ancestor, leader, contact_number, email, remark, sort, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (109, '财务部门', null, 102, '0,100,102', '韩先生', '15800008010', 'brycehan@163.com', null, 2, 1, null, 0, 1, now(), null, null);
 
 -- 2、系统用户表
-drop table if exists brc_sys_user;
 create table brc_sys_user
 (
     id                 bigint                   primary key comment 'ID',
@@ -52,6 +69,8 @@ create table brc_sys_user
     type               smallint   default 0     null comment '用户类型（0：系统用户）',
     phone              varchar(20)              null comment '手机号码',
     email              varchar(50)              null comment '邮箱',
+    birthday           datetime                 null comment '生日',
+    profession         varchar(50)              null comment '职业',
     sort               int          default 0   null comment '显示顺序',
     org_id             bigint                   null comment '机构ID',
     super_admin        tinyint                  null comment '超级管理员',
@@ -74,7 +93,6 @@ INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, typ
 INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, type, phone, email, sort, org_id, super_admin, status, remark, account_non_locked, last_login_ip, last_login_time, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, 'brycehan', '$2a$10$H/0p9EJPQjYAspbCO85QzuDXs4v36TvdWftjx1HJSWhVoSQ85GtHi', 'Bryce Han', null, 'M', 0, '15800008888', 'brycehan7@gmail.com', 0, 105, 0, 1, '租户管理员', 1, '127.0.0.1', now(), null, 0, 1, now(), null, now());
 
 -- 3、系统角色表
-drop table if exists brc_sys_role;
 create table brc_sys_role
 (
     id              bigint            primary key comment 'ID',
@@ -98,7 +116,6 @@ INSERT INTO brc_sys_role (id, name, code, data_scope, sort, status, remark, org_
 INSERT INTO brc_sys_role (id, name, code, data_scope, sort, status, remark, org_id, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '默认角色', 'default', 2, 0, 1, '默认角色', null, null, 0, 1, now(), null, null);
 
 -- 4、系统用户角色关系表
-drop table if exists brc_sys_user_role;
 create table brc_sys_user_role
 (
     id              bigint   primary key comment 'ID',
@@ -116,7 +133,6 @@ create index idx_user_id on brc_sys_user_role (user_id);
 create index idx_role_id on brc_sys_user_role (role_id);
 
 -- 5、系统岗位表
-drop table if exists brc_sys_post;
 create table brc_sys_post
 (
     id              bigint            primary key comment 'ID',
@@ -140,7 +156,6 @@ INSERT INTO brc_sys_post (id, name, code, sort, status, remark, version, deleted
 INSERT INTO brc_sys_post (id, name, code, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (4, '普通员工', 'user', 4, 1, null, null, 0, 1, now(), null, null);
 
 -- 6、系统用户岗位关系表
-drop table if exists brc_sys_user_post;
 create table brc_sys_user_post
 (
     id              bigint   primary key comment 'ID',
@@ -158,7 +173,6 @@ create index idx_user_id on brc_sys_user_post (user_id);
 create index idx_post_id on brc_sys_user_post (post_id);
 
 -- 7、系统菜单表
-drop table if exists brc_sys_menu;
 create table brc_sys_menu
 (
     id              bigint               primary key comment 'ID',
@@ -197,7 +211,6 @@ INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (113, '参数设置', 'M', 2, 'system/param/index', 'system:param:page', 'icon-control', 0, 3, '参数设置菜单', 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (114, '附件管理', 'M', 2, 'system/attachment/index', 'system:attachment:page', 'icon-folder', 0, 4, '参数设置菜单', 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (116, '通知公告', 'M', 2, 'system/notice/index', 'system:notice:page', 'icon-message', 0, 5, '通知公告菜单', 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (117, '租户管理', 'M', 2, 'system/tenant/index', 'system:tenant:page', 'icon-deploymentunit', 0, 6, '系统租户菜单', 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (121, '在线用户', 'M', 3, 'monitor/onlineUser/index', 'monitor:onlineUser:page', 'icon-solution', 0, 1, '在线用户菜单', 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (131, '代码生成', 'M', 4, '{{apiUrl}}/system/generator-ui/index.html', 'generator:generator:page', 'icon-code', 1, 1, '代码生成菜单', 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (132, '接口文档', 'M', 4, '{{apiUrl}}/doc.html', 'system:swagger:page', 'icon-file-text', 1, 2, '接口文档菜单', 1, null, 0, 1, now(), null, null);
@@ -265,12 +278,6 @@ INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1164, '通知公告详情', 'B', 116, null, 'system:notice:info', '', 0, 4, null, 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1165, '通知公告导出', 'B', 116, null, 'system:notice:export', '', 0, 5, null, 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1166, '通知公告导入', 'B', 116, null, 'system:notice:import', '', 0, 6, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1171, '租户新增', 'B', 117, null, 'system:tenant:save', '', 0, 1, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1172, '租户修改', 'B', 117, null, 'system:tenant:update', '', 0, 2, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1173, '租户删除', 'B', 117, null, 'system:tenant:delete', '', 0, 3, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1174, '租户详情', 'B', 117, null, 'system:tenant:info', '', 0, 4, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1175, '租户导出', 'B', 117, null, 'system:tenant:export', '', 0, 5, null, 1, null, 0, 1, now(), null, null);
-INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1176, '租户导入', 'B', 117, null, 'system:tenant:import', '', 0, 6, null, 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1211, '在线用户强退', 'B', 121, null, 'monitor:onlineUser:delete', '', 0, 1, null, 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1411, '登录日志删除', 'B', 141, null, 'system:loginLog:delete', '', 0, 3, null, 1, null, 0, 1, now(), null, null);
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1412, '登录日志详情', 'B', 141, null, 'system:loginLog:info', '', 0, 4, null, 1, null, 0, 1, now(), null, null);
@@ -280,7 +287,6 @@ INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_
 INSERT INTO brc_sys_menu (id, name, type, parent_id, url, authority, icon, open_style, sort, remark, status, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1423, '操作日志导出', 'B', 142, null, 'system:operateLog:export', '', 0, 5, null, 1, null, 0, 1, now(), null, null);
 
 -- 8、系统角色菜单关系表
-drop table if exists brc_sys_role_menu;
 create table brc_sys_role_menu
 (
     id              bigint   primary key comment 'ID',
@@ -298,7 +304,6 @@ create index idx_role_id on brc_sys_role_menu (role_id);
 create index idx_menu_id on brc_sys_role_menu (menu_id);
 
 -- 9、系统角色数据范围表
-drop table if exists brc_sys_role_data_scope;
 create table brc_sys_role_data_scope
 (
     id              bigint   primary key comment 'ID',
@@ -313,7 +318,6 @@ create table brc_sys_role_data_scope
 ) engine InnoDB comment '系统角色数据范围表';
 
 -- 10、系统登录日志表
-drop table if exists brc_sys_login_log;
 create table brc_sys_login_log
 (
     id           bigint       primary key comment 'ID',
@@ -326,12 +330,10 @@ create table brc_sys_login_log
     user_agent   varchar(500) null comment 'User Agent',
     status       tinyint      null comment '状态（0：失败，1：成功）',
     access_time  datetime     null comment '访问时间',
-    tenant_id    bigint       null comment '租户ID',
     created_time datetime     null comment '创建时间'
 ) engine InnoDB comment '系统登录日志表';
 
 -- 11、系统操作日志表
-drop table if exists brc_sys_operate_log;
 create table brc_sys_operate_log
 (
     id             bigint        primary key comment 'ID',
@@ -355,7 +357,6 @@ create table brc_sys_operate_log
 ) engine InnoDB comment '系统操作日志表';
 
 -- 12、系统字典类型表
-drop table if exists brc_sys_dict_type;
 create table brc_sys_dict_type
 (
     id              bigint            primary key comment 'ID',
@@ -370,7 +371,7 @@ create table brc_sys_dict_type
     created_time    datetime          null comment '创建时间',
     updated_user_id bigint            null comment '修改者ID',
     updated_time    datetime          null comment '修改时间',
-    constraint uk_dict_type unique (dict_type)
+    constraint uk_dict_type unique (dict_type) comment '字典类型'
 ) engine InnoDB comment '系统字典类型表';
 
 -- 初始化-系统字典类型表数据
@@ -385,7 +386,6 @@ INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, v
 INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (9, '系统是否', 'sys_yes_no', 0, 1, '系统是否列表', 1, 0, 1, now(), null, null);
 
 -- 13、系统字典数据表
-drop table if exists brc_sys_dict_data;
 create table brc_sys_dict_data
 (
     id              bigint            primary key comment 'ID',
@@ -415,10 +415,10 @@ INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_c
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (33, '本机构数据', '3', 3, '', 3, 1, null, 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (34, '本人数据', '4', 3, '', 4, 1, null, 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (35, '自定义数据', '5', 3, '', 5, 1, null, 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (41, '成功', 'true', 4, 'primary', 1, 1, '', 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (42, '失败', 'false', 4, 'danger', 2, 1, '', 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (51, '登录成功', '0', 5, 'primary', 1, 1, '', 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (52, '退出成功', '1', 5, 'success', 2, 1, '', 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (41, '成功', 'true', 4, 'primary', 1, 1, null, 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (42, '失败', 'false', 4, 'danger', 2, 1, null, 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (51, '登录成功', '0', 5, 'primary', 1, 1, null, 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (52, '退出成功', '1', 5, 'success', 2, 1, null, 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (53, '验证码错误', '2', 5, 'warning', 3, 1, '', 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (54, '账号密码错误', '3', 5, 'danger', 4, 1, '', 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (61, '其他', 'OTHER', 6, 'info', 99, 1, '', 1, 0, 1, now(), null, null);
@@ -440,14 +440,13 @@ INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_c
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (92, '否', 'N', 9, 'danger', 2, 1, null, 1, 0, 1, now(), null, null);
 
 -- 14、系统参数表
-drop table if exists brc_sys_param;
 create table brc_sys_param
 (
     id              bigint       primary key comment 'ID',
     param_name      varchar(100) null comment '参数名称',
     param_key       varchar(100) null comment '参数键',
     param_value     text         null comment '参数值',
-    built_in        char         null comment '是否系统内置（Y：是，N：否）',
+    param_type      varchar(20)  null comment '参数类型（builtIn：内置，system：系统）',
     remark          varchar(500) null comment '备注',
     version         int          null comment '版本号',
     deleted         tinyint      null comment '删除标识（0：存在，1：已删除）',
@@ -459,12 +458,12 @@ create table brc_sys_param
 ) engine InnoDB comment '系统参数表';
 
 -- 初始化-系统配置表数据
-INSERT INTO brc_sys_param (id, param_name, param_key, param_value, built_in, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, '用户登录-验证码开关', 'system.account.captchaEnabled', 'false', 'Y', '是否开启验证码功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_param (id, param_name, param_key, param_value, built_in, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '用户账号-注册开关', 'system.account.registerEnabled', 'false', 'Y', '是否开启注册功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
-INSERT INTO brc_sys_param (id, param_name, param_key, param_value, built_in, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (3, '短信-短信开关', 'system.sms.enabled', 'true', 'Y', '是否开启短信功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_param (id, param_name, param_key, param_value, param_type, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, '用户登录-验证码开关', 'system.account.captchaEnabled', 'false', 'system', '是否开启验证码功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_param (id, param_name, param_key, param_value, param_type, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '用户账号-注册开关', 'system.account.registerEnabled', 'false', 'system', '是否开启注册功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_param (id, param_name, param_key, param_value, param_type, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (3, '短信-短信开关', 'system.sms.enabled', 'true', 'system', '是否开启短信功能（true：开启，false：关闭）', 1, 0, 1, now(), null, null);
+INSERT INTO brc_sys_param (id, param_name, param_key, param_value, param_type, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (4, '微信公众号菜单', 'wechat.mp.menu', '', 'builtIn', '微信公众号菜单内容', 1, 0, 1, now(), null, null);
 
 -- 15、系统附件表
-drop table if exists brc_sys_attachment;
 create table brc_sys_attachment
 (
     id              bigint       primary key comment 'ID',
@@ -486,7 +485,6 @@ create table brc_sys_attachment
 create index idx_created_time on brc_sys_attachment (created_time) comment '创建时间索引';
 
 -- 16、系统通知公告表
-drop table if exists brc_sys_notice;
 create table brc_sys_notice
 (
     id              bigint            primary key comment 'ID',
@@ -506,3 +504,33 @@ create table brc_sys_notice
 -- 初始化-系统通知公告表数据
 INSERT INTO brc_sys_notice (id, title, content, type, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, '温馨提醒：2022-10-01 Bryce Boot 新版本发布啦', '<p>新版本内容</p>', 2, 1, null, 1, 0, 1, now(), null, null);
 INSERT INTO brc_sys_notice (id, title, content, type, status, remark, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '维护通知：2022-10-01 Bryce Boot 系统凌晨维护', '<p>维护内容</p>', 1, 1, null, 1, 0, 1, now(), null, null);
+
+-- 17、地区编码表
+create table brc_sys_area_code
+(
+    id            int          primary key comment 'ID',
+    parent_id     int          not null comment '父ID',
+    deep          int          not null comment '层级',
+    name          varchar(255) not null comment '名称',
+    code          varchar(255) not null comment '编码',
+    pinyin_prefix varchar(255) not null comment '拼音前缀',
+    pinyin        varchar(255) not null comment '拼音',
+    ext_id        varchar(50)  not null comment '扩展ID',
+    ext_name      varchar(255) not null comment '扩展名称'
+) comment '地区编码表';
+
+-- 18 seata undo_log v2.0.0
+-- https://github.com/apache/incubator-seata/tree/v2.0.0/script/client/at/db
+-- for AT mode you must to init this sql for you business database. the seata server not need it.
+CREATE TABLE IF NOT EXISTS `undo_log`
+(
+    `branch_id`     BIGINT       NOT NULL COMMENT 'branch transaction id',
+    `xid`           VARCHAR(128) NOT NULL COMMENT 'global transaction id',
+    `context`       VARCHAR(128) NOT NULL COMMENT 'undo_log context,such as serialization',
+    `rollback_info` LONGBLOB     NOT NULL COMMENT 'rollback info',
+    `log_status`    INT(11)      NOT NULL COMMENT '0:normal status,1:defense status',
+    `log_created`   DATETIME(6)  NOT NULL COMMENT 'create datetime',
+    `log_modified`  DATETIME(6)  NOT NULL COMMENT 'modify datetime',
+    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT ='AT transaction mode undo table';
+ALTER TABLE `undo_log` ADD INDEX `ix_log_created` (`log_created`);

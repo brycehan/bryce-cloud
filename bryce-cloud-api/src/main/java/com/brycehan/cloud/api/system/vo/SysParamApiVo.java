@@ -47,22 +47,16 @@ public class SysParamApiVo implements Serializable {
     private String paramValue;
 
     /**
-     * 是否系统内置（Y：是，N：否）
+     * 参数类型（built_in：内置，system：系统）
      */
-    @Schema(description = "是否系统内置（Y：是，N：否）")
-    private String builtIn;
+    @Schema(description = "参数类型（built_in：内置，system：系统）")
+    private String paramType;
 
     /**
      * 备注
      */
     @Schema(description = "备注")
     private String remark;
-
-    /**
-     * 租户ID
-     */
-    @Schema(description = "租户ID")
-    private Long tenantId;
 
     /**
      * 创建时间

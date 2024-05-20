@@ -96,11 +96,6 @@ public class SysUserExcelDto implements Serializable, TransPojo {
     private String tenantAdminLabel;
 
     /**
-     * 租户ID
-     */
-    private Long tenantId;
-
-    /**
      * 创建时间
      */
     @ExcelProperty(value = "创建时间")

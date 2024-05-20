@@ -117,11 +117,6 @@ public class SysLoginLogVo implements Serializable, TransPojo {
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     private LocalDateTime accessTime;
 
-    /**
-     * 租户ID
-     */
-    @Schema(description = "租户ID")
-    private Long tenantId;
 
     /**
      * 创建时间

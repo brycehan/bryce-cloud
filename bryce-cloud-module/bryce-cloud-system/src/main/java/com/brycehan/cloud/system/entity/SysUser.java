@@ -112,11 +112,6 @@ public class SysUser extends BaseEntity {
     private LocalDateTime lastLoginTime;
 
     /**
-     * 租户ID
-     */
-    private Long tenantId;
-
-    /**
      * 角色
      */
     @Schema(description = "角色")
