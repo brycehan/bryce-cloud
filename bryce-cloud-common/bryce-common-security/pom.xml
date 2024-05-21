@@ -91,6 +91,12 @@
             <artifactId>xxl-job-core</artifactId>
             <version>${xxl-job.version}</version>
         </dependency>
+        <!-- Spring Security 安全测试 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

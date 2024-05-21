@@ -109,12 +109,6 @@ public class SysUserDto implements Serializable {
     private Boolean superAdmin;
 
     /**
-     * 租户管理员
-     */
-    @Schema(description = "租户管理员")
-    private Boolean tenantAdmin;
-
-    /**
      * 状态（0：停用，1：正常）
      */
     @Schema(description = "状态（0：停用，1：正常）")

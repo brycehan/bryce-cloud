@@ -82,11 +82,6 @@ public class SysUser extends BaseEntity {
     private Boolean superAdmin;
 
     /**
-     * 租户管理员
-     */
-    private Boolean tenantAdmin;
-
-    /**
      * 状态（0：停用，1：正常）
      */
     private Boolean status;

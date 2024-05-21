@@ -82,7 +82,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         sysUser.setPassword(passwordEncoder.encode(sysUserDto.getPassword()));
         sysUser.setId(IdGenerator.nextId());
         sysUser.setSuperAdmin(false);
-        sysUser.setTenantAdmin(false);
 
         // 保存用户
         this.baseMapper.insert(sysUser);

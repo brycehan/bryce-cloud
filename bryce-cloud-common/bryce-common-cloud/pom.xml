@@ -12,6 +12,7 @@
     <version>${revision}</version>
     <name>bryce-common-cloud</name>
     <description>bryce-common-cloud</description>
+    <packaging>pom</packaging>
 
     <!-- 依赖 -->
     <dependencies>
