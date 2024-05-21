@@ -1,13 +1,13 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.base.dto.ProfileDto;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.common.base.http.UserResponseStatus;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
-import com.brycehan.cloud.framework.security.JwtTokenProvider;
-import com.brycehan.cloud.common.base.LoginUser;
-import com.brycehan.cloud.framework.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.dto.ProfileDto;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
+import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
+import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.dto.SysUserPasswordDto;
 import com.brycehan.cloud.system.entity.SysUser;
 import com.brycehan.cloud.system.service.SysUserService;

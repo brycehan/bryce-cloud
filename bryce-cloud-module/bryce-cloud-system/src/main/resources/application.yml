@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: 8092
+  port: 9002
 
 # Spring
 spring:
@@ -25,6 +25,23 @@ spring:
       - optional:nacos:application-cache.yaml
       - optional:nacos:application-xxl-job.yaml
       - optional:nacos:bryce-cloud-system.yaml
+      - optional:nacos:application-seata-client.yaml
+
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server-addr}
+      namespace: ${spring.cloud.nacos.config.namespace}
+      group: SEATA_GROUP
+      data-id: seata-server.properties
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server-addr}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
+      group: SEATA_GROUP
+      application: seata-server
 
 logging:
   level:

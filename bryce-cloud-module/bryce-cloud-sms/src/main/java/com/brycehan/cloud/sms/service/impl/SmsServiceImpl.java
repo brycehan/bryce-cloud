@@ -1,7 +1,7 @@
 package com.brycehan.cloud.sms.service.impl;
 
 import com.brycehan.cloud.api.system.SysParamApi;
-import com.brycehan.cloud.common.constant.CacheConstants;
+import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

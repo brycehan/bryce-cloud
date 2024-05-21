@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.auth.service.AuthPasswordService;
-import com.brycehan.cloud.common.constant.CacheConstants;
+import com.brycehan.cloud.common.core.constant.CacheConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;

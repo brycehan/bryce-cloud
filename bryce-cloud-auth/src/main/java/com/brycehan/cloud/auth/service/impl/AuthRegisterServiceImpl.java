@@ -4,7 +4,7 @@ import com.brycehan.cloud.api.system.SysParamApi;
 import com.brycehan.cloud.api.system.SysUserApi;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
-import com.brycehan.cloud.common.base.dto.RegisterDto;
+import com.brycehan.cloud.common.core.base.dto.RegisterDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

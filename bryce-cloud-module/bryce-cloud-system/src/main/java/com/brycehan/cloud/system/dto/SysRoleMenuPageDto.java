@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.dto;
 
-import com.brycehan.cloud.common.base.entity.BasePageDto;
+import com.brycehan.cloud.common.core.base.entity.BasePageDto;
 import com.brycehan.cloud.system.entity.SysRoleMenu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

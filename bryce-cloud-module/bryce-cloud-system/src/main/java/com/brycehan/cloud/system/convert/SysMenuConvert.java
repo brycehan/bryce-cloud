@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.convert;
 
-import com.brycehan.cloud.common.base.vo.MenuVo;
+import com.brycehan.cloud.common.core.base.vo.MenuVo;
 import com.brycehan.cloud.system.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.SysMenu;
 import com.brycehan.cloud.system.vo.SysMenuVo;

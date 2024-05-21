@@ -1,14 +1,14 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.base.dto.IdsDto;
-import com.brycehan.cloud.common.base.entity.PageResult;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.common.validator.SaveGroup;
-import com.brycehan.cloud.common.validator.UpdateGroup;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
-import com.brycehan.cloud.common.base.LoginUser;
-import com.brycehan.cloud.framework.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.dto.IdsDto;
+import com.brycehan.cloud.common.core.base.entity.PageResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.validator.SaveGroup;
+import com.brycehan.cloud.common.core.validator.UpdateGroup;
+import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
+import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.convert.SysRoleConvert;
 import com.brycehan.cloud.system.dto.SysRoleDataScopeDto;
 import com.brycehan.cloud.system.dto.SysRoleDto;

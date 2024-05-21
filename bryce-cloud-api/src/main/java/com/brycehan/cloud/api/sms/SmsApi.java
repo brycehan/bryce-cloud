@@ -2,7 +2,7 @@ package com.brycehan.cloud.api.sms;
 
 import com.brycehan.cloud.api.ServerNames;
 import com.brycehan.cloud.api.fallback.SmsFallbackFactory;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

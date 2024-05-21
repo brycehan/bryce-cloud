@@ -1,8 +1,10 @@
 package com.brycehan.cloud.api.system;
 
 import com.brycehan.cloud.api.ServerNames;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -20,7 +22,8 @@ public interface SysAreaCodeApi {
      * @param areaCode 地区编码
      * @return 扩展名称
      */
-    ResponseResult<String> getExtNameByCode(@RequestParam String areaCode);
+    @GetMapping(path = "/api/sysArea/extNameByCode/{areaCode}")
+    ResponseResult<String> getExtNameByCode(@PathVariable @RequestParam String areaCode);
 
     /**
      * 获取地区位置
@@ -28,6 +31,7 @@ public interface SysAreaCodeApi {
      * @param areaCode 地区编码
      * @return 地区位置
      */
-    ResponseResult<String> getFullLocation(@RequestParam String areaCode);
+    @GetMapping(path = "/api/sysArea/fullLocation/{areaCode}")
+    ResponseResult<String> getFullLocation(@PathVariable @RequestParam String areaCode);
 
 }

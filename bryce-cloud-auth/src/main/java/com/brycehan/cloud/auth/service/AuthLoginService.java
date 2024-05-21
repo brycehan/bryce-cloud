@@ -1,10 +1,9 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.common.base.LoginUser;
-import com.brycehan.cloud.common.base.dto.AccountLoginDto;
-import com.brycehan.cloud.common.base.dto.PhoneLoginDto;
-import com.brycehan.cloud.common.base.vo.LoginVo;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;
+import com.brycehan.cloud.common.core.base.dto.PhoneLoginDto;
+import com.brycehan.cloud.common.core.base.vo.LoginVo;
 
 /**
  * 认证服务

@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.mybatis.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.brycehan.cloud.common.base.dto.IdsDto;
+import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.transaction.annotation.Transactional;
 

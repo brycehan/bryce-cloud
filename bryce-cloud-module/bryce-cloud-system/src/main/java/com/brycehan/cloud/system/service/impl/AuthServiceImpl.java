@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.brycehan.cloud.common.util.IpUtils;
-import com.brycehan.cloud.common.util.ServletUtils;
+import com.brycehan.cloud.common.core.util.IpUtils;
+import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.system.entity.SysUser;
 import com.brycehan.cloud.system.service.AuthService;
 import com.brycehan.cloud.system.service.SysUserService;

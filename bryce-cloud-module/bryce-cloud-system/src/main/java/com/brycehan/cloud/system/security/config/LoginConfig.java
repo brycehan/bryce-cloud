@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.security.config;
 
 import com.brycehan.cloud.api.sms.SmsApi;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

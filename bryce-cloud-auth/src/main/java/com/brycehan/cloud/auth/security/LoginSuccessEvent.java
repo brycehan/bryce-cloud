@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.security;
 
-import com.brycehan.cloud.common.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUser;
 import org.springframework.context.ApplicationEvent;
 
 /**

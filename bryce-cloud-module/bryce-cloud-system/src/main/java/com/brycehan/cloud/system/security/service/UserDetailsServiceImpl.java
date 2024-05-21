@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.security.service;
 
-import com.brycehan.cloud.common.util.MessageUtils;
+import com.brycehan.cloud.common.core.util.MessageUtils;
 import com.brycehan.cloud.system.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.SysUser;
 import com.brycehan.cloud.system.mapper.SysUserMapper;

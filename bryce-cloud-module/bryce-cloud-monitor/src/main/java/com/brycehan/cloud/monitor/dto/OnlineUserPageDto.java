@@ -1,6 +1,6 @@
 package com.brycehan.cloud.monitor.dto;
 
-import com.brycehan.cloud.common.base.entity.BasePageDto;
+import com.brycehan.cloud.common.core.base.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

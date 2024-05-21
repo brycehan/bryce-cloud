@@ -1,8 +1,8 @@
 package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.sms.SmsApi;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.framework.security.phone.PhoneCodeValidateService;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.auth.service.PhoneCodeValidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

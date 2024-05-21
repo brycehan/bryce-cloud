@@ -2,8 +2,8 @@ package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.SysUserApi;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
-import com.brycehan.cloud.common.base.LoginUser;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.system.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.SysUser;
 import com.brycehan.cloud.system.mapper.SysUserMapper;

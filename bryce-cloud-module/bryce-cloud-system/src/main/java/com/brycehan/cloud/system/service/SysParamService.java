@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.base.entity.PageResult;
-import com.brycehan.cloud.common.base.id.IdGenerator;
+import com.brycehan.cloud.common.core.base.entity.PageResult;
+import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.convert.SysParamConvert;
 import com.brycehan.cloud.system.dto.SysParamDto;

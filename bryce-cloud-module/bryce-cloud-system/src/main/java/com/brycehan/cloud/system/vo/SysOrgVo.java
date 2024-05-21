@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.vo;
 
 import cn.hutool.core.date.DatePattern;
-import com.brycehan.cloud.common.util.TreeNode;
+import com.brycehan.cloud.common.core.util.TreeNode;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

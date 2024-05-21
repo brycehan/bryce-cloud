@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.controller;
 
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.auth.vo.CaptchaVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

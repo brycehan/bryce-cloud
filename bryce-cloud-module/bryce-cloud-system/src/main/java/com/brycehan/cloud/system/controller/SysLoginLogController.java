@@ -1,10 +1,10 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.base.dto.IdsDto;
-import com.brycehan.cloud.common.base.entity.PageResult;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.core.base.dto.IdsDto;
+import com.brycehan.cloud.common.core.base.entity.PageResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
+import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.SysLoginLog;

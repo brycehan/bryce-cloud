@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.convert;
 
 import com.brycehan.cloud.api.system.vo.SysUserVo;
-import com.brycehan.cloud.common.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;

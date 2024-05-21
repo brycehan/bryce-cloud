@@ -1,9 +1,9 @@
 package com.brycehan.cloud.system.service.impl;
 
-import com.brycehan.cloud.common.base.LoginUser;
-import com.brycehan.cloud.common.base.http.UserResponseStatus;
-import com.brycehan.cloud.common.enums.DataScopeType;
-import com.brycehan.cloud.common.base.ServerException;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
+import com.brycehan.cloud.common.core.enums.DataScopeType;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.system.mapper.SysRoleDataScopeMapper;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
 import com.brycehan.cloud.system.service.SysMenuService;

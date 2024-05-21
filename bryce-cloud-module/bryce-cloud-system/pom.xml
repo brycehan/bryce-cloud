@@ -20,11 +20,15 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-framework</artifactId>
+            <artifactId>bryce-common-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-operatelog</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.convert;
 
-import com.brycehan.cloud.framework.operatelog.OperateLogDto;
+import com.brycehan.cloud.common.operatelog.aspect.OperateLogDto;
 import com.brycehan.cloud.system.dto.SysOperateLogDto;
 import com.brycehan.cloud.system.entity.SysOperateLog;
 import com.brycehan.cloud.system.vo.SysOperateLogVo;

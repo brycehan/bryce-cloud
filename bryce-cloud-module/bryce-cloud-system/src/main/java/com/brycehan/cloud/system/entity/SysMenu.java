@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.brycehan.cloud.common.base.entity.BaseEntity;
+import com.brycehan.cloud.common.core.base.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

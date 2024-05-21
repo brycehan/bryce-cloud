@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-framework</artifactId>
+            <artifactId>bryce-common-security</artifactId>
         </dependency>
         <!-- Mybatis Plus 框架 -->
         <dependency>
@@ -33,6 +33,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+        </dependency>
+        <!-- Seata -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
         <!-- easy-trans 数据翻译插件 -->
         <dependency>

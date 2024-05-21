@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.controller;
 
 import com.brycehan.cloud.api.sms.SmsApi;
-import com.brycehan.cloud.common.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.system.service.SysUserService;
 import com.brycehan.cloud.system.vo.SysUserVo;
 import io.swagger.v3.oas.annotations.Operation;

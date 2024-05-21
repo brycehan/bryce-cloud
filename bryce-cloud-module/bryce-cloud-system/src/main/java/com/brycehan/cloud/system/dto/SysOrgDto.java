@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.dto;
 
-import com.brycehan.cloud.common.util.TreeNode;
-import com.brycehan.cloud.common.validator.SaveGroup;
-import com.brycehan.cloud.common.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.util.TreeNode;
+import com.brycehan.cloud.common.core.validator.SaveGroup;
+import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

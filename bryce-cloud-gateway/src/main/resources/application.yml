@@ -20,9 +20,6 @@ spring:
     import:
       - optional:nacos:application.yaml
       - optional:nacos:bryce-cloud-gateway.yaml
-  web:
-    resources:
-      add-mappings: true
 
 knife4j:
   gateway:
@@ -31,5 +28,3 @@ knife4j:
       version: openapi3
       excluded-services:
         - bryce-cloud-gateway
-
-

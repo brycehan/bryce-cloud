@@ -1,10 +1,10 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.base.dto.RegisterDto;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.common.base.http.UserResponseStatus;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.framework.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.core.base.dto.RegisterDto;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
+import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
+import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.service.SysParamService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

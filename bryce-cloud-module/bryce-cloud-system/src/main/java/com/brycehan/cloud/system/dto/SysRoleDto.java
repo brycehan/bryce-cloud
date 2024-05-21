@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.dto;
 
-import com.brycehan.cloud.common.validator.SaveGroup;
-import com.brycehan.cloud.common.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.validator.SaveGroup;
+import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

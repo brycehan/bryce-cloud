@@ -76,7 +76,6 @@
 		<module>bryce-cloud-api</module>
 		<module>bryce-cloud-auth</module>
 		<module>bryce-cloud-common</module>
-		<module>bryce-cloud-framework</module>
 		<module>bryce-cloud-gateway</module>
 		<module>bryce-cloud-module</module>
 	</modules>
@@ -133,21 +132,14 @@
 			</dependency>
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-common-rabbitmq</artifactId>
+				<artifactId>bryce-common-operatelog</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-common-seata</artifactId>
+				<artifactId>bryce-common-security</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- 框架模块 -->
-			<dependency>
-				<groupId>com.brycehan.cloud</groupId>
-				<artifactId>bryce-cloud-framework</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
 			<!-- 模块组件 -->
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>

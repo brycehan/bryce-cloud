@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.common.base.dto.RegisterDto;
+import com.brycehan.cloud.common.core.base.dto.RegisterDto;
 
 /**
  * 注册服务类

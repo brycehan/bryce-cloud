@@ -1,8 +1,8 @@
 package com.brycehan.cloud.sms.controller;
 
 import com.brycehan.cloud.api.sms.SmsApi;
-import com.brycehan.cloud.common.base.http.ResponseResult;
-import com.brycehan.cloud.common.constant.CacheConstants;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
