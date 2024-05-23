@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.brycehan.cloud.system.entity.SysRoleDataScope;
+import com.brycehan.cloud.system.entity.po.SysRoleDataScope;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

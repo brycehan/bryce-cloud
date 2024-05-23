@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.brycehan.cloud.system.entity.SysDictType;
+import com.brycehan.cloud.system.entity.po.SysDictType;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

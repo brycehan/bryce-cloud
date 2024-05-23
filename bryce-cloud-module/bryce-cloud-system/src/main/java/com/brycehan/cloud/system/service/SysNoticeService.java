@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysNoticeConvert;
-import com.brycehan.cloud.system.dto.SysNoticeDto;
-import com.brycehan.cloud.system.dto.SysNoticePageDto;
-import com.brycehan.cloud.system.entity.SysNotice;
-import com.brycehan.cloud.system.vo.SysNoticeVo;
+import com.brycehan.cloud.system.entity.convert.SysNoticeConvert;
+import com.brycehan.cloud.system.entity.dto.SysNoticeDto;
+import com.brycehan.cloud.system.entity.dto.SysNoticePageDto;
+import com.brycehan.cloud.system.entity.po.SysNotice;
+import com.brycehan.cloud.system.entity.vo.SysNoticeVo;
 
 /**
  * 系统通知公告服务

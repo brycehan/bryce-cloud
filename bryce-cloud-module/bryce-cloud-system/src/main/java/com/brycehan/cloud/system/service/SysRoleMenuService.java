@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.SysRoleMenu;
+import com.brycehan.cloud.system.entity.po.SysRoleMenu;
 
 import java.util.List;
 

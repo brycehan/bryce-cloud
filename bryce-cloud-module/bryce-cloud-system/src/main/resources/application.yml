@@ -23,7 +23,7 @@ spring:
       - optional:nacos:application-endpoint.yaml
       - optional:nacos:application-feign.yaml
       - optional:nacos:application-sentinel.yaml
-      - optional:nacos:application-task.yaml
+      - optional:nacos:application-common.yaml
       - optional:nacos:application-xxl-job.yaml
       - optional:nacos:application-seata.yaml
       - optional:nacos:bryce-cloud-system.yaml

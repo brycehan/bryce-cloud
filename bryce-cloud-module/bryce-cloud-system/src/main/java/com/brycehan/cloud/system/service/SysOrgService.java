@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysOrgConvert;
-import com.brycehan.cloud.system.dto.SysOrgDto;
-import com.brycehan.cloud.system.dto.SysOrgPageDto;
-import com.brycehan.cloud.system.entity.SysOrg;
-import com.brycehan.cloud.system.vo.SysOrgVo;
+import com.brycehan.cloud.system.entity.convert.SysOrgConvert;
+import com.brycehan.cloud.system.entity.dto.SysOrgDto;
+import com.brycehan.cloud.system.entity.dto.SysOrgPageDto;
+import com.brycehan.cloud.system.entity.po.SysOrg;
+import com.brycehan.cloud.system.entity.vo.SysOrgVo;
 
 import java.util.List;
 

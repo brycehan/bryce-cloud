@@ -3,7 +3,7 @@
 <mapper namespace="com.brycehan.cloud.system.mapper.SysRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.brycehan.cloud.system.entity.SysRole">
+    <resultMap id="BaseResultMap" type="com.brycehan.cloud.system.entity.po.SysRole">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="code" property="code"/>

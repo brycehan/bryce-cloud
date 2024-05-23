@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.SysUserPost;
+import com.brycehan.cloud.system.entity.po.SysUserPost;
 
 import java.util.List;
 

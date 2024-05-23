@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.mapper;
 
 import com.brycehan.cloud.common.mybatis.mapper.BryceBaseMapper;
-import com.brycehan.cloud.system.entity.SysUserRole;
+import com.brycehan.cloud.system.entity.po.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

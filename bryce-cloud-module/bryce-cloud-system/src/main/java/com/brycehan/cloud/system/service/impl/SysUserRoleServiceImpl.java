@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.system.entity.SysUserRole;
+import com.brycehan.cloud.system.entity.po.SysUserRole;
 import com.brycehan.cloud.system.mapper.SysUserRoleMapper;
 import com.brycehan.cloud.system.service.SysUserRoleService;
 import org.apache.commons.collections4.CollectionUtils;

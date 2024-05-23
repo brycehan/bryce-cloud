@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysAttachmentConvert;
-import com.brycehan.cloud.system.dto.SysAttachmentDto;
-import com.brycehan.cloud.system.dto.SysAttachmentPageDto;
-import com.brycehan.cloud.system.entity.SysAttachment;
-import com.brycehan.cloud.system.vo.SysAttachmentVo;
+import com.brycehan.cloud.system.entity.convert.SysAttachmentConvert;
+import com.brycehan.cloud.system.entity.dto.SysAttachmentDto;
+import com.brycehan.cloud.system.entity.dto.SysAttachmentPageDto;
+import com.brycehan.cloud.system.entity.po.SysAttachment;
+import com.brycehan.cloud.system.entity.vo.SysAttachmentVo;
 
 /**
  * 系统附件服务

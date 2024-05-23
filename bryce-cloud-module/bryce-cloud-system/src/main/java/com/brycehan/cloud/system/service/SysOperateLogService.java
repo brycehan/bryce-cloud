@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysOperateLogConvert;
-import com.brycehan.cloud.system.dto.SysOperateLogDto;
-import com.brycehan.cloud.system.dto.SysOperateLogPageDto;
-import com.brycehan.cloud.system.entity.SysOperateLog;
-import com.brycehan.cloud.system.vo.SysOperateLogVo;
+import com.brycehan.cloud.system.entity.convert.SysOperateLogConvert;
+import com.brycehan.cloud.system.entity.dto.SysOperateLogDto;
+import com.brycehan.cloud.system.entity.dto.SysOperateLogPageDto;
+import com.brycehan.cloud.system.entity.po.SysOperateLog;
+import com.brycehan.cloud.system.entity.vo.SysOperateLogVo;
 
 /**
  * 系统操作日志服务

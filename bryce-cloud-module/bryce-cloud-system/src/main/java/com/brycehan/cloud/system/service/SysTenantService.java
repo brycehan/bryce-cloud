@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysTenantConvert;
-import com.brycehan.cloud.system.dto.SysTenantDto;
-import com.brycehan.cloud.system.dto.SysTenantPageDto;
-import com.brycehan.cloud.system.entity.SysTenant;
-import com.brycehan.cloud.system.vo.SysTenantVo;
+import com.brycehan.cloud.system.entity.convert.SysTenantConvert;
+import com.brycehan.cloud.system.entity.dto.SysTenantDto;
+import com.brycehan.cloud.system.entity.dto.SysTenantPageDto;
+import com.brycehan.cloud.system.entity.po.SysTenant;
+import com.brycehan.cloud.system.entity.vo.SysTenantVo;
 
 /**
  * 系统租户服务

@@ -3,12 +3,12 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysRoleConvert;
-import com.brycehan.cloud.system.dto.SysRoleDataScopeDto;
-import com.brycehan.cloud.system.dto.SysRoleDto;
-import com.brycehan.cloud.system.dto.SysRolePageDto;
-import com.brycehan.cloud.system.entity.SysRole;
-import com.brycehan.cloud.system.vo.SysRoleVo;
+import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
+import com.brycehan.cloud.system.entity.dto.SysRoleDataScopeDto;
+import com.brycehan.cloud.system.entity.dto.SysRoleDto;
+import com.brycehan.cloud.system.entity.dto.SysRolePageDto;
+import com.brycehan.cloud.system.entity.po.SysRole;
+import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 
 import java.util.List;
 

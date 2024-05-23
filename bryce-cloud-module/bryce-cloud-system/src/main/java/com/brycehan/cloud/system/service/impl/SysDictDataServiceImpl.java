@@ -6,12 +6,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.system.convert.SysDictDataConvert;
-import com.brycehan.cloud.system.dto.SysDictDataPageDto;
-import com.brycehan.cloud.system.entity.SysDictData;
+import com.brycehan.cloud.system.entity.convert.SysDictDataConvert;
+import com.brycehan.cloud.system.entity.dto.SysDictDataPageDto;
+import com.brycehan.cloud.system.entity.po.SysDictData;
 import com.brycehan.cloud.system.mapper.SysDictDataMapper;
 import com.brycehan.cloud.system.service.SysDictDataService;
-import com.brycehan.cloud.system.vo.SysDictDataVo;
+import com.brycehan.cloud.system.entity.vo.SysDictDataVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

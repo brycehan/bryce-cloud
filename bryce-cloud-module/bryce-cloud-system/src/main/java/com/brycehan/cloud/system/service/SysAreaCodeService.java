@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysAreaCodeConvert;
-import com.brycehan.cloud.system.dto.SysAreaCodeDto;
-import com.brycehan.cloud.system.dto.SysAreaCodePageDto;
-import com.brycehan.cloud.system.entity.SysAreaCode;
-import com.brycehan.cloud.system.vo.SysAreaCodeVo;
+import com.brycehan.cloud.system.entity.convert.SysAreaCodeConvert;
+import com.brycehan.cloud.system.entity.dto.SysAreaCodeDto;
+import com.brycehan.cloud.system.entity.dto.SysAreaCodePageDto;
+import com.brycehan.cloud.system.entity.po.SysAreaCode;
+import com.brycehan.cloud.system.entity.vo.SysAreaCodeVo;
 
 import java.util.List;
 

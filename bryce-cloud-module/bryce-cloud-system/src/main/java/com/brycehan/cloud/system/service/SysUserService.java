@@ -3,10 +3,10 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysUserConvert;
-import com.brycehan.cloud.system.dto.*;
-import com.brycehan.cloud.system.entity.SysUser;
-import com.brycehan.cloud.system.vo.SysUserVo;
+import com.brycehan.cloud.system.entity.convert.SysUserConvert;
+import com.brycehan.cloud.system.entity.dto.*;
+import com.brycehan.cloud.system.entity.po.SysUser;
+import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

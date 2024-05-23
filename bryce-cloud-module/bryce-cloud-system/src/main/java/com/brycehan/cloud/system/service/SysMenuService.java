@@ -4,11 +4,11 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysMenuConvert;
-import com.brycehan.cloud.system.dto.SysMenuDto;
-import com.brycehan.cloud.system.dto.SysMenuPageDto;
-import com.brycehan.cloud.system.entity.SysMenu;
-import com.brycehan.cloud.system.vo.SysMenuVo;
+import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
+import com.brycehan.cloud.system.entity.dto.SysMenuDto;
+import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
+import com.brycehan.cloud.system.entity.po.SysMenu;
+import com.brycehan.cloud.system.entity.vo.SysMenuVo;
 
 import java.util.List;
 import java.util.Set;

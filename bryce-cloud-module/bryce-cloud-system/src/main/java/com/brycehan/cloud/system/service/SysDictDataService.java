@@ -3,11 +3,11 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.convert.SysDictDataConvert;
-import com.brycehan.cloud.system.dto.SysDictDataDto;
-import com.brycehan.cloud.system.dto.SysDictDataPageDto;
-import com.brycehan.cloud.system.entity.SysDictData;
-import com.brycehan.cloud.system.vo.SysDictDataVo;
+import com.brycehan.cloud.system.entity.convert.SysDictDataConvert;
+import com.brycehan.cloud.system.entity.dto.SysDictDataDto;
+import com.brycehan.cloud.system.entity.dto.SysDictDataPageDto;
+import com.brycehan.cloud.system.entity.po.SysDictData;
+import com.brycehan.cloud.system.entity.vo.SysDictDataVo;
 
 /**
  * 系统字典数据服务
