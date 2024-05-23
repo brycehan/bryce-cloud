@@ -28,7 +28,11 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-api</artifactId>
+            <artifactId>bryce-cloud-system-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
         <!-- 测试框架 -->
         <dependency>

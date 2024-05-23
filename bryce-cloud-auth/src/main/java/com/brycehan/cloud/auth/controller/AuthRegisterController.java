@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.api.system.SysParamApi;
+import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.common.core.base.dto.RegisterDto;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
@@ -41,8 +41,9 @@ public class AuthRegisterController {
     @PostMapping
     public ResponseResult<Void> register(@Parameter(description = "注册参数", required = true) @Validated @RequestBody RegisterDto registerDto) {
         // 1、查询注册开关
-        boolean registerEnabled = this.sysParamApi.getBoolean("system.account.registerEnabled");
-        if (registerEnabled) {
+        ResponseResult<Boolean> registerEnabledResult = this.sysParamApi.getBoolean("system.account.registerEnabled");
+
+        if (registerEnabledResult.getCode() == 200 && registerEnabledResult.getData()) {
             // 2、注册
             this.authRegisterService.register(registerDto);
             return ResponseResult.ok();
@@ -59,8 +60,7 @@ public class AuthRegisterController {
     @Operation(summary = "获取注册开关")
     @GetMapping(path = "enabled")
     public ResponseResult<Boolean> registerEnabled() {
-        boolean registerEnabled = this.sysParamApi.getBoolean("system.account.registerEnabled");
-        return ResponseResult.ok(registerEnabled);
+        return this.sysParamApi.getBoolean("system.account.registerEnabled");
     }
 
 }

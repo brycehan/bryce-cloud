@@ -1,9 +1,10 @@
 package com.brycehan.cloud.auth.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.brycehan.cloud.api.system.SysParamApi;
+import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.security.config.properties.CaptchaProperties;
 import com.brycehan.cloud.common.security.utils.TokenUtils;
 import com.brycehan.cloud.auth.vo.CaptchaVo;
@@ -78,6 +79,7 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
 
     @Override
     public boolean isCaptchaEnabled() {
-        return this.sysParamApi.getBoolean("system.account.captchaEnabled");
+        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean("system.account.captchaEnabled");
+        return responseResult.getData();
     }
 }

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.api;
 
-import com.brycehan.cloud.api.system.SysUserApi;
+import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;

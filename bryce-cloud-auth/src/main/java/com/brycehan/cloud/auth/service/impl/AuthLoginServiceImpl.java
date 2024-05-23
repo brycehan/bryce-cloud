@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.service.impl;
 
-import com.brycehan.cloud.api.system.SysLoginLogApi;
-import com.brycehan.cloud.api.system.SysUserApi;
+import com.brycehan.cloud.api.system.api.SysLoginLogApi;
+import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.api.system.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.auth.security.LoginSuccessEvent;

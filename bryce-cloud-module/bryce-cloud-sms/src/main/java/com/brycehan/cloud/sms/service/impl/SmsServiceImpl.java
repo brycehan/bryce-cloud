@@ -1,6 +1,7 @@
 package com.brycehan.cloud.sms.service.impl;
 
-import com.brycehan.cloud.api.system.SysParamApi;
+import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,8 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public boolean isSmsEnabled() {
-        return this.sysParamApi.getBoolean("system.sms.enabled");
+        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean("system.sms.enabled");
+        return responseResult.getData();
     }
 
 }

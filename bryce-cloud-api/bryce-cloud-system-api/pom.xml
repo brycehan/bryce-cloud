@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.brycehan.cloud</groupId>
+        <artifactId>bryce-cloud-api</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>bryce-cloud-system-api</artifactId>
+    <version>${revision}</version>
+    <name>bryce-api-system</name>
+    <description>bryce-api-system</description>
+    <packaging>jar</packaging>
+
+    <!-- 依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-core</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

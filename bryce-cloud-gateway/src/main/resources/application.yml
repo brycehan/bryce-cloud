@@ -16,15 +16,34 @@ spring:
       config:
         namespace: dev
         group: bryce-cloud
+    sentinel:
+      datasource:
+        ds1:
+          # nacos 配置流控规则
+          nacos:
+            server-addr: ${spring.cloud.nacos.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: bryce-cloud
+            data-id: sentinel-gateway-flow-rules.json
+            data-type: json
+            rule-type: gw_flow
   config:
     import:
-      - optional:nacos:application.yaml
+      - optional:nacos:application-endpoint.yaml
+      - optional:nacos:application-sentinel.yaml
       - optional:nacos:bryce-cloud-gateway.yaml
 
 knife4j:
+  # 聚合 swagger 文档
   gateway:
+    enabled: true
+    # 指定服务发现的模式聚合微服务文档，并且是默认`default`分组
+    strategy: discover
     discover:
       enabled: true
       version: openapi3
       excluded-services:
         - bryce-cloud-gateway
+
+
+

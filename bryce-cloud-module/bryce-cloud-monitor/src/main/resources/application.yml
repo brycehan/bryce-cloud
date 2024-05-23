@@ -18,10 +18,6 @@ spring:
         group: bryce-cloud
   config:
     import:
-      - optional:nacos:application.yaml
-      - optional:nacos:application-bryce.yaml
+      - optional:nacos:application-common.yaml
       - optional:nacos:application-cache.yaml
-
-logging:
-  level:
-    com.brycehan: info
+      - optional:nacos:application-endpoint.yaml

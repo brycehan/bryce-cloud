@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-api</artifactId>
+            <artifactId>bryce-cloud-system-api</artifactId>
         </dependency>
         <!-- 代码生成器 -->
         <dependency>

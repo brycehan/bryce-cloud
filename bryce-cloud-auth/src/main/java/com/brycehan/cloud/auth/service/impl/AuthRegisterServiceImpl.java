@@ -1,10 +1,11 @@
 package com.brycehan.cloud.auth.service.impl;
 
-import com.brycehan.cloud.api.system.SysParamApi;
-import com.brycehan.cloud.api.system.SysUserApi;
+import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.common.core.base.dto.RegisterDto;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,7 +59,8 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
 
     @Override
     public boolean isCaptchaEnabled() {
-        return this.sysParamService.getBoolean("system.account.captchaEnabled");
+        ResponseResult<Boolean> responseResult = this.sysParamService.getBoolean("system.account.captchaEnabled");
+        return responseResult.getData();
     }
 
 }

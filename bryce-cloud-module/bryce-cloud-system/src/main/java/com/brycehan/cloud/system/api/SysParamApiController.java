@@ -1,14 +1,16 @@
 package com.brycehan.cloud.system.api;
 
-import com.brycehan.cloud.api.system.SysParamApi;
-import com.brycehan.cloud.api.system.dto.SysParamApiDto;
+import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.api.system.dto.SysParamDto;
 import com.brycehan.cloud.api.system.vo.SysParamApiVo;
-import com.brycehan.cloud.system.dto.SysParamDto;
+import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.system.entity.SysParam;
 import com.brycehan.cloud.system.service.SysParamService;
 import com.brycehan.cloud.system.vo.SysParamVo;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,42 +29,59 @@ public class SysParamApiController implements SysParamApi {
     private final SysParamService sysParamService;
 
     @Override
-    public void save(SysParamApiDto sysParamApiDto) {
-        SysParamDto sysParam = new SysParamDto();
-        BeanUtils.copyProperties(sysParamApiDto, sysParam);
+    public ResponseResult<Void> save(SysParamDto sysParamDto) {
+        SysParam sysParam = new SysParam();
+        BeanUtils.copyProperties(sysParamDto, sysParam);
         this.sysParamService.save(sysParam);
+        return ResponseResult.ok();
     }
 
     @Override
-    public void update(SysParamApiDto sysParamApiDto) {
-        SysParamDto sysParam = new SysParamDto();
-        BeanUtils.copyProperties(sysParamApiDto, sysParam);
-        this.sysParamService.update(sysParam);
+    public ResponseResult<Void> update(SysParamDto sysParamDto) {
+        SysParam sysParam = new SysParam();
+        BeanUtils.copyProperties(sysParamDto, sysParam);
+        if (sysParam.getId() == null) {
+            if (StringUtils.isNotEmpty(sysParam.getParamKey())) {
+                SysParamVo sysParamVo = this.sysParamService.getByParamKey(sysParam.getParamKey());
+                sysParam.setId(sysParamVo.getId());
+            }
+        }
+
+        if (sysParam.getId() == null) {
+            return ResponseResult.error("参数ID不能为空");
+        }
+
+        this.sysParamService.updateById(sysParam);
+
+        return ResponseResult.ok();
     }
 
     @Override
-    public Boolean exists(String paramKey) {
-        return this.sysParamService.exists(paramKey);
+    public ResponseResult<Boolean> exists(String paramKey) {
+        boolean exists = this.sysParamService.exists(paramKey);
+        return ResponseResult.ok(exists);
     }
 
     @Override
-    public SysParamApiVo getByParamKey(String paramKey) {
+    public ResponseResult<SysParamApiVo> getByParamKey(String paramKey) {
         SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
 
         SysParamApiVo sysParamApiVo = new SysParamApiVo();
         BeanUtils.copyProperties(sysParamVo, sysParamApiVo);
 
-        return sysParamApiVo;
+        return ResponseResult.ok(sysParamApiVo);
     }
 
     @Override
-    public String getString(String paramKey) {
-        return this.sysParamService.getString(paramKey);
+    public ResponseResult<String> getString(String paramKey) {
+        String string = this.sysParamService.getString(paramKey);
+        return ResponseResult.ok(string);
     }
 
     @Override
-    public Boolean getBoolean(String paramKey) {
-        return this.sysParamService.getBoolean(paramKey);
+    public ResponseResult<Boolean> getBoolean(String paramKey) {
+        boolean flag = this.sysParamService.getBoolean(paramKey);
+        return ResponseResult.ok(flag);
     }
 
 }

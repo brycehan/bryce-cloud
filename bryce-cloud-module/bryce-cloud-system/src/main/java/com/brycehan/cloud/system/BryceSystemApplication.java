@@ -4,7 +4,6 @@ import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /**
@@ -13,10 +12,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @since 2023/11/18
  * @author Bryce Han
  */
-@EnableFeignClients(basePackages = "com.brycehan.cloud")
-@EnableMethodCache(basePackages = "com.brycehan.cloud")
+@EnableMethodCache(basePackages = "com.brycehan.cloud.system")
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "com.brycehan.cloud")
+@SpringBootApplication
 public class BryceSystemApplication {
 
     public static void main(String[] args) {

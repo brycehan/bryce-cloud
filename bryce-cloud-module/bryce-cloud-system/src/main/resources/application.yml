@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: 9002
+  port: 9006
 
 # Spring
 spring:
@@ -18,14 +18,15 @@ spring:
         group: bryce-cloud
   config:
     import:
-      - optional:nacos:application.yaml
-      - optional:nacos:application-bryce.yaml
-      - optional:nacos:application-task.yaml
-      - optional:nacos:application-sms.yaml
+      - optional:nacos:application-common.yaml
       - optional:nacos:application-cache.yaml
+      - optional:nacos:application-endpoint.yaml
+      - optional:nacos:application-feign.yaml
+      - optional:nacos:application-sentinel.yaml
+      - optional:nacos:application-task.yaml
       - optional:nacos:application-xxl-job.yaml
+      - optional:nacos:application-seata.yaml
       - optional:nacos:bryce-cloud-system.yaml
-      - optional:nacos:application-seata-client.yaml
 
 seata:
   config:
@@ -42,7 +43,3 @@ seata:
       namespace: ${spring.cloud.nacos.discovery.namespace}
       group: SEATA_GROUP
       application: seata-server
-
-logging:
-  level:
-    com.brycehan: info

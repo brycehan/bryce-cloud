@@ -94,4 +94,8 @@ public class ResponseResult<T> implements Serializable {
         return error(serverException.getCode(), serverException.getMessage());
     }
 
+    public static <T> ResponseResult<T> fallback(String message) {
+        return error(600, message);
+    }
+
 }

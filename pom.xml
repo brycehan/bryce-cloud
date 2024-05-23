@@ -30,7 +30,7 @@
 		<mybatis-plus-join.version>1.4.7</mybatis-plus-join.version>
 		<dynamic-datasource.version>4.1.3</dynamic-datasource.version>
 		<p6spy.version>3.9.1</p6spy.version>
-		<dameng.version>8.1.2.79</dameng.version>
+		<dameng.version>8.1.2.141</dameng.version>
 		<!-- Swagger 接口文档 -->
 		<knife4j.version>4.5.0</knife4j.version>
 		<!-- 验证码组件 -->
@@ -101,6 +101,16 @@
 			<dependency>
 				<groupId>com.brycehan.cloud</groupId>
 				<artifactId>bryce-cloud-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-cloud-sms-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.brycehan.cloud</groupId>
+				<artifactId>bryce-cloud-system-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- 认证模块 -->

@@ -2,11 +2,11 @@ package com.brycehan.cloud.storage.controller;
 
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.brycehan.cloud.api.system.vo.StorageVo;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.storage.service.StorageService;
+import com.brycehan.cloud.storage.vo.StorageVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
