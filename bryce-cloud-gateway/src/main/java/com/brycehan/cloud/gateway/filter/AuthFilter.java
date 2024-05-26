@@ -40,7 +40,6 @@ import java.util.Map;
 @EnableConfigurationProperties(JwtProperties.class)
 public class AuthFilter implements GlobalFilter {
 
-    private final JwtProperties jwtProperties;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override

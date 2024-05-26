@@ -2,11 +2,11 @@ package com.brycehan.cloud.common.core.base;
 
 import com.brycehan.cloud.common.core.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.http.ResponseStatus;
-import com.brycehan.cloud.common.core.util.MessageUtils;
 import com.brycehan.cloud.common.core.util.StringFormatUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serial;
@@ -36,14 +36,9 @@ public class ServerException extends RuntimeException {
     private String message;
 
     /**
-     * 异常消息键
-     */
-    private String messageKey;
-
-    /**
      * 异常消息键对应的参数
      */
-    private Object[] messageArgs;
+    private String[] messageArgs;
 
     public ServerException(String message) {
         super(message);
@@ -77,11 +72,12 @@ public class ServerException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        if (StringUtils.isNotEmpty(this.messageKey)) {
-            return MessageUtils.getMessage(this.messageKey, this.messageArgs);
+        if (ArrayUtils.isNotEmpty(messageArgs)) {
+            return StringFormatUtils.format(message, messageArgs);
         } else if (StringUtils.isNotEmpty(message)) {
             return message;
         }
+
         return super.getMessage();
     }
 

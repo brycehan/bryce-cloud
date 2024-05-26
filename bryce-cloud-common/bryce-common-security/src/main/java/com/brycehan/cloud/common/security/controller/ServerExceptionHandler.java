@@ -1,15 +1,16 @@
 package com.brycehan.cloud.common.security.controller;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UploadResponseStatus;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
-import com.brycehan.cloud.common.core.base.ServerException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.core.env.Environment;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -33,10 +34,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class ServerExceptionHandler {
 
-    @Value("spring.servlet.multipart.max-request-size")
-    private String maxRequestSize;
+    private final Environment environment;
 
     /**
      * 数据绑定异常处理
@@ -85,7 +86,7 @@ public class ServerExceptionHandler {
     @ExceptionHandler(MultipartException.class)
     public ResponseResult<Void> handleException(MultipartException e) {
         log.info(" 上传异常，{}", e.getMessage());
-
+        String maxRequestSize = environment.getProperty("spring.servlet.multipart.max-request-size");
         return ResponseResult.error(UploadResponseStatus.UPLOAD_EXCEED_MAX_SIZE, maxRequestSize);
     }
 

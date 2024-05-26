@@ -1,7 +1,5 @@
 package com.brycehan.cloud.common.core.base.http;
 
-import com.brycehan.cloud.common.core.util.MessageUtils;
-
 /**
  * 响应状态
  *
@@ -30,7 +28,7 @@ public interface ResponseStatus {
      * @return 响应消息
      */
     default String message() {
-        return MessageUtils.getMessage(value());
+        return value();
     }
 
 }
