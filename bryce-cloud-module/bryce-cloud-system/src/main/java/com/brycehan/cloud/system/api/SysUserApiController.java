@@ -52,6 +52,21 @@ public class SysUserApiController implements SysUserApi {
 
         if (sysUser == null) {
             log.debug("loadUserByPhone, 登录用户：{}不存在.", phone);
+            return ResponseResult.error("用户名或密码错误");
+        }
+
+        // 创建用户详情
+        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertLoginUser(sysUser));
+        return ResponseResult.ok((LoginUser) userDetails);
+    }
+
+    @Override
+    public ResponseResult<LoginUser> loadUserById(Long id) {
+        // 查询用户
+        SysUser sysUser = sysUserMapper.selectById(id);
+
+        if (sysUser == null) {
+            log.debug("登录用户ID：{}不存在.", id);
             return ResponseResult.error("手机号或验证错误");
         }
 

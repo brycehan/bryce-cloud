@@ -5,6 +5,7 @@ import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022/1/1
  * @author Bryce Han
  */
+@Primary
 @FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, contextId = "sysUser")
 public interface SysUserApi {
 
@@ -23,7 +25,7 @@ public interface SysUserApi {
      *
      * @return paramKey 是否存在
      */
-    @GetMapping(path = "/api/user/{username}")
+    @GetMapping(path = "/api/user/username/{username}")
     ResponseResult<LoginUser> loadUserByUsername(@PathVariable String username);
 
     /**
@@ -35,6 +37,15 @@ public interface SysUserApi {
      */
     @GetMapping(path = "/api/user/phone/{phone}")
     ResponseResult<LoginUser> loadUserByPhone(@PathVariable String phone);
+
+    /**
+     * 获取登录对象
+     *
+     * @param id 用户ID
+     * @return 登录对象
+     */
+    @GetMapping(path = "/api/user/id/{id}")
+    ResponseResult<LoginUser> loadUserById(@PathVariable Long id);
 
     /**
      * 更新登录信息

@@ -1,13 +1,13 @@
 package com.brycehan.cloud.auth.controller;
 
 import com.brycehan.cloud.api.system.vo.SysUserVo;
-import com.brycehan.cloud.auth.convert.SysUserConvert;
+import com.brycehan.cloud.auth.entity.convert.SysUserConvert;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.base.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.vo.LoginVo;
-import com.brycehan.cloud.common.security.utils.TokenUtils;
+import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -75,9 +75,9 @@ public class AuthLoginController {
      * @return 响应结果
      */
     @Operation(summary = "退出登录")
-    @GetMapping(path = "/quit")
-    public ResponseResult<Void> quit(HttpServletRequest request) {
-        this.authLoginService.logout(TokenUtils.getAccessToken(request));
+    @GetMapping(path = "/logout")
+    public ResponseResult<Void> logout(HttpServletRequest request) {
+        this.authLoginService.logout(LoginUserContext.currentUser());
         return ResponseResult.ok();
     }
 

@@ -14,13 +14,54 @@ public class JwtConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
 
     /**
-     * 登录用户令牌key
+     * 登录用户key
      */
+    public static final String USER_KEY = "user_key";
+
+    /**
+     * 登录用户数据
+     */
+    public static final String USER_DATA = "user_data";
+
+    /**
+     * 内部调用header
+     */
+    public static final String INNER_CALL_HEADER = "inner-call";
+
     public static final String LOGIN_USER_KEY = "login_user";
+
+    /**
+     * H5登录用户令牌key
+     */
+    public static final String LOGIN_USER_H5_KEY = "login_user:h5";
+
+    /**
+     * 微信小程序登录用户令牌key
+     */
+    public static final String LOGIN_USER_MA_KEY = "login_user:miniApp";
+    /**
+     * App登录用户令牌key
+     */
+    public static final String LOGIN_USER_APP_KEY = "login_user:app";
+
+    /**
+     * 登录用户ID
+     */
+    public static final String LOGIN_USER_ID = "id";
+
+    /**
+     * 登录用户openid
+     */
+    public static final String LOGIN_OPEN_ID = "openid";
 
     /**
      * 刷新最小分钟数
      */
-    public static final long REFRESH_LIMIT_MIN_MINUTE = 20L;
+    public static final long REFRESH_LIMIT_MIN_MINUTE = 30L;
+
+    /**
+     * APP默认过期分钟数
+     */
+    public static final long APP_EXPIRE_MINUTE = 30 * 24 * 60L;
 
 }

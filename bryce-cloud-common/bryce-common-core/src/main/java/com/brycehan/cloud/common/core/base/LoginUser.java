@@ -53,9 +53,9 @@ public class LoginUser implements UserDetails {
     private Boolean superAdmin;
 
     /**
-     * 用户令牌存储Key
+     * 用户存储Key
      */
-    private String tokenKey;
+    private String userKey;
 
     /**
      * 登录时间
@@ -86,6 +86,17 @@ public class LoginUser implements UserDetails {
      * 操作系统
      */
     private String os;
+
+    /**
+     * 来源客户端（pc、app、miniApp）
+     */
+    private String sourceClient;
+
+
+    /**
+     * 小程序openId
+     */
+    private String openId;
 
     /**
      * 帐户是否未过期

@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.auth.vo.CaptchaVo;
+import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 
 /**
  * 验证码服务

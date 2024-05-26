@@ -42,6 +42,6 @@ public interface AuthLoginService {
      *
      * @param accessToken 访问令牌
      */
-    void logout(String accessToken);
+    void logout(LoginUser loginUser);
 
 }

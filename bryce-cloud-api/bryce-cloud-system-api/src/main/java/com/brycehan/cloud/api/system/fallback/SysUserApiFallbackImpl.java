@@ -33,6 +33,11 @@ public class SysUserApiFallbackImpl implements FallbackFactory<SysUserApi> {
             }
 
             @Override
+            public ResponseResult<LoginUser> loadUserById(Long id) {
+                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+            }
+
+            @Override
             public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
                 return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
             }
