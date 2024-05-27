@@ -1,9 +1,8 @@
-package com.brycehan.cloud.gateway.filter;
+package com.brycehan.cloud.gateway.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
@@ -23,24 +22,13 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtTokenProvider {
+public class JwtTokenParser {
 
     /**
      * jwt密钥
      */
-    @Value("${bryce.jwt.secret}")
+    @Value("${bryce.auth.jwt.secret}")
     private String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
-
-    /**
-     * 从令牌中获取数据声明
-     *
-     * @param token 令牌
-     * @return 数据声明
-     */
-    public Map<String, Claim> parseToken(String token) {
-        DecodedJWT jwt = JWT.decode(token);
-        return jwt.getClaims();
-    }
 
     /**
      * 获取用户key
@@ -76,15 +64,12 @@ public class JwtTokenProvider {
      * @param authToken 令牌
      * @return 校验令牌是否有效（true：有效，false：无效）
      */
-    public boolean validateToken(String authToken) {
+    public DecodedJWT validateToken(String authToken) {
         Algorithm algorithm = Algorithm.HMAC256(this.jwtSecret);
         JWTVerifier verifier = JWT.require(algorithm).build();
-        try {
-            verifier.verify(authToken);
-            return true;
-        } catch (JWTVerificationException e) {
-            return false;
-        }
+
+        return verifier.verify(authToken);
+
     }
 
 }

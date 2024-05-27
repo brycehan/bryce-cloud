@@ -1,4 +1,4 @@
-package com.brycehan.cloud.gateway.filter;
+package com.brycehan.cloud.gateway.utils;
 
 
 import cn.hutool.core.util.StrUtil;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 /**
  * 令牌工具类
@@ -21,15 +20,6 @@ import java.util.UUID;
 public class TokenUtils {
 
     public static final String SOURCE_CLIENT_HEADER = "source-client";
-
-    /**
-     * 生成安全的uuid
-     *
-     * @return uuid
-     */
-    public static String uuid() {
-        return UUID.randomUUID().toString();
-    }
 
     /**
      * 获取请求携带的令牌

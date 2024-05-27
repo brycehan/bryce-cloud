@@ -1,7 +1,5 @@
 package com.brycehan.cloud.monitor.vo;
 
-import com.fhs.core.trans.anno.Trans;
-import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -73,10 +71,10 @@ public class OnlineUserVo implements Serializable, TransPojo {
     private String orgName;
 
     /**
-     * 用户令牌存储Key
+     * 用户存储Key
      */
-    @Schema(description = "用户令牌存储Key")
-    private String tokenKey;
+    @Schema(description = "用户存储Key")
+    private String userKey;
 
     /**
      * 登录时间

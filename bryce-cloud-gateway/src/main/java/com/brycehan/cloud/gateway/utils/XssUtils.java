@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.xss;
+package com.brycehan.cloud.gateway.utils;
 
 import cn.hutool.core.util.StrUtil;
 import org.jsoup.Jsoup;

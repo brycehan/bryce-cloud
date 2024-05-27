@@ -22,4 +22,5 @@ spring:
       - optional:nacos:application-cache.yaml
       - optional:nacos:application-endpoint.yaml
       - optional:nacos:application-sentinel.yaml
+      - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-sms.yaml

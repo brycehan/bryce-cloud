@@ -33,15 +33,6 @@ public class CacheConstants {
      */
     public static final String SYS_DICT_KEY = "sys_dict:";
 
-    /**
-     * 防重提交键
-     */
-    public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
-
-    /**
-     * 限流键
-     */
-    public static final String RATE_LIMIT_KEY = "rate_limit:";
 
     /**
      * 登录账户密码错误次数键

@@ -2,12 +2,12 @@ package com.brycehan.cloud.auth.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
+import com.brycehan.cloud.auth.security.config.CaptchaProperties;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
-import com.brycehan.cloud.common.security.config.properties.CaptchaProperties;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
-import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;

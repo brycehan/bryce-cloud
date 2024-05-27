@@ -14,10 +14,34 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AuthProperties {
 
     /**
+     * Jwt 配置属性
+     */
+    private Jwt jwt;
+
+    /**
      * 忽略的资源地址
      */
     private IgnoreUrls ignoreUrls;
 
+    @Data
+    public static class Jwt {
+
+        /**
+         * 密钥
+         */
+        private String secret;
+
+        /**
+         * 授权key
+         */
+        private String authoritiesKey = "auth";
+
+        /**
+         * token有效期
+         */
+        private long tokenValidityInSeconds = 2 * 3600L;
+
+    }
 
     @Data
     public static class IgnoreUrls {

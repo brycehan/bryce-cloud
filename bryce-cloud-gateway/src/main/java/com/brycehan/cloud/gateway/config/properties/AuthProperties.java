@@ -2,7 +2,6 @@ package com.brycehan.cloud.gateway.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 认证属性
@@ -11,42 +10,58 @@ import org.springframework.context.annotation.Configuration;
  * @author Bryce Han
  */
 @Data
-@Configuration
 @ConfigurationProperties(prefix = "bryce.auth")
 public class AuthProperties {
 
     /**
      * 忽略的资源地址
      */
-    private IgnoreUrls ignoreUrls;
+    private String[] ignoreUrls = {};
+
+    /**
+     * Jwt 配置属性
+     */
+    private Jwt jwt;
+
+    /**
+     * Xss 配置属性
+     */
+    private Xss xss;
 
 
     @Data
-    public static class IgnoreUrls {
+    public static class Jwt {
 
         /**
-         * GET 类型忽略的资源地址
+         * 密钥
          */
-        private String[] get = { "/webjars/**", "/swagger-ui/**", "/swagger-resources/**", "/v3/controller-docs/**"};
+        private String secret;
 
         /**
-         * POST 类型忽略的资源地址
+         * 授权key
          */
-        private String[] post = {};
+        private String authoritiesKey = "auth";
 
         /**
-         * PUT 类型忽略的资源地址
+         * token有效期
          */
-        private String[] put = {};
+        private long tokenValidityInSeconds = 2 * 3600L;
 
-        /**
-         * DELETE 类型忽略的资源地址
-         */
-        private String[] delete = {};
-
-        /**
-         * 所有类型忽略的资源地址
-         */
-        private String[] all = {};
     }
+
+    @Data
+    public static class Xss {
+
+        /**
+         * 是否开启 XSS
+         */
+        private boolean enabled;
+
+        /**
+         * 忽略的URL列表
+         */
+        private String[] ignoreUrls = {};
+
+    }
+
 }

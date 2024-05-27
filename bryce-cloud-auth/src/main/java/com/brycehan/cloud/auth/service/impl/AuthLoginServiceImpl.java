@@ -62,8 +62,6 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             throw new RuntimeException("验证码错误");
         }
 
-        // IP 黑名单校验
-
         Authentication authentication;
         try {
             // 设置需要认证的用户信息

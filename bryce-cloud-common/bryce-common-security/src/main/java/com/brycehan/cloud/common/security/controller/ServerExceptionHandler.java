@@ -9,8 +9,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.core.env.Environment;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -37,7 +37,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ServerExceptionHandler {
 
-    private final Environment environment;
+    @Value("${spring.servlet.multipart.max-request-size}")
+    private String maxRequestSize;
 
     /**
      * 数据绑定异常处理
@@ -86,8 +87,7 @@ public class ServerExceptionHandler {
     @ExceptionHandler(MultipartException.class)
     public ResponseResult<Void> handleException(MultipartException e) {
         log.info(" 上传异常，{}", e.getMessage());
-        String maxRequestSize = environment.getProperty("spring.servlet.multipart.max-request-size");
-        return ResponseResult.error(UploadResponseStatus.UPLOAD_EXCEED_MAX_SIZE, maxRequestSize);
+        return ResponseResult.error(UploadResponseStatus.UPLOAD_EXCEED_MAX_SIZE, this.maxRequestSize);
     }
 
     /**

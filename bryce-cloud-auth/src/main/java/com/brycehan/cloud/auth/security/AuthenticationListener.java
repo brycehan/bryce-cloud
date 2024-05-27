@@ -5,7 +5,6 @@ import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.api.system.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.constant.CommonConstants;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +65,7 @@ public class AuthenticationListener {
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(username);
-        sysLoginLogDto.setStatus(CommonConstants.LOGIN_FAIL);
+        sysLoginLogDto.setStatus(DataConstants.FAIL);
         sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.getValue());
         this.sysLoginLogApi.save(sysLoginLogDto);
     }

@@ -54,5 +54,4 @@ public class DataConstants {
      */
     public static final boolean DEFAULT_SORT_IS_ASC = true;
 
-    public static final String PG_DRIVER = "org.postgresql.Driver";
 }
