@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Jwt认证过滤器
@@ -56,7 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(StringUtils.isNotEmpty(userKey)) {
             loginUser = this.jwtTokenProvider.loadLoginUser(userKey);
         } else if (StringUtils.isNotEmpty(userData)) {
-            loginUser = JsonUtils.readValue(userData, LoginUser.class);
+            loginUser = JsonUtils.readValue(URLDecoder.decode(userData, StandardCharsets.UTF_8), LoginUser.class);
         }
 
         if(loginUser == null) {

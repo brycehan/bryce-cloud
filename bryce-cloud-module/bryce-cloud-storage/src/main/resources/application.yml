@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: 9005
+  port: 9015
 
 # Spring
 spring:
@@ -24,3 +24,4 @@ spring:
       - optional:nacos:application-sentinel.yaml
       - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-storage.yaml
+
