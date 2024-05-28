@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Slf4j
 public class TokenUtils {
 
-    public static final String SOURCE_CLIENT_HEADER = "source-client";
+    public static final String SOURCE_CLIENT_HEADER = "X-Source-Client";
 
     /**
      * 生成安全的uuid

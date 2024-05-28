@@ -1,14 +1,20 @@
 package com.brycehan.cloud.common.security.config;
 
+import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * Swagger 接口配置
@@ -51,7 +57,6 @@ public class SwaggerConfig {
                         new Components()
                                 .addSecuritySchemes(SECURITY_SCHEME_KEY,
                                         new SecurityScheme()
-                                                .name(SECURITY_SCHEME_NAME)
                                                 .type(SecurityScheme.Type.HTTP)
                                                 .scheme("bearer")
                                                 .bearerFormat("JWT")
@@ -64,6 +69,22 @@ public class SwaggerConfig {
                         .version(apiVersion)
                         .termsOfService(termsOfService)
                 );
+    }
+
+    @Bean
+    public GlobalOpenApiCustomizer globalOpenApiCustomizer() {
+        HeaderParameter headerParameter = new HeaderParameter();
+        headerParameter.setName(TokenUtils.SOURCE_CLIENT_HEADER);
+        headerParameter.setRequired(true);
+        headerParameter.setDescription("来源客户端");
+
+        StringSchema stringSchema = new StringSchema();
+        stringSchema._enum(List.of("pc", "h5", "app"));
+        stringSchema._default("pc");
+        headerParameter.setSchema(stringSchema);
+
+        return openApi -> openApi.getPaths().values().stream().flatMap(pathItem -> pathItem.readOperations().stream())
+                .forEach(operation -> operation.addParametersItem(headerParameter));
     }
 
 }
