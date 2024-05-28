@@ -39,4 +39,9 @@ public class CacheConstants {
      */
     public static final String PASSWORD_ERROR_COUNT_KEY = "account:password_error_count:";
 
+    /**
+     * workerId分布式锁
+     */
+    public static final String WORKER_ID_LOCK = "worker_id_lock";
+
 }

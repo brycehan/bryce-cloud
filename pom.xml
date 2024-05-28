@@ -38,7 +38,7 @@
 		<!-- 验证码组件 -->
 		<captcha.version>1.6.2</captcha.version>
 		<!-- Redis -->
-		<redisson.version>3.24.3</redisson.version>
+		<redisson.version>3.30.0</redisson.version>
 		<jetcache.version>2.7.5</jetcache.version>
 		<!-- ID 生成 -->
 		<yitter-idgenerator.version>1.0.6</yitter-idgenerator.version>

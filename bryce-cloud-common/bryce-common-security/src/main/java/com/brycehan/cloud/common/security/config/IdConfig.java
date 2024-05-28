@@ -7,12 +7,15 @@ import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.security.config.properties.IdProperties;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +34,7 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(IdProperties.class)
-public class IdConfig {
+public class IdConfig implements InitializingBean {
 
     private final IdProperties idProperties;
 
@@ -45,19 +48,30 @@ public class IdConfig {
 
     private final NacosDiscoveryProperties nacosDiscoveryProperties;
 
+    private final RedissonClient redissonClient;
+
     public static final String WORKER_Id = "worker_id";
 
     /**
      * 注册服务的时候同时注册workerId
      */
-    @PostConstruct
-    public void init(){
+    @Override
+    public void afterPropertiesSet(){
         Map<String, String> metadata = nacosDiscoveryProperties.getMetadata();
-        int workerId = getWorkerId();
+        // 获取分布式可重入锁
+        RLock lock = this.redissonClient.getLock(CacheConstants.WORKER_ID_LOCK);
+        lock.lock();
+        int workerId;
+        try {
+            workerId = getWorkerId();
+        } finally {
+            lock.unlock();
+        }
+
         metadata.put(WORKER_Id, String.valueOf(workerId));
         nacosDiscoveryProperties.setMetadata(metadata);
 
-        log.info("注册workerId[{}]到Nacos", workerId);
+        log.info("注册workerId[{}]到 Nacos", workerId);
 
         // 创建 IdGeneratorOptions 对象，可在构造函数中输入 WorkerId：
         IdGeneratorOptions options = new IdGeneratorOptions((short) workerId);
