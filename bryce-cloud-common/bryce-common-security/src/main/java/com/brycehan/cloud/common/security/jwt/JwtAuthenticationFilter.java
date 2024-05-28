@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.jwt;
+package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.jwt;
+package com.brycehan.cloud.common.security.jwt;
 
 import com.brycehan.cloud.common.core.base.http.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;

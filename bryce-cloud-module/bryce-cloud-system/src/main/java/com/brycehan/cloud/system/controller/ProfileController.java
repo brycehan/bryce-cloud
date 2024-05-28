@@ -5,7 +5,7 @@ import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.common.security.common.jwt.JwtTokenProvider;
+import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.dto.SysUserPasswordDto;

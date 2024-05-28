@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common;
+package com.brycehan.cloud.auth.security;
 
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
@@ -31,8 +31,6 @@ public class LoginUserDetailsCheck implements UserDetailsChecker {
 
     @Override
     public void check(UserDetails toCheck) {
-        // 用户已删除
-
         log.debug("用户参数：{}", JsonUtils.writeValueAsString(toCheck));
 
         // 超过密码错误最大次数锁定账户

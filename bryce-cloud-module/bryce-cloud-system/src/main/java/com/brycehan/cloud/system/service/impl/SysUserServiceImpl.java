@@ -16,7 +16,7 @@ import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.common.security.common.jwt.JwtTokenProvider;
+import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;

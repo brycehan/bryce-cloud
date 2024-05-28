@@ -17,7 +17,7 @@ import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
-import com.brycehan.cloud.common.security.common.jwt.JwtTokenProvider;
+import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

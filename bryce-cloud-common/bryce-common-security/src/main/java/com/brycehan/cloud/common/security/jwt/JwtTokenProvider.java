@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.jwt;
+package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.useragent.UserAgent;

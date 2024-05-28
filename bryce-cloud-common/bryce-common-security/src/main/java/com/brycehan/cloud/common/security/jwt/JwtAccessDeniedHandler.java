@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.jwt;
+package com.brycehan.cloud.common.security.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
