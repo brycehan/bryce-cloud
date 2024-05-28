@@ -73,18 +73,20 @@ public class SwaggerConfig {
 
     @Bean
     public GlobalOpenApiCustomizer globalOpenApiCustomizer() {
-        HeaderParameter headerParameter = new HeaderParameter();
-        headerParameter.setName(TokenUtils.SOURCE_CLIENT_HEADER);
-        headerParameter.setRequired(true);
-        headerParameter.setDescription("来源客户端");
+        HeaderParameter sourceClientHeaderParameter = new HeaderParameter();
+        sourceClientHeaderParameter.setName(TokenUtils.SOURCE_CLIENT_HEADER);
+        sourceClientHeaderParameter.setRequired(true);
+        sourceClientHeaderParameter.setDescription("来源客户端");
 
         StringSchema stringSchema = new StringSchema();
         stringSchema._enum(List.of("pc", "h5", "app"));
         stringSchema._default("pc");
-        headerParameter.setSchema(stringSchema);
+        sourceClientHeaderParameter.setSchema(stringSchema);
 
         return openApi -> openApi.getPaths().values().stream().flatMap(pathItem -> pathItem.readOperations().stream())
-                .forEach(operation -> operation.addParametersItem(headerParameter));
+                .forEach(operation -> operation
+                        .addParametersItem(sourceClientHeaderParameter)
+                );
     }
 
 }
