@@ -2,15 +2,18 @@ package com.brycehan.cloud.auth.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.security.config.CaptchaProperties;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @author Bryce Han
  * @since 2023/10/4
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthCaptchaServiceImpl implements AuthCaptchaService {
@@ -45,6 +49,8 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
         String captchaKey = RedisKeys.getCaptchaKey(key);
         String captchaValue = captcha.text();
 
+        log.debug("图片验证码key：{}, 值：{}", key, captchaValue);
+
         // 存储到 Redis
         this.stringRedisTemplate.opsForValue()
                 .set(captchaKey, captchaValue, captchaProperties.getExpiration(), TimeUnit.MINUTES);
@@ -58,9 +64,9 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
     }
 
     @Override
-    public boolean validate(String key, String code) {
+    public boolean validate(String key, String code, CaptchaType captchaType) {
         // 如果关闭了验证码，则直接校验通过
-        if (!isCaptchaEnabled()) {
+        if (!captchaEnabled(captchaType)) {
             return true;
         }
 
@@ -78,8 +84,19 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
     }
 
     @Override
-    public boolean isCaptchaEnabled() {
-        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean("system.account.captchaEnabled");
-        return responseResult.getData();
+    public boolean captchaEnabled(CaptchaType captchaType) {
+        if (captchaType == null) {
+            return false;
+        }
+        if (CaptchaType.LOGIN.equals(captchaType)) {
+            ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_LOGIN_CAPTCHA_ENABLED);
+            return responseResult.getData();
+        }
+        if (CaptchaType.REGISTER.equals(captchaType)) {
+            ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_CAPTCHA_ENABLED);
+            return responseResult.getData();
+        }
+
+        return false;
     }
 }

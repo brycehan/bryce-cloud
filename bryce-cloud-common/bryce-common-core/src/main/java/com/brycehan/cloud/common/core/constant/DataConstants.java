@@ -33,7 +33,7 @@ public class DataConstants {
     /**
      * 默认角色ID
      */
-    public static final Long DEFAULT_ROLE_ID = -1L;
+    public static final Long DEFAULT_ROLE_ID = 2L;
 
     /** 分页页码 */
     public static final String PAGE = "page";

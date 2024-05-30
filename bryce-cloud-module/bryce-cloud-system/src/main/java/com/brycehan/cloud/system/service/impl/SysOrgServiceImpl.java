@@ -118,6 +118,9 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
 
     @Override
     public List<Long> getSubOrgIds(Long id) {
+        if (id == null) {
+            return new ArrayList<>();
+        }
         LambdaQueryWrapper<SysOrg> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(SysOrg::getId, SysOrg::getParentId);
 

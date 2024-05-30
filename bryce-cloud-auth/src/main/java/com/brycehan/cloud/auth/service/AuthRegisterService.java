@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.common.core.base.dto.RegisterDto;
+import com.brycehan.cloud.api.system.dto.RegisterDto;
 
 /**
  * 注册服务类
@@ -31,6 +31,14 @@ public interface AuthRegisterService {
      *
      * @return 开启标识（true：开启，false：关闭）
      */
-    boolean isCaptchaEnabled();
+    boolean captchaEnabled();
+
+    /**
+     * 校验用户名是否可注册
+     *
+     * @param username 用户名
+     * @return 校验结果（true：可注册，false：不可注册）
+     */
+    boolean checkUsername(String username);
 
 }

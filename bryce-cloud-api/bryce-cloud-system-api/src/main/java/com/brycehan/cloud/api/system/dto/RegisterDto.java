@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.core.base.dto;
+package com.brycehan.cloud.api.system.dto;
 
 import com.brycehan.cloud.common.core.constant.UserConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,6 +23,13 @@ public class RegisterDto {
     @Size(min = UserConstants.USERNAME_MIN_LENGTH, max = UserConstants.USERNAME_MAX_LENGTH)
     @Schema(description = "账号")
     private String username;
+
+    /**
+     * 姓名
+     */
+    @Size(max = 50)
+    @Schema(description = "姓名")
+    private String fullName;
 
     /**
      * 密码

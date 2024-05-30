@@ -90,7 +90,6 @@ create table brc_sys_user
 
 -- 初始化-系统用户表数据
 INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, type, phone, email, sort, org_id, super_admin, status, remark, account_non_locked, last_login_ip, last_login_time, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, 'admin', '$2a$10$TPs3BLw2Ag9iZ5bxo./GsuR2BRqUz5J2KQh6h2aSvwQ6Vi.3LzQB6', '管理员', null, 'M', 0, '15853155402', 'brycehan@163.com', 0, 103, 1, 1, '超级管理员', 1, '127.0.0.1', now(), null, 0, 1, now(), null, now());
-INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, type, phone, email, sort, org_id, super_admin, status, remark, account_non_locked, last_login_ip, last_login_time, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, 'brycehan', '$2a$10$H/0p9EJPQjYAspbCO85QzuDXs4v36TvdWftjx1HJSWhVoSQ85GtHi', 'Bryce Han', null, 'M', 0, '15800008888', 'brycehan7@gmail.com', 0, 105, 0, 1, '租户管理员', 1, '127.0.0.1', now(), null, 0, 1, now(), null, now());
 
 -- 3、系统角色表
 create table brc_sys_role

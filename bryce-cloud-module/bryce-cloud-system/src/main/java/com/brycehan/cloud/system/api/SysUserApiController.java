@@ -1,16 +1,20 @@
 package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.api.SysUserApi;
+import com.brycehan.cloud.api.system.dto.SysUserDto;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.api.system.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.mapper.SysUserMapper;
 import com.brycehan.cloud.system.service.SysUserDetailsService;
+import com.brycehan.cloud.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysUserApiController implements SysUserApi {
 
     private final SysUserMapper sysUserMapper;
+    private final SysUserService sysUserService;
 
     private final SysUserDetailsService sysUserDetailsService;
 
@@ -37,7 +42,7 @@ public class SysUserApiController implements SysUserApi {
 
         if (sysUser == null) {
             log.debug("loadUserByUsername, 登录用户：{}不存在.", username);
-            return ResponseResult.error("用户名或密码错误");
+            return ResponseResult.ok();
         }
 
         // 创建用户详情
@@ -52,7 +57,7 @@ public class SysUserApiController implements SysUserApi {
 
         if (sysUser == null) {
             log.debug("loadUserByPhone, 登录用户：{}不存在.", phone);
-            return ResponseResult.error("用户名或密码错误");
+            return ResponseResult.ok();
         }
 
         // 创建用户详情
@@ -73,6 +78,19 @@ public class SysUserApiController implements SysUserApi {
         // 创建用户详情
         UserDetails userDetails = this.sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertLoginUser(sysUser));
         return ResponseResult.ok((LoginUser) userDetails);
+    }
+
+    @Override
+    public ResponseResult<SysUserVo> registerUser(SysUserDto sysUserDto) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserDto, sysUser);
+
+        sysUser = this.sysUserService.registerUser(sysUser);
+
+        SysUserVo sysUserVo = new SysUserVo();
+        BeanUtils.copyProperties(sysUser, sysUserVo);
+
+        return ResponseResult.ok(sysUserVo);
     }
 
     @Override

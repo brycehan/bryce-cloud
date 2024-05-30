@@ -2,13 +2,20 @@ package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.api.system.api.SysUserApi;
+import com.brycehan.cloud.api.system.dto.RegisterDto;
+import com.brycehan.cloud.api.system.dto.SysUserDto;
+import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.auth.common.CaptchaType;
+import com.brycehan.cloud.auth.common.RegisterSuccessEvent;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
-import com.brycehan.cloud.common.core.base.dto.RegisterDto;
+import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.constant.ParamConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,43 +31,46 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
 
     private final SysUserApi sysUserApi;
 
-    private final SysParamApi sysParamService;
-
-    private final PasswordEncoder passwordEncoder;
+    private final SysParamApi sysParamApi;
 
     private final AuthCaptchaService authCaptchaService;
 
+    private final ApplicationEventPublisher applicationEventPublisher;
+
     @Override
     public void register(RegisterDto registerDto) {
-//        // 验证码开关
-//        boolean validated = this.validate(registerDto.getKey(), registerDto.getCode());
-//        if (!validated) {
-//            throw new RuntimeException("验证码错误");
-//        }
-//
-//        // 用户账号唯一校验
-//        SysUser sysUser = new SysUser();
-//        sysUser.setUsername(registerDto.getUsername().trim());
-//        boolean usernameUnique = this.sysUserService.checkUsernameUnique(sysUser);
-//        if (!usernameUnique) {
-//            throw new ServerException(UserResponseStatus.USER_REGISTER_EXISTS, sysUser.getUsername());
-//        }
-//
-//        // 注册
-//        sysUser.setFullName(sysUser.getUsername());
-//        sysUser.setPassword(passwordEncoder.encode(registerDto.getPassword().trim()));
-//        this.sysUserService.registerUser(sysUser);
+        // 验证码开关
+        boolean validated = this.validate(registerDto.getKey(), registerDto.getCode());
+        if (!validated) {
+            throw new RuntimeException("验证码错误");
+        }
+        SysUserDto sysUserDto = new SysUserDto();
+        BeanUtils.copyProperties(registerDto, sysUserDto);
+
+        ResponseResult<SysUserVo> responseResult = this.sysUserApi.registerUser(sysUserDto);
+        if (!responseResult.getCode().equals(200) || responseResult.getData() == null) {
+            throw new RuntimeException("注册失败，系统内部错误");
+        }
+
+        log.info("注册成功，用户名：{}", registerDto.getUsername());
+        this.applicationEventPublisher.publishEvent(new RegisterSuccessEvent(responseResult.getData()));
     }
 
     @Override
     public boolean validate(String key, String code) {
-        return this.authCaptchaService.validate(key, code);
+        return this.authCaptchaService.validate(key, code, CaptchaType.REGISTER);
     }
 
     @Override
-    public boolean isCaptchaEnabled() {
-        ResponseResult<Boolean> responseResult = this.sysParamService.getBoolean("system.account.captchaEnabled");
+    public boolean captchaEnabled() {
+        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_CAPTCHA_ENABLED);
         return responseResult.getData();
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByUsername(username);
+        return loginUserResponseResult.getCode() == 200 && loginUserResponseResult.getData() == null;
     }
 
 }

@@ -91,7 +91,7 @@ public interface SysUserService extends BaseService<SysUser> {
      *
      * @param sysUser 用户
      */
-    void registerUser(SysUser sysUser);
+    SysUser registerUser(SysUser sysUser);
 
     /**
      * 校验用户账号是否唯一

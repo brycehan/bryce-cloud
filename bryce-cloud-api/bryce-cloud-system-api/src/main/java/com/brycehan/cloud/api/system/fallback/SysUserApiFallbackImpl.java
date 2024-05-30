@@ -1,7 +1,9 @@
 package com.brycehan.cloud.api.system.fallback;
 
 import com.brycehan.cloud.api.system.api.SysUserApi;
+import com.brycehan.cloud.api.system.dto.SysUserDto;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.api.system.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,11 @@ public class SysUserApiFallbackImpl implements FallbackFactory<SysUserApi> {
 
             @Override
             public ResponseResult<LoginUser> loadUserById(Long id) {
+                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+            }
+
+            @Override
+            public ResponseResult<SysUserVo> registerUser(SysUserDto sysUserDto) {
                 return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
             }
 

@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.common.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 登录操作类型
@@ -10,7 +10,7 @@ import lombok.Getter;
  * @author Bryce Han
  */
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum LoginOperateType {
     /**
      * 登录成功

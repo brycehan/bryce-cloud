@@ -4,6 +4,7 @@ import com.brycehan.cloud.api.system.api.SysLoginLogApi;
 import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.api.system.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.security.PhoneCodeAuthenticationToken;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
@@ -51,7 +52,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
     @Override
     public LoginVo loginByAccount(@NotNull AccountLoginDto accountLoginDto) {
         // 校验验证码
-        boolean validated = this.authCaptchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode());
+        boolean validated = this.authCaptchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode(), CaptchaType.LOGIN);
         if (!validated) {
             // 保存登录日志
             SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
@@ -16,18 +17,17 @@ import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
-import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.po.SysUserRole;
+import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.system.mapper.SysUserMapper;
 import com.brycehan.cloud.system.service.SysUserPostService;
 import com.brycehan.cloud.system.service.SysUserRoleService;
 import com.brycehan.cloud.system.service.SysUserService;
-import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import com.fhs.trans.service.impl.TransService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -266,21 +266,34 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         return new PageResult<>(page.getTotal(), SysUserConvert.INSTANCE.convert(list));
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void registerUser(SysUser sysUser) {
+    @Transactional(rollbackFor = Exception.class)
+    public SysUser registerUser(SysUser sysUser) {
+        // 校验是否已注册
+        SysUser user = this.baseMapper.getByUsername(sysUser.getUsername());
+        if (user != null) {
+            throw new ServerException(UserResponseStatus.USER_REGISTER_EXISTS, sysUser.getUsername());
+        }
+
         sysUser.setId(IdGenerator.nextId());
+        sysUser.setSuperAdmin(false);
+        // 密码加密
+        sysUser.setPassword(passwordEncoder.encode(sysUser.getPassword().trim()));
 
         // 添加默认角色
         SysUserRole sysUserRole = new SysUserRole();
+        sysUserRole.setId(IdGenerator.nextId());
         sysUserRole.setUserId(sysUser.getId());
         sysUserRole.setRoleId(DataConstants.DEFAULT_ROLE_ID);
         this.sysUserRoleService.save(sysUserRole);
 
         // 保存用户
         int result = this.baseMapper.insert(sysUser);
-        if (result != 1) {
-            throw new ServerException(UserResponseStatus.USER_REGISTER_ERROR);
+
+        if (result == 1) {
+            return sysUser;
+        } else {
+            return null;
         }
     }
 

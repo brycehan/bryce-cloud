@@ -1,5 +1,6 @@
 package com.brycehan.cloud.auth.service;
 
+import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 
 /**
@@ -24,13 +25,14 @@ public interface AuthCaptchaService {
      * @param code 验证码
      * @return 校验结果（true：正确，false：错误）
      */
-    boolean validate(String key, String code);
+    boolean validate(String key, String code, CaptchaType captchaType);
 
     /**
      * 获取登录图片验证码开关
      *
+     * @param captchaType 验证码类型
      * @return 开启标识（true：开启，false：关闭）
      */
-    boolean isCaptchaEnabled();
+    boolean captchaEnabled(CaptchaType captchaType);
 
 }

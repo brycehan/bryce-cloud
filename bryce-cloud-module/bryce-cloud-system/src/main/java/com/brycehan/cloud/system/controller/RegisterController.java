@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.core.base.dto.RegisterDto;
+import com.brycehan.cloud.api.system.dto.RegisterDto;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;

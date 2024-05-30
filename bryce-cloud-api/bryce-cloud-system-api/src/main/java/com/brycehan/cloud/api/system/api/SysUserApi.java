@@ -1,7 +1,9 @@
 package com.brycehan.cloud.api.system.api;
 
+import com.brycehan.cloud.api.system.vo.SysUserVo;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.api.system.dto.SysUserDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -46,6 +48,15 @@ public interface SysUserApi {
      */
     @GetMapping(path = "/api/user/id/{id}")
     ResponseResult<LoginUser> loadUserById(@PathVariable Long id);
+
+    /**
+     * 注册用户
+     *
+     * @param sysUserDto 系统用户
+     * @return 注册结果
+     */
+    @PostMapping(path = "/api/user/register")
+    ResponseResult<SysUserVo> registerUser(@RequestBody SysUserDto sysUserDto);
 
     /**
      * 更新登录信息

@@ -1,9 +1,7 @@
 package com.brycehan.cloud.system.service.impl;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
-import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.system.mapper.SysRoleDataScopeMapper;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
 import com.brycehan.cloud.system.service.SysMenuService;
@@ -14,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 系统用户详情服务实现
@@ -42,9 +37,9 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
     public UserDetails getUserDetails(LoginUser loginUser) {
         // 账号不可用
         loginUser.setEnabled(loginUser.getStatus());
-        if (!loginUser.isAccountNonLocked()) {
+        if (!loginUser.isEnabled()) {
             log.info("登录用户：{}已被锁定.", loginUser.getUsername());
-            throw new ServerException(UserResponseStatus.USER_ACCOUNT_LOCKED);
+            return loginUser;
         }
 
         // 数据权限范围

@@ -18,7 +18,7 @@ public enum UserResponseStatus implements ResponseStatus {
 
     USER_REGISTER_NOT_ENABLED(600, "当前系统没有开启注册功能"),
 
-    USER_REGISTER_EXISTS(601, "保存用户{}失败，注册账号已存在"),
+    USER_REGISTER_EXISTS(601, "注册{}失败，账号已存在"),
 
     USER_REGISTER_ERROR(602, "注册失败，请联系系统管理人员"),
 
