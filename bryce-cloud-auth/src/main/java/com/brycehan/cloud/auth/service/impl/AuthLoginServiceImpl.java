@@ -10,6 +10,7 @@ import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.base.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.base.vo.LoginVo;
@@ -60,7 +61,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             sysLoginLogDto.setStatus(DataConstants.FAIL);
             sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL.getValue());
             this.sysLoginLogApi.save(sysLoginLogDto);
-            throw new RuntimeException("验证码错误");
+            throw new ServerException("验证码错误");
         }
 
         Authentication authentication;
@@ -72,7 +73,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             log.info("登录认证失败，{}", e.getMessage());
             // 添加密码错误重试缓存
             this.authPasswordRetryService.retryCount(accountLoginDto.getUsername());
-            throw new RuntimeException("用户名或密码错误");
+            throw new ServerException("用户名或密码错误");
         }
 
         // 清除密码错误重试缓存
@@ -90,7 +91,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             authentication = this.authenticationManager.authenticate(authenticationToken);
         } catch (AuthenticationException e) {
             log.info("认证失败，{}", e.getMessage());
-            throw new RuntimeException("手机号或验证码错误");
+            throw new ServerException("手机号或验证码错误");
         }
 
         return loadLoginVo(authentication);

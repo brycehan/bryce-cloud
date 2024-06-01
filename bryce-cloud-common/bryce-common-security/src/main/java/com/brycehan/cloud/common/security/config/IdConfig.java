@@ -136,7 +136,7 @@ public class IdConfig implements InitializingBean {
         try {
             return nacosServiceManager.getNamingService().getAllInstances(serviceName, groupName);
         } catch (NacosException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 

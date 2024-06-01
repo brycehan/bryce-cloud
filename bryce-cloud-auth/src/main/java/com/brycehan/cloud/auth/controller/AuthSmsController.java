@@ -4,6 +4,7 @@ import com.brycehan.cloud.api.sms.enums.SmsType;
 import com.brycehan.cloud.api.sms.api.SmsApi;
 import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -86,7 +87,7 @@ public class AuthSmsController {
 
         ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByPhone(phone);
         if(loginUserResponseResult.getData() == null) {
-            throw new RuntimeException("手机号码未注册");
+            throw new ServerException("手机号码未注册");
         }
 
         // 生成6位验证码
@@ -98,7 +99,7 @@ public class AuthSmsController {
         // 发送短信
         ResponseResult<Boolean> send = this.smsApi.send(phone, smsType, params);
         if (send.getCode() != 200) {
-            throw new RuntimeException("短信发送失败".concat(send.getMessage()));
+            throw new ServerException("短信发送失败".concat(send.getMessage()));
         }
 
         return ResponseResult.ok(send.getData());

@@ -2,6 +2,7 @@ package com.brycehan.cloud.storage.service;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.AliyunStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 
@@ -29,7 +30,7 @@ public class AliyunStorageService extends StorageService {
         try {
             client.putObject(aliyun.getBucketName(), path, data);
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         } finally {
             if(client != null) {
                 client.shutdown();

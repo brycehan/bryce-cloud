@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
+import com.brycehan.cloud.common.core.base.dto.ProfileDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
@@ -18,7 +19,7 @@ import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
-import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
+import com.brycehan.cloud.system.common.RefreshTokenEvent;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
@@ -31,6 +32,7 @@ import com.brycehan.cloud.system.service.SysUserService;
 import com.fhs.trans.service.impl.TransService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,9 +59,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     private final PasswordEncoder passwordEncoder;
 
-    private final JwtTokenProvider jwtTokenProvider;
-
     private final TransService transService;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -67,13 +69,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 判断用户名是否存在
         SysUser user = this.baseMapper.getByUsername(sysUserDto.getUsername());
         if (user != null) {
-            throw new RuntimeException("账号已经存在");
+            throw new ServerException("账号已经存在");
         }
 
         // 判断手机号是否存在
         user = this.baseMapper.getByPhone(sysUserDto.getPhone());
         if (user != null) {
-            throw new RuntimeException("手机号已经存在");
+            throw new ServerException("手机号已经存在");
         }
 
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
@@ -99,7 +101,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 判断手机号是否存在
         SysUser user = this.baseMapper.getByPhone(sysUserDto.getPhone());
         if (user != null && !user.getId().equals(sysUserDto.getId())) {
-            throw new RuntimeException("手机号已经存在");
+            throw new ServerException("手机号已经存在");
         }
 
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
@@ -227,24 +229,21 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     public void updatePassword(SysUserPasswordDto passwordDto) {
         LoginUser loginUser = LoginUserContext.currentUser();
-        // 校验密码
         assert loginUser != null;
-        if (!this.passwordEncoder.matches(passwordDto.getPassword(), loginUser.getPassword())) {
+        SysUser sysUser = this.baseMapper.selectById(loginUser.getId());
+
+        // 校验密码
+        if (!this.passwordEncoder.matches(passwordDto.getPassword(), sysUser.getPassword())) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_NOT_MATCH);
         }
-        if (this.passwordEncoder.matches(passwordDto.getNewPassword(), loginUser.getPassword())) {
+        if (this.passwordEncoder.matches(passwordDto.getNewPassword(), sysUser.getPassword())) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_SAME_AS_OLD_ERROR);
         }
 
-        // 更新密码
-        SysUser sysUser = new SysUser();
-        sysUser.setId(loginUser.getId());
         sysUser.setPassword(this.passwordEncoder.encode(passwordDto.getNewPassword()));
-        if (this.updateById(sysUser)) {
-            // 更新缓存用户信息
-            loginUser.setPassword(sysUser.getPassword());
-            this.jwtTokenProvider.setLoginUser(loginUser);
-        } else {
+
+        // 更新密码
+        if (!this.updateById(sysUser)) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_CHANGE_ERROR);
         }
     }
@@ -345,7 +344,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         SysUser user = this.baseMapper.selectById(userId);
         // 检查用户权限
         if (!user.getSuperAdmin() && sysUser.getSuperAdmin()) {
-            throw new RuntimeException("不允许操作超级管理员用户");
+            throw new ServerException("不允许操作超级管理员用户");
         }
     }
 
@@ -355,6 +354,38 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         checkUserAllowed(sysUser);
         sysUser.setPassword(passwordEncoder.encode(sysResetPasswordDto.getPassword()));
         this.updateById(sysUser);
+    }
+
+    @Override
+    public void updateUserInfo(ProfileDto profileDto) {
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(profileDto);
+        // 设置登录用户ID
+        sysUser.setId(LoginUserContext.currentUserId());
+
+        // 校验手机号码
+        if (StringUtils.isNotEmpty(sysUser.getPhone())) {
+            SysUser user = this.baseMapper.getByPhone(sysUser.getPhone());
+            if (Objects.nonNull(user) && !user.getId().equals(sysUser.getId())) {
+                throw new ServerException(UserResponseStatus.USER_PROFILE_PHONE_EXISTS, sysUser.getPhone());
+            }
+        }
+
+        // 校验邮箱
+        if (StringUtils.isNotEmpty(sysUser.getEmail())) {
+            SysUser user = this.baseMapper.getByEmail(sysUser.getEmail());
+            if (Objects.nonNull(user) && !user.getId().equals(sysUser.getId())) {
+                throw new ServerException(UserResponseStatus.USER_PROFILE_EMAIL_EXISTS, sysUser.getPhone());
+            }
+        }
+
+        // 更新并更新用户登录信息
+        if (this.updateById(sysUser)) {
+            SysUser user = this.baseMapper.selectById(sysUser.getId());
+            this.applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
+            return;
+        }
+
+        throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_ERROR);
     }
 
 }

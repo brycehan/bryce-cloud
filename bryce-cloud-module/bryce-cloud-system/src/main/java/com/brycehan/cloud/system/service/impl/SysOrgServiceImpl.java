@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.constant.DataConstants;
@@ -43,13 +44,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
 
         // 上级机构不能为自身
         if (sysOrg.getId().equals(sysOrgDto.getParentId())) {
-            throw new RuntimeException("上级机构不能为自身");
+            throw new ServerException("上级机构不能为自身");
         }
 
         // 上级机构不能为下级
         List<Long> subOrgIds = getSubOrgIds(sysOrg.getId());
         if (subOrgIds.contains(sysOrg.getParentId())) {
-            throw new RuntimeException("上级机构不能为下级");
+            throw new ServerException("上级机构不能为下级");
         }
 
         this.baseMapper.updateById(sysOrg);
@@ -70,13 +71,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
         // 判断是否有子机构
         long orgCount = this.count(new LambdaQueryWrapper<SysOrg>().in(SysOrg::getParentId, ids));
         if (orgCount > 0) {
-            throw new RuntimeException("请先删除子机构");
+            throw new ServerException("请先删除子机构");
         }
 
         // 判断机构下面是否有用户
         long userCount = this.sysUserMapper.selectCount(new LambdaQueryWrapper<SysUser>().in(SysUser::getOrgId, ids));
         if (userCount > 0) {
-            throw new RuntimeException("机构下面有用户，不能删除");
+            throw new ServerException("机构下面有用户，不能删除");
         }
 
         // 删除

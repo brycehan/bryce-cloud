@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.enums.DataStatusType;
@@ -48,7 +49,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
         SysMenu sysMenu = SysMenuConvert.INSTANCE.convert(sysMenuDto);
         // 上级菜单不能为自己
         if (sysMenu.getId().equals(sysMenu.getParentId())) {
-            throw new RuntimeException("上级菜单不能为自己");
+            throw new ServerException("上级菜单不能为自己");
         }
 
         // 更新菜单

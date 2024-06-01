@@ -58,7 +58,7 @@ public class SysUserDto implements Serializable {
      * 头像地址
      */
     @Schema(description = "头像地址")
-    @Size(max = 100, groups = {SaveGroup.class, UpdateGroup.class})
+    @Size(max = 200, groups = {SaveGroup.class, UpdateGroup.class})
     private String avatar;
 
     /**

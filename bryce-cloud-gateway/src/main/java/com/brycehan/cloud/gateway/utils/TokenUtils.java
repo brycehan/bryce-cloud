@@ -2,6 +2,7 @@ package com.brycehan.cloud.gateway.utils;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,7 @@ public class TokenUtils {
             return loginClient;
         }
 
-        throw new RuntimeException("非法来源客户端请求");
+        throw new ServerException("非法来源客户端请求");
     }
 
 }

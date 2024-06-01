@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.convert;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.dto.ProfileDto;
 import com.brycehan.cloud.system.entity.dto.SysUserDto;
 import com.brycehan.cloud.system.entity.dto.SysUserExcelDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
@@ -23,6 +24,8 @@ public interface SysUserConvert {
     SysUserConvert INSTANCE = Mappers.getMapper(SysUserConvert.class);
 
     SysUser convert(SysUserDto sysUserDto);
+
+    SysUser convert(ProfileDto profileDto);
 
     SysUserVo convert(SysUser sysUser);
 

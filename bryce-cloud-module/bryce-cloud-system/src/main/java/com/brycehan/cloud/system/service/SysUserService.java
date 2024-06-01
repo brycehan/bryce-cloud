@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.service;
 
+import com.brycehan.cloud.common.core.base.dto.ProfileDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
@@ -130,5 +131,12 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param sysResetPasswordDto 要重置的用户
      */
     void resetPassword(SysResetPasswordDto sysResetPasswordDto);
+
+    /**
+     * 更新个人信息
+     *
+     * @param profileDto 个人信息
+     */
+    void updateUserInfo(ProfileDto profileDto);
 
 }

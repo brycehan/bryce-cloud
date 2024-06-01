@@ -1,6 +1,7 @@
 package com.brycehan.cloud.sms.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.sms.service.SmsService;
@@ -39,7 +40,7 @@ public class SmsServiceImpl implements SmsService {
         SmsBlend smsBlend = SmsFactory.getSmsBlend("sms1");
 
         if (smsBlend == null) {
-            throw new RuntimeException("短信配置错误");
+            throw new ServerException("短信配置错误");
         }
         SmsResponse smsResponse = smsBlend.sendMessage(phone, templateId, params);
         log.info("短信发送，手机号：{}，模板ID：{}，参数：{}，响应：{}", phone, templateId, params, smsResponse);

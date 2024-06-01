@@ -1,5 +1,6 @@
 package com.brycehan.cloud.storage.service;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.QiniuStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.qiniu.http.Response;
@@ -38,10 +39,10 @@ public class QiniuStorageService extends StorageService {
         try {
             Response response = this.uploadManager.put(IOUtils.toByteArray(data), path, token);
             if(!response.isOK()) {
-                throw new RuntimeException(response.toString());
+                throw new ServerException(response.toString());
             }
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         }
 
         return this.storageProperties.getConfig().getDomain()

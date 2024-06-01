@@ -47,4 +47,11 @@ public class ProfileDto {
     @Pattern(regexp = "^[MF]$", message = "性别值只能是M或F")
     private String gender;
 
+    /**
+     * 头像地址
+     */
+    @Schema(description = "头像地址")
+    @Size(max = 200)
+    private String avatar;
+
 }

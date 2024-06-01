@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
@@ -46,7 +47,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         // 判断参数键是否存在
         boolean exists = this.baseMapper.exists(sysParamDto.getParamKey());
         if (exists) {
-            throw new RuntimeException("参数键已存在");
+            throw new ServerException("参数键已存在");
         }
 
         SysParam sysParam = SysParamConvert.INSTANCE.convert(sysParamDto);
@@ -67,7 +68,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
             // 判断新参数键是否存在
             boolean exists = this.baseMapper.exists(sysParamDto.getParamKey());
             if (exists) {
-                throw new RuntimeException("参数键已存在");
+                throw new ServerException("参数键已存在");
             }
 
             // 删除修改前的缓存
@@ -168,7 +169,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         // 缓存没有时，从数据库中查询
         SysParam sysParam = this.baseMapper.selectOne(paramKey);
         if (Objects.isNull(sysParam)) {
-            throw new RuntimeException("参数值不存在，paramKey：".concat(paramKey));
+            throw new ServerException("参数值不存在，paramKey：".concat(paramKey));
         }
 
         // 添加到缓存中

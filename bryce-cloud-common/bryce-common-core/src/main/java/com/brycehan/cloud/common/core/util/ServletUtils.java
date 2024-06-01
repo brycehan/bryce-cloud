@@ -1,5 +1,6 @@
 package com.brycehan.cloud.common.core.util;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +63,7 @@ public class ServletUtils {
         try {
             response.getWriter().print(JsonUtils.writeValueAsString(t));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 
@@ -80,7 +81,7 @@ public class ServletUtils {
             response.getWriter().print(value);
         } catch (IOException e) {
             log.info("ServletUtils.renderString, 异常：{}", e.getMessage());
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 

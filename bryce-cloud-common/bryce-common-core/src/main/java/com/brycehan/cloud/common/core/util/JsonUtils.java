@@ -1,5 +1,6 @@
 package com.brycehan.cloud.common.core.util;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -30,7 +31,7 @@ public class JsonUtils {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 
@@ -41,7 +42,7 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(content, valueType);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 
@@ -52,7 +53,7 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(src, valueType);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 
@@ -63,7 +64,7 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(content, valueTypeRef);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 
@@ -74,7 +75,7 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(content, valueType);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 

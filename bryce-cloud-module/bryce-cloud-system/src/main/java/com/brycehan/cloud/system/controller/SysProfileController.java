@@ -2,11 +2,8 @@ package com.brycehan.cloud.system.controller;
 
 import com.brycehan.cloud.common.core.base.dto.ProfileDto;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
-import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
-import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.dto.SysUserPasswordDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
@@ -14,7 +11,6 @@ import com.brycehan.cloud.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,11 +28,9 @@ import java.util.Map;
 @RequestMapping(path = "/profile")
 @RestController
 @RequiredArgsConstructor
-public class ProfileController {
+public class SysProfileController {
 
     private final SysUserService sysUserService;
-
-    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * 个人信息
@@ -45,7 +39,7 @@ public class ProfileController {
      */
     @Operation(summary = "个人信息")
     @GetMapping
-    public ResponseResult<Map<String, Object>> profile() {
+    public ResponseResult<Map<String, Object>> getUserInfo() {
         Long userId = LoginUserContext.currentUserId();
         SysUser sysUser = this.sysUserService.getById(userId);
 
@@ -58,39 +52,15 @@ public class ProfileController {
     /**
      * 修改用户个人信息
      *
-     * @param profile 用户个人信息
+     * @param profileDto 用户个人信息
      * @return 响应结果
      */
     @Operation(summary = "修改用户个人信息")
     @OperateLog(type = OperateType.UPDATE)
     @PutMapping
-    public ResponseResult<Void> update(@RequestBody ProfileDto profile) {
-        // 校验
-        LoginUser loginUser = LoginUserContext.currentUser();
-        assert loginUser != null;
-
-        SysUser sysUser = this.sysUserService.getById(loginUser.getId());
-        SysUser user = new SysUser();
-        BeanUtils.copyProperties(profile, user);
-        user.setId(loginUser.getId());
-
-        // 校验手机号码
-        if (!this.sysUserService.checkPhoneUnique(user)) {
-            return ResponseResult.error(UserResponseStatus.USER_PROFILE_PHONE_INVALID, null, loginUser.getUsername());
-        }
-        // 校验邮箱
-        if (!this.sysUserService.checkEmailUnique(user)) {
-            return ResponseResult.error(UserResponseStatus.USER_PROFILE_EMAIL_INVALID, null, loginUser.getUsername());
-        }
-        // 更新并更新缓存用户信息
-        if (this.sysUserService.updateById(user)) {
-            // 更新缓存用户信息
-            BeanUtils.copyProperties(profile, sysUser);
-            this.jwtTokenProvider.setLoginUser(loginUser);
-            return ResponseResult.ok();
-        }
-
-        return ResponseResult.error(UserResponseStatus.USER_PROFILE_ALTER_ERROR);
+    public ResponseResult<Void> updateUserInfo(@RequestBody ProfileDto profileDto) {
+        this.sysUserService.updateUserInfo(profileDto);
+        return ResponseResult.ok();
     }
 
     /**
@@ -102,7 +72,7 @@ public class ProfileController {
     @Operation(summary = "修改密码")
     @OperateLog(type = OperateType.UPDATE)
     @PutMapping(path = "/password")
-    public ResponseResult<Void> password(@Validated @RequestBody SysUserPasswordDto sysUserPasswordDto) {
+    public ResponseResult<Void> updatePassword(@Validated @RequestBody SysUserPasswordDto sysUserPasswordDto) {
         this.sysUserService.updatePassword(sysUserPasswordDto);
         return ResponseResult.ok();
     }

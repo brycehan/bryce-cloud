@@ -2,6 +2,7 @@ package com.brycehan.cloud.common.operatelog.aspect;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
@@ -184,7 +185,7 @@ public class OperateLogAspect {
         try {
             return objectMapper.writer(filterProvider).writeValueAsString(requestParam);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 

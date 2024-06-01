@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
@@ -90,7 +91,7 @@ public class SysUserController {
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {
         // 用户不能删除自己的账号
         if (CollectionUtil.contains(idsDto.getIds(), LoginUserContext.currentUserId())) {
-            throw new RuntimeException("不能删除当前登录用户");
+            throw new ServerException("不能删除当前登录用户");
         }
 
         this.sysUserService.delete(idsDto);

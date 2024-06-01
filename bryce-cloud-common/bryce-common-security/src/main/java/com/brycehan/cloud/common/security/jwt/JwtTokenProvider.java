@@ -5,15 +5,14 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.Claim;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
+import com.brycehan.cloud.common.core.enums.SourceClientType;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
-import com.brycehan.cloud.common.core.enums.SourceClientType;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -78,8 +77,7 @@ public class JwtTokenProvider {
         loginUser.setLoginIp(IpUtils.getIp(ServletUtils.getRequest()));
 
         // 设置来源客户端
-        String sourceClient = TokenUtils.getSourceClient(ServletUtils.getRequest());
-        SourceClientType sourceClientType = SourceClientType.getByValue(sourceClient);
+        SourceClientType sourceClientType = TokenUtils.getSourceClient(ServletUtils.getRequest());
 
         // 创建jwt令牌
         Map<String, Object> claims = new HashMap<>();
@@ -142,19 +140,24 @@ public class JwtTokenProvider {
         loginUser.setOs(os);
     }
 
+    /**
+     * 缓存登录用户
+     *
+     * @param loginUser 登录用户
+     */
     public void cacheLoginUser(LoginUser loginUser) {
         // 来源客户端
-        String sourceClient = TokenUtils.getSourceClient(ServletUtils.getRequest());
-        SourceClientType sourceClientType = SourceClientType.getByValue(sourceClient);
+        SourceClientType sourceClientType = TokenUtils.getSourceClient(ServletUtils.getRequest());
 
         LocalDateTime now = LocalDateTime.now();
-        loginUser.setLoginTime(now);
         // 设置过期时间
         LocalDateTime expireTime = null;
         switch (Objects.requireNonNull(sourceClientType)) {
             case PC, H5 -> expireTime = now.plusSeconds(this.tokenValidityInSeconds);
             case APP -> expireTime = now.plusDays(this.appTokenValidityInDays);
         }
+
+        loginUser.setLoginTime(now);
         loginUser.setExpireTime(expireTime);
         loginUser.setSourceClient(sourceClientType.value());
 
@@ -172,46 +175,36 @@ public class JwtTokenProvider {
     }
 
     /**
-     * 令牌自动续期，相差不足60分钟，自动刷新延长登录有效期
+     * 令牌自动续期
      *
      * @param loginUser 登录用户
      */
     public void autoRefreshToken(LoginUser loginUser) {
-        // 存储会话的token续期
-        if (StringUtils.isNotEmpty(loginUser.getUserKey())) {
-            LocalDateTime expireTime = loginUser.getExpireTime();
-            LocalDateTime now = LocalDateTime.now();
-
-            if (expireTime.isAfter(now) && expireTime.isBefore(now.plusMinutes(JwtConstants.REFRESH_LIMIT_MIN_MINUTE))) {
-                // 生成 jwt
-                String token = generateToken(loginUser);
-                // 缓存 loginUser
-                cacheLoginUser(loginUser);
-                // 刷新令牌
-                refreshToken(token);
-            }
+        if (needRefreshToken(loginUser)) {
+            // 生成 jwt
+            String token = generateToken(loginUser);
+            // 缓存 loginUser
+            cacheLoginUser(loginUser);
+            // 刷新令牌
+            refreshToken(token);
         }
     }
 
     /**
-     * 小程序和App的令牌自动续期，一天一续期，自动刷新延长登录有效期
+     * 判断是否需要刷新令牌
      *
-     * @param claimMap 登录用户
+     * @param loginUser 登录用户
+     * @return 是否需要刷新令牌
      */
-    public void autoRefreshToken(Map<String, Claim> claimMap) {
-        Instant exp = claimMap.get("exp").asInstant();
-        String openid = claimMap.get("openid").asString();
-
-        if (Instant.now().compareTo(exp.minus(29, ChronoUnit.DAYS)) > 0) {
-            // 生成 jwt
-            Map<String, Object> claims = new HashMap<>();
-            claims.put(JwtConstants.LOGIN_OPEN_ID, openid);
-
-            long expiredTimeSeconds = appTokenValidityInDays * 24 * 60 * 60;
-
-            String token = this.generateToken(claims, expiredTimeSeconds);
-
-            ServletUtils.getResponse().setHeader(HttpHeaders.AUTHORIZATION, JwtConstants.TOKEN_PREFIX.concat(token));
+    public boolean needRefreshToken(LoginUser loginUser) {
+        LocalDateTime expireTime = loginUser.getExpireTime();
+        LocalDateTime now = LocalDateTime.now();
+        // 存储会话的令牌自动续期
+        if (StringUtils.isNotEmpty(loginUser.getUserKey())) {
+            return expireTime.isAfter(now) && expireTime.isBefore(now.plusMinutes(JwtConstants.REFRESH_CACHE_MIN_MINUTE));
+        } else {
+            // 非存储会话的令牌自动续期
+            return expireTime.isAfter(now) && expireTime.isBefore(now.plusDays(JwtConstants.REFRESH_APP_MIN_DAY));
         }
     }
 
@@ -220,7 +213,7 @@ public class JwtTokenProvider {
      *
      * @param token 新的令牌
      */
-    private void refreshToken(String token) {
+    public void refreshToken(String token) {
         HttpServletResponse response = ServletUtils.getResponse();
         if(response != null) {
             // 将 jwt token 添加到响应头
@@ -243,17 +236,6 @@ public class JwtTokenProvider {
         }
 
         return null;
-    }
-
-    /**
-     * 设置登录用户，修改用户信息时
-     *
-     * @param loginUser 登录用户
-     */
-    public void setLoginUser(LoginUser loginUser) {
-        if (Objects.nonNull(loginUser) && StringUtils.isNotEmpty(loginUser.getUserKey())) {
-            // refreshToken(loginUser);
-        }
     }
 
     /**

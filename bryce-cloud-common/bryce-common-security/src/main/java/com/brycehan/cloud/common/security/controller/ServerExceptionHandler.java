@@ -170,15 +170,4 @@ public class ServerExceptionHandler {
         return ResponseResult.error(e.getCode(), e.getMessage());
     }
 
-    /**
-     * 通用异常处理
-     *
-     * @param e 一般异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseResult<Void> handleException(Exception e) {
-        log.info("系统内部异常", e);
-        return ResponseResult.error(HttpResponseStatus.HTTP_INTERNAL_ERROR.code(), e.getMessage());
-    }
 }

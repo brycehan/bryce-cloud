@@ -1,5 +1,6 @@
 package com.brycehan.cloud.storage.service;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.brycehan.cloud.storage.config.properties.TencentStorageProperties;
 import com.qcloud.cos.COSClient;
@@ -50,10 +51,10 @@ public class TencentStorageService extends StorageService {
             PutObjectResult result = client.putObject(request);
 
             if(result.getETag() == null) {
-                throw new RuntimeException("上传文件失败，请检查配置信息");
+                throw new ServerException("上传文件失败，请检查配置信息");
             }
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         } finally {
             client.shutdown();
         }

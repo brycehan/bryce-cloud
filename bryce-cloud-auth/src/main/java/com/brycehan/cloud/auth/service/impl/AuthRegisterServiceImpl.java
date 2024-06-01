@@ -10,6 +10,7 @@ import com.brycehan.cloud.auth.common.RegisterSuccessEvent;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import lombok.RequiredArgsConstructor;
@@ -42,14 +43,14 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
         // 验证码开关
         boolean validated = this.validate(registerDto.getKey(), registerDto.getCode());
         if (!validated) {
-            throw new RuntimeException("验证码错误");
+            throw new ServerException("验证码错误");
         }
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(registerDto, sysUserDto);
 
         ResponseResult<SysUserVo> responseResult = this.sysUserApi.registerUser(sysUserDto);
         if (!responseResult.getCode().equals(200) || responseResult.getData() == null) {
-            throw new RuntimeException("注册失败，系统内部错误");
+            throw new ServerException("注册失败，系统内部错误");
         }
 
         log.info("注册成功，用户名：{}", registerDto.getUsername());

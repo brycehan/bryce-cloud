@@ -1,5 +1,6 @@
 package com.brycehan.cloud.storage.service;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.LocalStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import org.springframework.util.FileCopyUtils;
@@ -37,7 +38,7 @@ public class LocalStorageService extends StorageService {
 
             FileCopyUtils.copy(data, Files.newOutputStream(file.toPath()));
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         }
 
         return this.storageProperties.getConfig().getDomain()

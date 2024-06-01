@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.EasyExcel;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.excel.ExcelDataListener;
 import com.brycehan.cloud.common.core.base.excel.ExcelFinishCallback;
 import com.fhs.common.utils.ConverterUtils;
@@ -59,7 +60,7 @@ public class ExcelUtils {
                     .sheet(StringUtils.isBlank(sheetName) ? "Sheet1": sheetName)
                     .doWrite(data);
         }catch (IOException e){
-            throw new RuntimeException(e);
+            throw new ServerException(e.getMessage());
         }
     }
 

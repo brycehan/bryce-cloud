@@ -1,5 +1,6 @@
 package com.brycehan.cloud.storage.service;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.MinioStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import io.minio.BucketExistsArgs;
@@ -64,7 +65,7 @@ public class MinioStorageService extends StorageService {
                     .build()
             );
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         }
 
         return minio.getEndPoint()

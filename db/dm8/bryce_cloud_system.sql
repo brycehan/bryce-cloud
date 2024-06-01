@@ -82,7 +82,7 @@ create table brc_sys_user
     username           varchar(50) not null,
     password           varchar(255),
     full_name          varchar(50),
-    avatar             varchar(100),
+    avatar             varchar(200),
     gender             char,
     type               smallint default 0,
     phone              varchar(20),

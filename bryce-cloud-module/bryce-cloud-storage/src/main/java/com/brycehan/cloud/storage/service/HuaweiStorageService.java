@@ -1,5 +1,6 @@
 package com.brycehan.cloud.storage.service;
 
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.storage.config.properties.HuaweiStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.obs.services.ObsClient;
@@ -29,7 +30,7 @@ public class HuaweiStorageService extends StorageService {
         try (client) {
             client.putObject(huawei.getBucketName(), path, data);
         } catch (Exception e) {
-            throw new RuntimeException("上传文件失败：", e);
+            throw new ServerException("上传文件失败：", e);
         }
 
         return this.storageProperties.getConfig().getDomain()

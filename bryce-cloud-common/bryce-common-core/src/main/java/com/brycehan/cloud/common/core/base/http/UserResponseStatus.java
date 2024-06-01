@@ -62,9 +62,9 @@ public enum UserResponseStatus implements ResponseStatus {
 
     USER_FORCE_LOGOUT(622, "管理员强制退出，请重新登录"),
 
-    USER_PROFILE_PHONE_INVALID(623, "修改用户{}失败，手机号码已存在"),
+    USER_PROFILE_PHONE_EXISTS(623, "修改用户{}失败，手机号码已存在"),
 
-    USER_PROFILE_EMAIL_INVALID(624, "修改用户{}失败，邮箱已存在"),
+    USER_PROFILE_EMAIL_EXISTS(624, "修改用户{}失败，邮箱已存在"),
 
     USER_PROFILE_ALTER_ERROR(625, "修改个人信息异常，请联系管理员"),
 
