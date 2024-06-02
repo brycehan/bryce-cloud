@@ -8,6 +8,7 @@ import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
+import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -145,5 +146,13 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param passwordDto 系统用户密码 Dto
      */
     void updatePassword(SysUserPasswordDto passwordDto);
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId 用户ID
+     * @return 用户信息
+     */
+    SysUserInfoVo getUserInfo(Long userId);
 
 }

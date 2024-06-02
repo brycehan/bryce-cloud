@@ -25,14 +25,14 @@ import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.po.SysUserRole;
+import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.system.mapper.SysUserMapper;
-import com.brycehan.cloud.system.service.SysUserPostService;
-import com.brycehan.cloud.system.service.SysUserRoleService;
-import com.brycehan.cloud.system.service.SysUserService;
+import com.brycehan.cloud.system.service.*;
 import com.fhs.trans.service.impl.TransService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,6 +43,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 系统用户服务实现
@@ -63,6 +66,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     private final TransService transService;
 
     private final ApplicationEventPublisher applicationEventPublisher;
+
+    private final SysOrgService sysOrgService;
+
+    private final SysPostService sysPostService;
+
+    private final SysRoleService sysRoleService;
+
+    private final ThreadPoolExecutor threadPoolExecutor;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -403,6 +414,47 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         if (!this.updateById(sysUser)) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_CHANGE_ERROR);
         }
+    }
+
+    @Override
+    public SysUserInfoVo getUserInfo(Long userId) {
+        if (Objects.isNull(userId)) {
+            return null;
+        }
+
+        SysUser sysUser = this.baseMapper.selectById(userId);
+        SysUserInfoVo sysUserInfoVo = new SysUserInfoVo();
+        BeanUtils.copyProperties(sysUser, sysUserInfoVo);
+
+        // 机构名称
+        CompletableFuture<String> orgNameFuture = CompletableFuture
+                .supplyAsync(() -> this.sysOrgService.getOrgNameById(sysUser.getOrgId()), threadPoolExecutor);
+
+        // 用户岗位名称列表
+        CompletableFuture<String> postNameListFuture = CompletableFuture.supplyAsync(() -> {
+            List<Long> postIdList = this.sysUserPostService.getPostIdsByUserId(userId);
+            List<String> postNameList = this.sysPostService.getPostNameList(postIdList);
+            return String.join(",", postNameList);
+        }, threadPoolExecutor);
+
+        // 用户角色名称列表
+        List<Long> roleIdList = this.sysUserRoleService.getRoleIdsByUserId(userId);
+        List<String> roleNameList = this.sysRoleService.getRoleNameList(roleIdList);
+        if (sysUser.getSuperAdmin()) {
+            roleNameList.add(DataConstants.SUPER_ADMIN_NAME);
+        }
+        sysUserInfoVo.setRoleNameList(String.join(",", roleNameList));
+
+        CompletableFuture.allOf(orgNameFuture, postNameListFuture);
+
+        try {
+            sysUserInfoVo.setOrgName(orgNameFuture.get());
+            sysUserInfoVo.setPostNameList(postNameListFuture.get());
+        } catch (InterruptedException | ExecutionException e) {
+            throw new ServerException(e.getMessage());
+        }
+
+        return sysUserInfoVo;
     }
 
 }

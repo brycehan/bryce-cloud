@@ -141,7 +141,10 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
     @Override
     public String getOrgNameById(Long orgId) {
         if (orgId != null) {
-            SysOrg sysOrg = this.baseMapper.selectById(orgId);
+            LambdaQueryWrapper<SysOrg> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.select(SysOrg::getName);
+            queryWrapper.eq(SysOrg::getId, orgId);
+            SysOrg sysOrg = this.baseMapper.selectOne(queryWrapper);
             if (sysOrg != null) {
                 return sysOrg.getName();
             }

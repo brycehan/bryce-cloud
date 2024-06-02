@@ -54,4 +54,5 @@ public class DataConstants {
      */
     public static final boolean DEFAULT_SORT_IS_ASC = true;
 
+    public static final String SUPER_ADMIN_NAME = "超级管理员";
 }
