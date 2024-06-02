@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.core.base.dto.ProfileDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
@@ -17,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Bryce Han
  */
 public interface SysUserService extends BaseService<SysUser> {
-
 
     /**
      * 添加系统用户
@@ -71,13 +71,6 @@ public interface SysUserService extends BaseService<SysUser> {
      * @return 系统用户
      */
     SysUserVo getByPhone(String phone);
-
-    /**
-     * 更新密码
-     *
-     * @param passwordDto 系统用户密码 Dto
-     */
-    void updatePassword(SysUserPasswordDto passwordDto);
 
     /**
      * 角色分配用户，用户列表
@@ -135,8 +128,22 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 更新个人信息
      *
-     * @param profileDto 个人信息
+     * @param sysUserInfoDto 个人信息
      */
-    void updateUserInfo(ProfileDto profileDto);
+    void updateUserInfo(SysUserInfoDto sysUserInfoDto);
+
+    /**
+     * 更新用户头像
+     *
+     * @param sysUserAvatarDto 用户头像信息
+     */
+    void updateAvatar(SysUserAvatarDto sysUserAvatarDto);
+
+    /**
+     * 更新密码
+     *
+     * @param passwordDto 系统用户密码 Dto
+     */
+    void updatePassword(SysUserPasswordDto passwordDto);
 
 }

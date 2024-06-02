@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 账号登录Dto
  *
@@ -14,7 +17,10 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "账号登录Dto")
-public class AccountLoginDto {
+public class AccountLoginDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 账号

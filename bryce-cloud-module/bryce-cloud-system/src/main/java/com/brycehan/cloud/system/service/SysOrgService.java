@@ -64,4 +64,6 @@ public interface SysOrgService extends BaseService<SysOrg> {
      */
     List<Long> getSubOrgIds(Long id);
 
+    String getOrgNameById(Long orgId);
+
 }

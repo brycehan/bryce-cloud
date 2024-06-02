@@ -1,7 +1,8 @@
 package com.brycehan.cloud.system.entity.convert;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.dto.ProfileDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
 import com.brycehan.cloud.system.entity.dto.SysUserDto;
 import com.brycehan.cloud.system.entity.dto.SysUserExcelDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
@@ -25,7 +26,9 @@ public interface SysUserConvert {
 
     SysUser convert(SysUserDto sysUserDto);
 
-    SysUser convert(ProfileDto profileDto);
+    SysUser convert(SysUserInfoDto sysUserInfoDto);
+
+    SysUser convert(SysUserAvatarDto sysUserAvatarDto);
 
     SysUserVo convert(SysUser sysUser);
 

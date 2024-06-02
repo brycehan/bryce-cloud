@@ -71,4 +71,6 @@ public interface SysRoleService extends BaseService<SysRole> {
      */
     void dataScope(SysRoleDataScopeDto dataScopeDto);
 
+    List<String> getRoleNameList(List<Long> roleIdList);
+
 }

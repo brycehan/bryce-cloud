@@ -9,7 +9,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.dto.IdsDto;
-import com.brycehan.cloud.common.core.base.dto.ProfileDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
@@ -227,28 +228,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public void updatePassword(SysUserPasswordDto passwordDto) {
-        LoginUser loginUser = LoginUserContext.currentUser();
-        assert loginUser != null;
-        SysUser sysUser = this.baseMapper.selectById(loginUser.getId());
-
-        // 校验密码
-        if (!this.passwordEncoder.matches(passwordDto.getPassword(), sysUser.getPassword())) {
-            throw new ServerException(UserResponseStatus.USER_PASSWORD_NOT_MATCH);
-        }
-        if (this.passwordEncoder.matches(passwordDto.getNewPassword(), sysUser.getPassword())) {
-            throw new ServerException(UserResponseStatus.USER_PASSWORD_SAME_AS_OLD_ERROR);
-        }
-
-        sysUser.setPassword(this.passwordEncoder.encode(passwordDto.getNewPassword()));
-
-        // 更新密码
-        if (!this.updateById(sysUser)) {
-            throw new ServerException(UserResponseStatus.USER_PASSWORD_CHANGE_ERROR);
-        }
-    }
-
-    @Override
     public PageResult<SysUserVo> roleUserPage(SysRoleUserPageDto pageDto) {
         // 查询参数
         Map<String, Object> params = BeanUtil.beanToMap(pageDto);
@@ -357,8 +336,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public void updateUserInfo(ProfileDto profileDto) {
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(profileDto);
+    public void updateUserInfo(SysUserInfoDto sysUserInfoDto) {
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserInfoDto);
         // 设置登录用户ID
         sysUser.setId(LoginUserContext.currentUserId());
 
@@ -385,7 +364,45 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
             return;
         }
 
-        throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_ERROR);
+        throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_INFO_ERROR);
+    }
+
+    @Override
+    public void updateAvatar(SysUserAvatarDto sysUserAvatarDto) {
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserAvatarDto);
+        // 设置登录用户ID
+        sysUser.setId(LoginUserContext.currentUserId());
+
+        // 更新并更新用户登录信息
+        if (this.updateById(sysUser)) {
+            SysUser user = this.baseMapper.selectById(sysUser.getId());
+            this.applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
+            return;
+        }
+
+        throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);
+    }
+
+    @Override
+    public void updatePassword(SysUserPasswordDto passwordDto) {
+        LoginUser loginUser = LoginUserContext.currentUser();
+        assert loginUser != null;
+        SysUser sysUser = this.baseMapper.selectById(loginUser.getId());
+
+        // 校验密码
+        if (!this.passwordEncoder.matches(passwordDto.getPassword(), sysUser.getPassword())) {
+            throw new ServerException(UserResponseStatus.USER_PASSWORD_NOT_MATCH);
+        }
+        if (this.passwordEncoder.matches(passwordDto.getNewPassword(), sysUser.getPassword())) {
+            throw new ServerException(UserResponseStatus.USER_PASSWORD_SAME_AS_OLD_ERROR);
+        }
+
+        sysUser.setPassword(this.passwordEncoder.encode(passwordDto.getNewPassword()));
+
+        // 更新密码
+        if (!this.updateById(sysUser)) {
+            throw new ServerException(UserResponseStatus.USER_PASSWORD_CHANGE_ERROR);
+        }
     }
 
 }

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 个人信息Dto
  *
@@ -14,7 +17,10 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "个人信息Dto")
-public class ProfileDto {
+public class SysUserInfoDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 用户昵称
@@ -35,7 +41,6 @@ public class ProfileDto {
     /**
      * 邮箱
      */
-    @NotNull
     @Size(max = 50)
     @Schema(description = "邮箱")
     private String email;
@@ -46,12 +51,5 @@ public class ProfileDto {
     @Schema(description = "性别（M：男, F：女）")
     @Pattern(regexp = "^[MF]$", message = "性别值只能是M或F")
     private String gender;
-
-    /**
-     * 头像地址
-     */
-    @Schema(description = "头像地址")
-    @Size(max = 200)
-    private String avatar;
 
 }

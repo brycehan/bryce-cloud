@@ -138,6 +138,17 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
         return subIds;
     }
 
+    @Override
+    public String getOrgNameById(Long orgId) {
+        if (orgId != null) {
+            SysOrg sysOrg = this.baseMapper.selectById(orgId);
+            if (sysOrg != null) {
+                return sysOrg.getName();
+            }
+        }
+        return "";
+    }
+
     /**
      * 递归查询所有子机构ID列表
      *

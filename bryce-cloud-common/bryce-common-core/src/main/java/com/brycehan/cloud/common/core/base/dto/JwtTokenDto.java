@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * Jwt令牌Dto
  *
@@ -16,7 +19,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class JwtTokenDto {
+public class JwtTokenDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     /**
      * jwt令牌
      */

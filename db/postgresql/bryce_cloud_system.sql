@@ -139,7 +139,7 @@ comment on column brc_sys_user.updated_user_id is '修改者ID';
 comment on column brc_sys_user.updated_time is '修改时间';
 
 -- 初始化-系统用户表数据
-INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, type, phone, email, sort, org_id, super_admin, status, remark, account_non_locked, last_login_ip, last_login_time, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, 'admin', '$2a$10$TPs3BLw2Ag9iZ5bxo./GsuR2BRqUz5J2KQh6h2aSvwQ6Vi.3LzQB6', '管理员', null, 'M', 0, '15853155402', 'brycehan@163.com', 0, 103, true, true, '超级管理员', true, '127.0.0.1', now(), null, false, 1, now(), null, null);
+INSERT INTO brc_sys_user (id, username, password, full_name, avatar, gender, type, phone, email, sort, org_id, super_admin, status, remark, account_non_locked, last_login_ip, last_login_time, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, 'admin', '$2a$10$TPs3BLw2Ag9iZ5bxo./GsuR2BRqUz5J2KQh6h2aSvwQ6Vi.3LzQB6', '超级管理员', null, 'M', 0, '15853155402', 'brycehan@163.com', 0, 103, true, true, '超级管理员', true, '127.0.0.1', now(), null, false, 1, now(), null, null);
 
 -- 3、系统角色表
 create table brc_sys_role
@@ -178,7 +178,7 @@ comment on column brc_sys_role.updated_time is '修改时间';
 
 -- 初始化-系统角色表数据
 INSERT INTO brc_sys_role (id, name, code, data_scope, sort, status, remark, org_id, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (1, '管理员', 'admin', 2, 0, true, '管理员', null, null, false, 1, now(), null, null);
-INSERT INTO brc_sys_role (id, name, code, data_scope, sort, status, remark, org_id, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '默认角色', 'default', 2, 0, true, '默认角色', null, null, false, 1, now(), null, null);
+INSERT INTO brc_sys_role (id, name, code, data_scope, sort, status, remark, org_id, version, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (2, '普通角色', 'default', 2, 0, true, '普通角色', null, null, false, 1, now(), null, null);
 
 -- 4、系统用户角色关系表
 create table brc_sys_user_role
@@ -272,6 +272,9 @@ comment on column brc_sys_user_post.updated_time is '修改时间';
 
 create index idx_brc_sys_user_post_user_id on brc_sys_user_post (user_id);
 create index idx_brc_sys_user_post_post_id on brc_sys_user_post (post_id);
+
+insert into brc_sys_user_post (id, user_id, post_id, version, deleted, created_user_id, created_time, updated_user_id, updated_time)
+values (1, 1, 2, 0, false, 1, now(), null, null);
 
 -- 7、系统菜单表
 create table brc_sys_menu
