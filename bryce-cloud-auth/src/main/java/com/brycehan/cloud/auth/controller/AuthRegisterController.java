@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.api.system.dto.RegisterDto;
+import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
@@ -37,11 +37,9 @@ public class AuthRegisterController {
     @OperateLog(type = OperateType.INSERT)
     @PostMapping
     public ResponseResult<Void> register(@Parameter(description = "注册参数", required = true) @Validated @RequestBody RegisterDto registerDto) {
-        // 1、查询注册开关
-        boolean captchaEnabled = this.authRegisterService.captchaEnabled();
-
-        if (captchaEnabled) {
-            // 2、注册
+        // 查询注册开关
+        if (this.authRegisterService.captchaEnabled()) {
+            // 注册
             this.authRegisterService.register(registerDto);
             return ResponseResult.ok();
         }
@@ -69,7 +67,7 @@ public class AuthRegisterController {
     @Operation(summary = "校验用户账号是否可注册（true：可以注册，false：不可以）")
     @GetMapping(path = "/check/{username}")
     public ResponseResult<Boolean> checkUsername(@PathVariable String username) {
-        boolean checked = this.authRegisterService.checkUsername(username);
+        boolean checked = this.authRegisterService.checkUsernameUnique(username);
         return ResponseResult.ok(checked);
     }
 

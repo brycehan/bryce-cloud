@@ -1,9 +1,9 @@
 package com.brycehan.cloud.auth.controller;
 
 import com.brycehan.cloud.auth.common.CaptchaType;
+import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
-import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,6 @@ public class AuthCaptchaController {
     @Operation(summary = "是否开启登录/注册验证码（captchaType：login、register）")
     @GetMapping(path = "/{captchaType}/enabled")
     public ResponseResult<Boolean> enabled(@PathVariable String captchaType) {
-
         boolean enabled = this.authCaptchaService.captchaEnabled(CaptchaType.getByValue(captchaType));
         return ResponseResult.ok(enabled);
     }

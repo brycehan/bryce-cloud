@@ -39,7 +39,12 @@ public class AuthProperties {
         /**
          * token有效期
          */
-        private long tokenValidityInSeconds = 2 * 3600L;
+        private long tokenValidityInSeconds = 7200L;
+
+        /**
+         * App token有效期
+         */
+        private long appTokenValidityInDays = 31L;
 
     }
 

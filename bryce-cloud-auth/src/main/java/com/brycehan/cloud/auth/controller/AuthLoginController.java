@@ -7,15 +7,16 @@ import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.base.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.vo.LoginVo;
-import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 登录认证API
@@ -76,7 +77,7 @@ public class AuthLoginController {
      */
     @Operation(summary = "退出登录")
     @GetMapping(path = "/logout")
-    public ResponseResult<Void> logout(HttpServletRequest request) {
+    public ResponseResult<Void> logout() {
         this.authLoginService.logout(LoginUserContext.currentUser());
         return ResponseResult.ok();
     }

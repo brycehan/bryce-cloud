@@ -1,8 +1,6 @@
 package com.brycehan.cloud.common.core.util;
 
 import cn.hutool.extra.spring.SpringUtil;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**

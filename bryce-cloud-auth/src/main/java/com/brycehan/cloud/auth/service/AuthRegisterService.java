@@ -39,6 +39,6 @@ public interface AuthRegisterService {
      * @param username 用户名
      * @return 校验结果（true：可注册，false：不可注册）
      */
-    boolean checkUsername(String username);
+    boolean checkUsernameUnique(String username);
 
 }

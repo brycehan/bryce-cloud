@@ -3,6 +3,7 @@ package com.brycehan.cloud.common.security.common.utils;
 import com.brycehan.cloud.api.system.vo.MaUserVo;
 import com.brycehan.cloud.api.system.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
 import org.springframework.beans.BeanUtils;
 
@@ -24,7 +25,7 @@ public class SecurityUtils {
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(maUserApiVo, loginUser);
         loginUser.setSourceClient(SourceClientType.MINI_APP.value());
-        loginUser.setAuthoritySet(Collections.singleton("ROLE_miniApp"));
+        loginUser.setAuthoritySet(Collections.singleton(DataConstants.ROLE_PREFIX + "miniApp"));
 
         return loginUser;
     }
@@ -39,7 +40,7 @@ public class SecurityUtils {
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUserApiVo, loginUser);
         loginUser.setSourceClient(SourceClientType.APP.value());
-        loginUser.setAuthoritySet(Collections.singleton("ROLE_app"));
+        loginUser.setAuthoritySet(Collections.singleton(DataConstants.ROLE_PREFIX + "app"));
 
         return loginUser;
     }

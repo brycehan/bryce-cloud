@@ -28,6 +28,9 @@ public class JwtConstants {
      */
     public static final String INNER_CALL_HEADER = "inner-call";
 
+    /**
+     * 登录用户缓存Key
+     */
     public static final String LOGIN_USER_KEY = "login_user";
 
     /**

@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.service.impl;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
 import com.brycehan.cloud.system.mapper.SysRoleDataScopeMapper;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
@@ -12,7 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 系统用户详情服务实现
@@ -51,7 +55,7 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
 
         // 用户角色编码列表
         Set<String> roleCodeSet = this.sysRoleMapper.getRoleCodeByUserId(loginUser.getId());
-        roleCodeSet.forEach(roleCode -> authoritySet.add("ROLE_" + roleCode));
+        roleCodeSet.forEach(roleCode -> authoritySet.add(DataConstants.ROLE_PREFIX + roleCode));
 
         loginUser.setAuthoritySet(authoritySet);
 

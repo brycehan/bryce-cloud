@@ -53,7 +53,7 @@ public class LoginUser implements UserDetails {
     private Boolean superAdmin;
 
     /**
-     * 用户存储Key
+     * 用户登录存储Key
      */
     private String userKey;
 

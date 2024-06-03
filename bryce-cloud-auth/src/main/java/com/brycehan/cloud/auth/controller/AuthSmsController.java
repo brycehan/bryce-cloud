@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.api.sms.enums.SmsType;
 import com.brycehan.cloud.api.sms.api.SmsApi;
+import com.brycehan.cloud.api.sms.enums.SmsType;
 import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;

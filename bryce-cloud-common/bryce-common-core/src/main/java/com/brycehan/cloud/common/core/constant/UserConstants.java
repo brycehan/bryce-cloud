@@ -14,16 +14,6 @@ public class UserConstants {
     public static final Long NULL_USER_ID = -1L;
 
     /**
-     * 正常状态
-     */
-    public static final String NORMAL = "1";
-
-    /**
-     * 停用状态
-     */
-    public static final String DISABLE = "0";
-
-    /**
      * 校验返回结果码
      */
     public final static String UNIQUE = "1";

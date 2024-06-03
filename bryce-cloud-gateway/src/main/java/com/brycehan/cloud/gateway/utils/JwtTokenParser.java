@@ -67,9 +67,7 @@ public class JwtTokenParser {
     public DecodedJWT validateToken(String authToken) {
         Algorithm algorithm = Algorithm.HMAC256(this.jwtSecret);
         JWTVerifier verifier = JWT.require(algorithm).build();
-
         return verifier.verify(authToken);
-
     }
 
 }

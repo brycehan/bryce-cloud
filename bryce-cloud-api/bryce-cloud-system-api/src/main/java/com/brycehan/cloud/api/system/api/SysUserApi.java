@@ -1,14 +1,17 @@
 package com.brycehan.cloud.api.system.api;
 
+import com.brycehan.cloud.api.system.dto.SysUserDto;
+import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.api.system.vo.SysUserVo;
 import com.brycehan.cloud.common.core.ServerNames;
-import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
-import com.brycehan.cloud.api.system.dto.SysUserDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Primary;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 系统用户Api

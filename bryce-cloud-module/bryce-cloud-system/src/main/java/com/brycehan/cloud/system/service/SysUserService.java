@@ -28,7 +28,6 @@ public interface SysUserService extends BaseService<SysUser> {
     default void save(SysUserDto sysUserDto) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
         sysUser.setId(IdGenerator.nextId());
-
         this.getBaseMapper().insert(sysUser);
     }
 
@@ -97,6 +96,14 @@ public interface SysUserService extends BaseService<SysUser> {
     boolean checkUsernameUnique(SysUser sysUser);
 
     /**
+     * 校验用户账号是否唯一
+     *
+     * @param username 用户账号
+     * @return 结果，true唯一
+     */
+    boolean checkUsernameUnique(String username);
+
+    /**
      * 校验用户手机号是否唯一
      *
      * @param sysUser 用户
@@ -120,13 +127,6 @@ public interface SysUserService extends BaseService<SysUser> {
     void checkUserAllowed(SysUser sysUser);
 
     /**
-     * 重置密码
-     *
-     * @param sysResetPasswordDto 要重置的用户
-     */
-    void resetPassword(SysResetPasswordDto sysResetPasswordDto);
-
-    /**
      * 更新个人信息
      *
      * @param sysUserInfoDto 个人信息
@@ -146,6 +146,13 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param passwordDto 系统用户密码 Dto
      */
     void updatePassword(SysUserPasswordDto passwordDto);
+
+    /**
+     * 重置密码
+     *
+     * @param sysResetPasswordDto 要重置的用户
+     */
+    void resetPassword(SysResetPasswordDto sysResetPasswordDto);
 
     /**
      * 获取用户信息

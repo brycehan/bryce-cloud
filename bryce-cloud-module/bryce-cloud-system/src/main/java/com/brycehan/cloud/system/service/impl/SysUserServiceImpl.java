@@ -92,7 +92,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
 
-        // 密码加密
         sysUser.setPassword(passwordEncoder.encode(sysUserDto.getPassword()));
         sysUser.setId(IdGenerator.nextId());
         sysUser.setSuperAdmin(false);
@@ -258,15 +257,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public SysUser registerUser(SysUser sysUser) {
-        // 校验是否已注册
-        SysUser user = this.baseMapper.getByUsername(sysUser.getUsername());
+        // 校验账号是否已注册
+        SysUser user = this.baseMapper.getByUsername(sysUser.getUsername().trim());
         if (user != null) {
-            throw new ServerException(UserResponseStatus.USER_REGISTER_EXISTS, sysUser.getUsername());
+            throw new ServerException(UserResponseStatus.USER_REGISTER_EXISTS, sysUser.getUsername().trim());
         }
 
         sysUser.setId(IdGenerator.nextId());
         sysUser.setSuperAdmin(false);
-        // 密码加密
         sysUser.setPassword(passwordEncoder.encode(sysUser.getPassword().trim()));
 
         // 添加默认角色
@@ -298,6 +296,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
         // 修改时，同账号同ID为账号唯一
         return Objects.isNull(user) || userId.equals(user.getId());
+    }
+
+    @Override
+    public boolean checkUsernameUnique(String username) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getUsername, username);
+        return !this.baseMapper.exists(queryWrapper);
     }
 
     @Override
