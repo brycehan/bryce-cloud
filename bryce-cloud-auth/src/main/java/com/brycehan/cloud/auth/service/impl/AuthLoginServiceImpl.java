@@ -2,10 +2,10 @@ package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysLoginLogApi;
 import com.brycehan.cloud.api.system.api.SysUserApi;
-import com.brycehan.cloud.api.system.dto.SysLoginLogDto;
-import com.brycehan.cloud.api.system.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
+import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
-import com.brycehan.cloud.auth.security.PhoneCodeAuthenticationToken;
+import com.brycehan.cloud.auth.common.security.PhoneCodeAuthenticationToken;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;

@@ -2,9 +2,9 @@ package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.api.system.api.SysUserApi;
-import com.brycehan.cloud.api.system.dto.RegisterDto;
-import com.brycehan.cloud.api.system.dto.SysUserDto;
-import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.api.system.entity.dto.RegisterDto;
+import com.brycehan.cloud.api.system.entity.dto.SysUserDto;
+import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.common.RegisterSuccessEvent;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;

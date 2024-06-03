@@ -1,6 +1,6 @@
 package com.brycehan.cloud.api.system.api;
 
-import com.brycehan.cloud.api.system.dto.SysLoginLogDto;
+import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;

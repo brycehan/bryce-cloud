@@ -1,7 +1,7 @@
 package com.brycehan.cloud.api.system.api;
 
-import com.brycehan.cloud.api.system.dto.SysParamDto;
-import com.brycehan.cloud.api.system.vo.SysParamApiVo;
+import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
+import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;

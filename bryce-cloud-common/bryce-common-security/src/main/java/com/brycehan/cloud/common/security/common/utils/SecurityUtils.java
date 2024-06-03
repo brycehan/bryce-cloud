@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.security.common.utils;
 
-import com.brycehan.cloud.api.system.vo.MaUserVo;
-import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.api.system.entity.vo.MaUserVo;
+import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;

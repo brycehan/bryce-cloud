@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.api.SysParamApi;
-import com.brycehan.cloud.api.system.dto.SysParamDto;
-import com.brycehan.cloud.api.system.vo.SysParamApiVo;
+import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
+import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.system.entity.po.SysParam;
 import com.brycehan.cloud.system.entity.vo.SysParamVo;

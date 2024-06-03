@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.api.system.dto.RegisterDto;
+import com.brycehan.cloud.api.system.entity.dto.RegisterDto;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import com.brycehan.cloud.common.core.base.http.UserResponseStatus;

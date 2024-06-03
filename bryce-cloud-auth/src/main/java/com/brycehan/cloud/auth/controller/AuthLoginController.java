@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.auth.entity.convert.SysUserConvert;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;

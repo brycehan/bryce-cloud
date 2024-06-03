@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.common;
 
-import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import org.springframework.context.ApplicationEvent;
 
 /**

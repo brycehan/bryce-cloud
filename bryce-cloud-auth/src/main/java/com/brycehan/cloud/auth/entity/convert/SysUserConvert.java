@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.entity.convert;
 
-import com.brycehan.cloud.api.system.vo.SysUserVo;
+import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
