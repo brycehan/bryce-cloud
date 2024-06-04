@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
- * 配置子线程共享登录用户信息
+ * 配置子线程获取Spring Security的认证信息
  *
  * @author Bryce Han
  * @since 2024/6/4
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class BryceApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
+        log.info("配置子线程获取Spring Security的认证信息");
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
 }
