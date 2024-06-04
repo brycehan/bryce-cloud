@@ -23,6 +23,11 @@ public class AuthProperties {
      */
     private IgnoreUrls ignoreUrls;
 
+    /**
+     * 登录用户缓存开关
+     */
+    private boolean loginUserCacheEnabled = false;
+
     @Data
     public static class Jwt {
 

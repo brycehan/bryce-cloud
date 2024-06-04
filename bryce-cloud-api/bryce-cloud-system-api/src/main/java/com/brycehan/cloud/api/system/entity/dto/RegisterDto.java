@@ -29,7 +29,7 @@ public class RegisterDto {
      */
     @Size(max = 50)
     @Schema(description = "姓名")
-    private String fullName;
+    private String nickname;
 
     /**
      * 密码
