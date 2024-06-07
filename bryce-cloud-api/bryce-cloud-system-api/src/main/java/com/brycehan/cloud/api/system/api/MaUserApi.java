@@ -5,7 +5,6 @@ import com.brycehan.cloud.api.system.fallback.MaUserApiFallbackImpl;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @since 2024/4/7
  * @author Bryce Han
  */
-@Primary
 @FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/maUser", contextId = "maUser", fallbackFactory = MaUserApiFallbackImpl.class)
 public interface MaUserApi {
 
