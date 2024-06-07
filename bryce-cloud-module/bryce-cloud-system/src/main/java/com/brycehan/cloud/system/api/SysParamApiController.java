@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023/11/16
  */
 @Slf4j
-@Tag(name = "系统参数Api实现")
+@Tag(name = "系统参数Api")
 @RestController
 @RequiredArgsConstructor
 public class SysParamApiController implements SysParamApi {

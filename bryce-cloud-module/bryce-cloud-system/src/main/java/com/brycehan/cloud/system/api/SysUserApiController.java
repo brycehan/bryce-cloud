@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023/11/16
  */
 @Slf4j
-@Tag(name = "系统用户Api实现")
+@Tag(name = "系统用户Api")
 @RestController
 @RequiredArgsConstructor
 public class SysUserApiController implements SysUserApi {

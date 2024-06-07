@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023/11/16
  */
 @Slf4j
-@Tag(name = "系统登录日志Api实现")
+@Tag(name = "系统登录日志Api")
 @RestController
 @RequiredArgsConstructor
 public class SysLoginLogApiController implements SysLoginLogApi {

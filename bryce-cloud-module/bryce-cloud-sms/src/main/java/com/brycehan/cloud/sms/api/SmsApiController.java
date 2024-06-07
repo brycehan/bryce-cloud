@@ -1,4 +1,4 @@
-package com.brycehan.cloud.sms.controller;
+package com.brycehan.cloud.sms.api;
 
 import com.brycehan.cloud.api.sms.api.SmsApi;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
