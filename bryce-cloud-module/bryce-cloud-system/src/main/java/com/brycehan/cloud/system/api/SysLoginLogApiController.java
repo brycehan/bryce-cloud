@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 系统登录日志Api实现
+ * 系统登录日志Api
  *
  * @author Bryce Han
  * @since 2023/11/16

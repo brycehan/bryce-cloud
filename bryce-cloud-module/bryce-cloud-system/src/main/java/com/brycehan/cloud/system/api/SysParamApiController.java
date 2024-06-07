@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 系统参数 Api 实现
+ * 系统参数Api
  *
  * @author Bryce Han
  * @since 2023/11/16

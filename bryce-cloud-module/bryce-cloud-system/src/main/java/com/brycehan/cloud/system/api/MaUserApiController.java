@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 系统参数 Api 实现
+ * 微信小程序用户Api
  *
  * @author Bryce Han
  * @since 2023/11/16
  */
 @Slf4j
-@Tag(name = "系统用户Api")
+@Tag(name = "微信小程序用户Api")
 @RequestMapping(path = MaUserApi.PATH)
 @RestController
 @RequiredArgsConstructor
