@@ -2,6 +2,7 @@ package com.brycehan.cloud.api.system.api;
 
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
+import com.brycehan.cloud.api.system.fallback.SysParamApiFallbackImpl;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, contextId = "sysParam")
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysParam", contextId = "sysParam", fallbackFactory = SysParamApiFallbackImpl.class)
 public interface SysParamApi {
 
     /**
@@ -21,7 +22,7 @@ public interface SysParamApi {
      *
      * @param sysParamDto 系统参数Dto
      */
-    @PostMapping(path = "/api/param")
+    @PostMapping
     ResponseResult<Void> save(@RequestBody SysParamDto sysParamDto);
 
     /**
@@ -29,7 +30,7 @@ public interface SysParamApi {
      *
      * @param sysParamDto 系统参数Dto
      */
-    @PutMapping(path = "/api/param")
+    @PutMapping
     ResponseResult<Void> update(@RequestBody SysParamDto sysParamDto);
 
     /**
@@ -39,7 +40,7 @@ public interface SysParamApi {
      *
      * @return paramKey 是否存在
      */
-    @GetMapping(path = "/api/param/exists")
+    @GetMapping(path = "/exists")
     ResponseResult<Boolean> exists(@RequestParam String paramKey);
 
     /**
@@ -48,7 +49,7 @@ public interface SysParamApi {
      * @param paramKey 参数key
      * @return 参数对象
      */
-    @GetMapping(path = "/api/param/getByParamKey")
+    @GetMapping(path = "/getByParamKey")
     ResponseResult<SysParamApiVo> getByParamKey(@RequestParam String paramKey);
 
     /**
@@ -57,7 +58,7 @@ public interface SysParamApi {
      * @param paramKey 参数key
      * @return 参数值
      */
-    @GetMapping(path = "/api/param/getString")
+    @GetMapping(path = "/getString")
     ResponseResult<String> getString(@RequestParam String paramKey);
 
     /**
@@ -66,7 +67,7 @@ public interface SysParamApi {
      * @param paramKey 参数Key
      * @return 参数值
      */
-    @GetMapping(path = "/api/param/getBoolean")
+    @GetMapping(path = "/getBoolean")
     ResponseResult<Boolean> getBoolean(@RequestParam String paramKey);
 
 }

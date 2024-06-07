@@ -1,5 +1,6 @@
 package com.brycehan.cloud.api.system.api;
 
+import com.brycehan.cloud.api.system.fallback.SysAreaCodeApiFallbackImpl;
 import com.brycehan.cloud.common.core.ServerNames;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, contextId = "sysArea")
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysArea", contextId = "sysArea", fallbackFactory = SysAreaCodeApiFallbackImpl.class)
 public interface SysAreaCodeApi {
 
     /**
@@ -22,7 +23,7 @@ public interface SysAreaCodeApi {
      * @param areaCode 地区编码
      * @return 扩展名称
      */
-    @GetMapping(path = "/api/sysArea/extNameByCode/{areaCode}")
+    @GetMapping(path = "/extNameByCode/{areaCode}")
     ResponseResult<String> getExtNameByCode(@PathVariable @RequestParam String areaCode);
 
     /**
@@ -31,7 +32,7 @@ public interface SysAreaCodeApi {
      * @param areaCode 地区编码
      * @return 地区位置
      */
-    @GetMapping(path = "/api/sysArea/fullLocation/{areaCode}")
+    @GetMapping(path = "/fullLocation/{areaCode}")
     ResponseResult<String> getFullLocation(@PathVariable @RequestParam String areaCode);
 
 }
