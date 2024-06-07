@@ -1,4 +1,4 @@
-package com.brycehan.cloud.api.sms.enums;
+package com.brycehan.cloud.common.core.enums;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -24,10 +24,6 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-system-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
         <!-- sms短信框架 -->

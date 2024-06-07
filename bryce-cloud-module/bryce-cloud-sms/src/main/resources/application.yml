@@ -19,7 +19,6 @@ spring:
   config:
     import:
       - optional:nacos:application-common.yaml
-      - optional:nacos:application-cache.yaml
       - optional:nacos:application-endpoint.yaml
       - optional:nacos:application-sentinel.yaml
       - optional:nacos:application-jwt.yaml

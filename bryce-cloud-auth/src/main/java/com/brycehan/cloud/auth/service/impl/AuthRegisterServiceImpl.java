@@ -45,6 +45,8 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
         if (!validated) {
             throw new ServerException("验证码错误");
         }
+
+        // 注册
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(registerDto, sysUserDto);
 
@@ -63,8 +65,8 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
     }
 
     @Override
-    public boolean captchaEnabled() {
-        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_CAPTCHA_ENABLED);
+    public boolean registerEnabled() {
+        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_ENABLED);
         return responseResult.getData();
     }
 

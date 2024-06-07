@@ -1,22 +1,16 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.api.sms.api.SmsApi;
-import com.brycehan.cloud.api.sms.enums.SmsType;
-import com.brycehan.cloud.api.system.api.SysUserApi;
-import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.enums.SmsType;
+import com.brycehan.cloud.auth.entity.vo.SmsCodeVo;
+import com.brycehan.cloud.auth.service.AuthSmsService;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.LinkedHashMap;
 
 /**
  * 登录认证短信API
@@ -31,9 +25,7 @@ import java.util.LinkedHashMap;
 @RequiredArgsConstructor
 public class AuthSmsController {
 
-    private final SmsApi smsApi;
-
-    private final SysUserApi sysUserApi;
+    private final AuthSmsService authSmsService;
 
     /**
      * 生成登录验证码
@@ -43,7 +35,9 @@ public class AuthSmsController {
     @Operation(summary = "生成登录验证码")
     @GetMapping(path = "/login/code")
     public ResponseResult<?> sendLoginCode(String phone) {
-        return sendCode(phone, SmsType.LOGIN);
+        SmsCodeVo smsCodeVo = this.authSmsService.sendCode(phone, SmsType.LOGIN);
+        return ResponseResult.ok(smsCodeVo);
+
     }
 
     /**
@@ -54,7 +48,8 @@ public class AuthSmsController {
     @Operation(summary = "生成注册验证码")
     @GetMapping(path = "/register/code")
     public ResponseResult<?> sendRegisterCode(String phone) {
-        return sendCode(phone, SmsType.REGISTER);
+        SmsCodeVo smsCodeVo = this.authSmsService.sendCode(phone, SmsType.REGISTER);
+        return ResponseResult.ok(smsCodeVo);
     }
 
     /**
@@ -65,44 +60,8 @@ public class AuthSmsController {
     @Operation(summary = "是否开启短信功能")
     @GetMapping(path = "/enabled")
     public ResponseResult<Boolean> enabled() {
-        ResponseResult<Boolean> responseResult = this.smsApi.isSmsEnabled();
-        if (responseResult.getCode() != 200) {
-            return responseResult;
-        }
-        return ResponseResult.ok(responseResult.getData());
-    }
-
-    @NotNull
-    private ResponseResult<?> sendCode(String phone, SmsType smsType) {
-        ResponseResult<Boolean> responseResult = this.smsApi.isSmsEnabled();
-
-        if (responseResult.getCode() != 200) {
-            return responseResult;
-        }
-
-        boolean smsEnabled = responseResult.getData();
-        if (!smsEnabled) {
-            return ResponseResult.error("短信功能未开启");
-        }
-
-        ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByPhone(phone);
-        if(loginUserResponseResult.getData() == null) {
-            throw new ServerException("手机号码未注册");
-        }
-
-        // 生成6位验证码
-        String code = RandomStringUtils.randomNumeric(6);
-        
-        LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("code", code);
-
-        // 发送短信
-        ResponseResult<Boolean> send = this.smsApi.send(phone, smsType, params);
-        if (send.getCode() != 200) {
-            throw new ServerException("短信发送失败".concat(send.getMessage()));
-        }
-
-        return ResponseResult.ok(send.getData());
+        boolean smsEnabled = this.authSmsService.smsEnabled();
+        return ResponseResult.ok(smsEnabled);
     }
 
 }

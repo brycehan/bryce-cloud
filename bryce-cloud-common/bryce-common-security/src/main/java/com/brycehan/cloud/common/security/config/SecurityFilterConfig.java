@@ -5,6 +5,8 @@ import com.brycehan.cloud.common.security.jwt.JwtAccessDeniedHandler;
 import com.brycehan.cloud.common.security.jwt.JwtAuthenticationEntryPoint;
 import com.brycehan.cloud.common.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,12 +29,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @since 2022/5/9
  * @author Bryce Han
  */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AuthProperties.class)
-public class SecurityFilterConfig {
+public class SecurityFilterConfig implements InitializingBean {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -91,6 +95,12 @@ public class SecurityFilterConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        log.info("配置子线程获取Spring Security的认证信息");
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
 
 }
