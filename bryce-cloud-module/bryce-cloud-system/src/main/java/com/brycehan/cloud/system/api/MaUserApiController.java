@@ -6,6 +6,7 @@ import com.brycehan.cloud.common.core.base.http.ResponseResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @Tag(name = "系统用户Api")
+@RequestMapping(path = MaUserApi.PATH)
 @RestController
 @RequiredArgsConstructor
 public class MaUserApiController implements MaUserApi {

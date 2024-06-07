@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @Tag(name = "系统参数Api")
+@RequestMapping(path = SysParamApi.PATH)
 @RestController
 @RequiredArgsConstructor
 public class SysParamApiController implements SysParamApi {

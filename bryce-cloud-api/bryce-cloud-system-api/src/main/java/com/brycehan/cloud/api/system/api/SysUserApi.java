@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysUser", contextId = "sysUser", fallbackFactory = SysUserApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = SysUserApi.PATH, contextId = "sysUser", fallbackFactory = SysUserApiFallbackImpl.class)
 public interface SysUserApi {
+
+    String PATH = "/api/sysUser";
 
     /**
      * 查询系统账号

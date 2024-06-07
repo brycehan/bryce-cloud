@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @Tag(name = "系统用户Api")
+@RequestMapping(path = SysUserApi.PATH)
 @RestController
 @RequiredArgsConstructor
 public class SysUserApiController implements SysUserApi {

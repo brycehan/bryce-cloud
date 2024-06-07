@@ -18,8 +18,10 @@ import java.util.LinkedHashMap;
  * @author Bryce Han
  */
 @Tag(name = "短信Api")
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SMS, path = "/api/sms", contextId = "sms", fallbackFactory = SmsApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SMS, path = SmsApi.PATH, contextId = "sms", fallbackFactory = SmsApiFallbackImpl.class)
 public interface SmsApi {
+
+    String PATH = "/api/sms";
 
     /**
      * 发送短信

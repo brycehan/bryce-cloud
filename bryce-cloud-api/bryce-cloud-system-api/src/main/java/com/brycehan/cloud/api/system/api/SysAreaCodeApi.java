@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysArea", contextId = "sysArea", fallbackFactory = SysAreaCodeApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = SysAreaCodeApi.PATH, contextId = "sysArea", fallbackFactory = SysAreaCodeApiFallbackImpl.class)
 public interface SysAreaCodeApi {
+
+    String PATH = "/api/sysArea";
 
     /**
      * 根据地区编码获取扩展名称

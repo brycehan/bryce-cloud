@@ -6,6 +6,7 @@ import com.brycehan.cloud.system.service.SysAreaCodeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @Tag(name = "系统参数Api")
+@RequestMapping(path = SysAreaCodeApi.PATH)
 @RestController
 @RequiredArgsConstructor
 public class SysAreaCodeApiController implements SysAreaCodeApi {

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @since 2024/5/11
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysLoginLog", contextId = "sysLoginLog", fallbackFactory = SysLoginLogApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = SysLoginLogApi.PATH, contextId = "sysLoginLog", fallbackFactory = SysLoginLogApiFallbackImpl.class)
 public interface SysLoginLogApi {
+
+    String PATH = "/api/sysLoginLog";
 
     /**
      * 保存登录日志

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedHashMap;
@@ -20,6 +21,7 @@ import java.util.LinkedHashMap;
  */
 @Slf4j
 @Tag(name = "短信Api")
+@RequestMapping(path = SmsApi.PATH)
 @RestController
 @RequiredArgsConstructor
 public class SmsApiController implements SmsApi {

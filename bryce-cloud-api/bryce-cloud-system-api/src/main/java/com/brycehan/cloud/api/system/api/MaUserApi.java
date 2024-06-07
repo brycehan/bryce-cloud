@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @since 2024/4/7
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/maUser", contextId = "maUser", fallbackFactory = MaUserApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = MaUserApi.PATH, contextId = "maUser", fallbackFactory = MaUserApiFallbackImpl.class)
 public interface MaUserApi {
+
+    String PATH = "/api/maUser";
 
     /**
      * 获取微信小程序用户账号

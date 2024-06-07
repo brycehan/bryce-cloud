@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = "/api/sysParam", contextId = "sysParam", fallbackFactory = SysParamApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = SysParamApi.PATH, contextId = "sysParam", fallbackFactory = SysParamApiFallbackImpl.class)
 public interface SysParamApi {
+
+    String PATH = "/api/sysParam";
 
     /**
      * 添加系统参数
