@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.service;
 
+import com.brycehan.cloud.common.core.base.VersionException;
 import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
 import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
@@ -10,6 +11,8 @@ import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -36,9 +39,22 @@ public interface SysUserService extends BaseService<SysUser> {
      *
      * @param sysUserDto 系统用户Dto
      */
+    @Retryable(retryFor = VersionException.class, backoff = @Backoff(delay = 0))
     default void update(SysUserDto sysUserDto) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
-        this.getBaseMapper().updateById(sysUser);
+
+        // 设置版本号
+        SysUser user = this.getBaseMapper().selectById(sysUser.getId());
+        if (user == null) {
+            return;
+        }
+        sysUser.setVersion(user.getVersion());
+
+        // 更新
+        int updated = this.getBaseMapper().updateById(sysUser);
+        if (updated == 0) {
+            throw new VersionException();
+        }
     }
 
     /**
