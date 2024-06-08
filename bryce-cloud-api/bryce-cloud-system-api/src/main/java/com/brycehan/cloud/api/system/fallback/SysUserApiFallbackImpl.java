@@ -22,31 +22,32 @@ public class SysUserApiFallbackImpl implements FallbackFactory<SysUserApi> {
 
     @Override
     public SysUserApi create(Throwable cause) {
+        log.error("系统服务调用失败，{}", cause.getMessage());
 
         return new SysUserApi() {
             @Override
             public ResponseResult<LoginUser> loadUserByUsername(String username) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<LoginUser> loadUserByPhone(String phone) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<LoginUser> loadUserById(Long id) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<SysUserVo> registerUser(SysUserDto sysUserDto) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
         };
     }

@@ -20,36 +20,37 @@ public class SysParamApiFallbackImpl implements FallbackFactory<SysParamApi> {
 
     @Override
     public SysParamApi create(Throwable cause) {
+        log.error("系统服务调用失败，{}", cause.getMessage());
 
         return new SysParamApi() {
             @Override
             public ResponseResult<Void> save(SysParamDto sysParamDto) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<Void> update(SysParamDto sysParamDto) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<Boolean> exists(String paramKey) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<SysParamApiVo> getByParamKey(String paramKey) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<String> getString(String paramKey) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<Boolean> getBoolean(String paramKey) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
         };
     }

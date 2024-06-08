@@ -3,8 +3,8 @@ package com.brycehan.cloud.auth.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.auth.common.CaptchaType;
-import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.common.security.config.CaptchaProperties;
+import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
@@ -77,10 +77,15 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
         // 获取缓存验证码
         String captchaKey = RedisKeys.getCaptchaKey(key);
         String captchaValue = this.stringRedisTemplate.opsForValue()
-                .getAndDelete(captchaKey);
-
+                .get(captchaKey);
         // 校验
-        return code.equalsIgnoreCase(captchaValue);
+        boolean validated = code.equalsIgnoreCase(captchaValue);
+        if (validated) {
+            // 删除验证码
+            this.stringRedisTemplate.delete(captchaKey);
+        }
+
+        return validated;
     }
 
     @Override

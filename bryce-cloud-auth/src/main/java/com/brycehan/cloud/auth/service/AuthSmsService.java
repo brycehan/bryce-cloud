@@ -1,6 +1,5 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.auth.entity.vo.SmsCodeVo;
 import com.brycehan.cloud.common.core.enums.SmsType;
 
 /**
@@ -16,19 +15,18 @@ public interface AuthSmsService {
      *
      * @param phone 手机号
      * @param smsType 短信类型
-     * @return 发送结果（true：发送成功，false：发送失败）
      */
-    SmsCodeVo sendCode(String phone, SmsType smsType);
+    void sendCode(String phone, SmsType smsType);
 
     /**
      * 校验验证码
      *
-     * @param key  key
+     * @param phone  手机号码
      * @param code 验证码
      * @param smsType 短信类型
      * @return 校验结果（true：正确，false：错误）
      */
-    boolean validate(String key, String code, SmsType smsType);
+    boolean validate(String phone, String code, SmsType smsType);
 
     /**
      * 获取短信验证码开关

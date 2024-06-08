@@ -18,6 +18,7 @@ public class MaUserApiFallbackImpl implements FallbackFactory<MaUserApi> {
 
     @Override
     public MaUserApi create(Throwable cause) {
-        return openid -> ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+        log.error("系统服务调用失败，{}", cause.getMessage());
+        return openid -> ResponseResult.fallback("系统服务调用失败");
     }
 }

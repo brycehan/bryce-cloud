@@ -18,8 +18,7 @@ public class SysLoginLogApiFallbackImpl implements FallbackFactory<SysLoginLogAp
 
     @Override
     public SysLoginLogApi create(Throwable cause) {
-
-        return sysLoginLogDto -> ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
-
+        log.error("系统服务调用失败，{}", cause.getMessage());
+        return sysLoginLogDto -> ResponseResult.fallback("系统服务调用失败");
     }
 }

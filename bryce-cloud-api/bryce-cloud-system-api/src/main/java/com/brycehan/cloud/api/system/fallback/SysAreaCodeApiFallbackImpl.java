@@ -18,16 +18,17 @@ public class SysAreaCodeApiFallbackImpl implements FallbackFactory<SysAreaCodeAp
 
     @Override
     public SysAreaCodeApi create(Throwable cause) {
+        log.error("系统服务调用失败，{}", cause.getMessage());
 
         return new SysAreaCodeApi() {
             @Override
             public ResponseResult<String> getExtNameByCode(String areaCode) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
 
             @Override
             public ResponseResult<String> getFullLocation(String areaCode) {
-                return ResponseResult.fallback("系统服务调用失败，" + cause.getMessage());
+                return ResponseResult.fallback("系统服务调用失败");
             }
         };
 

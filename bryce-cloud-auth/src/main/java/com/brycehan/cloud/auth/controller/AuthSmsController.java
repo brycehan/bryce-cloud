@@ -1,9 +1,8 @@
 package com.brycehan.cloud.auth.controller;
 
-import com.brycehan.cloud.common.core.enums.SmsType;
-import com.brycehan.cloud.auth.entity.vo.SmsCodeVo;
 import com.brycehan.cloud.auth.service.AuthSmsService;
 import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.enums.SmsType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 登录认证短信API
+ * 短信验证码Api
  *
  * @since 2022/5/10
  * @author Bryce Han
  */
 @Slf4j
-@Tag(name = "登录认证短信API")
+@Tag(name = "短信验证码")
 @RequestMapping("/sms")
 @RestController
 @RequiredArgsConstructor
@@ -35,9 +34,8 @@ public class AuthSmsController {
     @Operation(summary = "生成登录验证码")
     @GetMapping(path = "/login/code")
     public ResponseResult<?> sendLoginCode(String phone) {
-        SmsCodeVo smsCodeVo = this.authSmsService.sendCode(phone, SmsType.LOGIN);
-        return ResponseResult.ok(smsCodeVo);
-
+        this.authSmsService.sendCode(phone, SmsType.LOGIN);
+        return ResponseResult.ok();
     }
 
     /**
@@ -48,8 +46,8 @@ public class AuthSmsController {
     @Operation(summary = "生成注册验证码")
     @GetMapping(path = "/register/code")
     public ResponseResult<?> sendRegisterCode(String phone) {
-        SmsCodeVo smsCodeVo = this.authSmsService.sendCode(phone, SmsType.REGISTER);
-        return ResponseResult.ok(smsCodeVo);
+        this.authSmsService.sendCode(phone, SmsType.REGISTER);
+        return ResponseResult.ok();
     }
 
     /**

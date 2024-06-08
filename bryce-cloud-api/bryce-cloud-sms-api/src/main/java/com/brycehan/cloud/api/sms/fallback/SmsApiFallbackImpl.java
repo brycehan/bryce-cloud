@@ -18,7 +18,8 @@ public class SmsApiFallbackImpl implements FallbackFactory<SmsApi> {
 
     @Override
     public SmsApi create(Throwable cause) {
-
-        return (phone, smsType, params) -> ResponseResult.fallback("短信服务调用失败，" + cause.getMessage());
+        log.error("短信服务调用失败，{}", cause.getMessage());
+        return (phone, smsType, params) -> ResponseResult.fallback("短信服务调用失败");
     }
 }
+
