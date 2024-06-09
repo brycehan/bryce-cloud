@@ -17,13 +17,10 @@ public class MetaObjectHandlerImpl implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        LoginUser loginUser = LoginUserContext.currentUser();
-        if(loginUser != null) {
-            // 创建者ID
-            strictInsertFill(metaObject, "createdUserId", Long.class, loginUser.getId());
-            // 创建者所属机构
-            strictInsertFill(metaObject, "orgId", Long.class, loginUser.getOrgId());
-        }
+        // 创建者ID
+        strictInsertFill(metaObject, "createdUserId", Long.class, LoginUserContext.currentUserId());
+        // 创建者所属机构
+        strictInsertFill(metaObject, "orgId", Long.class, LoginUserContext.currentOrgId());
         // 创建时间
         strictInsertFill(metaObject, "createdTime", LocalDateTime.class, LocalDateTime.now());
         // 版本号

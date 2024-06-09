@@ -1,5 +1,7 @@
 package com.brycehan.cloud.system.entity.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.brycehan.cloud.common.core.base.entity.BaseEntity;
 import lombok.Data;
@@ -54,6 +56,7 @@ public class SysRole extends BaseEntity {
     /**
      * 机构ID
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long orgId;
 
 }

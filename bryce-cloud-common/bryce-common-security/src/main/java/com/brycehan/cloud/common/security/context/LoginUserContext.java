@@ -42,4 +42,27 @@ public class LoginUserContext {
         return loginUser.getId();
     }
 
+    /**
+     * 获取当前登录用户的机构ID
+     *
+     * @return 当前登录用户的机构ID
+     */
+    public static Long currentOrgId() {
+        LoginUser loginUser = currentUser();
+        if(loginUser == null){
+            return null;
+        }
+
+        return loginUser.getOrgId();
+    }
+
+    public static String currentOpenId() {
+        LoginUser loginUser = currentUser();
+        if(loginUser == null){
+            return null;
+        }
+
+        return loginUser.getOpenId();
+    }
+
 }

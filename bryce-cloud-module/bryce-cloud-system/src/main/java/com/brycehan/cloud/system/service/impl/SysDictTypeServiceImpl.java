@@ -61,14 +61,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
         wrapper.eq(Objects.nonNull(sysDictTypePageDto.getStatus()), SysDictType::getStatus, sysDictTypePageDto.getStatus());
         wrapper.like(StringUtils.isNotEmpty(sysDictTypePageDto.getDictName()), SysDictType::getDictName, sysDictTypePageDto.getDictName());
         wrapper.like(StringUtils.isNotEmpty(sysDictTypePageDto.getDictType()), SysDictType::getDictType, sysDictTypePageDto.getDictType());
-
-        if (sysDictTypePageDto.getCreatedTimeStart() != null && sysDictTypePageDto.getCreatedTimeEnd() != null) {
-            wrapper.between(SysDictType::getCreatedTime, sysDictTypePageDto.getCreatedTimeStart(), sysDictTypePageDto.getCreatedTimeEnd());
-        } else if (sysDictTypePageDto.getCreatedTimeStart() != null) {
-            wrapper.ge(SysDictType::getCreatedTime, sysDictTypePageDto.getCreatedTimeStart());
-        } else if (sysDictTypePageDto.getCreatedTimeEnd() != null) {
-            wrapper.ge(SysDictType::getCreatedTime, sysDictTypePageDto.getCreatedTimeEnd());
-        }
+        addTimeRangeCondition(wrapper, SysDictType::getCreatedTime, sysDictTypePageDto.getCreatedTimeStart(), sysDictTypePageDto.getCreatedTimeEnd());
 
         return wrapper;
     }

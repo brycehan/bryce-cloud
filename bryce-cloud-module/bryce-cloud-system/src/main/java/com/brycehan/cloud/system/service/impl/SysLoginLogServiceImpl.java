@@ -55,14 +55,7 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
         wrapper.eq(Objects.nonNull(sysLoginLogPageDto.getStatus()), SysLoginLog::getStatus, sysLoginLogPageDto.getStatus());
         wrapper.like(StringUtils.isNotEmpty(sysLoginLogPageDto.getUsername()), SysLoginLog::getUsername, sysLoginLogPageDto.getUsername());
         wrapper.like(StringUtils.isNotEmpty(sysLoginLogPageDto.getIp()), SysLoginLog::getIp, sysLoginLogPageDto.getIp());
-
-        if (sysLoginLogPageDto.getAccessTimeStart() != null && sysLoginLogPageDto.getAccessTimeEnd() != null) {
-            wrapper.between(SysLoginLog::getCreatedTime, sysLoginLogPageDto.getAccessTimeStart(), sysLoginLogPageDto.getAccessTimeEnd());
-        } else if (sysLoginLogPageDto.getAccessTimeStart() != null) {
-            wrapper.ge(SysLoginLog::getCreatedTime, sysLoginLogPageDto.getAccessTimeStart());
-        } else if (sysLoginLogPageDto.getAccessTimeEnd() != null) {
-            wrapper.ge(SysLoginLog::getCreatedTime, sysLoginLogPageDto.getAccessTimeEnd());
-        }
+        addTimeRangeCondition(wrapper, SysLoginLog::getAccessTime, sysLoginLogPageDto.getAccessTimeStart(), sysLoginLogPageDto.getAccessTimeEnd());
 
         return wrapper;
     }
