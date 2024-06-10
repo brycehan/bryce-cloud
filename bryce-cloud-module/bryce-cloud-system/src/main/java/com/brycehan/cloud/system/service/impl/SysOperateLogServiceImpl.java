@@ -4,9 +4,9 @@ import cn.hutool.core.thread.ThreadUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
+import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
@@ -93,7 +93,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
             // 每次插入1000条
             for (int i = 0; i < 1000; i++) {
                 OperateLogDto operateLogDto = this.redisTemplate.opsForList()
-                        .rightPop(RedisKeys.getOperateLogKey());
+                        .rightPop(CacheConstants.SYSTEM_OPERATE_LOG_KEY);
                 if (operateLogDto == null) {
                     break;
                 }
