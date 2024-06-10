@@ -3,6 +3,7 @@ package com.brycehan.cloud.gateway.filter;
 import com.brycehan.cloud.gateway.utils.AuthPathParser;
 import com.brycehan.cloud.gateway.utils.XssUtils;
 import io.netty.buffer.ByteBufAllocator;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -77,6 +78,7 @@ public class XssFilter implements GlobalFilter {
     private ServerHttpRequestDecorator httpRequestDecorator(ServerHttpRequest request) {
 
         return new ServerHttpRequestDecorator(request){
+            @NotNull
             @Override
             public Flux<DataBuffer> getBody() {
                 Flux<DataBuffer> body = super.getBody();

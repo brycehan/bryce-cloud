@@ -24,11 +24,6 @@ public class AuthPasswordRetryServiceImpl implements AuthPasswordRetryService {
     @Value(value = "${bryce.user.password.lock-duration-minutes}")
     private Integer lockDurationMinutes;
 
-    @Override
-    public void validate(String username, String password) {
-
-    }
-
     /**
      * 获取登录账户密码错误次数缓存键
      *

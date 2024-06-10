@@ -36,7 +36,7 @@ public class CacheConstants {
     /**
      * 获取第三方登录 key
      */
-    public static final String SYSTEM_THIRDLOGIN_KEY = "system:thirdlogin:";
+    public static final String SYSTEM_THIRD_LOGIN_KEY = "system:third_login:";
 
     /**
      * 系统参数键

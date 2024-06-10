@@ -50,7 +50,7 @@ public class RedisKeys {
      * @return 第三方登录 key
      */
     public static String getThirdLoginKey(String state) {
-        return CacheConstants.SYSTEM_THIRDLOGIN_KEY + state;
+        return CacheConstants.SYSTEM_THIRD_LOGIN_KEY + state;
     }
 
 }

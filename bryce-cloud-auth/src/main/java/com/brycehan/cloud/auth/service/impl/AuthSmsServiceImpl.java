@@ -39,7 +39,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
     private final SysUserApi sysUserApi;
 
-    private final long expiration = 5;
+    public final long expiration = 5L;
 
     @Override
     public void sendCode(String phone, SmsType smsType) {

@@ -8,8 +8,6 @@ package com.brycehan.cloud.auth.service;
  */
 public interface AuthPasswordRetryService {
 
-    void validate(String username, String password);
-
     /**
      * 用户的密码错误次数
      *

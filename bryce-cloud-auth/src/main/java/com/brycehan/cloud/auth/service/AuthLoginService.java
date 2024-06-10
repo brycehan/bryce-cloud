@@ -40,7 +40,7 @@ public interface AuthLoginService {
     /**
      * 退出登录
      *
-     * @param accessToken 访问令牌
+     * @param loginUser 登录用户
      */
     void logout(LoginUser loginUser);
 
