@@ -62,12 +62,12 @@ public class SysLoginLogController {
     }
 
     /**
-     * 分页查询
+     * 系统登录日志分页查询
      *
      * @param sysLoginLogPageDto 查询条件
      * @return 系统登录日志分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "系统登录日志分页查询")
     @PreAuthorize("hasAuthority('system:loginLog:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysLoginLogVo>> page(@Validated @RequestBody SysLoginLogPageDto sysLoginLogPageDto) {

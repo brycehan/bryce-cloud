@@ -79,12 +79,12 @@ public class SysAreaCodeController {
     }
 
     /**
-     * 分页查询
+     * 地区编码分页查询
      *
      * @param sysAreaCodePageDto 查询条件
      * @return 地区编码分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "地区编码分页查询")
     @PreAuthorize("hasAuthority('system:areaCode:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysAreaCodeVo>> page(@Validated @RequestBody SysAreaCodePageDto sysAreaCodePageDto) {

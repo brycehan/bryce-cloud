@@ -99,12 +99,12 @@ public class SysDictTypeController {
     }
 
     /**
-     * 分页查询
+     * 系统字典类型分页查询
      *
      * @param sysDictTypePageDto 查询条件
      * @return 系统字典类型分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "系统字典类型分页查询")
     @PreAuthorize("hasAuthority('system:dictType:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysDictTypeVo>> page(@Validated @RequestBody SysDictTypePageDto sysDictTypePageDto) {

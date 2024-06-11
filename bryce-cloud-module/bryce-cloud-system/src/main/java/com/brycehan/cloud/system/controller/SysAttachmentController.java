@@ -95,12 +95,12 @@ public class SysAttachmentController {
     }
 
     /**
-     * 分页查询
+     * 系统附件分页查询
      *
      * @param sysAttachmentPageDto 查询条件
      * @return 系统附件分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "系统附件分页查询")
     @PreAuthorize("hasAuthority('system:attachment:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysAttachmentVo>> page(@Validated @RequestBody SysAttachmentPageDto sysAttachmentPageDto) {

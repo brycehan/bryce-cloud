@@ -117,12 +117,12 @@ public class SysMenuController {
     }
 
     /**
-     * 分页查询
+     * 系统菜单分页查询
      *
      * @param sysMenuPageDto 查询条件
      * @return 系统菜单分页列表
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "系统菜单分页查询")
     @PreAuthorize("hasAuthority('system:menu:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysMenuVo>> page(@Validated @RequestBody SysMenuPageDto sysMenuPageDto) {
