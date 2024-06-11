@@ -5,6 +5,7 @@ import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysParamConvert;
 import com.brycehan.cloud.system.entity.dto.SysParamDto;
+import com.brycehan.cloud.system.entity.dto.SysParamKeyDto;
 import com.brycehan.cloud.system.entity.dto.SysParamPageDto;
 import com.brycehan.cloud.system.entity.po.SysParam;
 import com.brycehan.cloud.system.entity.vo.SysParamVo;
@@ -88,5 +89,13 @@ public interface SysParamService extends BaseService<SysParam> {
      * @return 参数值
      */
     <T> T getJSONObject(String paramKey, Class<T> valueType);
+
+    /**
+     * 校验参数Key是否唯一
+     *
+     * @param sysParamKeyDto 参数KeyDto
+     * @return true：唯一，false：不唯一
+     */
+    boolean checkParamKeyUnique(SysParamKeyDto sysParamKeyDto);
 
 }

@@ -13,6 +13,7 @@ import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.core.util.TreeUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
+import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
 import com.brycehan.cloud.system.entity.po.SysMenu;
@@ -160,6 +161,18 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
         }
 
         return authoritySet;
+    }
+
+    @Override
+    public boolean checkAuthorityUnique(SysMenuAuthorityDto sysMenuAuthorityDto) {
+        LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .select(SysMenu::getAuthority, SysMenu::getId)
+                .eq(SysMenu::getAuthority, sysMenuAuthorityDto.getAuthority());
+        SysMenu sysMenu = this.baseMapper.selectOne(queryWrapper, false);
+
+        // 修改时，同权限标识同ID为标识唯一
+        return Objects.isNull(sysMenu) || Objects.equals(sysMenuAuthorityDto.getId(), sysMenu.getId());
     }
 
 }

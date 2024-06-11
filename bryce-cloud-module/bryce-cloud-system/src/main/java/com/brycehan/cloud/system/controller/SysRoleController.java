@@ -10,10 +10,7 @@ import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
-import com.brycehan.cloud.system.entity.dto.SysRoleDataScopeDto;
-import com.brycehan.cloud.system.entity.dto.SysRoleDto;
-import com.brycehan.cloud.system.entity.dto.SysRolePageDto;
-import com.brycehan.cloud.system.entity.dto.SysRoleUserPageDto;
+import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysRole;
 import com.brycehan.cloud.system.entity.vo.SysMenuVo;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
@@ -235,6 +232,19 @@ public class SysRoleController {
     public ResponseResult<Void> deleteUsers(@PathVariable Long roleId, @RequestBody List<Long> userIds) {
         this.sysUserRoleService.deleteByRoleIdAndUserIds(roleId, userIds);
         return ResponseResult.ok();
+    }
+
+    /**
+     * 校验角色编码是否唯一
+     *
+     * @param sysRoleCodeDto 角色编码Dto
+     * @return 响应结果，是否唯一
+     */
+    @Operation(summary = "校验角色编码是否唯一（true：唯一，false：不唯一）")
+    @GetMapping(path = "/checkCodeUnique")
+    public ResponseResult<Boolean> checkCodeUnique(@Validated SysRoleCodeDto sysRoleCodeDto) {
+        boolean checked = this.sysRoleService.checkCodeUnique(sysRoleCodeDto);
+        return ResponseResult.ok(checked);
     }
 
 }

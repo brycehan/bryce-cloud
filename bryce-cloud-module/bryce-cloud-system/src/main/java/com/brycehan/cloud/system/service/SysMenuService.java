@@ -5,6 +5,7 @@ import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
+import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
 import com.brycehan.cloud.system.entity.po.SysMenu;
@@ -89,5 +90,13 @@ public interface SysMenuService extends BaseService<SysMenu> {
      * @return 权限集合
      */
     Set<String> findAuthority(LoginUser loginUser);
+
+    /**
+     * 校验菜单权限标识是否唯一
+     *
+     * @param sysMenuAuthorityDto 菜单权限标识Dto
+     * @return true：唯一，false：不唯一
+     */
+    boolean checkAuthorityUnique(SysMenuAuthorityDto sysMenuAuthorityDto);
 
 }

@@ -10,6 +10,7 @@ import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.common.enums.MenuType;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
+import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
 import com.brycehan.cloud.system.entity.po.SysMenu;
@@ -177,6 +178,19 @@ public class SysMenuController {
     public ResponseResult<List<SysMenuVo>> nav() {
         List<SysMenuVo> list = this.sysMenuService.getMenuTreeList(LoginUserContext.currentUser(), MenuType.MENU.getValue());
         return ResponseResult.ok(list);
+    }
+
+    /**
+     * 校验权限标识是否唯一
+     *
+     * @param sysMenuAuthorityDto 权限标识Dto
+     * @return 响应结果，是否唯一
+     */
+    @Operation(summary = "校验权限标识是否唯一（true：唯一，false：不唯一）")
+    @GetMapping(path = "/checkAuthorityUnique")
+    public ResponseResult<Boolean> checkAuthorityUnique(@Validated SysMenuAuthorityDto sysMenuAuthorityDto) {
+        boolean checked = this.sysMenuService.checkAuthorityUnique(sysMenuAuthorityDto);
+        return ResponseResult.ok(checked);
     }
 
 }

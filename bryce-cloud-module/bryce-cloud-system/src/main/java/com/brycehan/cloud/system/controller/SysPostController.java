@@ -8,6 +8,7 @@ import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.entity.convert.SysPostConvert;
+import com.brycehan.cloud.system.entity.dto.SysPostCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysPostDto;
 import com.brycehan.cloud.system.entity.dto.SysPostPageDto;
 import com.brycehan.cloud.system.entity.po.SysPost;
@@ -132,6 +133,19 @@ public class SysPostController {
     public ResponseResult<List<SysPostVo>> list() {
         List<SysPostVo> list = this.sysPostService.list(new SysPostPageDto());
         return ResponseResult.ok(list);
+    }
+
+    /**
+     * 校验岗位编码是否唯一
+     *
+     * @param sysPostCodeDto 系统岗位编码Dto
+     * @return 响应结果，是否唯一
+     */
+    @Operation(summary = "校验岗位编码是否唯一（true：唯一，false：不唯一）")
+    @GetMapping(path = "/checkCodeUnique")
+    public ResponseResult<Boolean> checkCodeUnique(@Validated SysPostCodeDto sysPostCodeDto) {
+        boolean checked = this.sysPostService.checkCodeUnique(sysPostCodeDto);
+        return ResponseResult.ok(checked);
     }
 
 }

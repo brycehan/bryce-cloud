@@ -11,9 +11,7 @@ import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
-import com.brycehan.cloud.system.entity.dto.SysResetPasswordDto;
-import com.brycehan.cloud.system.entity.dto.SysUserDto;
-import com.brycehan.cloud.system.entity.dto.SysUserPageDto;
+import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.system.service.SysUserPostService;
@@ -198,6 +196,45 @@ public class SysUserController {
     public ResponseResult<Void> insertAuthRole(Long userId, List<Long> roleIds) {
         this.sysUserRoleService.saveOrUpdate(userId, roleIds);
         return ResponseResult.ok();
+    }
+
+    /**
+     * 校验用户账号是否可注册
+     *
+     * @param username 用户账号
+     * @return 响应结果，是否可以注册
+     */
+    @Operation(summary = "校验用户账号是否可注册（true：可以注册，false：不可以）")
+    @GetMapping(path = "/checkUsernameUnique/{username}")
+    public ResponseResult<Boolean> checkUsernameUnique(@PathVariable String username) {
+        boolean checked = this.sysUserService.checkUsernameUnique(username);
+        return ResponseResult.ok(checked);
+    }
+
+    /**
+     * 校验手机号码是否可注册
+     *
+     * @param sysUserPhoneDto 手机号码Dto
+     * @return 响应结果，是否可以注册
+     */
+    @Operation(summary = "校验手机号码是否可注册（true：可以注册，false：不可以）")
+    @GetMapping(path = "/checkPhoneUnique")
+    public ResponseResult<Boolean> checkPhoneUnique(@Validated SysUserPhoneDto sysUserPhoneDto) {
+        boolean checked = this.sysUserService.checkPhoneUnique(sysUserPhoneDto);
+        return ResponseResult.ok(checked);
+    }
+
+    /**
+     * 校验用户邮箱是否可注册
+     *
+     * @param sysUserEmailDto 用户邮箱Dto
+     * @return 响应结果，是否可以注册
+     */
+    @Operation(summary = "校验用户邮箱是否可注册（true：可以注册，false：不可以）")
+    @GetMapping(path = "/checkEmailUnique")
+    public ResponseResult<Boolean> checkEmailUnique(@Validated SysUserEmailDto sysUserEmailDto) {
+        boolean checked = this.sysUserService.checkEmailUnique(sysUserEmailDto);
+        return ResponseResult.ok(checked);
     }
 
 }

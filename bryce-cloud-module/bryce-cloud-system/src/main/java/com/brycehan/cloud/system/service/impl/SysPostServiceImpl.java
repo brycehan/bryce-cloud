@@ -10,6 +10,7 @@ import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.system.entity.convert.SysPostConvert;
+import com.brycehan.cloud.system.entity.dto.SysPostCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysPostPageDto;
 import com.brycehan.cloud.system.entity.po.SysPost;
 import com.brycehan.cloud.system.entity.vo.SysPostVo;
@@ -92,12 +93,23 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> 
 
     @Override
     public List<String> getPostNameList(List<Long> postIdList) {
-
         if (CollectionUtils.isNotEmpty(postIdList)) {
             return this.baseMapper.selectList(new LambdaQueryWrapper<SysPost>().in(SysPost::getId, postIdList))
                     .stream().map(SysPost::getName).toList();
         }
         return List.of();
+    }
+
+    @Override
+    public boolean checkCodeUnique(SysPostCodeDto sysPostCodeDto) {
+        LambdaQueryWrapper<SysPost> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .select(SysPost::getCode, SysPost::getId)
+                .eq(SysPost::getCode, sysPostCodeDto.getCode());
+        SysPost sysPost = this.baseMapper.selectOne(queryWrapper, false);
+
+        // 修改时，同岗位编码同ID为编码唯一
+        return Objects.isNull(sysPost) || Objects.equals(sysPostCodeDto.getId(), sysPost.getId());
     }
 
 }

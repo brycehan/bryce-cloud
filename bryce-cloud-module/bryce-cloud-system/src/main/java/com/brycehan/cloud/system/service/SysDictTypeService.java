@@ -4,6 +4,7 @@ import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysDictTypeConvert;
+import com.brycehan.cloud.system.entity.dto.SysDictTypeCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysDictTypeDto;
 import com.brycehan.cloud.system.entity.dto.SysDictTypePageDto;
 import com.brycehan.cloud.system.entity.po.SysDictType;
@@ -62,5 +63,13 @@ public interface SysDictTypeService extends BaseService<SysDictType> {
      * @return 字典列表数据
      */
     List<SysDictVo> dictList();
+
+    /**
+     * 校验字典类型编码是否唯一
+     *
+     * @param sysDictTypeCodeDto 字典类型编码Dto
+     * @return true：唯一，false：不唯一
+     */
+    boolean checkDictTypeCodeUnique(SysDictTypeCodeDto sysDictTypeCodeDto);
 
 }

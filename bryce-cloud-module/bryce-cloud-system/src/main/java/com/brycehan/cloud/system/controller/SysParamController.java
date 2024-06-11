@@ -9,6 +9,7 @@ import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.entity.convert.SysParamConvert;
 import com.brycehan.cloud.system.entity.dto.SysParamDto;
+import com.brycehan.cloud.system.entity.dto.SysParamKeyDto;
 import com.brycehan.cloud.system.entity.dto.SysParamPageDto;
 import com.brycehan.cloud.system.entity.po.SysParam;
 import com.brycehan.cloud.system.entity.vo.SysParamVo;
@@ -118,6 +119,19 @@ public class SysParamController {
     @PostMapping(path = "/export")
     public void export(@Validated @RequestBody SysParamPageDto sysParamPageDto) {
         this.sysParamService.export(sysParamPageDto);
+    }
+
+    /**
+     * 校验系统参数键名是否唯一
+     *
+     * @param sysParamKeyDto 系统参数键名Dto
+     * @return 响应结果，是否唯一
+     */
+    @Operation(summary = "校验系统参数键名是否唯一（true：唯一，false：不唯一）")
+    @GetMapping(path = "/checkParamKeyUnique")
+    public ResponseResult<Boolean> checkParamKeyUnique(@Validated SysParamKeyDto sysParamKeyDto) {
+        boolean checked = this.sysParamService.checkParamKeyUnique(sysParamKeyDto);
+        return ResponseResult.ok(checked);
     }
 
 }

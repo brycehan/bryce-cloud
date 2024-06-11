@@ -8,6 +8,7 @@ import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.entity.convert.SysDictTypeConvert;
+import com.brycehan.cloud.system.entity.dto.SysDictTypeCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysDictTypeDto;
 import com.brycehan.cloud.system.entity.dto.SysDictTypePageDto;
 import com.brycehan.cloud.system.entity.po.SysDictType;
@@ -133,6 +134,19 @@ public class SysDictTypeController {
     public ResponseResult<List<SysDictVo>> dictList() {
         List<SysDictVo> dictVoList = this.sysDictTypeService.dictList();
         return ResponseResult.ok(dictVoList);
+    }
+
+    /**
+     * 校验字典类型编码是否唯一
+     *
+     * @param sysDictTypeCodeDto 字典类型编码Dto
+     * @return 响应结果，是否唯一
+     */
+    @Operation(summary = "校验字典类型编码是否唯一（true：唯一，false：不唯一）")
+    @GetMapping(path = "/checkDictTypeCodeUnique")
+    public ResponseResult<Boolean> checkDictTypeCodeUnique(@Validated SysDictTypeCodeDto sysDictTypeCodeDto) {
+        boolean checked = this.sysDictTypeService.checkDictTypeCodeUnique(sysDictTypeCodeDto);
+        return ResponseResult.ok(checked);
     }
 
 }

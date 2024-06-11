@@ -4,6 +4,7 @@ import com.brycehan.cloud.common.core.base.entity.PageResult;
 import com.brycehan.cloud.common.core.base.id.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
+import com.brycehan.cloud.system.entity.dto.SysRoleCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysRoleDataScopeDto;
 import com.brycehan.cloud.system.entity.dto.SysRoleDto;
 import com.brycehan.cloud.system.entity.dto.SysRolePageDto;
@@ -78,5 +79,13 @@ public interface SysRoleService extends BaseService<SysRole> {
      * @return 角色名称列表
      */
     List<String> getRoleNameList(List<Long> roleIdList);
+
+    /**
+     * 校验角色编码是否唯一
+     *
+     * @param sysRoleCodeDto 角色编码Dto
+     * @return 是否唯一
+     */
+    boolean checkCodeUnique(SysRoleCodeDto sysRoleCodeDto);
 
 }
