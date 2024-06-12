@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "系统机构 Vo")
+@Schema(description = "系统机构Vo")
 public class SysOrgVo extends TreeNode<SysOrgVo> {
 
     @Serial

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "系统菜单 Vo")
+@Schema(description = "系统菜单Vo")
 public class SysMenuVo extends TreeNode<SysMenuVo> {
 
     @Serial
