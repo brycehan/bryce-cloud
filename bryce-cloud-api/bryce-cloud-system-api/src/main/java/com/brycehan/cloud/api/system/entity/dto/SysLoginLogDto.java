@@ -1,13 +1,12 @@
 package com.brycehan.cloud.api.system.entity.dto;
 
+import com.brycehan.cloud.common.core.base.entity.BaseDto;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.io.Serial;
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统登录日志Dto
@@ -16,11 +15,9 @@ import java.io.Serializable;
  * @author Bryce Han
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统登录日志Dto")
-public class SysLoginLogDto implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class SysLoginLogDto extends BaseDto {
 
     /**
      * 账号

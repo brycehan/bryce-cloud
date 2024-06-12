@@ -18,7 +18,11 @@ public abstract class BaseDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public String toString(){
+    /**
+     * 转换为JSON字符串
+     * @return JSON字符串
+     */
+    public String toJson(){
         return JsonUtils.writeValueAsString(this);
     }
 

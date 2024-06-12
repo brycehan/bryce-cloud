@@ -1,13 +1,12 @@
 package com.brycehan.cloud.common.core.base.dto;
 
+import com.brycehan.cloud.common.core.base.entity.BaseDto;
 import com.brycehan.cloud.common.core.constant.UserConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.io.Serial;
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 
 /**
  * 账号登录Dto
@@ -16,11 +15,9 @@ import java.io.Serializable;
  * @author Bryce Han
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "账号登录Dto")
-public class AccountLoginDto implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class AccountLoginDto extends BaseDto {
 
     /**
      * 账号

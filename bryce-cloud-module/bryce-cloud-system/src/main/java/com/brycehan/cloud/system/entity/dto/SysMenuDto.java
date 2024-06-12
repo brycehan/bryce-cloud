@@ -1,14 +1,14 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.brycehan.cloud.common.core.base.entity.BaseDto;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +19,9 @@ import java.util.List;
  * @author Bryce Han
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统菜单Dto")
-public class SysMenuDto implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class SysMenuDto extends BaseDto {
 
     /**
      * ID

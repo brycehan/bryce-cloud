@@ -1,13 +1,11 @@
 package com.brycehan.cloud.common.core.base.dto;
 
+import com.brycehan.cloud.common.core.base.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * Jwt令牌Dto
@@ -19,10 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class JwtTokenDto implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class JwtTokenDto extends BaseDto {
 
     /**
      * jwt令牌

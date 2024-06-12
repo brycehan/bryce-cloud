@@ -1,13 +1,12 @@
 package com.brycehan.cloud.common.core.base.dto;
 
+import com.brycehan.cloud.common.core.base.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.io.Serial;
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 
 /**
  * 手机号登录Dto
@@ -16,11 +15,9 @@ import java.io.Serializable;
  * @author Bryce Han
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "手机号登录Dto")
-public class PhoneLoginDto implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class PhoneLoginDto extends BaseDto {
 
     /**
      * 手机号
