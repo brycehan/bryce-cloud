@@ -54,7 +54,6 @@ public class JacksonConfig {
             builder.deserializerByType(LocalTime.class, new LocalTimeDeserializer(ISO_TIME));
             builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(dateTimeFormatter));
 
-            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
             builder.failOnUnknownProperties(false);
             builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         };
