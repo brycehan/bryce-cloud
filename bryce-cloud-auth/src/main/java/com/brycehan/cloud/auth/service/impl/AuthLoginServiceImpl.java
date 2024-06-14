@@ -107,7 +107,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
 
         // 准备 loginUser
-        this.jwtTokenProvider.prepareLoginUser(loginUser);
+        this.jwtTokenProvider.prepare(loginUser);
 
         // 生成 jwt
         String token = this.jwtTokenProvider.generateToken(loginUser);
@@ -115,7 +115,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
 
         // 缓存 loginUser
-        this.jwtTokenProvider.cacheLoginUser(loginUser);
+        this.jwtTokenProvider.cache(loginUser);
 
         LoginVo loginVo = new LoginVo();
         BeanUtils.copyProperties(loginUser, loginVo);
