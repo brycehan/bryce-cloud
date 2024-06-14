@@ -73,7 +73,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             log.info("loginByAccount，登录认证失败，{}", e.getMessage());
             // 添加密码错误重试缓存
             this.authPasswordRetryService.retryCount(accountLoginDto.getUsername());
-            throw new ServerException("用户名或密码错误");
+            throw new RuntimeException("用户名或密码错误");
         }
 
         // 清除密码错误重试缓存

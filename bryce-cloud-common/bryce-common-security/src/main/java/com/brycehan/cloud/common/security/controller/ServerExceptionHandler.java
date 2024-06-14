@@ -48,9 +48,8 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(BindException.class)
     public ResponseResult<Void> handleException(BindException e) {
-        String message = e.getAllErrors().stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.joining(","));
+        String message = e.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining("，"));
 
         return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST.code(), message);
     }
@@ -123,7 +122,6 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     public ResponseResult<Void> handleException(InternalAuthenticationServiceException e) {
-        log.info("业务异常", e);
         return ResponseResult.error(UserResponseStatus.USER_USERNAME_OR_PASSWORD_ERROR.code(), e.getMessage());
     }
 
@@ -136,10 +134,9 @@ public class ServerExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseResult<Void> handleException(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-        String message = violations.stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.joining(","));
-        log.error("数据校验异常", e);
+        String message = violations.stream().map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining("，"));
+        log.error("数据校验异常：{}", e.getMessage());
         return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST.code(), message);
     }
 
@@ -172,11 +169,11 @@ public class ServerExceptionHandler {
     /**
      * 通用异常处理
      *
-     * @param e 一般异常
+     * @param e 异常
      * @return 响应结果
      */
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseResult<Void> handleException(RuntimeException e) {
+    @ExceptionHandler(Exception.class)
+    public ResponseResult<Void> handleException(Exception e) {
         log.info("系统内部异常", e);
         return ResponseResult.error(HttpResponseStatus.HTTP_INTERNAL_ERROR.code(), e.getMessage());
     }
