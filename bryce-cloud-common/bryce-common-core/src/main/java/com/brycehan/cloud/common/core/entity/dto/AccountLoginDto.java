@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.core.entity.dto;
 
-import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.constant.UserConstants;
+import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

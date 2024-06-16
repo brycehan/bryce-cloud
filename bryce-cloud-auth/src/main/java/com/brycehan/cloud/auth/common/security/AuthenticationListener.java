@@ -43,7 +43,7 @@ public class AuthenticationListener {
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(user.getUsername());
         sysLoginLogDto.setStatus(DataConstants.SUCCESS);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.getValue());
+        sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
         this.sysLoginLogApi.save(sysLoginLogDto);
         // 更新用户登录信息
         SysUserLoginInfoDto sysUserLoginInfoDto = new SysUserLoginInfoDto();
@@ -66,7 +66,7 @@ public class AuthenticationListener {
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(username);
         sysLoginLogDto.setStatus(DataConstants.FAIL);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.getValue());
+        sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
         this.sysLoginLogApi.save(sysLoginLogDto);
     }
 

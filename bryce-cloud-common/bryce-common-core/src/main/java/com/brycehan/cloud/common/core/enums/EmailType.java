@@ -1,6 +1,7 @@
 package com.brycehan.cloud.common.core.enums;
 
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
  * @author Bryce Han
  * @since 2024/5/23
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public enum EmailType {
 
     LOGIN("login", "登录"),
@@ -18,6 +19,12 @@ public enum EmailType {
     private final String value;
     private final String desc;
 
+    /**
+     * 获取值
+     *
+     * @return 值
+     */
+    @JsonValue
     public String value() {
         return value;
     }
@@ -32,6 +39,7 @@ public enum EmailType {
      * @param value 值
      * @return 枚举
      */
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static EmailType getByValue(String value) {
         for (EmailType emailType : values()) {
             if (emailType.value.equals(value)) {

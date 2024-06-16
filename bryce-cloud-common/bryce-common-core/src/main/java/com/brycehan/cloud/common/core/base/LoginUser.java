@@ -1,5 +1,6 @@
 package com.brycehan.cloud.common.core.base;
 
+import com.brycehan.cloud.common.core.enums.SourceClientType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -68,9 +69,9 @@ public class LoginUser implements UserDetails {
     private LocalDateTime expireTime;
 
     /**
-     * 来源客户端（pc、app、miniApp）
+     * 来源客户端
      */
-    private String sourceClient;
+    private SourceClientType sourceClientType;
 
     /**
      * 操作系统

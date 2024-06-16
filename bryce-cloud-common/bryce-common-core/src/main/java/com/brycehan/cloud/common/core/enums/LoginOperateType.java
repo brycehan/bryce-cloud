@@ -1,7 +1,8 @@
 package com.brycehan.cloud.common.core.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 登录操作类型
@@ -9,8 +10,7 @@ import lombok.Getter;
  * @since 2023/9/25
  * @author Bryce Han
  */
-@Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum LoginOperateType {
     /**
      * 登录成功
@@ -30,4 +30,31 @@ public enum LoginOperateType {
     ACCOUNT_FAIL(3);
 
     private final int value;
+
+    /**
+     * 获取值
+     *
+     * @return 值
+     */
+    @JsonValue
+    public Integer value() {
+        return value;
+    }
+
+    /**
+     * 根据值获取枚举
+     *
+     * @param value 值
+     * @return 枚举
+     */
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static LoginOperateType getByValue(Integer value) {
+        for (LoginOperateType loginOperateType : values()) {
+            if (loginOperateType.value == value) {
+                return loginOperateType;
+            }
+        }
+        return null;
+    }
+
 }

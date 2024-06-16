@@ -72,8 +72,7 @@ public class JwtTokenProvider {
         this.setUserAgent(loginUser);
 
         // 设置来源客户端
-        SourceClientType sourceClientType = TokenUtils.getSourceClient(ServletUtils.getRequest());
-        loginUser.setSourceClient(sourceClientType.value());
+        loginUser.setSourceClientType(TokenUtils.getSourceClient(ServletUtils.getRequest()));
     }
 
     /**
@@ -87,7 +86,7 @@ public class JwtTokenProvider {
         Map<String, Object> claims = new HashMap<>();
         long expiredInSeconds;
 
-        switch (Objects.requireNonNull(SourceClientType.getByValue(loginUser.getSourceClient()))) {
+        switch (Objects.requireNonNull(loginUser.getSourceClientType())) {
             case PC, H5 -> {
                 loginUser.setUserKey(TokenUtils.uuid());
                 claims.put(JwtConstants.USER_KEY, loginUser.getUserKey());
@@ -131,7 +130,7 @@ public class JwtTokenProvider {
     public long getExpiredInSeconds(LoginUser loginUser) {
         long expiredInSeconds;
 
-        switch (Objects.requireNonNull(SourceClientType.getByValue(loginUser.getSourceClient()))) {
+        switch (Objects.requireNonNull(loginUser.getSourceClientType())) {
             case PC, H5 -> expiredInSeconds = tokenValidityInSeconds;
             case APP -> expiredInSeconds = appTokenValidityInDays * 24 * 3600;
             default -> throw new IllegalArgumentException("不支持的来源客户端");
@@ -171,7 +170,7 @@ public class JwtTokenProvider {
      */
     public void cache(LoginUser loginUser) {
         // 来源客户端
-        SourceClientType sourceClientType = SourceClientType.getByValue(loginUser.getSourceClient());
+        SourceClientType sourceClientType = loginUser.getSourceClientType();
 
         LocalDateTime now = LocalDateTime.now();
         // 设置过期时间

@@ -2,7 +2,6 @@ package com.brycehan.cloud.email.api;
 
 import com.brycehan.cloud.api.email.api.EmailApi;
 import com.brycehan.cloud.api.email.entity.ToMail;
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import com.brycehan.cloud.email.service.EmailService;
@@ -10,9 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -43,13 +40,8 @@ public class EmailApiController implements EmailApi {
     }
 
     @Override
-    public ResponseResult<Boolean> send(ToMail toEmail, String emailType) {
-        EmailType type = EmailType.getByValue(emailType);
-        if (type == null) {
-            return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST);
-        }
-
-        this.emailService.send(toEmail, type);
+    public ResponseResult<Boolean> send(@Validated @RequestBody ToMail toEmail, @PathVariable EmailType emailType) {
+        this.emailService.send(toEmail, emailType);
         return ResponseResult.ok(Boolean.TRUE);
     }
 

@@ -1,8 +1,8 @@
 package com.brycehan.cloud.common.core.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 请求来源客户端类型
@@ -10,9 +10,7 @@ import lombok.experimental.Accessors;
  * @author Bryce Han
  * @since 2024/4/7
  */
-@Getter
-@Accessors(fluent = true)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum SourceClientType {
     PC("pc"),
     H5("h5"),
@@ -22,12 +20,18 @@ public enum SourceClientType {
 
     private final String value;
 
+    @JsonValue
+    public String value() {
+        return value;
+    }
+
     /**
      * 根据值获取枚举
      *
      * @param value 值
      * @return 枚举
      */
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SourceClientType getByValue(String value) {
         for (SourceClientType sourceClientType : values()) {
             if (sourceClientType.value.equals(value)) {

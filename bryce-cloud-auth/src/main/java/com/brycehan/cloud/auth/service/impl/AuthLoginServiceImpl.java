@@ -59,7 +59,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
             sysLoginLogDto.setUsername(accountLoginDto.getUsername());
             sysLoginLogDto.setStatus(DataConstants.FAIL);
-            sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL.getValue());
+            sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL.value());
             this.sysLoginLogApi.save(sysLoginLogDto);
             throw new ServerException("验证码错误");
         }
@@ -151,7 +151,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(loginUser.getUsername());
         sysLoginLogDto.setStatus(DataConstants.SUCCESS);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGOUT_SUCCESS.getValue());
+        sysLoginLogDto.setInfo(LoginOperateType.LOGOUT_SUCCESS.value());
         this.sysLoginLogApi.save(sysLoginLogDto);
     }
 
