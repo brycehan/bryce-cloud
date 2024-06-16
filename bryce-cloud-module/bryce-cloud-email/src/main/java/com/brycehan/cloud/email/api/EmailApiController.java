@@ -2,6 +2,7 @@ package com.brycehan.cloud.email.api;
 
 import com.brycehan.cloud.api.email.api.EmailApi;
 import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import com.brycehan.cloud.email.service.EmailService;
@@ -40,8 +41,8 @@ public class EmailApiController implements EmailApi {
     }
 
     @Override
-    public ResponseResult<Boolean> send(@Validated @RequestBody ToMail toEmail, @PathVariable EmailType emailType) {
-        this.emailService.send(toEmail, emailType);
+    public ResponseResult<Boolean> send(@Validated @RequestBody ToVerifyCodeEmailDto toVerifyCodeEmailDto, @PathVariable EmailType emailType) {
+        this.emailService.send(toVerifyCodeEmailDto, emailType);
         return ResponseResult.ok(Boolean.TRUE);
     }
 

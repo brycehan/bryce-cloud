@@ -1,7 +1,9 @@
 package com.brycehan.cloud.email.service.impl;
 
 import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.enums.EmailType;
+import com.brycehan.cloud.email.entity.ToEmailConvert;
 import com.brycehan.cloud.email.service.EmailService;
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
@@ -19,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -79,15 +80,17 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void send(ToMail toEmail, EmailType emailType) {
-        Context context = new Context();
-        // 参数封装
-        Map<String, Object> params = toEmail.getParams();
-        params.put("emailType", emailType.desc());
-        context.setVariables(params);
+    public void send(ToVerifyCodeEmailDto toVerifyCodeEmailDto, EmailType emailType) {
+        ToMail toEmail = ToEmailConvert.INSTANCE.convert(toVerifyCodeEmailDto);
 
-        String emailContent = this.templateEngine.process(TemplateIds.VALIDATE_CODE, context);
-        toEmail.setContent(emailContent);
+        // 参数封装
+        Context context = new Context();
+        context.setVariable("emailType", emailType.desc());
+        context.setVariable("verifyCode", toVerifyCodeEmailDto.getVerifyCode());
+
+        toEmail.setSubject("Bryce帐号邮件验证码");
+        toEmail.setContent(this.templateEngine.process(TemplateIds.VERIFY_CODE, context));
+
         this.sendHtmlEmail(toEmail, null);
     }
 
@@ -124,7 +127,7 @@ public class EmailServiceImpl implements EmailService {
         /**
          * 验证码
          */
-        public static final String VALIDATE_CODE = "validate-code";
+        public static final String VERIFY_CODE = "verify-code";
     }
 
 }

@@ -2,6 +2,7 @@ package com.brycehan.cloud.api.email.fallback;
 
 import com.brycehan.cloud.api.email.api.EmailApi;
 import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class EmailApiFallbackImpl implements FallbackFactory<EmailApi> {
             }
 
             @Override
-            public ResponseResult<Boolean> send(ToMail toEmail, EmailType emailType) {
+            public ResponseResult<Boolean> send(ToVerifyCodeEmailDto toVerifyCodeEmailDto, EmailType emailType) {
                 return ResponseResult.fallback("邮件服务调用失败");
             }
         };

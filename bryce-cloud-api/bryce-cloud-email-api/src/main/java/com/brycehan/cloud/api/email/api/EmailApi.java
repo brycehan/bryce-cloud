@@ -1,6 +1,7 @@
 package com.brycehan.cloud.api.email.api;
 
 import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.api.email.fallback.EmailApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
 import com.brycehan.cloud.common.core.enums.EmailType;
@@ -32,6 +33,7 @@ public interface EmailApi {
      * @param toEmail 收邮件参数
      * @return 响应结果
      */
+    @Operation(summary = "发送简单邮件")
     @PostMapping(path = "/sendSimpleEmail")
     ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMail toEmail);
 
@@ -42,18 +44,19 @@ public interface EmailApi {
      * @param file 附件
      * @return 响应结果
      */
+    @Operation(summary = "发送附件邮件")
     @PostMapping(path = "/sendHtmlEmail")
     ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMail toEmail, MultipartFile file);
 
     /**
      * 发送验证码邮件
      *
-     * @param toEmail 收邮件参数
+     * @param toVerifyCodeEmailDto 收邮件参数
      * @param emailType 邮件类型
      * @return 是否发送成功
      */
     @Operation(summary = "发送验证码邮件")
     @PostMapping(path = "/sendValidateCode/{emailType}")
-    ResponseResult<Boolean> send(@Validated @RequestBody ToMail toEmail, @PathVariable EmailType emailType);
+    ResponseResult<Boolean> send(@Validated @RequestBody ToVerifyCodeEmailDto toVerifyCodeEmailDto, @PathVariable EmailType emailType);
 
 }
