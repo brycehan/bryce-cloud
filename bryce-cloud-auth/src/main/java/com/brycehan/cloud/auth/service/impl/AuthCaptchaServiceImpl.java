@@ -7,7 +7,7 @@ import com.brycehan.cloud.auth.common.security.config.CaptchaProperties;
 import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import com.wf.captcha.SpecCaptcha;

@@ -2,8 +2,8 @@ package com.brycehan.cloud.monitor.controller;
 
 import cn.hutool.core.collection.ListUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.entity.PageResult;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;

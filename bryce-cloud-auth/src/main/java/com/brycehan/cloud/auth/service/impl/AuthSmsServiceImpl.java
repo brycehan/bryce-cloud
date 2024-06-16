@@ -8,7 +8,7 @@ import com.brycehan.cloud.auth.service.AuthSmsService;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import lombok.RequiredArgsConstructor;

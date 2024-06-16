@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
-import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.context.LoginUserContext;

@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>bryce-cloud-email-api</module>
         <module>bryce-cloud-sms-api</module>
         <module>bryce-cloud-system-api</module>
     </modules>

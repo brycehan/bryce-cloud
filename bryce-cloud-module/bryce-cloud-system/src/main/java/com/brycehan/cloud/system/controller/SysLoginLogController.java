@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.core.base.dto.IdsDto;
-import com.brycehan.cloud.common.core.base.entity.PageResult;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.entity.dto.IdsDto;
+import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;

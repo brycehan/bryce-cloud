@@ -1,9 +1,9 @@
 package com.brycehan.cloud.auth.service;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.dto.AccountLoginDto;
-import com.brycehan.cloud.common.core.base.dto.PhoneLoginDto;
-import com.brycehan.cloud.common.core.base.vo.LoginVo;
+import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
+import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
+import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 
 /**
  * 认证服务

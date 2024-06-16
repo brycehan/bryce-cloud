@@ -8,7 +8,7 @@ import org.springframework.retry.annotation.EnableRetry;
 
 
 /**
- * Bryce System 应用
+ * Bryce系统应用
  *
  * @since 2023/11/18
  * @author Bryce Han

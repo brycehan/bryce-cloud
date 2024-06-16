@@ -3,7 +3,7 @@ package com.brycehan.cloud.api.system.fallback;
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;

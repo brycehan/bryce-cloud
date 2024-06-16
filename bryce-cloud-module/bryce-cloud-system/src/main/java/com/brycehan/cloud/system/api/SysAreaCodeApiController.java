@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.api.SysAreaCodeApi;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.system.service.SysAreaCodeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

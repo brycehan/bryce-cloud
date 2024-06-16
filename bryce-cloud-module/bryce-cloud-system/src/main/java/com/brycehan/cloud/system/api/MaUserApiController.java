@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.api.MaUserApi;
 import com.brycehan.cloud.api.system.entity.vo.MaUserVo;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

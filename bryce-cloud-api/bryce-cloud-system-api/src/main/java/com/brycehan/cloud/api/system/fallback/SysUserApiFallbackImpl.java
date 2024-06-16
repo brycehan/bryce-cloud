@@ -5,7 +5,7 @@ import com.brycehan.cloud.api.system.entity.dto.SysUserDto;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;

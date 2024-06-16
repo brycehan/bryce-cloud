@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.controller;
 
 import com.brycehan.cloud.auth.service.AuthSmsService;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

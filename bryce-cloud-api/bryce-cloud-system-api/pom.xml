@@ -10,8 +10,8 @@
 
     <artifactId>bryce-cloud-system-api</artifactId>
     <version>${revision}</version>
-    <name>bryce-api-system</name>
-    <description>bryce-api-system</description>
+    <name>bryce-cloud-system-api</name>
+    <description>bryce-cloud-system-api</description>
     <packaging>jar</packaging>
 
     <!-- 依赖 -->

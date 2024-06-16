@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.entity.dto;
 
-import com.brycehan.cloud.common.core.base.entity.BasePageDto;
+import com.brycehan.cloud.common.core.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

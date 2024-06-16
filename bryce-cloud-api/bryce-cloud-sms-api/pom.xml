@@ -10,8 +10,8 @@
 
     <artifactId>bryce-cloud-sms-api</artifactId>
     <version>${revision}</version>
-    <name>bryce-api-sms</name>
-    <description>bryce-api-sms</description>
+    <name>bryce-cloud-sms-api</name>
+    <description>bryce-cloud-sms-api</description>
     <packaging>jar</packaging>
 
     <!-- 依赖 -->

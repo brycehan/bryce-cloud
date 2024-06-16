@@ -1,7 +1,7 @@
 package com.brycehan.cloud.sms.api;
 
 import com.brycehan.cloud.api.sms.api.SmsApi;
-import com.brycehan.cloud.common.core.base.http.ResponseResult;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import com.brycehan.cloud.sms.service.SmsService;
 import io.swagger.v3.oas.annotations.tags.Tag;

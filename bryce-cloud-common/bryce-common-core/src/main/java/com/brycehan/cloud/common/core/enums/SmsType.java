@@ -25,4 +25,5 @@ public enum SmsType {
     public String desc() {
         return desc;
     }
+
 }

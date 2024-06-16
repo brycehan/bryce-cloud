@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.entity.convert;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
-import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.system.entity.dto.SysUserDto;
 import com.brycehan.cloud.system.entity.dto.SysUserExcelDto;
 import com.brycehan.cloud.system.entity.po.SysUser;

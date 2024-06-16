@@ -21,7 +21,7 @@ public class AuthProperties {
     /**
      * 忽略的资源地址
      */
-    private IgnoreUrls ignoreUrls;
+    private IgnoreUrls ignoreUrls = new IgnoreUrls();
 
     /**
      * 登录用户缓存开关

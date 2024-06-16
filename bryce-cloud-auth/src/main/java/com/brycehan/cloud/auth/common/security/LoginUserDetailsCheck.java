@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.common.security;
 
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.base.http.UserResponseStatus;
+import com.brycehan.cloud.common.core.response.UserResponseStatus;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import lombok.RequiredArgsConstructor;

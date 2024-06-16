@@ -1,10 +1,10 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.base.VersionException;
-import com.brycehan.cloud.common.core.base.dto.SysUserAvatarDto;
-import com.brycehan.cloud.common.core.base.dto.SysUserInfoDto;
-import com.brycehan.cloud.common.core.base.entity.PageResult;
-import com.brycehan.cloud.common.core.base.id.IdGenerator;
+import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
+import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;

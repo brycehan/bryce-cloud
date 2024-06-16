@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
 /**
- * Bryce System 应用
+ * Bryce短信应用
  *
  * @since 2023/11/18
  * @author Bryce Han

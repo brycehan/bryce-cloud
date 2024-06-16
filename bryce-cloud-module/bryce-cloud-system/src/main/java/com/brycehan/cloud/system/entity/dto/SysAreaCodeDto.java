@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.entity.dto;
 
-import com.brycehan.cloud.common.core.base.entity.BaseDto;
+import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;

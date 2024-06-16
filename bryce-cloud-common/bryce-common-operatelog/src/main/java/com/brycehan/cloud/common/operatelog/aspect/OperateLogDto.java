@@ -1,6 +1,6 @@
 package com.brycehan.cloud.common.operatelog.aspect;
 
-import com.brycehan.cloud.common.core.base.entity.BaseDto;
+import com.brycehan.cloud.common.core.entity.BaseDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
