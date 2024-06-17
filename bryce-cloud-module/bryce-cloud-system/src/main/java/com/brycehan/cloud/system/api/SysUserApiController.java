@@ -95,6 +95,7 @@ public class SysUserApiController implements SysUserApi {
     public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserLoginInfoDto, sysUser);
+        sysUser.setUpdatedUserId(sysUserLoginInfoDto.getId());
         boolean updated = this.sysUserService.updateById(sysUser);
         return ResponseResult.ok(updated);
     }

@@ -63,7 +63,8 @@ public interface SysUserApi {
     ResponseResult<SysUserVo> registerUser(@RequestBody SysUserDto sysUserDto);
 
     /**
-     * 更新登录信息
+     * 更新用户登录信息
+     *
      * @param sysUserLoginInfoDto 系统用户登录信息
      * @return 更新状态
      */

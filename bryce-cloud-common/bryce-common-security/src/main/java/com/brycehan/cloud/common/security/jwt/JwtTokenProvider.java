@@ -1,17 +1,13 @@
 package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
-import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.JsonUtils;
-import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -61,34 +57,6 @@ public class JwtTokenProvider {
     private long appTokenValidityInDays;
 
     private final RedisTemplate<String, LoginUser> redisTemplate;
-
-    /**
-     * 预处理登录用户
-     *
-     * @param loginUser 登录用户
-     */
-    public void prepare(LoginUser loginUser) {
-        // 获取客户端信息
-        String userAgent = ServletUtils.getRequest().getHeader(HttpHeaders.USER_AGENT);
-        UserAgent parser = UserAgentUtil.parse(userAgent);
-
-        // 获取客户端操作系统
-        String os = parser.getOs().getName();
-        // 获取客户端浏览器
-        String browser = parser.getBrowser().getName();
-
-        // 获取客户端IP和对应登录位置
-        String ip = IpUtils.getIp(ServletUtils.getRequest());
-        String loginLocation = LocationUtils.getLocationByIP(ip);
-
-        // 设置来源客户端
-        loginUser.setSourceClientType(TokenUtils.getSourceClient(ServletUtils.getRequest()));
-        loginUser.setUserAgent(userAgent);
-        loginUser.setOs(os);
-        loginUser.setBrowser(browser);
-        loginUser.setLoginIp(ip);
-        loginUser.setLoginLocation(loginLocation);
-    }
 
     /**
      * 生成token
