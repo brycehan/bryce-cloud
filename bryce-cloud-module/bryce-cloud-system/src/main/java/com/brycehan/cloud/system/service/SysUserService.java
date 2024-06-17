@@ -1,10 +1,10 @@
 package com.brycehan.cloud.system.service;
 
+import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.core.base.VersionException;
+import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
-import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
@@ -81,12 +81,20 @@ public interface SysUserService extends BaseService<SysUser> {
     void importByExcel(MultipartFile file, String password);
 
     /**
+     * 根据账号查询用户
+     *
+     * @param username 账号
+     * @return 系统用户
+     */
+    SysUser getByUsername(String username);
+
+    /**
      * 根据手机号码查询用户
      *
      * @param phone 手机号码
      * @return 系统用户
      */
-    SysUserVo getByPhone(String phone);
+    SysUser getByPhone(String phone);
 
     /**
      * 角色分配用户，用户列表

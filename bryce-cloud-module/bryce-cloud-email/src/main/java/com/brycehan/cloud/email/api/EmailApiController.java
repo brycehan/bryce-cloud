@@ -1,16 +1,19 @@
 package com.brycehan.cloud.email.api;
 
 import com.brycehan.cloud.api.email.api.EmailApi;
-import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
-import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.email.service.EmailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -29,14 +32,14 @@ public class EmailApiController implements EmailApi {
     private final EmailService emailService;
 
     @Override
-    public ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMail toEmail) {
-        this.emailService.sendSimpleEmail(toEmail);
+    public ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMailDto toMailDto) {
+        this.emailService.sendSimpleEmail(toMailDto);
         return ResponseResult.ok();
     }
 
     @Override
-    public ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMail toEmail, MultipartFile file) {
-        this.emailService.sendHtmlEmail(toEmail, file);
+    public ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMailDto toMailDto, MultipartFile[] file) {
+        this.emailService.sendHtmlEmail(toMailDto, file);
         return ResponseResult.ok();
     }
 

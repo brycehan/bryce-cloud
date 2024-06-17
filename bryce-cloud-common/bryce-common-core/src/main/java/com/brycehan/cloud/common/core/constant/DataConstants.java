@@ -63,4 +63,15 @@ public class DataConstants {
      * 角色前缀
      */
     public static final String ROLE_PREFIX = "ROLE_";
+
+    /**
+     * 公司名称
+     */
+    public static final String COMPANY_NAME = "Bryce 团队";
+
+    /**
+     * 电子邮件验证码主题
+     */
+    public static final String COMPANY_EMAIL_VERIFY_CODE_SUBJECT = "电子邮件验证码：";
+
 }

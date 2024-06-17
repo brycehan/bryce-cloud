@@ -1,14 +1,15 @@
 package com.brycehan.cloud.system.service.impl;
 
-import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.base.IdGenerator;
-import com.brycehan.cloud.common.core.util.*;
+import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.util.DateTimeUtils;
+import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
@@ -16,10 +17,8 @@ import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
 import com.brycehan.cloud.system.mapper.SysLoginLogMapper;
 import com.brycehan.cloud.system.service.SysLoginLogService;
 import com.fhs.trans.service.impl.TransService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -72,17 +71,10 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
 
     @Override
     public void save(String username, boolean status, Integer info) {
-        HttpServletRequest request = ServletUtils.getRequest();
-
-        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
-        String ip = IpUtils.getIp(request);
-        String location = LocationUtils.getLocationByIP(ip);
-
-        UserAgent parser = UserAgentUtil.parse(userAgent);
-        // 获取客户端浏览器
-        String browser = parser.getBrowser().getName();
-        // 获取客户端操作系统
-        String os = parser.getOs().getName();
+        LoginUser loginUser = LoginUserContext.currentUser();
+        if (loginUser == null) {
+            return;
+        }
 
         // 封装对象
         SysLoginLog loginLog = new SysLoginLog();
@@ -90,11 +82,11 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
         loginLog.setUsername(username);
         loginLog.setStatus(status);
         loginLog.setInfo(info);
-        loginLog.setIp(ip);
-        loginLog.setLocation(location);
-        loginLog.setUserAgent(userAgent);
-        loginLog.setBrowser(browser);
-        loginLog.setOs(os);
+        loginLog.setUserAgent(loginUser.getUserAgent());
+        loginLog.setOs(loginUser.getOs());
+        loginLog.setBrowser(loginUser.getBrowser());
+        loginLog.setIp(loginUser.getLoginIp());
+        loginLog.setLocation(loginUser.getLoginLocation());
         loginLog.setAccessTime(LocalDateTime.now());
         loginLog.setCreatedTime(LocalDateTime.now());
 

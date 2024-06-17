@@ -8,7 +8,6 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.po.SysUser;
-import com.brycehan.cloud.system.mapper.SysUserMapper;
 import com.brycehan.cloud.system.service.SysUserDetailsService;
 import com.brycehan.cloud.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,16 +31,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysUserApiController implements SysUserApi {
 
-    private final SysUserMapper sysUserMapper;
     private final SysUserService sysUserService;
-
     private final SysUserDetailsService sysUserDetailsService;
 
     @Override
     public ResponseResult<LoginUser> loadUserByUsername(String username) {
         // 查询用户
-        SysUser sysUser = sysUserMapper.getByUsername(username);
-
+        SysUser sysUser = sysUserService.getByUsername(username);
         if (sysUser == null) {
             log.debug("loadUserByUsername, 登录用户：{}不存在.", username);
             return ResponseResult.ok();
@@ -55,7 +51,7 @@ public class SysUserApiController implements SysUserApi {
     @Override
     public ResponseResult<LoginUser> loadUserByPhone(String phone) {
         // 查询用户
-        SysUser sysUser = sysUserMapper.getByPhone(phone);
+        SysUser sysUser = this.sysUserService.getByPhone(phone);
 
         if (sysUser == null) {
             log.debug("loadUserByPhone, 登录用户：{}不存在.", phone);
@@ -70,7 +66,7 @@ public class SysUserApiController implements SysUserApi {
     @Override
     public ResponseResult<LoginUser> loadUserById(Long id) {
         // 查询用户
-        SysUser sysUser = sysUserMapper.selectById(id);
+        SysUser sysUser = this.sysUserService.getById(id);
 
         if (sysUser == null) {
             log.debug("登录用户ID：{}不存在.", id);
@@ -98,12 +94,9 @@ public class SysUserApiController implements SysUserApi {
     @Override
     public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
         SysUser sysUser = new SysUser();
-        sysUser.setId(sysUser.getId());
-        sysUser.setLastLoginIp(sysUserLoginInfoDto.getLastLoginIp());
-        sysUser.setLastLoginTime(sysUserLoginInfoDto.getLastLoginTime());
-
-        int updated = this.sysUserMapper.updateById(sysUser);
-        return ResponseResult.ok(updated == 1);
+        BeanUtils.copyProperties(sysUserLoginInfoDto, sysUser);
+        boolean updated = this.sysUserService.updateById(sysUser);
+        return ResponseResult.ok(updated);
     }
 
 }

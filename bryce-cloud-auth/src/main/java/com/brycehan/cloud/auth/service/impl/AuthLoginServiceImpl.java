@@ -1,9 +1,7 @@
 package com.brycehan.cloud.auth.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysLoginLogApi;
-import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
-import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.common.security.PhoneCodeAuthenticationToken;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
@@ -11,14 +9,12 @@ import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
-import com.brycehan.cloud.common.core.constant.DataConstants;
-import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.util.IpUtils;
-import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +27,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -44,7 +39,6 @@ import java.util.Objects;
 public class AuthLoginServiceImpl implements AuthLoginService {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final SysUserApi sysUserApi;
     private final SysLoginLogApi sysLoginLogApi;
     private final AuthCaptchaService authCaptchaService;
     private final AuthPasswordRetryService authPasswordRetryService;
@@ -123,16 +117,6 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         loginVo.setExpiresIn(expiredIn);
 
         return loginVo;
-    }
-
-    @Override
-    public void updateLoginInfo(LoginUser loginUser) {
-        SysUserLoginInfoDto sysUser = new SysUserLoginInfoDto();
-        sysUser.setId(loginUser.getId());
-        sysUser.setLastLoginIp(IpUtils.getIp(ServletUtils.getRequest()));
-        sysUser.setLastLoginTime(LocalDateTime.now());
-
-        this.sysUserApi.updateLoginInfo(sysUser);
     }
 
     @Override

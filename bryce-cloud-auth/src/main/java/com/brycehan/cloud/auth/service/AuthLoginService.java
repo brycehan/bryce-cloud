@@ -31,13 +31,6 @@ public interface AuthLoginService {
     LoginVo loginByPhone(PhoneLoginDto phoneLoginDto);
 
     /**
-     * 更新用户登录信息
-     *
-     * @param loginUser 登录用户
-     */
-    void updateLoginInfo(LoginUser loginUser);
-
-    /**
      * 退出登录
      *
      * @param loginUser 登录用户

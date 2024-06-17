@@ -1,6 +1,5 @@
 package com.brycehan.cloud.system.common.enums;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

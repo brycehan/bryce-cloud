@@ -2,8 +2,8 @@ package com.brycehan.cloud.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;

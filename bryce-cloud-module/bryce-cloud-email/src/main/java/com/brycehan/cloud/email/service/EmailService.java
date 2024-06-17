@@ -1,11 +1,9 @@
 package com.brycehan.cloud.email.service;
 
-import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 /**
  * 邮件服务
@@ -19,14 +17,14 @@ public interface EmailService {
      * 发送简单邮件
      * @param toEmail 收邮件参数
      */
-    void sendSimpleEmail(ToMail toEmail);
+    void sendSimpleEmail(ToMailDto toEmail);
 
     /**
      * 发送html邮件
      * @param toEmail 收邮件参数
      * @param file 附件
      */
-    void sendHtmlEmail(ToMail toEmail, MultipartFile file);
+    void sendHtmlEmail(ToMailDto toEmail, MultipartFile[] file);
 
     /**
      * 发送邮件

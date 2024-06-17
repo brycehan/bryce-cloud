@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;

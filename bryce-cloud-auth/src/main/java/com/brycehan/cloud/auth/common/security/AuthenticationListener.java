@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -38,17 +37,17 @@ public class AuthenticationListener {
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
         // 用户信息
-        UserDetails user = (UserDetails) event.getAuthentication().getPrincipal();
+        LoginUser loginUser = (LoginUser) event.getAuthentication().getPrincipal();
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
-        sysLoginLogDto.setUsername(user.getUsername());
+        sysLoginLogDto.setUsername(loginUser.getUsername());
         sysLoginLogDto.setStatus(DataConstants.SUCCESS);
         sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
         this.sysLoginLogApi.save(sysLoginLogDto);
         // 更新用户登录信息
         SysUserLoginInfoDto sysUserLoginInfoDto = new SysUserLoginInfoDto();
-        sysUserLoginInfoDto.setId(((LoginUser) user).getId());
-        sysUserLoginInfoDto.setLastLoginIp(((LoginUser) user).getLoginIp());
+        sysUserLoginInfoDto.setId(loginUser.getId());
+        sysUserLoginInfoDto.setLastLoginIp(loginUser.getLoginIp());
         sysUserLoginInfoDto.setLastLoginTime(LocalDateTime.now());
         this.sysUserApi.updateLoginInfo(sysUserLoginInfoDto);
     }

@@ -141,8 +141,8 @@
                         <span th:text="${emailType}"></span>操作，请在验证码中输入以下验证码完成操作：
                     </strong>
                     <div id="verificationCode">
-                        <!--/*@thymesVar id="verifycode" type="java.lang.String"*/-->
-                        <button class="button" th:each="char:${verifycode.toCharArray()}">[[${char}]]</button>
+                        <!--/*@thymesVar id="verifyCode" type="java.lang.String"*/-->
+                        <button class="button" th:each="char:${verifyCode.toCharArray()}">[[${char}]]</button>
                     </div>
                 </div>
                 <div id="content_bottom">
@@ -157,7 +157,7 @@
                     <p>此为系统邮件，请勿回复<br>
                         请保管好您的邮箱，避免账号被他人盗用
                     </p>
-                    <p id="sign">——Bryce 团队</p>
+                    <p id="sign">——[[${companyName}]]</p>
                 </div>
             </div>
         </td>

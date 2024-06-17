@@ -5,16 +5,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.constant.UserConstants;
+import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
-import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
-import com.brycehan.cloud.common.core.base.IdGenerator;
-import com.brycehan.cloud.common.core.constant.DataConstants;
-import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
@@ -227,9 +227,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public SysUserVo getByPhone(String phone) {
-        SysUser sysUser = this.baseMapper.getByPhone(phone);
-        return SysUserConvert.INSTANCE.convert(sysUser);
+    public SysUser getByUsername(String username) {
+        return this.baseMapper.getByUsername(username);
+    }
+
+    @Override
+    public SysUser getByPhone(String phone) {
+        return this.baseMapper.getByPhone(phone);
     }
 
     @Override

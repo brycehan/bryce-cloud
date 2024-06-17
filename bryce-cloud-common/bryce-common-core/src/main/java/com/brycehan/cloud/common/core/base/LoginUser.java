@@ -74,6 +74,11 @@ public class LoginUser implements UserDetails {
     private SourceClientType sourceClientType;
 
     /**
+     * 浏览器信息
+     */
+    private String userAgent;
+
+    /**
      * 操作系统
      */
     private String os;

@@ -1,15 +1,16 @@
 package com.brycehan.cloud.email.service.impl;
 
-import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.EmailType;
-import com.brycehan.cloud.email.entity.ToEmailConvert;
 import com.brycehan.cloud.email.service.EmailService;
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -33,28 +35,29 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
+
     @Resource
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
 
-    @Value("${spring.mail.username}")
+    @Value(DataConstants.COMPANY_NAME + "<${spring.mail.username}>")
     private String from;
 
     @Override
-    public void sendSimpleEmail(ToMail toEmail) {
+    public void sendSimpleEmail(ToMailDto toMailDto) {
         SimpleMailMessage message = new SimpleMailMessage();
         // 发送者
         message.setFrom(from);
         // 接收者
-        message.setTo(toEmail.getTos());
+        message.setTo(toMailDto.getTos());
         // 抄送
-        message.setCc(toEmail.getCc());
+        message.setCc(toMailDto.getCc());
         // 密送
-        message.setBcc(toEmail.getBcc());
+        message.setBcc(toMailDto.getBcc());
         // 邮件主题
-        message.setSubject(toEmail.getSubject());
+        message.setSubject(toMailDto.getSubject());
         // 邮件内容
-        message.setText(toEmail.getContent());
+        message.setText(toMailDto.getContent());
         try {
             javaMailSender.send(message);
         } catch (MailException e) {
@@ -63,14 +66,21 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendHtmlEmail(ToMail toEmail, MultipartFile file) {
+    public void sendHtmlEmail(ToMailDto toMailDto, MultipartFile[] file) {
         try {
             // 创建一个MimeMessage
             MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = getMimeMessageHelper(toEmail, message);
-            if (file != null) {
-                // 添加附件
-                messageHelper.addAttachment(Objects.requireNonNull(file.getOriginalFilename()), file);
+            MimeMessageHelper messageHelper = getMimeMessageHelper(toMailDto, message);
+
+            // 添加附件
+            if (ArrayUtils.isNotEmpty(file)) {
+                Arrays.stream(file).filter(Objects::nonNull).forEach(f -> {
+                    try {
+                        messageHelper.addAttachment(Objects.requireNonNull(f.getOriginalFilename()), f);
+                    } catch (Exception e) {
+                        throw new RuntimeException("邮件附件参数错误");
+                    }
+                });
             }
 
             javaMailSender.send(message);
@@ -81,42 +91,55 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void send(ToVerifyCodeEmailDto toVerifyCodeEmailDto, EmailType emailType) {
-        ToMail toEmail = ToEmailConvert.INSTANCE.convert(toVerifyCodeEmailDto);
+        ToMailDto toEmailDto = new ToMailDto();
+        toEmailDto.setTos(new String[]{toVerifyCodeEmailDto.getTo()});
 
         // 参数封装
         Context context = new Context();
         context.setVariable("emailType", emailType.desc());
         context.setVariable("verifyCode", toVerifyCodeEmailDto.getVerifyCode());
+        context.setVariable("companyName", DataConstants.COMPANY_NAME);
 
-        toEmail.setSubject("Bryce帐号邮件验证码");
-        toEmail.setContent(this.templateEngine.process(TemplateIds.VERIFY_CODE, context));
+        toEmailDto.setSubject(DataConstants.COMPANY_EMAIL_VERIFY_CODE_SUBJECT + toVerifyCodeEmailDto.getVerifyCode());
+        toEmailDto.setContent(this.templateEngine.process(TemplateIds.VERIFY_CODE, context));
 
-        this.sendHtmlEmail(toEmail, null);
+        this.sendHtmlEmail(toEmailDto, null);
     }
 
     /**
      * 获取MimeMessageHelper
      *
-     * @param toEmail ToMail
+     * @param toMailDto ToMailDto
      * @param message MimeMessage
      * @return MimeMessageHelper
      * @throws MessagingException MessagingException
      */
-    private @NotNull MimeMessageHelper getMimeMessageHelper(ToMail toEmail, MimeMessage message) throws MessagingException {
+    private @NotNull MimeMessageHelper getMimeMessageHelper(ToMailDto toMailDto, MimeMessage message) throws MessagingException {
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
         // 发送者
         messageHelper.setFrom(from);
         // 接收者
-        messageHelper.setTo(toEmail.getTos());
+        messageHelper.setTo(toMailDto.getTos());
+
         // 抄送
-        messageHelper.setCc(toEmail.getCc());
+        if (toMailDto.getCc() != null) {
+            messageHelper.setCc(toMailDto.getCc());
+        }
+
         // 密送
-        messageHelper.setBcc(toEmail.getBcc());
+        if (toMailDto.getBcc() != null) {
+            messageHelper.setBcc(toMailDto.getBcc());
+        }
+
+        // 邮件优先级（1:紧急 3:普通 5:低）
+        messageHelper.setPriority(3);
+
         // 邮件主题
-        messageHelper.setSubject(toEmail.getSubject());
+        messageHelper.setSubject(toMailDto.getSubject());
+
         // 邮件内容  true表示带有附件或html
-        messageHelper.setText(toEmail.getContent(), true);
+        messageHelper.setText(toMailDto.getContent(), true);
         return messageHelper;
     }
 

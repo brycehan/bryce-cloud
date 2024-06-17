@@ -1,6 +1,6 @@
 package com.brycehan.cloud.api.email.api;
 
-import com.brycehan.cloud.api.email.entity.ToMail;
+import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.api.email.fallback.EmailApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
@@ -30,23 +30,23 @@ public interface EmailApi {
     /**
      * 发送简单邮件
      *
-     * @param toEmail 收邮件参数
+     * @param toMailDto 收邮件参数
      * @return 响应结果
      */
     @Operation(summary = "发送简单邮件")
     @PostMapping(path = "/sendSimpleEmail")
-    ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMail toEmail);
+    ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMailDto toMailDto);
 
     /**
      * 发送附件邮件
      *
-     * @param toEmail 收邮件参数
+     * @param toMailDto 收邮件参数
      * @param file 附件
      * @return 响应结果
      */
     @Operation(summary = "发送附件邮件")
     @PostMapping(path = "/sendHtmlEmail")
-    ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMail toEmail, MultipartFile file);
+    ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMailDto toMailDto, MultipartFile[] file);
 
     /**
      * 发送验证码邮件
