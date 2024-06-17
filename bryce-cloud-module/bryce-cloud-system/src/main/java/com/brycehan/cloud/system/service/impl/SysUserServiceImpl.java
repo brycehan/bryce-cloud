@@ -9,7 +9,6 @@ import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.DataConstants;
-import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
@@ -284,23 +283,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public boolean checkUsernameUnique(SysUser sysUser) {
+    public boolean checkUsernameUnique(SysUsernameDto sysUsernameDto) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .select(SysUser::getUsername)
-                .eq(SysUser::getUsername, sysUser.getUsername());
-        SysUser user = this.baseMapper.selectOne(queryWrapper, false);
-        Long userId = sysUser.getId() == null ? UserConstants.NULL_USER_ID : sysUser.getId();
+                .select(SysUser::getUsername, SysUser::getId)
+                .eq(SysUser::getUsername, sysUsernameDto.getUsername());
+        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
 
         // 修改时，同账号同ID为账号唯一
-        return Objects.isNull(user) || userId.equals(user.getId());
-    }
-
-    @Override
-    public boolean checkUsernameUnique(String username) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUsername, username);
-        return !this.baseMapper.exists(queryWrapper);
+        return Objects.isNull(sysUser) || Objects.equals(sysUsernameDto.getId(), sysUser.getId());
     }
 
     @Override

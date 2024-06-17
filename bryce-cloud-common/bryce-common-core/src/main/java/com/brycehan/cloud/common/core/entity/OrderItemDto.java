@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 排序项Dto 数据传输对象
+ * 排序项数据传输对象
  *
  * @since 2021/8/31
  * @author Bryce Han
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(description = "排序项Dto")
+@Schema(description = "排序项数据传输对象")
 public class OrderItemDto extends BaseDto {
 
     /**

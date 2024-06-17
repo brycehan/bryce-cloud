@@ -114,18 +114,10 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 校验用户账号是否唯一
      *
-     * @param sysUser 用户
+     * @param sysUsernameDto 用户账号Dto
      * @return 结果，true唯一
      */
-    boolean checkUsernameUnique(SysUser sysUser);
-
-    /**
-     * 校验用户账号是否唯一
-     *
-     * @param username 用户账号
-     * @return 结果，true唯一
-     */
-    boolean checkUsernameUnique(String username);
+    boolean checkUsernameUnique(SysUsernameDto sysUsernameDto);
 
     /**
      * 校验用户手机号码是否唯一
