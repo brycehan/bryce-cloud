@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -29,8 +30,6 @@ public class MetaObjectHandlerImpl implements MetaObjectHandler {
         strictInsertFill(metaObject, "createdTime", LocalDateTime.class, LocalDateTime.now());
         // 版本号
         strictInsertFill(metaObject, "version", Integer.class, 1);
-        // 删除标识
-        strictInsertFill(metaObject, "deleted", Boolean.class, false);
     }
 
     @Override
@@ -45,4 +44,8 @@ public class MetaObjectHandlerImpl implements MetaObjectHandler {
         strictUpdateFill(metaObject, "updatedTime", LocalDateTime.class, LocalDateTime.now());
     }
 
+    public static void main(String[] args) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        System.out.println(bCryptPasswordEncoder.encode("bryce1@3"));
+    }
 }

@@ -7,6 +7,7 @@ import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
+import com.brycehan.cloud.system.entity.dto.SysUsernameDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.service.SysUserDetailsService;
 import com.brycehan.cloud.system.service.SysUserService;
@@ -100,4 +101,11 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok(updated);
     }
 
+    @Override
+    public ResponseResult<Boolean> checkUsernameUnique(String username) {
+        SysUsernameDto sysUsernameDto = new SysUsernameDto();
+        sysUsernameDto.setUsername(username);
+        boolean checked = this.sysUserService.checkUsernameUnique(sysUsernameDto);
+        return ResponseResult.ok(checked);
+    }
 }

@@ -71,4 +71,13 @@ public interface SysUserApi {
     @PostMapping(path = "/updateLoginInfo")
     ResponseResult<Boolean> updateLoginInfo(@RequestBody SysUserLoginInfoDto sysUserLoginInfoDto);
 
+    /**
+     * 校验用户账号是否唯一
+     *
+     * @param username 用户账号
+     * @return 是否唯一
+     */
+    @GetMapping(path = "/checkUsernameUnique/{username}")
+    ResponseResult<Boolean> checkUsernameUnique(@PathVariable String username);
+
 }

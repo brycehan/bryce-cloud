@@ -49,6 +49,13 @@ public class SysUserApiFallbackImpl implements FallbackFactory<SysUserApi> {
             public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
                 return ResponseResult.fallback("系统服务调用失败");
             }
+
+            @Override
+            public ResponseResult<Boolean> checkUsernameUnique(String username) {
+                return ResponseResult.fallback("系统服务调用失败");
+            }
+
+
         };
     }
 }

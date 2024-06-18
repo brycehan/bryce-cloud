@@ -72,8 +72,8 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
 
     @Override
     public boolean checkUsernameUnique(String username) {
-        ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByUsername(username);
-        return loginUserResponseResult.getCode() == 200 && loginUserResponseResult.getData() == null;
+        ResponseResult<Boolean> loginUserResponseResult = this.sysUserApi.checkUsernameUnique(username);
+        return loginUserResponseResult.getCode() == 200 && loginUserResponseResult.getData();
     }
 
 }
