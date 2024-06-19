@@ -46,7 +46,7 @@ public interface EmailApi {
      */
     @Operation(summary = "发送附件邮件")
     @PostMapping(path = "/sendHtmlEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<Void> sendHtmlEmail(@Validated @RequestPart ToMailDto toMailDto, MultipartFile[] file);
+    ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, @RequestPart(required = false) MultipartFile[] file);
 
     /**
      * 发送验证码邮件
