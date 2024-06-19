@@ -59,6 +59,18 @@ public class AuthLoginController {
     }
 
     /**
+     * 刷新令牌
+     *
+     * @return 响应结果
+     */
+    @Operation(summary = "刷新令牌")
+    @GetMapping(path = "/refreshToken")
+    public ResponseResult<LoginVo> refreshToken() {
+        authLoginService.refreshToken();
+        return ResponseResult.ok();
+    }
+
+    /**
      * 查询系统登录用户详情
      *
      * @return 响应结果
@@ -78,7 +90,7 @@ public class AuthLoginController {
     @Operation(summary = "退出登录")
     @GetMapping(path = "/logout")
     public ResponseResult<Void> logout() {
-        this.authLoginService.logout(LoginUserContext.currentUser());
+        this.authLoginService.logout();
         return ResponseResult.ok();
     }
 

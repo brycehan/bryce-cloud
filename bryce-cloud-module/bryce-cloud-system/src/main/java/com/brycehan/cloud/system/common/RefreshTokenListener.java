@@ -46,12 +46,7 @@ public class RefreshTokenListener {
         loginUser.setGender(sysUser.getGender());
         loginUser.setAvatar(sysUser.getAvatar());
 
-        // 生成 jwt
-        String token = this.jwtTokenProvider.generateToken(loginUser);
-
-        // 缓存 loginUser
-        this.jwtTokenProvider.cache(loginUser);
-        this.jwtTokenProvider.refreshToken(token);
+        this.jwtTokenProvider.doRefreshToken(loginUser);
     }
 
 }

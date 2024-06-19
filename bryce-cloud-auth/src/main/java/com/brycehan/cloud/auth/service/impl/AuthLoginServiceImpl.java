@@ -15,8 +15,8 @@ import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
+import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +45,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public LoginVo loginByAccount(@NotNull AccountLoginDto accountLoginDto) {
+    public LoginVo loginByAccount(AccountLoginDto accountLoginDto) {
         log.debug("loginByAccount，账号认证");
         // 校验验证码
         boolean validated = this.authCaptchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode(), CaptchaType.LOGIN);
@@ -118,7 +118,13 @@ public class AuthLoginServiceImpl implements AuthLoginService {
     }
 
     @Override
-    public void logout(LoginUser loginUser) {
+    public void refreshToken() {
+        this.jwtTokenProvider.doRefreshToken(LoginUserContext.currentUser());
+    }
+
+    @Override
+    public void logout() {
+        LoginUser loginUser = LoginUserContext.currentUser();
         if (Objects.isNull(loginUser)) {
             return;
         }

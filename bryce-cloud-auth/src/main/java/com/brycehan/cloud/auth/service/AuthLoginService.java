@@ -1,6 +1,5 @@
 package com.brycehan.cloud.auth.service;
 
-import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
@@ -31,10 +30,13 @@ public interface AuthLoginService {
     LoginVo loginByPhone(PhoneLoginDto phoneLoginDto);
 
     /**
-     * 退出登录
-     *
-     * @param loginUser 登录用户
+     * 刷新token
      */
-    void logout(LoginUser loginUser);
+    void refreshToken();
+
+    /**
+     * 退出登录
+     */
+    void logout();
 
 }

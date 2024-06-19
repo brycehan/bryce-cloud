@@ -1,9 +1,8 @@
 package com.brycehan.cloud.common.security.context;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * 登录用户上下文
@@ -20,12 +19,7 @@ public class LoginUserContext {
      * @return 当前登录用户
      */
     public static LoginUser currentUser() {
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            return (LoginUser) authentication.getPrincipal();
-        }catch (Exception e){
-            return null;
-        }
+        return LoginUserContextHolder.getContext();
     }
 
     /**

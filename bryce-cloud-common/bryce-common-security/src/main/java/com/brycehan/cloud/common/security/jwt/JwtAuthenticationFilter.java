@@ -2,6 +2,7 @@ package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import jakarta.servlet.FilterChain;
@@ -12,10 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -42,7 +39,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         log.info("请求URI，{}", request.getRequestURI());
-
         String userKey = request.getHeader(JwtConstants.USER_KEY);
         String userData = request.getHeader(JwtConstants.USER_DATA);
 
@@ -68,14 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 用户存在，自动刷新令牌
         this.jwtTokenProvider.autoRefreshToken(loginUser);
-
         // 设置认证信息
-        Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
-
-        // 新建 SecurityContext
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
+        LoginUserContextHolder.setContext(loginUser);
         log.info("将认证信息设置到安全上下文中，username：{}', uri: {}", loginUser.getUsername(), request.getRequestURI());
 
         filterChain.doFilter(request, response);
