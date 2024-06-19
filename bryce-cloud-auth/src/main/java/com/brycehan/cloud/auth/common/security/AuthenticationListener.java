@@ -9,6 +9,7 @@ import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class AuthenticationListener {
      *
      * @param event 认证成功事件
      */
+    @Async
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
         // 用户信息
@@ -57,6 +59,7 @@ public class AuthenticationListener {
      *
      * @param authenticationFailureEvent 认证失败事件
      */
+    @Async
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent authenticationFailureEvent) {
         // 用户名
