@@ -4,7 +4,6 @@ import com.brycehan.cloud.api.sms.fallback.SmsApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import com.brycehan.cloud.common.core.response.ResponseResult;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +16,6 @@ import java.util.LinkedHashMap;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@Tag(name = "短信Api")
 @FeignClient(name = ServerNames.BRYCE_CLOUD_SMS, path = SmsApi.PATH, contextId = "sms", fallbackFactory = SmsApiFallbackImpl.class)
 public interface SmsApi {
 

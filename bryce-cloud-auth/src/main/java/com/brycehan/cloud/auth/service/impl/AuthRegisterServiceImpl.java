@@ -9,7 +9,6 @@ import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.common.RegisterSuccessEvent;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
-import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.core.response.ResponseResult;

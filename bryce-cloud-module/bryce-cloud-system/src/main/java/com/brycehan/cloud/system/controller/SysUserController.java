@@ -157,7 +157,7 @@ public class SysUserController {
     @OperateLog(type = OperateType.IMPORT)
     @PreAuthorize("hasAuthority('system:user:import')")
     @PostMapping(path = "/import")
-    public ResponseResult<Void> importByExcel(@RequestParam MultipartFile file) {
+    public ResponseResult<Void> importByExcel(@RequestPart MultipartFile file) {
         if(file.isEmpty()) {
             return ResponseResult.error("请选择需要上传的文件");
         }

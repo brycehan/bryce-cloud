@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-api</artifactId>
+            <artifactId>bryce-cloud-storage-api</artifactId>
         </dependency>
         <!-- Minio 对象存储服务 -->
         <dependency>

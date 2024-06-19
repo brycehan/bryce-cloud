@@ -1,17 +1,17 @@
-package com.brycehan.cloud.storage.vo;
+package com.brycehan.cloud.api.storage.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 
 /**
- * 存储 vo
+ * 存储 api
  *
  * @author Bryce Han
  * @since 2023/11/17
  */
 @Data
-@Tag(name = "存储 vo")
+@Tag(name = "存储 api")
 public class StorageVo {
 
     /**

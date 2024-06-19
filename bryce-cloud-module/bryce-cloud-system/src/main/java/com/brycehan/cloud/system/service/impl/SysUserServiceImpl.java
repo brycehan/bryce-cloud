@@ -5,14 +5,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.api.storage.api.StorageApi;
+import com.brycehan.cloud.api.storage.entity.StorageVo;
 import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
-import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
@@ -72,6 +74,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     private final SysRoleService sysRoleService;
 
     private final ThreadPoolExecutor threadPoolExecutor;
+
+    private final StorageApi storageApi;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -369,16 +373,22 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public void updateAvatar(SysUserAvatarDto sysUserAvatarDto) {
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserAvatarDto);
+    public String updateAvatar(MultipartFile file) {
+        ResponseResult<StorageVo> uploaded = this.storageApi.upload(file);
+        if (!ResponseResult.isSuccess(uploaded) || uploaded.getData() == null) {
+            throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);
+        }
+
+        SysUser sysUser = new SysUser();
         // 设置登录用户ID
         sysUser.setId(LoginUserContext.currentUserId());
+        sysUser.setAvatar(uploaded.getData().getUrl());
 
         // 更新并更新用户登录信息
         if (this.updateById(sysUser)) {
             SysUser user = this.baseMapper.selectById(sysUser.getId());
             this.applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
-            return;
+            return sysUser.getAvatar();
         }
 
         throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);

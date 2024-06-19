@@ -7,12 +7,13 @@ import com.brycehan.cloud.common.core.base.ServerNames;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -21,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@Tag(name = "邮件Api")
 @FeignClient(name = ServerNames.BRYCE_CLOUD_EMAIL, path = EmailApi.PATH, contextId = "email", fallbackFactory = EmailApiFallbackImpl.class)
 public interface EmailApi {
 
@@ -45,8 +45,8 @@ public interface EmailApi {
      * @return 响应结果
      */
     @Operation(summary = "发送附件邮件")
-    @PostMapping(path = "/sendHtmlEmail")
-    ResponseResult<Void> sendHtmlEmail(@Validated @RequestBody ToMailDto toMailDto, MultipartFile[] file);
+    @PostMapping(path = "/sendHtmlEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseResult<Void> sendHtmlEmail(@Validated @RequestPart ToMailDto toMailDto, MultipartFile[] file);
 
     /**
      * 发送验证码邮件

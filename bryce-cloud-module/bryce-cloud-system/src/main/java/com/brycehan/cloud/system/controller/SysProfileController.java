@@ -1,6 +1,5 @@
 package com.brycehan.cloud.system.controller;
 
-import com.brycehan.cloud.common.core.entity.dto.SysUserAvatarDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
@@ -12,8 +11,10 @@ import com.brycehan.cloud.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022/10/31
  * @author Bryce Han
  */
+@Slf4j
 @Tag(name = "用户个人中心")
 @RequestMapping(path = "/profile")
 @RestController
@@ -60,15 +62,15 @@ public class SysProfileController {
     /**
      * 修改用户头像
      *
-     * @param sysUserAvatarDto 用户头像Dto
+     * @param file 用户头像文件
      * @return 响应结果
      */
     @Operation(summary = "修改用户头像")
     @OperateLog(type = OperateType.UPDATE)
-    @PutMapping(path = "/avatar")
-    public ResponseResult<Void> updateAvatar(@RequestBody SysUserAvatarDto sysUserAvatarDto) {
-        this.sysUserService.updateAvatar(sysUserAvatarDto);
-        return ResponseResult.ok();
+    @PostMapping(path = "/avatar")
+    public ResponseResult<String> updateAvatar(@RequestPart MultipartFile file) {
+        String avatar = this.sysUserService.updateAvatar(file);
+        return ResponseResult.ok(avatar);
     }
 
     /**

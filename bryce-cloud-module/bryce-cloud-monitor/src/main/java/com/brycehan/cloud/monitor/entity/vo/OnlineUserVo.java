@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 在线用户 vo
+ * 在线用户 api
  *
  * @since 2023/10/10
  * @author Bryce Han

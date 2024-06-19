@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 响应结果
@@ -157,6 +158,16 @@ public class ResponseResult<T> implements Serializable {
      */
     public static <T> ResponseResult<T> fallback(String message) {
         return error(600, message);
+    }
+
+    /**
+     * 是否成功
+     *
+     * @param responseResult 响应结果
+     * @return 是否成功
+     */
+    public static boolean isSuccess(ResponseResult<?> responseResult) {
+        return responseResult != null && Objects.equals(responseResult.getCode(), HttpResponseStatus.HTTP_OK.code());
     }
 
 }
