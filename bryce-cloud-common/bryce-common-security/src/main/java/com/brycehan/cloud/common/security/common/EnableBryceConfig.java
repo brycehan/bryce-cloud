@@ -24,7 +24,7 @@ import java.lang.annotation.*;
 @EnableAsync
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(exposeProxy = true)
-@EnableMethodCache(basePackages = "com.brycehan.cloud.auth")
+@EnableMethodCache(basePackages = "com.brycehan.cloud")
 public @interface EnableBryceConfig {
 
 }
