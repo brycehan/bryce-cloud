@@ -4,9 +4,10 @@ import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.api.email.fallback.EmailApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import com.brycehan.cloud.common.core.response.ResponseResult;
-import io.swagger.v3.oas.annotations.Operation;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2022/1/1
  * @author Bryce Han
  */
+@Headers(DataConstants.INNER_CALL_HEADER)
 @FeignClient(name = ServerNames.BRYCE_CLOUD_EMAIL, path = EmailApi.PATH, contextId = "email", fallbackFactory = EmailApiFallbackImpl.class)
 public interface EmailApi {
 
@@ -33,7 +35,6 @@ public interface EmailApi {
      * @param toMailDto 收邮件参数
      * @return 响应结果
      */
-    @Operation(summary = "发送简单邮件")
     @PostMapping(path = "/sendSimpleEmail")
     ResponseResult<Void> sendSimpleEmail(@Validated @RequestBody ToMailDto toMailDto);
 
@@ -44,7 +45,6 @@ public interface EmailApi {
      * @param file 附件
      * @return 响应结果
      */
-    @Operation(summary = "发送附件邮件")
     @PostMapping(path = "/sendHtmlEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, @RequestPart(required = false) MultipartFile[] file);
 
@@ -55,7 +55,6 @@ public interface EmailApi {
      * @param emailType 邮件类型
      * @return 是否发送成功
      */
-    @Operation(summary = "发送验证码邮件")
     @PostMapping(path = "/sendValidateCode/{emailType}")
     ResponseResult<Boolean> send(@Validated @RequestBody ToVerifyCodeEmailDto toVerifyCodeEmailDto, @PathVariable EmailType emailType);
 

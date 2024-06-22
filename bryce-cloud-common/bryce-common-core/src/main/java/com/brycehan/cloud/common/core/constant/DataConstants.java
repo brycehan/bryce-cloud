@@ -74,4 +74,13 @@ public class DataConstants {
      */
     public static final String COMPANY_EMAIL_VERIFY_CODE_SUBJECT = "电子邮件验证码：";
 
+    /**
+     * 内部调用
+     */
+    public static final String INNER_CALL = "X-Inner-Call";
+
+    /**
+     * 内部调用header
+     */
+    public static final String INNER_CALL_HEADER = "X-Inner-Call: Y";
 }

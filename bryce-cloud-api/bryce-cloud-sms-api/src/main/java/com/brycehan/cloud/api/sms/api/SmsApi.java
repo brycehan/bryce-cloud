@@ -2,8 +2,10 @@ package com.brycehan.cloud.api.sms.api;
 
 import com.brycehan.cloud.api.sms.fallback.SmsApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import com.brycehan.cloud.common.core.response.ResponseResult;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import java.util.LinkedHashMap;
  * @since 2022/1/1
  * @author Bryce Han
  */
+@Headers(DataConstants.INNER_CALL_HEADER)
 @FeignClient(name = ServerNames.BRYCE_CLOUD_SMS, path = SmsApi.PATH, contextId = "sms", fallbackFactory = SmsApiFallbackImpl.class)
 public interface SmsApi {
 

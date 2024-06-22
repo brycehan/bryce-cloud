@@ -7,11 +7,13 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.system.entity.po.SysParam;
 import com.brycehan.cloud.system.entity.vo.SysParamVo;
 import com.brycehan.cloud.system.service.SysParamService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +32,14 @@ public class SysParamApiController implements SysParamApi {
 
     private final SysParamService sysParamService;
 
+    /**
+     * 添加系统参数
+     *
+     * @param sysParamDto 系统参数Dto
+     */
     @Override
+    @Operation(summary = "添加系统参数")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Void> save(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
@@ -38,7 +47,14 @@ public class SysParamApiController implements SysParamApi {
         return ResponseResult.ok();
     }
 
+    /**
+     * 更新系统参数
+     *
+     * @param sysParamDto 系统参数Dto
+     */
     @Override
+    @Operation(summary = "更新系统参数")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Void> update(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
@@ -58,13 +74,30 @@ public class SysParamApiController implements SysParamApi {
         return ResponseResult.ok();
     }
 
+    /**
+     * 判断 paramKey 是否存在
+     *
+     * @param paramKey 参数key
+     *
+     * @return paramKey 是否存在
+     */
     @Override
+    @Operation(summary = "判断 paramKey 是否存在")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Boolean> exists(String paramKey) {
         boolean exists = this.sysParamService.exists(paramKey);
         return ResponseResult.ok(exists);
     }
 
+    /**
+     * 获取参数对象
+     *
+     * @param paramKey 参数key
+     * @return 参数对象
+     */
     @Override
+    @Operation(summary = "获取参数对象")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<SysParamApiVo> getByParamKey(String paramKey) {
         SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
 
@@ -74,13 +107,29 @@ public class SysParamApiController implements SysParamApi {
         return ResponseResult.ok(sysParamApiVo);
     }
 
+    /**
+     * 根据paramKey，查询字符串类型的参数值
+     *
+     * @param paramKey 参数key
+     * @return 参数值
+     */
     @Override
+    @Operation(summary = "根据paramKey，查询字符串类型的参数值")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<String> getString(String paramKey) {
         String string = this.sysParamService.getString(paramKey);
         return ResponseResult.ok(string);
     }
 
+    /**
+     * 根据paramKey，查询boolean类型的参数值
+     *
+     * @param paramKey 参数Key
+     * @return 参数值
+     */
     @Override
+    @Operation(summary = "根据paramKey，查询boolean类型的参数值")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Boolean> getBoolean(String paramKey) {
         boolean flag = this.sysParamService.getBoolean(paramKey);
         return ResponseResult.ok(flag);

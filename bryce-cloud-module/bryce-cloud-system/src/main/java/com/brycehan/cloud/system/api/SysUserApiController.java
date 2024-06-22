@@ -11,10 +11,12 @@ import com.brycehan.cloud.system.entity.dto.SysUsernameDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.service.SysUserDetailsService;
 import com.brycehan.cloud.system.service.SysUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,15 @@ public class SysUserApiController implements SysUserApi {
     private final SysUserService sysUserService;
     private final SysUserDetailsService sysUserDetailsService;
 
+    /**
+     * 查询系统账号
+     *
+     * @param username 系统账号
+     *
+     * @return paramKey 是否存在
+     */
+    @Operation(summary = "查询系统账号")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     @Override
     public ResponseResult<LoginUser> loadUserByUsername(String username) {
         // 查询用户
@@ -49,6 +60,15 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
+    /**
+     * 查询系统账号
+     *
+     * @param phone 手机号
+     *
+     * @return paramKey 是否存在
+     */
+    @Operation(summary = "查询系统账号")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     @Override
     public ResponseResult<LoginUser> loadUserByPhone(String phone) {
         // 查询用户
@@ -64,7 +84,15 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
+    /**
+     * 获取登录对象
+     *
+     * @param id 用户ID
+     * @return 登录对象
+     */
     @Override
+    @Operation(summary = "获取登录对象")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<LoginUser> loadUserById(Long id) {
         // 查询用户
         SysUser sysUser = this.sysUserService.getById(id);
@@ -79,7 +107,15 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
+    /**
+     * 注册用户
+     *
+     * @param sysUserDto 系统用户
+     * @return 注册结果
+     */
     @Override
+    @Operation(summary = "注册用户")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<SysUserVo> registerUser(SysUserDto sysUserDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserDto, sysUser);
@@ -92,7 +128,15 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok(sysUserVo);
     }
 
+    /**
+     * 更新用户登录信息
+     *
+     * @param sysUserLoginInfoDto 系统用户登录信息
+     * @return 更新状态
+     */
     @Override
+    @Operation(summary = "更新用户登录信息")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserLoginInfoDto, sysUser);
@@ -101,7 +145,15 @@ public class SysUserApiController implements SysUserApi {
         return ResponseResult.ok(updated);
     }
 
+    /**
+     * 校验用户账号是否唯一
+     *
+     * @param username 用户账号
+     * @return 是否唯一
+     */
     @Override
+    @Operation(summary = "校验用户账号是否唯一")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Boolean> checkUsernameUnique(String username) {
         SysUsernameDto sysUsernameDto = new SysUsernameDto();
         sysUsernameDto.setUsername(username);

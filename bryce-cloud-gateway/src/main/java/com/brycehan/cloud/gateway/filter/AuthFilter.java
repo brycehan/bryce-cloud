@@ -3,6 +3,7 @@ package com.brycehan.cloud.gateway.filter;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.response.ResponseResult;
@@ -90,7 +91,7 @@ public class AuthFilter implements GlobalFilter {
         // 删除处理过的请求头
         mutate.headers(httpHeaders -> httpHeaders.remove(HttpHeaders.AUTHORIZATION)).build();
         // 内部请求来源参数清除
-        mutate.headers(httpHeaders -> httpHeaders.remove(JwtConstants.INNER_CALL_HEADER)).build();
+        mutate.headers(httpHeaders -> httpHeaders.remove(DataConstants.INNER_CALL)).build();
 
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }

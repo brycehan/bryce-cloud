@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,7 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送简单邮件")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Void> sendSimpleEmail(ToMailDto toMailDto) {
         this.emailService.sendSimpleEmail(toMailDto);
         return ResponseResult.ok();
@@ -51,6 +53,7 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送附件邮件")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Void> sendHtmlEmail(ToMailDto toMailDto, MultipartFile[] file) {
         this.emailService.sendHtmlEmail(toMailDto, file);
         return ResponseResult.ok();
@@ -65,6 +68,7 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送验证码邮件")
+    @PreAuthorize("@innerAuth.hasAuthority()")
     public ResponseResult<Boolean> send(ToVerifyCodeEmailDto toVerifyCodeEmailDto, EmailType emailType) {
         this.emailService.send(toVerifyCodeEmailDto, emailType);
         return ResponseResult.ok(Boolean.TRUE);
