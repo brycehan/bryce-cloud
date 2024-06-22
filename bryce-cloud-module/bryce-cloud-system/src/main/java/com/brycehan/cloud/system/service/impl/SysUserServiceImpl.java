@@ -18,6 +18,7 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
+import com.brycehan.cloud.common.core.util.SpringUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.security.context.LoginUserContext;
 import com.brycehan.cloud.system.common.RefreshTokenEvent;
@@ -211,13 +212,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         ExcelUtils.export(SysUserVo.class, "系统用户_".concat(DateTimeUtils.today()), "系统用户", sysUserVoList);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void importByExcel(MultipartFile file, String password) {
-        ExcelUtils.read(file, SysUserExcelDto.class, list -> saveUsers(list, password));
+        ExcelUtils.read(file, SysUserExcelDto.class, list -> SpringUtils.getAopProxy(this).saveUsers(list, password));
     }
 
-    private void saveUsers(List<SysUserExcelDto> list, String password) {
+    @Transactional(rollbackFor = Exception.class)
+    public void saveUsers(List<SysUserExcelDto> list, String password) {
         ExcelUtils.unTransList(list);
         List<SysUser> sysUsers = SysUserConvert.INSTANCE.convertList(list);
         sysUsers.forEach(sysUser -> {
@@ -226,7 +228,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         });
 
         // 批量新增
-        saveBatch(sysUsers);
+        SpringUtils.getAopProxy(this).saveBatch(sysUsers);
     }
 
     @Override
