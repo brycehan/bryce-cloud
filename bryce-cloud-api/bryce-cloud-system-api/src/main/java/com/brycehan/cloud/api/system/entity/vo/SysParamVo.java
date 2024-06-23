@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "系统参数Vo")
-public class SysParamApiVo implements Serializable {
+public class SysParamVo implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -62,7 +62,7 @@ public class SysParamApiVo implements Serializable {
      * 创建时间
      */
     @Schema(description = "创建时间")
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     private LocalDateTime createdTime;
 
 }

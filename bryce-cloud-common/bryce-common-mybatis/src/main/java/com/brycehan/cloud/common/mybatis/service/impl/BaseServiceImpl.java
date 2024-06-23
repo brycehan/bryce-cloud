@@ -18,7 +18,7 @@ import com.brycehan.cloud.common.core.entity.convert.OrderItemConvert;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.mybatis.interceptor.DataScope;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -121,7 +121,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
         LoginUser loginUser = LoginUserContext.currentUser();
         // 如果是超级管理员，则不进行数据过滤
         assert loginUser != null;
-        if(loginUser.getSuperAdmin()) {
+        if(loginUser.isSuperAdmin()) {
             return null;
         }
 

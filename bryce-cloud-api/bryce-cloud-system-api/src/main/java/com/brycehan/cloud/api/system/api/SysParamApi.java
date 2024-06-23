@@ -1,7 +1,7 @@
 package com.brycehan.cloud.api.system.api;
 
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
-import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
+import com.brycehan.cloud.api.system.entity.vo.SysParamVo;
 import com.brycehan.cloud.api.system.fallback.SysParamApiFallbackImpl;
 import com.brycehan.cloud.common.core.base.ServerNames;
 import com.brycehan.cloud.common.core.constant.DataConstants;
@@ -55,7 +55,7 @@ public interface SysParamApi {
      * @return 参数对象
      */
     @GetMapping(path = "/getByParamKey")
-    ResponseResult<SysParamApiVo> getByParamKey(@RequestParam String paramKey);
+    ResponseResult<SysParamVo> getByParamKey(@RequestParam String paramKey);
 
     /**
      * 根据paramKey，查询字符串类型的参数值

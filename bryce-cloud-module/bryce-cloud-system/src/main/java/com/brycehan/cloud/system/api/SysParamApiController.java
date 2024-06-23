@@ -1,11 +1,12 @@
 package com.brycehan.cloud.system.api;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
-import com.brycehan.cloud.api.system.entity.vo.SysParamApiVo;
+import com.brycehan.cloud.api.system.entity.vo.SysParamVo;
+import com.brycehan.cloud.common.core.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.system.entity.po.SysParam;
-import com.brycehan.cloud.system.entity.vo.SysParamVo;
 import com.brycehan.cloud.system.service.SysParamService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -58,15 +59,18 @@ public class SysParamApiController implements SysParamApi {
     public ResponseResult<Void> update(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
-        if (sysParam.getId() == null) {
-            if (StringUtils.isNotEmpty(sysParam.getParamKey())) {
-                SysParamVo sysParamVo = this.sysParamService.getByParamKey(sysParam.getParamKey());
-                sysParam.setId(sysParamVo.getId());
+        if (StringUtils.isNotEmpty(sysParam.getParamKey())) {
+            LambdaQueryWrapper<SysParam> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.select(SysParam::getId);
+            queryWrapper.eq(SysParam::getParamKey, sysParam.getParamKey());
+            SysParam param = this.sysParamService.getOne(queryWrapper, false);
+            if (param != null) {
+                sysParam.setId(param.getId());
             }
         }
 
-        if (sysParam.getId() == null) {
-            return ResponseResult.error("参数ID不能为空");
+        if (sysParamDto.getId() == null) {
+            return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST);
         }
 
         this.sysParamService.updateById(sysParam);
@@ -98,10 +102,10 @@ public class SysParamApiController implements SysParamApi {
     @Override
     @Operation(summary = "获取参数对象")
     @PreAuthorize("@innerAuth.hasAuthority()")
-    public ResponseResult<SysParamApiVo> getByParamKey(String paramKey) {
-        SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
+    public ResponseResult<SysParamVo> getByParamKey(String paramKey) {
+        com.brycehan.cloud.system.entity.vo.SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
 
-        SysParamApiVo sysParamApiVo = new SysParamApiVo();
+        SysParamVo sysParamApiVo = new SysParamVo();
         BeanUtils.copyProperties(sysParamVo, sysParamApiVo);
 
         return ResponseResult.ok(sysParamApiVo);

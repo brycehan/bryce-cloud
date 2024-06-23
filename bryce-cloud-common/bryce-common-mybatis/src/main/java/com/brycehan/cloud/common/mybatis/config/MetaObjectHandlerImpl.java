@@ -2,7 +2,7 @@ package com.brycehan.cloud.common.mybatis.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;

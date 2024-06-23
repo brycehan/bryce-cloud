@@ -1,7 +1,5 @@
-package com.brycehan.cloud.common.security.context;
+package com.brycehan.cloud.common.core.base;
 
-import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -41,6 +39,7 @@ public class LoginUserContext {
      *
      * @return 当前登录用户的机构ID
      */
+    @SuppressWarnings("unused")
     public static Long currentOrgId() {
         LoginUser loginUser = currentUser();
         if(loginUser == null){

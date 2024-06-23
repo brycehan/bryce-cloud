@@ -8,7 +8,7 @@ import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

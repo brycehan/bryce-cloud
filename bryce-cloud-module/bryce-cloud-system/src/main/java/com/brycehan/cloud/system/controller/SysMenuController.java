@@ -7,7 +7,7 @@ import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.system.common.enums.MenuType;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
 import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;

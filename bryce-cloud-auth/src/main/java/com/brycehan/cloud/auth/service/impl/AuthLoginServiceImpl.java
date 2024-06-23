@@ -15,7 +15,7 @@ import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

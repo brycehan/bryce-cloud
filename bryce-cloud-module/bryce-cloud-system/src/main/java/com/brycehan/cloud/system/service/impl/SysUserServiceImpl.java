@@ -20,7 +20,7 @@ import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.core.util.SpringUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.system.common.RefreshTokenEvent;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;

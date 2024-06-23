@@ -4,7 +4,7 @@ import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.system.entity.dto.SysUserPasswordDto;
 import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.service.SysUserService;

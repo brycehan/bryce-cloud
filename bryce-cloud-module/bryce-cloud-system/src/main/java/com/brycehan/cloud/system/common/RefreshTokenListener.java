@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.common;
 
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.security.context.LoginUserContext;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import lombok.RequiredArgsConstructor;
