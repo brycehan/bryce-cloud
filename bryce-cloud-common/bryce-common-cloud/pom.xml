@@ -16,7 +16,6 @@
 
     <!-- 依赖 -->
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -33,6 +32,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>de.codecentric</groupId>-->
+<!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
+<!--        </dependency>-->
         <!-- loki 日志平台 -->
         <dependency>
             <groupId>com.github.loki4j</groupId>

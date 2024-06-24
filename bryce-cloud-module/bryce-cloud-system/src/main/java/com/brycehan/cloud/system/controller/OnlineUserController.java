@@ -1,4 +1,4 @@
-package com.brycehan.cloud.monitor.controller;
+package com.brycehan.cloud.system.controller;
 
 import cn.hutool.core.collection.ListUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
@@ -8,8 +8,8 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
-import com.brycehan.cloud.monitor.entity.dto.OnlineUserPageDto;
-import com.brycehan.cloud.monitor.entity.vo.OnlineUserVo;
+import com.brycehan.cloud.system.entity.dto.OnlineUserPageDto;
+import com.brycehan.cloud.system.entity.vo.OnlineUserVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +31,8 @@ import java.util.Set;
  * @author Bryce Han
  */
 @Tag(name = "在线用户")
-@RestController
-@RequestMapping(path = "/onlineUser")
+//@RestController
+//@RequestMapping(path = "/onlineUser")
 @RequiredArgsConstructor
 public class OnlineUserController {
 

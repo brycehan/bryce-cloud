@@ -18,22 +18,23 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-cloud</artifactId>
         </dependency>
+        <!-- Web安全 -->
         <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-security</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-operatelog</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Spring Boot Admin 监控工具 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-api</artifactId>
-        </dependency>
-        <!-- 监控工具 -->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

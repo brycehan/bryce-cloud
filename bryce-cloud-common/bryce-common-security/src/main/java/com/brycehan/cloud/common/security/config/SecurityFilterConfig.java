@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AuthProperties.class)
-public class SecurityFilterConfig {
+public class SecurityFilterConfig implements Ordered {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -60,23 +61,24 @@ public class SecurityFilterConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 禁用退出自动配置接口
-                .logout(AbstractHttpConfigurer::disable)
-                // 添加 jwt 过滤器
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                // 基于token，不需要session
-                .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 过滤请求
+                // 授权请求
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers(this.authProperties.getIgnoreUrls().getAll()).permitAll()
                         .requestMatchers(HttpMethod.GET, this.authProperties.getIgnoreUrls().getGet()).permitAll()
                         .requestMatchers(HttpMethod.POST, this.authProperties.getIgnoreUrls().getPost()).permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         // 除上面外的所有请求全部需要鉴权认证
                         .anyRequest().authenticated())
+                // 基于token，不需要session
+                .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // 添加 jwt 过滤器
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(configurer -> configurer
                         .authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler))
+                // 禁用退出自动配置接口
+                .logout(AbstractHttpConfigurer::disable)
                 // 禁用X-Frame-Options
                 .headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 // 禁用csrf，jwt不需要csrf开启
@@ -95,4 +97,8 @@ public class SecurityFilterConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 }

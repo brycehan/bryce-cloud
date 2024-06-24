@@ -1,4 +1,4 @@
-package com.brycehan.cloud.monitor.entity.dto;
+package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;

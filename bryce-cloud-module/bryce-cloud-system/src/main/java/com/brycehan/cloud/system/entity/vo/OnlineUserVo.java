@@ -1,4 +1,4 @@
-package com.brycehan.cloud.monitor.entity.vo;
+package com.brycehan.cloud.system.entity.vo;
 
 import com.fhs.core.trans.vo.TransPojo;
 import io.swagger.v3.oas.annotations.media.Schema;

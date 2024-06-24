@@ -66,7 +66,7 @@
 		<commons-text.version>1.11.0</commons-text.version>
 		<jsoup.version>1.16.1</jsoup.version>
 		<okio.version>3.6.0</okio.version>
-		<oshi.version>6.4.6</oshi.version>
+		<spring-boot-admin.version>3.2.3</spring-boot-admin.version>
 		<binarywang-weixin.version>4.3.0</binarywang-weixin.version>
 		<flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
 		<loki.version>1.4.2</loki.version>
@@ -364,9 +364,14 @@
 			</dependency>
 			<!-- 监控工具 -->
 			<dependency>
-				<groupId>com.github.oshi</groupId>
-				<artifactId>oshi-core</artifactId>
-				<version>${oshi.version}</version>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-server</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>${spring-boot-admin.version}</version>
 			</dependency>
 			<!-- 微信公众号 -->
 			<dependency>

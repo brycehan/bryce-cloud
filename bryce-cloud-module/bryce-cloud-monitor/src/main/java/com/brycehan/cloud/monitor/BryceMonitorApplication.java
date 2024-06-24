@@ -1,6 +1,6 @@
 package com.brycehan.cloud.monitor;
 
-import com.alicp.jetcache.anno.config.EnableMethodCache;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @since 2023/11/18
  * @author Bryce Han
  */
-@EnableMethodCache(basePackages = "com.brycehan.cloud.monitor")
+@EnableAdminServer
 @EnableDiscoveryClient
 @SpringBootApplication
 public class BryceMonitorApplication {

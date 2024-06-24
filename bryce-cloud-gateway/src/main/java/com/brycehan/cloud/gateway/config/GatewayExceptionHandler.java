@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.web.reactive.resource.NoResourceFoundException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -31,7 +32,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
             return ReactiveUtils.exceptionResponse(exchange, HttpResponseStatus.HTTP_INTERNAL_ERROR, ex.getMessage());
         }
 
-        if (ex instanceof NotFoundException) {
+        if (ex instanceof NoResourceFoundException || ex instanceof NotFoundException) {
             return ReactiveUtils.exceptionResponse(exchange, HttpResponseStatus.HTTP_NOT_FOUND);
         }
 
