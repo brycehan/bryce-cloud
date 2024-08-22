@@ -9,6 +9,7 @@ import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
 import com.brycehan.cloud.common.core.base.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
@@ -18,9 +19,7 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
-import com.brycehan.cloud.common.core.util.SpringUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
-import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.system.common.RefreshTokenEvent;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
@@ -33,6 +32,7 @@ import com.brycehan.cloud.system.service.*;
 import com.fhs.trans.service.impl.TransService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -214,9 +214,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void importByExcel(MultipartFile file, String password) {
-        ExcelUtils.read(file, SysUserExcelDto.class, list -> SpringUtils.getAopProxy(this).saveUsers(list, password));
+        ExcelUtils.read(file, SysUserExcelDto.class, list -> ((SysUserService) AopContext.currentProxy()).saveUsers(list, password));
     }
 
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveUsers(List<SysUserExcelDto> list, String password) {
         ExcelUtils.unTransList(list);
@@ -227,7 +228,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         });
 
         // 批量新增
-        SpringUtils.getAopProxy(this).saveBatch(sysUsers);
+        ((SysUserService) AopContext.currentProxy()).saveBatch(sysUsers);
     }
 
     @Override

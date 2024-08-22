@@ -14,6 +14,8 @@ import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 系统用户服务
  *
@@ -79,6 +81,13 @@ public interface SysUserService extends BaseService<SysUser> {
      */
     void importByExcel(MultipartFile file, String password);
 
+    /**
+     * 批量导入保存用户
+     *
+     * @param list      用户列表
+     * @param password 初始密码
+     */
+    void saveUsers(List<SysUserExcelDto> list, String password);
     /**
      * 根据账号查询用户
      *
