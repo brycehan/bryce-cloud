@@ -60,7 +60,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public SysAreaCodeVo getByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper);
+        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
 
         return SysAreaCodeConvert.INSTANCE.convert(sysAreaCode);
     }
@@ -69,7 +69,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public String getNameByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper);
+        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
 
         if (sysAreaCode == null) {
             return null;
@@ -82,7 +82,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public String getExtNameByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper);
+        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
 
         if (sysAreaCode == null) {
             return null;

@@ -3,6 +3,7 @@ package com.brycehan.cloud.common.core.entity.dto;
 import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class AccountLoginDto extends BaseDto {
     /**
      * 账号
      */
-    @NotNull
+    @NotBlank
     @Size(min = 2, max = 50)
     @Schema(description = "账号")
     private String username;
@@ -30,7 +31,7 @@ public class AccountLoginDto extends BaseDto {
     /**
      * 密码
      */
-    @NotNull
+    @NotBlank
     @Size(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
     @Schema(description = "密码")
     private String password;

@@ -11,6 +11,7 @@ import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.util.RegexUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
+
+import static com.brycehan.cloud.common.core.constant.CacheConstants.SMS_CODE_TTL;
 
 /**
  * 验证码服务实现
@@ -39,8 +42,6 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
     private final SysUserApi sysUserApi;
 
-    public final long expiration = 5L;
-
     @Override
     public void sendCode(String phone, SmsType smsType) {
         if (!this.smsEnabled()) {
@@ -49,6 +50,10 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
         if (!this.smsEnabled(smsType)) {
             throw new RuntimeException(smsType.desc() + "短信功能未开启");
+        }
+
+        if (!RegexUtils.isPhoneValid(phone)) {
+            throw new ServerException("手机号码格式错误");
         }
 
         ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByPhone(phone);
@@ -80,7 +85,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
         // 存储到 Redis
         this.stringRedisTemplate.opsForValue()
-                .set(smsCodeKey, smsCodeValue, this.expiration, TimeUnit.MINUTES);
+                .set(smsCodeKey, smsCodeValue, SMS_CODE_TTL, TimeUnit.MINUTES);
     }
 
     @Override
