@@ -12,7 +12,6 @@
         <result column="suffix" property="suffix"/>
         <result column="hash" property="hash"/>
         <result column="platform" property="platform"/>
-        <result column="version" property="version"/>
         <result column="deleted" property="deleted"/>
         <result column="created_user_id" property="createdUserId"/>
         <result column="created_time" property="createdTime"/>
@@ -24,7 +23,7 @@
     <sql id="Base_Column_List">
         id
         , name, url, size, type,
-        suffix, hash, platform, version,
+        suffix, hash, platform,
         deleted, created_user_id, created_time, updated_user_id, updated_time
     </sql>
 

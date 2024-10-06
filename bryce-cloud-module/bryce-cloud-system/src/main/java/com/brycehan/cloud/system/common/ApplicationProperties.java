@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
+@SuppressWarnings("unused")
 @ConfigurationProperties(prefix = "bryce.application")
 public class ApplicationProperties {
 
