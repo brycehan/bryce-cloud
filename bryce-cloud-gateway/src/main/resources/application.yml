@@ -6,16 +6,21 @@ server:
 spring:
   application:
     name: bryce-cloud-gateway
+  mvc:
+    servlet:
+      load-on-startup: 0
+  profiles:
+    active: @profiles.active@
   cloud:
     nacos:
       # 服务地址
-      server-addr: localhost:8848
+      server-addr: @nacos.server-addr@
       discovery:
-        namespace: dev
-        group: bryce-cloud
+        namespace: @nacos.namespace@
+        group: @nacos.group@
       config:
-        namespace: dev
-        group: bryce-cloud
+        namespace: @nacos.namespace@
+        group: @nacos.group@
     sentinel:
       datasource:
         ds1:

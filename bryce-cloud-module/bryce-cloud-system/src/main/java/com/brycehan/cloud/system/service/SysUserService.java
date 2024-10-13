@@ -44,18 +44,8 @@ public interface SysUserService extends BaseService<SysUser> {
     default void update(SysUserDto sysUserDto) {
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
 
-        // 设置版本号
-        SysUser user = this.getBaseMapper().selectById(sysUser.getId());
-        if (user == null) {
-            return;
-        }
-        sysUser.setVersion(user.getVersion());
-
         // 更新
-        int updated = this.getBaseMapper().updateById(sysUser);
-        if (updated == 0) {
-            throw new VersionException();
-        }
+        this.getBaseMapper().updateById(sysUser);
     }
 
     /**

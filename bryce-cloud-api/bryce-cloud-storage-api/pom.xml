@@ -28,6 +28,11 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-core</artifactId>
         </dependency>
+        <!--httpClient的依赖 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
