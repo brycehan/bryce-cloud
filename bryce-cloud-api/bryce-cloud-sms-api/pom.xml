@@ -20,10 +20,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <!-- HttpClient的依赖 -->
+        <!-- Feign HttpClient 5 的依赖 -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
+            <artifactId>feign-hc5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -32,11 +32,6 @@
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-core</artifactId>
-        </dependency>
-        <!--httpClient的依赖 -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
         </dependency>
     </dependencies>
 
