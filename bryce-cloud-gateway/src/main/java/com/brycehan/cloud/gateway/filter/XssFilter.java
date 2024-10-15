@@ -108,6 +108,7 @@ public class XssFilter implements GlobalFilter {
                 httpHeaders.putAll(super.getHeaders());
                 // 由于修改了请求体body，导致content-length长度不确定，所以需要删除原先的content-length
                 httpHeaders.remove(HttpHeaders.CONTENT_LENGTH);
+                // 设置为chunked分块传输编码，底层会自动关流
                 httpHeaders.set(HttpHeaders.TRANSFER_ENCODING, "chunked");
 
                 return httpHeaders;

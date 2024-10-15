@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.10</version>
+        <version>3.3.4</version>
     </parent>
 
     <groupId>com.brycehan.cloud</groupId>
@@ -24,12 +24,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <skipTests>true</skipTests>
-        <spring-cloud.version>2023.0.1</spring-cloud.version>
-        <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <!-- Mybatis Plus -->
-        <mybatis-plus.version>3.5.6</mybatis-plus.version>
-        <mybatis-plus-join.version>1.4.7</mybatis-plus-join.version>
-        <dynamic-datasource.version>4.1.3</dynamic-datasource.version>
+        <mybatis-plus.version>3.5.8</mybatis-plus.version>
+        <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
         <p6spy.version>3.9.1</p6spy.version>
         <dameng.version>8.1.2.141</dameng.version>
         <!-- Swagger 接口文档 -->
@@ -201,11 +200,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.yulichang</groupId>
-                <artifactId>mybatis-plus-join-boot-starter</artifactId>
-                <version>${mybatis-plus-join.version}</version>
             </dependency>
             <!-- 动态数据源 -->
             <dependency>
