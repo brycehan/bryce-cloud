@@ -32,7 +32,7 @@ import java.util.Map;
  * @since 2024/5/24
  */
 @Slf4j
-@Order(-100)
+@Order(-2)
 @Component
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AuthProperties.class)

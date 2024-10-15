@@ -39,17 +39,3 @@ spring:
       - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-gateway.yaml
 
-knife4j:
-  # 聚合 swagger 文档
-  gateway:
-    enabled: true
-    # 指定服务发现的模式聚合微服务文档，并且是默认`default`分组
-    strategy: discover
-    discover:
-      enabled: true
-      version: openapi3
-      excluded-services:
-        - bryce-cloud-gateway
-
-
-

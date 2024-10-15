@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Order(-1)
 @Configuration
+@SuppressWarnings("NullableProblems")
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     @Override

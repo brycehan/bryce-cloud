@@ -31,7 +31,6 @@ spring:
       - optional:nacos:application-common.yaml
       - optional:nacos:application-xxl-job.yaml
       - optional:nacos:application-seata.yaml
-      - optional:nacos:application-seata.yaml
       - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-system.yaml
 

@@ -31,9 +31,10 @@ import java.nio.charset.StandardCharsets;
  * @author Bryce Han
  */
 @Slf4j
-@Order(-90)
+@Order(-1)
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("NullableProblems")
 @ConditionalOnProperty(name = "bryce.auth.xss.enabled", havingValue = "true")
 public class XssFilter implements GlobalFilter {
 
