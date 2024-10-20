@@ -34,11 +34,9 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
-        <!-- 测试框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

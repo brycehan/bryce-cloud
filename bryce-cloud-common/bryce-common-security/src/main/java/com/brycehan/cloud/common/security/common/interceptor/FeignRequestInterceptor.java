@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.util.Enumeration;
 
 /**
- * feign 配置
+ * Feign 请求配置
  *
  * @author Bryce Han
  * @since 2023/11/19

@@ -21,6 +21,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class ServerExceptionHandler {
     public ResponseResult<Void> handleException(BindException e) {
         String message = e.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining("，"));
-
+        log.error("数据绑定异常，{}", e.getMessage());
         return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST.code(), message);
     }
 
@@ -62,7 +63,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseResult<Void> handleException(AccessDeniedException e) {
-        log.info(" 访问不允许异常，{}", e.getMessage());
+        log.error("没有权限，禁止访问，{}", e.getMessage());
         return ResponseResult.error(HttpResponseStatus.HTTP_FORBIDDEN);
     }
 
@@ -74,7 +75,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseResult<Void> handleException(BadCredentialsException e) {
-        log.info(" 密码错误异常，{}", e.getMessage());
+        log.error("密码错误异常，{}", e.getMessage());
         return ResponseResult.error(UserResponseStatus.USER_USERNAME_OR_PASSWORD_ERROR);
     }
 
@@ -85,7 +86,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(MultipartException.class)
     public ResponseResult<Void> handleException(MultipartException e) {
-        log.info(" 上传异常，{}", e.getMessage());
+        log.error("上传文件异常，{}", e.getMessage());
         return ResponseResult.error(UploadResponseStatus.UPLOAD_EXCEED_MAX_SIZE, this.maxRequestSize);
     }
 
@@ -97,6 +98,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseResult<Void> handleException(HttpRequestMethodNotSupportedException e) {
+        log.error("请求方法不支持异常，{}", e.getMessage());
         return ResponseResult.error(HttpResponseStatus.HTTP_METHOD_NOT_ALLOWED, e.getMethod());
     }
 
@@ -122,6 +124,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     public ResponseResult<Void> handleException(InternalAuthenticationServiceException e) {
+        log.error("账号与密码不匹配，{}", e.getMessage());
         return ResponseResult.error(UserResponseStatus.USER_USERNAME_OR_PASSWORD_ERROR.code(), e.getMessage());
     }
 
@@ -136,11 +139,9 @@ public class ServerExceptionHandler {
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String message = violations.stream().map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining("，"));
-        log.error("数据校验异常：{}", e.getMessage());
+        log.error("数据校验异常，{}", e.getMessage());
         return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST.code(), message);
     }
-
-
 
     /**
      * 用户账户没有启用异常处理
@@ -150,8 +151,20 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(DisabledException.class)
     public ResponseResult<Void> handleException(DisabledException e) {
-        log.info("用户账户没有启用异常，{}", e.getLocalizedMessage());
+        log.error("用户账户没有启用异常，{}", e.getLocalizedMessage());
         return ResponseResult.error(UserResponseStatus.USER_ACCOUNT_DISABLED);
+    }
+
+    /**
+     * 请求资源不存在异常捕获
+     *
+     * @param e 异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseResult<Void> handleException(NoResourceFoundException e) {
+        log.error("资源不存在，{}", e.getResourcePath());
+        return ResponseResult.error(HttpResponseStatus.HTTP_NOT_FOUND);
     }
 
     /**
@@ -162,7 +175,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(ServerException.class)
     public ResponseResult<Void> handleException(ServerException e) {
-        log.info("服务器异常", e);
+        log.error("服务器异常", e);
         return ResponseResult.error(e.getCode(), e.getMessage());
     }
 
@@ -174,7 +187,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseResult<Void> handleException(Exception e) {
-        log.info("系统内部异常", e);
+        log.error("系统内部异常", e);
         return ResponseResult.error(HttpResponseStatus.HTTP_INTERNAL_ERROR.code(), e.getMessage());
     }
 

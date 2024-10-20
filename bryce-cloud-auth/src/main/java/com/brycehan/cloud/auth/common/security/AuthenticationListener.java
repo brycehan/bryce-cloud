@@ -1,7 +1,7 @@
 package com.brycehan.cloud.auth.common.security;
 
-import com.brycehan.cloud.api.system.api.SysLoginLogApi;
-import com.brycehan.cloud.api.system.api.SysUserApi;
+import com.brycehan.cloud.api.system.client.SysLoginLogClient;
+import com.brycehan.cloud.api.system.client.SysUserClient;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
@@ -26,9 +26,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthenticationListener {
 
-    private final SysLoginLogApi sysLoginLogApi;
+    private final SysLoginLogClient sysLoginLogClient;
 
-    private final SysUserApi sysUserApi;
+    private final SysUserClient sysUserClient;
 
     /**
      * 登录成功事件处理
@@ -45,13 +45,13 @@ public class AuthenticationListener {
         sysLoginLogDto.setUsername(loginUser.getUsername());
         sysLoginLogDto.setStatus(DataConstants.SUCCESS);
         sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
-        this.sysLoginLogApi.save(sysLoginLogDto);
+        this.sysLoginLogClient.save(sysLoginLogDto);
         // 更新用户登录信息
         SysUserLoginInfoDto sysUserLoginInfoDto = new SysUserLoginInfoDto();
         sysUserLoginInfoDto.setId(loginUser.getId());
         sysUserLoginInfoDto.setLastLoginIp(loginUser.getLoginIp());
         sysUserLoginInfoDto.setLastLoginTime(LocalDateTime.now());
-        this.sysUserApi.updateLoginInfo(sysUserLoginInfoDto);
+        this.sysUserClient.updateLoginInfo(sysUserLoginInfoDto);
     }
 
     /**
@@ -69,7 +69,7 @@ public class AuthenticationListener {
         sysLoginLogDto.setUsername(username);
         sysLoginLogDto.setStatus(DataConstants.FAIL);
         sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
-        this.sysLoginLogApi.save(sysLoginLogDto);
+        this.sysLoginLogClient.save(sysLoginLogDto);
     }
 
 }

@@ -1,11 +1,6 @@
 package com.brycehan.cloud.api.system.api;
 
-import com.brycehan.cloud.api.system.fallback.SysAreaCodeApiFallbackImpl;
-import com.brycehan.cloud.common.core.base.ServerNames;
-import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.response.ResponseResult;
-import feign.Headers;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2022/1/1
  * @author Bryce Han
  */
-@Headers(DataConstants.INNER_CALL_HEADER)
-@FeignClient(name = ServerNames.BRYCE_CLOUD_SYSTEM, path = SysAreaCodeApi.PATH, contextId = "sysArea", fallbackFactory = SysAreaCodeApiFallbackImpl.class)
 public interface SysAreaCodeApi {
 
     String PATH = "/api/sysArea";

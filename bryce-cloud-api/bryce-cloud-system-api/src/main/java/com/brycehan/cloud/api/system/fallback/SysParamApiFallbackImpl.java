@@ -1,6 +1,6 @@
 package com.brycehan.cloud.api.system.fallback;
 
-import com.brycehan.cloud.api.system.api.SysParamApi;
+import com.brycehan.cloud.api.system.client.SysParamClient;
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.api.system.entity.vo.SysParamVo;
 import com.brycehan.cloud.common.core.response.ResponseResult;
@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class SysParamApiFallbackImpl implements FallbackFactory<SysParamApi> {
+public class SysParamApiFallbackImpl implements FallbackFactory<SysParamClient> {
 
     @Override
-    public SysParamApi create(Throwable cause) {
+    public SysParamClient create(Throwable cause) {
         log.error("系统服务调用失败，{}", cause.getMessage());
 
-        return new SysParamApi() {
+        return new SysParamClient() {
             @Override
             public ResponseResult<Void> save(SysParamDto sysParamDto) {
                 return ResponseResult.fallback("系统服务调用失败");

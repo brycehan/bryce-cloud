@@ -1,6 +1,6 @@
 package com.brycehan.cloud.api.email.fallback;
 
-import com.brycehan.cloud.api.email.api.EmailApi;
+import com.brycehan.cloud.api.email.client.EmailClient;
 import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.enums.EmailType;
@@ -18,12 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Slf4j
 @Component
-public class EmailApiFallbackImpl implements FallbackFactory<EmailApi> {
+public class EmailApiFallbackImpl implements FallbackFactory<EmailClient> {
 
     @Override
-    public EmailApi create(Throwable cause) {
+    public EmailClient create(Throwable cause) {
         log.error("邮件服务调用失败，{}", cause.getMessage());
-        return new EmailApi() {
+        return new EmailClient() {
             @Override
             public ResponseResult<Void> sendSimpleEmail(ToMailDto toMailDto) {
                 return ResponseResult.fallback("邮件服务调用失败");

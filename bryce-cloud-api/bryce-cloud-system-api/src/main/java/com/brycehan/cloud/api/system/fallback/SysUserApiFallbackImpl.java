@@ -1,6 +1,6 @@
 package com.brycehan.cloud.api.system.fallback;
 
-import com.brycehan.cloud.api.system.api.SysUserApi;
+import com.brycehan.cloud.api.system.client.SysUserClient;
 import com.brycehan.cloud.api.system.entity.dto.SysUserDto;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class SysUserApiFallbackImpl implements FallbackFactory<SysUserApi> {
+public class SysUserApiFallbackImpl implements FallbackFactory<SysUserClient> {
 
     @Override
-    public SysUserApi create(Throwable cause) {
+    public SysUserClient create(Throwable cause) {
         log.error("系统服务调用失败，{}", cause.getMessage());
 
-        return new SysUserApi() {
+        return new SysUserClient() {
             @Override
             public ResponseResult<LoginUser> loadUserByUsername(String username) {
                 return ResponseResult.fallback("系统服务调用失败");

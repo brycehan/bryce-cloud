@@ -22,6 +22,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-system-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- Web安全 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,11 +38,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- WebSocket -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <!-- Redis -->
         <dependency>

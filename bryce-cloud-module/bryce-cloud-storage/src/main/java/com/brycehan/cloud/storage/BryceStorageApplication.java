@@ -3,7 +3,6 @@ package com.brycehan.cloud.storage;
 import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
 /**
@@ -13,7 +12,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author Bryce Han
  */
 @EnableMethodCache(basePackages = "com.brycehan.cloud.storage")
-@EnableDiscoveryClient
 @SpringBootApplication
 public class BryceStorageApplication {
 
