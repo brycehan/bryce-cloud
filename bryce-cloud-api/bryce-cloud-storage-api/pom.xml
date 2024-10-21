@@ -17,21 +17,12 @@
     <!-- 依赖 -->
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- Feign HttpClient 5 的依赖 -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-hc5</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-core</artifactId>
+            <artifactId>bryce-common-api</artifactId>
         </dependency>
     </dependencies>
 

@@ -3,7 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.core.base.IdGenerator;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;

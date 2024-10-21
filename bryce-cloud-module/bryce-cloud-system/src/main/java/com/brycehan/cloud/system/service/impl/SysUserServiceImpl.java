@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
-import com.brycehan.cloud.common.core.base.IdGenerator;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.ServerException;

@@ -138,6 +138,11 @@
             </dependency>
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
+                <artifactId>bryce-common-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.brycehan.cloud</groupId>
                 <artifactId>bryce-common-cloud</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -159,6 +164,11 @@
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
                 <artifactId>bryce-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.brycehan.cloud</groupId>
+                <artifactId>bryce-common-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 模块组件 -->

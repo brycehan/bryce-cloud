@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth;
 
-import com.brycehan.cloud.common.security.common.EnableBryceConfig;
+import com.brycehan.cloud.common.server.common.EnableBryceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

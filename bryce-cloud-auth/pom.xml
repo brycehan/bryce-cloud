@@ -20,12 +20,17 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-operatelog</artifactId>
         </dependency>
+        <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-system-api</artifactId>
@@ -34,9 +39,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
+        <!-- 验证码 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
         </dependency>
     </dependencies>
 

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Slf4j
 @Component
+@SuppressWarnings("NullableProblems")
 public class SecurityContextInterceptor implements HandlerInterceptor {
 
     @Override

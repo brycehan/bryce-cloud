@@ -22,6 +22,12 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-security</artifactId>
         </dependency>
+        <!-- Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-email-api</artifactId>

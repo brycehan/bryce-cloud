@@ -36,10 +36,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
+        <!-- Swagger 接口文档 -->
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>knife4j-gateway-spring-boot-starter</artifactId>
 		</dependency>
+        <!-- jsoup 安全框架 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>

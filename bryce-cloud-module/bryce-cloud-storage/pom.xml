@@ -26,6 +26,7 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-operatelog</artifactId>
         </dependency>
+        <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-storage-api</artifactId>

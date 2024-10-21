@@ -22,11 +22,17 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-security</artifactId>
         </dependency>
+        <!-- Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
-        <!-- sms短信框架 -->
+        <!-- SMS短信框架 -->
         <dependency>
             <groupId>org.dromara.sms4j</groupId>
             <artifactId>sms4j-spring-boot-starter</artifactId>
@@ -40,18 +46,6 @@
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java</artifactId>
-        </dependency>
-        <!-- 测试框架 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- Spring Security 安全测试 -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

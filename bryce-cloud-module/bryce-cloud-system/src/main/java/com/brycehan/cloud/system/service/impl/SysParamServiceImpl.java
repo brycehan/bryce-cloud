@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.core.base.IdGenerator;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
@@ -97,10 +97,10 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         }
 
         // 查询列表
-        List<SysParam> sysParams = this.baseMapper.selectBatchIds(ids);
+        List<SysParam> sysParams = this.baseMapper.selectByIds(ids);
 
         // 删除数据
-        this.baseMapper.deleteBatchIds(ids);
+        this.baseMapper.deleteByIds(ids);
 
         // 删除缓存
         Object[] paramKeys = sysParams.stream().map(SysParam::getParamKey)

@@ -15,11 +15,13 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>bryce-common-api</module>
         <module>bryce-common-cloud</module>
         <module>bryce-common-core</module>
         <module>bryce-common-mybatis</module>
         <module>bryce-common-operatelog</module>
         <module>bryce-common-security</module>
+        <module>bryce-common-server</module>
     </modules>
 
 </project>

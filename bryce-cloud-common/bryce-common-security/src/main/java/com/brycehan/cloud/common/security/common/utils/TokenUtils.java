@@ -7,6 +7,8 @@ import com.brycehan.cloud.common.core.enums.SourceClientType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.brycehan.cloud.common.core.constant.TokenConstants.SOURCE_CLIENT_HEADER;
+
 /**
  * 令牌工具类
  *
@@ -15,8 +17,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class TokenUtils {
-
-    public static final String SOURCE_CLIENT_HEADER = "X-Source-Client";
 
     /**
      * 生成安全的uuid

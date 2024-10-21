@@ -1,6 +1,5 @@
 package com.brycehan.cloud.storage;
 
-import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2023/11/18
  * @author Bryce Han
  */
-@EnableMethodCache(basePackages = "com.brycehan.cloud.storage")
 @SpringBootApplication
 public class BryceStorageApplication {
 
