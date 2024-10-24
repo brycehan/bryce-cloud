@@ -33,6 +33,16 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-system-api</artifactId>
         </dependency>
+        <!-- jwt 令牌 -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+        </dependency>
+        <!-- Jakarta 校验 -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
         <!-- Redis -->
         <dependency>
             <groupId>org.springframework.data</groupId>

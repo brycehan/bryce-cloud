@@ -14,7 +14,7 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.entity.OrderItemDto;
-import com.brycehan.cloud.common.core.entity.convert.OrderItemConvert;
+import com.brycehan.cloud.common.mybatis.base.OrderItemConvert;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.mybatis.interceptor.DataScope;
 import com.brycehan.cloud.common.mybatis.service.BaseService;

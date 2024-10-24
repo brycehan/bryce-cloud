@@ -115,7 +115,7 @@
         <!-- 输出到LOKI日志平台 -->
         <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
             <http>
-                <url>http://loki.logging:3100/loki/api/v1/push</url>
+                <url>http://192.168.0.202:3100/loki/api/v1/push</url>
             </http>
             <format>
                 <label>
@@ -123,18 +123,7 @@
                     <readMarkers>true</readMarkers>
                 </label>
                 <message>
-                    <pattern>
-                        {
-                        "traceId": "%X{traceId:-}",
-                        "spanId": "%X{spanId:-}",
-                        "level": "%level",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger{40}",
-                        "message": "%message",
-                        "exception": "%exception"
-                        }
-                    </pattern>
+                    <pattern>{ "traceId": "%X{traceId:-}", "spanId": "%X{spanId:-}", "level": "%level", "pid": "${PID:-}", "thread": "%thread", "class": "%logger{40}", "message": "%message", "exception": "%exception" }</pattern>
                 </message>
                 <sortByTime>true</sortByTime>
             </format>

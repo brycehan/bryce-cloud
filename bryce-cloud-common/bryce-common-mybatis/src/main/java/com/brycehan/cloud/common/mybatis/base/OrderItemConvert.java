@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.core.entity.convert;
+package com.brycehan.cloud.common.mybatis.base;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.brycehan.cloud.common.core.entity.OrderItemDto;
