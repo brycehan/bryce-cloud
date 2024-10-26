@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * xxl-job配置
+ *
  * @author Bryce Han
  * @since 2024/3/22
  */

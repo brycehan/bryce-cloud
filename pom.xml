@@ -69,7 +69,6 @@
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <loki.version>1.5.2</loki.version>
-        <httpclient.version>4.5.13</httpclient.version>
         <xxl-job.version>2.4.1</xxl-job.version>
     </properties>
 
@@ -396,11 +395,6 @@
                 <groupId>com.github.loki4j</groupId>
                 <artifactId>loki-logback-appender</artifactId>
                 <version>${loki.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
             </dependency>
             <!-- XXL-JOB -->
             <dependency>
