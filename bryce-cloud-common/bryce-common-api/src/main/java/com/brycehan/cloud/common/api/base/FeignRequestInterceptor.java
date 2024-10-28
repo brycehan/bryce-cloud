@@ -1,10 +1,14 @@
 package com.brycehan.cloud.common.api.base;
 
+import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
+import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.constant.JwtConstants;
+import com.brycehan.cloud.common.core.constant.TokenConstants;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -33,15 +37,29 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                     String name = headerNames.nextElement();
                     String values = request.getHeader(name);
 
-                    // 跳过 content-length
-                    if(name.equalsIgnoreCase(HttpHeaders.CONTENT_LENGTH)) {
-                        continue;
+                    // 原请求存在时，添加请求头 user_key、user_data、X-Source-Client
+                    if (name.equalsIgnoreCase(JwtConstants.USER_KEY)
+                            || name.equalsIgnoreCase(JwtConstants.USER_DATA)
+                            || name.equalsIgnoreCase(TokenConstants.SOURCE_CLIENT_HEADER)) {
+                        requestTemplate.header(name, values);
                     }
-
-                    requestTemplate.header(name, values);
                 }
+                // Feign内部调用添加请求头 X-Inner-Call
+                requestTemplate.header(DataConstants.INNER_CALL, DataConstants.INNER_CALL_YES);
             }
+        } else {
+            // Async 异步调用时处理请求头
+            if (StringUtils.hasText(LoginUserContextHolder.getUserKey())) {
+                requestTemplate.header(JwtConstants.USER_KEY, LoginUserContextHolder.getUserKey());
+            }
+            if (StringUtils.hasText(LoginUserContextHolder.getUserData())) {
+                requestTemplate.header(JwtConstants.USER_DATA, LoginUserContextHolder.getUserData());
+            }
+            if (StringUtils.hasText(LoginUserContextHolder.getSourceClient())) {
+                requestTemplate.header(TokenConstants.SOURCE_CLIENT_HEADER, LoginUserContextHolder.getSourceClient());
+            }
+            requestTemplate.header(DataConstants.INNER_CALL, DataConstants.INNER_CALL_YES);
         }
-
     }
+
 }

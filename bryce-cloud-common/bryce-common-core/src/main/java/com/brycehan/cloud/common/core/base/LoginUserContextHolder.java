@@ -14,7 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class LoginUserContextHolder {
 
-    private static final ThreadLocal<LoginUser> CONTEXT_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<LoginUser> CONTEXT_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<String> USER_KEY_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<String> USER_DATA_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<String> SOURCE_CLIENT_HOLDER = new TransmittableThreadLocal<>();
+
 
     /**
      * 设置登录用户
@@ -41,11 +45,55 @@ public class LoginUserContextHolder {
     }
 
     /**
-     * 清除登录用户
+     * 获取用户标识
+     *
+     * @return 用户标识
      */
-    public static void clearContext() {
-        SecurityContextHolder.clearContext();
-        CONTEXT_HOLDER.remove();
+    public static String getUserKey() {
+        return USER_KEY_HOLDER.get();
+    }
+
+    /**
+     * 设置用户标识
+     *
+     * @param userKey 用户标识
+     */
+    public static void setUserKey(String userKey) {
+        USER_KEY_HOLDER.set(userKey);
+    }
+
+    /**
+     * 获取用户数据
+     * @return 用户数据
+     */
+    public static String getUserData() {
+        return USER_DATA_HOLDER.get();
+    }
+
+    /**
+     * 设置用户数据
+     *
+     * @param userData 用户数据
+     */
+    public static void setUserData(String userData) {
+        USER_DATA_HOLDER.set(userData);
+    }
+
+    /**
+     * 获取客户端类型
+     * @return 客户端类型
+     */
+    public static String getSourceClient() {
+        return SOURCE_CLIENT_HOLDER.get();
+    }
+
+    /**
+     * 设置客户端类型
+     *
+     * @param sourceClient 客户端类型
+     */
+    public static void setSourceClient(String sourceClient) {
+        SOURCE_CLIENT_HOLDER.set(sourceClient);
     }
 
 }

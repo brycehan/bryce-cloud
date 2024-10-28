@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Bryce Han
  */
 @Slf4j
+@SuppressWarnings("unused")
 public class LoginUserContext {
 
     /**
@@ -39,7 +40,6 @@ public class LoginUserContext {
      *
      * @return 当前登录用户的机构ID
      */
-    @SuppressWarnings("unused")
     public static Long currentOrgId() {
         LoginUser loginUser = currentUser();
         if(loginUser == null){

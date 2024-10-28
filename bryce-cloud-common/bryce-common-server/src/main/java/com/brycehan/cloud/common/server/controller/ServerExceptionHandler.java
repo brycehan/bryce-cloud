@@ -63,7 +63,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseResult<Void> handleException(AccessDeniedException e) {
-        log.error("没有权限，禁止访问，{}", e.getMessage());
+        log.warn("没有权限，禁止访问", e);
         return ResponseResult.error(HttpResponseStatus.HTTP_FORBIDDEN);
     }
 

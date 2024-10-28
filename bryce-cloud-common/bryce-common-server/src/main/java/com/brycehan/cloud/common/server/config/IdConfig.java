@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ID配置
+ * ID生成器配置
  *
  * @since 2022/5/13
  * @author Bryce Han

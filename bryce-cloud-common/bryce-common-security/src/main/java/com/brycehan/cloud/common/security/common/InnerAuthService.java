@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
  * @author Bryce Han
  * @since 2024/6/22
  */
-@SuppressWarnings("unused")
 @Service("innerAuth")
+@SuppressWarnings("unused")
 public class InnerAuthService {
 
     public boolean hasAuthority() {
         String inner = ServletUtils.getRequest().getHeader(DataConstants.INNER_CALL);
-        return DataConstants.YES.equalsIgnoreCase(inner);
+        return DataConstants.INNER_CALL_YES.equalsIgnoreCase(inner);
     }
 
 }

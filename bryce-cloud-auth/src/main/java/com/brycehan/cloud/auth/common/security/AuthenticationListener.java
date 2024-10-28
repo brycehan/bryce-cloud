@@ -40,12 +40,14 @@ public class AuthenticationListener {
     public void onSuccess(AuthenticationSuccessEvent event) {
         // 用户信息
         LoginUser loginUser = (LoginUser) event.getAuthentication().getPrincipal();
+
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(loginUser.getUsername());
         sysLoginLogDto.setStatus(DataConstants.SUCCESS);
         sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS.value());
         this.sysLoginLogClient.save(sysLoginLogDto);
+
         // 更新用户登录信息
         SysUserLoginInfoDto sysUserLoginInfoDto = new SysUserLoginInfoDto();
         sysUserLoginInfoDto.setId(loginUser.getId());
@@ -64,6 +66,7 @@ public class AuthenticationListener {
     public void onFailure(AbstractAuthenticationFailureEvent authenticationFailureEvent) {
         // 用户名
         String username = (String) authenticationFailureEvent.getAuthentication().getPrincipal();
+
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(username);

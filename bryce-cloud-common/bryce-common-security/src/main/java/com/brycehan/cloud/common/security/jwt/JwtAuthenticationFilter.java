@@ -65,8 +65,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 用户存在，自动刷新令牌
         this.jwtTokenProvider.autoRefreshToken(loginUser);
+
         // 设置认证信息
         LoginUserContextHolder.setContext(loginUser);
+        LoginUserContextHolder.setUserKey(userKey);
+        LoginUserContextHolder.setUserData(userData);
+        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType().value());
+
         log.info("将认证信息设置到安全上下文中，username：{}', uri: {}", loginUser.getUsername(), request.getRequestURI());
 
         filterChain.doFilter(request, response);

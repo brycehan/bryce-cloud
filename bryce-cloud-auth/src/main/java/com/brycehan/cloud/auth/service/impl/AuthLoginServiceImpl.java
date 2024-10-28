@@ -8,6 +8,7 @@ import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
@@ -16,6 +17,7 @@ import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
+import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +67,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             authentication = this.authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(accountLoginDto.getUsername(), accountLoginDto.getPassword()));
         } catch (AuthenticationException e) {
-            log.info("loginByAccount，登录认证失败，{}", e.getMessage());
+            log.warn("loginByAccount，登录认证失败，{}", e.getMessage());
             // 添加密码错误重试缓存
             this.authPasswordRetryService.retryCount(accountLoginDto.getUsername());
             throw new RuntimeException("用户名或密码错误");
@@ -103,10 +105,16 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
         // 生成 jwt
         String token = this.jwtTokenProvider.generateToken(loginUser);
+        // 过期时间间隔，单位秒
         long expiredIn = this.jwtTokenProvider.getExpiredInSeconds(loginUser);
 
         // 缓存 loginUser
         this.jwtTokenProvider.cache(loginUser);
+
+        // 设置登录信息
+        LoginUserContextHolder.setUserKey(loginUser.getUserKey());
+        LoginUserContextHolder.setUserData(JsonUtils.writeValueAsString(loginUser));
+        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType().value());
 
         // 封装 LoginVo
         LoginVo loginVo = new LoginVo();

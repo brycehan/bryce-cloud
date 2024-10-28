@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         ResponseResult<LoginUser> sysUserResponseResult = sysUserApi.loadUserByUsername(username);
 
         if (sysUserResponseResult.getCode() != 200) {
-            log.error("查询用户[{}]异常，{}.", username, sysUserResponseResult.getMessage());
+            log.warn("查询用户[{}]异常，{}.", username, sysUserResponseResult.getMessage());
             throw new UsernameNotFoundException(sysUserResponseResult.getMessage());
         }
 

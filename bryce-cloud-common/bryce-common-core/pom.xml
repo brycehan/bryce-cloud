@@ -56,6 +56,12 @@
         <dependency>
             <groupId>com.fhs-opensource</groupId>
             <artifactId>easy-trans-mybatis-plus-extend</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- 糊涂工具 -->
         <dependency>

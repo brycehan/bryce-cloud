@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(TaskExecutionProperties.class)
-public class AsyncExecutorConfig implements AsyncConfigurer {
+public class AsyncConfig implements AsyncConfigurer {
 
     private final TaskExecutionProperties taskExecutionProperties;
 
