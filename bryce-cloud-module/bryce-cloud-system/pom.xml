@@ -16,10 +16,6 @@
     <dependencies>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-cloud</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-server</artifactId>
         </dependency>
         <dependency>
@@ -34,6 +30,14 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-operatelog</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-xxl-job</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-rabbitmq</artifactId>
+        </dependency>
         <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
@@ -42,11 +46,6 @@
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-storage-api</artifactId>
-        </dependency>
-        <!-- XXL-JOB -->
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
         </dependency>
         <!-- 代码生成器 -->
 <!--        <dependency>-->

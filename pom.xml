@@ -168,7 +168,17 @@
             </dependency>
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
+                <artifactId>bryce-common-rabbitmq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.brycehan.cloud</groupId>
                 <artifactId>bryce-common-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.brycehan.cloud</groupId>
+                <artifactId>bryce-common-xxl-job</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- 模块组件 -->

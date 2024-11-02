@@ -20,8 +20,10 @@
         <module>bryce-common-core</module>
         <module>bryce-common-mybatis</module>
         <module>bryce-common-operatelog</module>
+        <module>bryce-common-rabbitmq</module>
         <module>bryce-common-security</module>
         <module>bryce-common-server</module>
+        <module>bryce-common-xxl-job</module>
     </modules>
 
 </project>

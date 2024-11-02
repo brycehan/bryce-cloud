@@ -7,10 +7,10 @@
         <artifactId>bryce-cloud-common</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>bryce-common-operatelog</artifactId>
+    <artifactId>bryce-common-xxl-job</artifactId>
     <version>${revision}</version>
-    <name>bryce-common-operatelog</name>
-    <description>bryce-common-operatelog</description>
+    <name>bryce-common-xxl-job</name>
+    <description>bryce-common-xxl-job</description>
 
     <!-- 依赖 -->
     <dependencies>
@@ -19,15 +19,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-core</artifactId>
         </dependency>
-        <!-- Redis -->
+        <!-- XXL-JOB -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
         </dependency>
     </dependencies>
 

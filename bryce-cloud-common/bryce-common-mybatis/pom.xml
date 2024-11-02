@@ -16,6 +16,7 @@
 
     <!-- 依赖 -->
     <dependencies>
+        <!-- 通用核心依赖 -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-core</artifactId>

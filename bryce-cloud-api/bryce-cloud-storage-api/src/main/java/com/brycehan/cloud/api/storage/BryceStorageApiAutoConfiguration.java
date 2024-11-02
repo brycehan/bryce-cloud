@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Bryce Han
  */
 @ComponentScan
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.brycehan.cloud.api.storage.client")
 public class BryceStorageApiAutoConfiguration {
 
 }

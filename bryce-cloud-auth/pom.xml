@@ -14,10 +14,12 @@
 
     <!-- 依赖 -->
     <dependencies>
+        <!-- 通用 Cloud 依赖 -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-cloud</artifactId>
         </dependency>
+        <!-- 通用核心依赖 -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-core</artifactId>
