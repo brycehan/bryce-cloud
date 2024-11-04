@@ -38,6 +38,11 @@ public interface SysNoticeService extends BaseService<SysNotice> {
         this.getBaseMapper().updateById(sysNotice);
     }
 
+    /**
+     * 根据ID删除系统通知公告
+     *
+     * @param id 系统通知公告ID
+     */
     SysNoticeVo get(Long id);
 
     /**

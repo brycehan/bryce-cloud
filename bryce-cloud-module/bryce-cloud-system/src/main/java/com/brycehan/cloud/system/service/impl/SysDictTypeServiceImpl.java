@@ -122,7 +122,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
     }
 
     /**
-     * 刷新字典数据缓存
+     * 刷新字典翻译缓存
      */
     public void refreshTransCache() {
         // 异步不阻塞主线程，不会增加启动用时

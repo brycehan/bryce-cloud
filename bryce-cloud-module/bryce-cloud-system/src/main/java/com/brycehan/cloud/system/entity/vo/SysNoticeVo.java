@@ -1,7 +1,6 @@
 package com.brycehan.cloud.system.entity.vo;
 
 import cn.hutool.core.date.DatePattern;
-import com.brycehan.cloud.system.entity.po.SysUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
@@ -67,7 +66,6 @@ public class SysNoticeVo implements Serializable {
     /**
      * 创建者ID
      */
-//    @Trans(type = TransType.SIMPLE, target = SysUser.class, fields = "username", ref = "createdUsername")
     private Long createdUserId;
 
     /**

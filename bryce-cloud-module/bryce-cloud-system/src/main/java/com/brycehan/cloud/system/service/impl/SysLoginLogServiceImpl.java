@@ -16,7 +16,6 @@ import com.brycehan.cloud.system.entity.po.SysLoginLog;
 import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
 import com.brycehan.cloud.system.mapper.SysLoginLogMapper;
 import com.brycehan.cloud.system.service.SysLoginLogService;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,6 @@ import java.util.Objects;
  * @author Bryce Han
  */
 @Service
-@RequiredArgsConstructor
 public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, SysLoginLog> implements SysLoginLogService {
 
     @Override

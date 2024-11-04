@@ -2,7 +2,6 @@ package com.brycehan.cloud.system.entity.vo;
 
 import cn.hutool.core.date.DatePattern;
 import com.brycehan.cloud.common.core.base.Trans;
-import com.brycehan.cloud.system.entity.po.SysOrg;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -131,7 +130,6 @@ public class SysOperateLogVo implements Serializable {
     /**
      * 机构ID
      */
-//    @Trans(type = TransType.SIMPLE, target = SysOrg.class, fields = "name", ref = "orgName")
     @Schema(description = "机构ID")
     private Long orgId;
 

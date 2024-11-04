@@ -53,6 +53,12 @@ public interface SysUserService extends BaseService<SysUser> {
         this.getBaseMapper().updateById(sysUser);
     }
 
+    /**
+     * 根据ID查询系统用户
+     *
+     * @param id ID
+     * @return 系统用户
+     */
     SysUserVo get(Long id);
 
     /**
