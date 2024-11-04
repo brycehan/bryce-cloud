@@ -11,7 +11,6 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -114,7 +113,7 @@ public class EmailServiceImpl implements EmailService {
      * @return MimeMessageHelper
      * @throws MessagingException MessagingException
      */
-    private @NotNull MimeMessageHelper getMimeMessageHelper(ToMailDto toMailDto, MimeMessage message) throws MessagingException {
+    private MimeMessageHelper getMimeMessageHelper(ToMailDto toMailDto, MimeMessage message) throws MessagingException {
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
         // 发送者

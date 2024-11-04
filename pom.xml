@@ -42,8 +42,6 @@
         <yitter-idgenerator.version>1.0.6</yitter-idgenerator.version>
         <!-- JWT 令牌 -->
         <auth0-jwt.version>4.4.0</auth0-jwt.version>
-        <!-- Easy Trans 数据翻译插件 -->
-        <easy-trans.version>3.0.6</easy-trans.version>
         <!-- 实体转换器 -->
         <mapstruct.version>1.6.2</mapstruct.version>
         <!-- 短信组件 -->
@@ -58,12 +56,10 @@
         <huaweicloud-obs.version>3.23.9.1</huaweicloud-obs.version>
         <!-- 工具 -->
         <hutool.version>5.8.32</hutool.version>
-        <guava.version>33.2.0-jre</guava.version>
         <easyexcel.version>3.3.4</easyexcel.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <commons-text.version>1.12.0</commons-text.version>
         <jsoup.version>1.18.1</jsoup.version>
-        <okio.version>3.9.1</okio.version>
         <spring-boot-admin.version>3.3.4</spring-boot-admin.version>
         <binarywang-weixin.version>4.3.0</binarywang-weixin.version>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
@@ -327,12 +323,6 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!-- Guava 库 -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
             <!-- Excel工具 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -354,11 +344,6 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio</artifactId>
-                <version>${okio.version}</version>
             </dependency>
             <!-- 监控工具 -->
             <dependency>
