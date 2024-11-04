@@ -10,12 +10,8 @@ import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
-import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
-import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
-import com.brycehan.cloud.system.service.SysUserPostService;
-import com.brycehan.cloud.system.service.SysUserRoleService;
 import com.brycehan.cloud.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,10 +37,6 @@ import java.util.List;
 public class SysUserController {
 
     private final SysUserService sysUserService;
-
-    private final SysUserRoleService sysUserRoleService;
-
-    private final SysUserPostService sysUserPostService;
 
     /**
      * 保存系统用户
@@ -107,17 +99,7 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:info')")
     @GetMapping(path = "/{id}")
     public ResponseResult<SysUserVo> get(@Parameter(description = "系统用户ID", required = true) @PathVariable Long id) {
-        SysUser sysUser = this.sysUserService.getById(id);
-        SysUserVo sysUserVo = SysUserConvert.INSTANCE.convert(sysUser);
-
-        // 用户角色Ids
-        List<Long> roleIds = this.sysUserRoleService.getRoleIdsByUserId(id);
-        sysUserVo.setRoleIds(roleIds);
-
-        // 用户岗位Ids
-        List<Long> postIds = this.sysUserPostService.getPostIdsByUserId(id);
-        sysUserVo.setPostIds(postIds);
-
+        SysUserVo sysUserVo = this.sysUserService.get(id);
         return ResponseResult.ok(sysUserVo);
     }
 
@@ -194,7 +176,7 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:grant')")
     @PutMapping(path = "/authRole")
     public ResponseResult<Void> insertAuthRole(Long userId, List<Long> roleIds) {
-        this.sysUserRoleService.saveOrUpdate(userId, roleIds);
+        this.sysUserService.insertAuthRole(userId, roleIds);
         return ResponseResult.ok();
     }
 

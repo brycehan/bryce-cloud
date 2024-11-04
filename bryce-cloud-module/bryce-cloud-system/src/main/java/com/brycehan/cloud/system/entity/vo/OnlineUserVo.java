@@ -1,6 +1,5 @@
 package com.brycehan.cloud.system.entity.vo;
 
-import com.fhs.core.trans.vo.TransPojo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "在线用户vo")
-public class OnlineUserVo implements Serializable, TransPojo {
+public class OnlineUserVo implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -60,7 +59,6 @@ public class OnlineUserVo implements Serializable, TransPojo {
     /**
      * 机构ID
      */
-//    @Trans(type = TransType.SIMPLE, target = SysOrg.class, fields = "name", ref = "orgName")
     @Schema(description = "机构ID")
     private Long orgId;
 

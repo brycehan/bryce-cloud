@@ -34,10 +34,6 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-xxl-job</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-rabbitmq</artifactId>
-        </dependency>
         <!-- API -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>

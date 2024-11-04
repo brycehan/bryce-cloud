@@ -7,10 +7,8 @@ import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.system.entity.convert.SysNoticeConvert;
 import com.brycehan.cloud.system.entity.dto.SysNoticeDto;
 import com.brycehan.cloud.system.entity.dto.SysNoticePageDto;
-import com.brycehan.cloud.system.entity.po.SysNotice;
 import com.brycehan.cloud.system.entity.vo.SysNoticeVo;
 import com.brycehan.cloud.system.service.SysNoticeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,8 +88,8 @@ public class SysNoticeController {
     @PreAuthorize("hasAuthority('system:notice:info')")
     @GetMapping(path = "/{id}")
     public ResponseResult<SysNoticeVo> get(@Parameter(description = "系统通知公告ID", required = true) @PathVariable Long id) {
-        SysNotice sysNotice = this.sysNoticeService.getById(id);
-        return ResponseResult.ok(SysNoticeConvert.INSTANCE.convert(sysNotice));
+        SysNoticeVo sysNoticeVo = this.sysNoticeService.get(id);
+        return ResponseResult.ok(sysNoticeVo);
     }
 
     /**

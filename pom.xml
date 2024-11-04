@@ -264,22 +264,6 @@
                 <artifactId>java-jwt</artifactId>
                 <version>${auth0-jwt.version}</version>
             </dependency>
-            <!-- easy-trans 数据翻译插件 -->
-            <dependency>
-                <groupId>com.fhs-opensource</groupId>
-                <artifactId>easy-trans-spring-boot-starter</artifactId>
-                <version>${easy-trans.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fhs-opensource</groupId>
-                <artifactId>easy-trans-mybatis-plus-extend</artifactId>
-                <version>${easy-trans.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fhs-opensource</groupId>
-                <artifactId>easy-trans-untrans-driver</artifactId>
-                <version>${easy-trans.version}</version>
-            </dependency>
             <!-- 实体转换器 -->
             <dependency>
                 <groupId>org.mapstruct</groupId>

@@ -5,9 +5,7 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperateType;
-import com.brycehan.cloud.system.entity.convert.SysOperateLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysOperateLogPageDto;
-import com.brycehan.cloud.system.entity.po.SysOperateLog;
 import com.brycehan.cloud.system.entity.vo.SysOperateLogVo;
 import com.brycehan.cloud.system.service.SysOperateLogService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,8 +55,8 @@ public class SysOperateLogController {
     @PreAuthorize("hasAuthority('system:operateLog:info')")
     @GetMapping(path = "/{id}")
     public ResponseResult<SysOperateLogVo> get(@Parameter(description = "系统操作日志ID", required = true) @PathVariable Long id) {
-        SysOperateLog sysOperateLog = this.sysOperateLogService.getById(id);
-        return ResponseResult.ok(SysOperateLogConvert.INSTANCE.convert(sysOperateLog));
+        SysOperateLogVo sysOperateLogVo = this.sysOperateLogService.get(id);
+        return ResponseResult.ok(sysOperateLogVo);
     }
 
     /**

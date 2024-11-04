@@ -10,6 +10,7 @@ import com.brycehan.cloud.common.operatelog.annotation.OperateType;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.system.entity.dto.OnlineUserPageDto;
 import com.brycehan.cloud.system.entity.vo.OnlineUserVo;
+import com.brycehan.cloud.system.service.SysOrgService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -31,14 +33,14 @@ import java.util.Set;
  * @author Bryce Han
  */
 @Tag(name = "在线用户")
-//@RestController
-//@RequestMapping(path = "/onlineUser")
+@RestController
+@RequestMapping(path = "/onlineUser")
 @RequiredArgsConstructor
 public class OnlineUserController {
 
     private final RedisTemplate<String, LoginUser> redisTemplate;
-
     private final JwtTokenProvider jwtTokenProvider;
+    private final SysOrgService sysOrgService;
 
     /**
      * 在线用户分页查询
@@ -68,6 +70,10 @@ public class OnlineUserController {
                 list.add(onlineUserVo);
             }
         });
+
+        // 处理机构名称
+        Map<Long, String> orgNames = this.sysOrgService.getOrgNamesByIds(list.stream().map(OnlineUserVo::getOrgId).toList());
+        list.forEach(onlineUserVo -> onlineUserVo.setOrgName(orgNames.get(onlineUserVo.getOrgId())));
 
         assert keys != null;
         return ResponseResult.ok(new PageResult<>(keys.size(), list));

@@ -16,7 +16,6 @@ import com.brycehan.cloud.system.entity.po.SysLoginLog;
 import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
 import com.brycehan.cloud.system.mapper.SysLoginLogMapper;
 import com.brycehan.cloud.system.service.SysLoginLogService;
-import com.fhs.trans.service.impl.TransService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -34,8 +33,6 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, SysLoginLog> implements SysLoginLogService {
-
-    private final TransService transService;
 
     @Override
     public PageResult<SysLoginLogVo> page(SysLoginLogPageDto sysLoginLogPageDto) {
@@ -64,7 +61,7 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
         List<SysLoginLog> sysLoginLogList = this.baseMapper.selectList(getWrapper(sysLoginLogPageDto));
         List<SysLoginLogVo> sysLoginLogVoList = SysLoginLogConvert.INSTANCE.convert(sysLoginLogList);
         // 数据字典翻译
-        this.transService.transBatch(sysLoginLogVoList);
+        ExcelUtils.transList(sysLoginLogVoList);
 
         ExcelUtils.export(SysLoginLogVo.class, "系统登录日志_".concat(DateTimeUtils.today()), "系统登录日志", sysLoginLogVoList);
     }
