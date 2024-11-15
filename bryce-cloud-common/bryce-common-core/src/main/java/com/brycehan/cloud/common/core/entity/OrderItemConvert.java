@@ -1,7 +1,6 @@
-package com.brycehan.cloud.common.mybatis.base;
+package com.brycehan.cloud.common.core.entity;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.brycehan.cloud.common.core.entity.OrderItemDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -21,6 +20,6 @@ public interface OrderItemConvert {
 
     OrderItem convert(OrderItemDto orderItemDto);
 
-    List<OrderItem> convert(List<OrderItemDto> orderItemDtos);
+    List<OrderItem> convert(List<OrderItemDto> orderItemDtoList);
 
 }

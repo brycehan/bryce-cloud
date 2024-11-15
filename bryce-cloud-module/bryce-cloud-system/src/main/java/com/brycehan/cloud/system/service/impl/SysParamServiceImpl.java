@@ -113,7 +113,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public PageResult<SysParamVo> page(SysParamPageDto sysParamPageDto) {
-        IPage<SysParam> page = this.baseMapper.selectPage(getPage(sysParamPageDto), getWrapper(sysParamPageDto));
+        IPage<SysParam> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysParamPageDto));
         return new PageResult<>(page.getTotal(), SysParamConvert.INSTANCE.convert(page.getRecords()));
     }
 

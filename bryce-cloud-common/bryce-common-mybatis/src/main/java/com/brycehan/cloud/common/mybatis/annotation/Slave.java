@@ -1,11 +1,11 @@
-package com.brycehan.cloud.common.mybatis.base.annotation;
+package com.brycehan.cloud.common.mybatis.annotation;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 
 import java.lang.annotation.*;
 
 /**
- * 主库数据源
+ * 从库数据源
  *
  * @since 2022/1/1
  * @author Bryce Han
@@ -13,6 +13,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@DS("master")
-public @interface Master {
+@DS("slave")
+public @interface Slave {
 }
