@@ -27,7 +27,7 @@
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <!-- Mybatis Plus -->
-        <mybatis-plus.version>3.5.8</mybatis-plus.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
         <p6spy.version>3.9.1</p6spy.version>
         <dameng.version>8.1.2.141</dameng.version>
@@ -58,7 +58,6 @@
         <hutool.version>5.8.32</hutool.version>
         <easyexcel.version>3.3.4</easyexcel.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
-        <commons-text.version>1.12.0</commons-text.version>
         <jsoup.version>1.18.1</jsoup.version>
         <spring-boot-admin.version>3.3.4</spring-boot-admin.version>
         <binarywang-weixin.version>4.3.0</binarywang-weixin.version>
@@ -91,6 +90,13 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -334,12 +340,6 @@
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${transmittable-thread-local.version}</version>
             </dependency>
-            <!-- 字符串算法库 -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-text</artifactId>
-                <version>${commons-text.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
@@ -361,12 +361,6 @@
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
-                <version>${binarywang-weixin.version}</version>
-            </dependency>
-            <!-- 微信支付 -->
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-pay</artifactId>
                 <version>${binarywang-weixin.version}</version>
             </dependency>
             <!-- loki 日志平台 -->
