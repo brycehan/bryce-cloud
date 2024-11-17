@@ -2,8 +2,6 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysNoticeConvert;
 import com.brycehan.cloud.system.entity.dto.SysNoticeDto;
 import com.brycehan.cloud.system.entity.dto.SysNoticePageDto;
 import com.brycehan.cloud.system.entity.po.SysNotice;
@@ -22,21 +20,14 @@ public interface SysNoticeService extends BaseService<SysNotice> {
      *
      * @param sysNoticeDto 系统通知公告Dto
      */
-    default void save(SysNoticeDto sysNoticeDto) {
-        SysNotice sysNotice = SysNoticeConvert.INSTANCE.convert(sysNoticeDto);
-        sysNotice.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysNotice);
-    }
+    void save(SysNoticeDto sysNoticeDto);
 
     /**
      * 更新系统通知公告
      *
      * @param sysNoticeDto 系统通知公告Dto
      */
-    default void update(SysNoticeDto sysNoticeDto) {
-        SysNotice sysNotice = SysNoticeConvert.INSTANCE.convert(sysNoticeDto);
-        this.getBaseMapper().updateById(sysNotice);
-    }
+    void update(SysNoticeDto sysNoticeDto);
 
     /**
      * 根据ID删除系统通知公告

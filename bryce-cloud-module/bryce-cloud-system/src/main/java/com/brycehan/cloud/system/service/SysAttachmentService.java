@@ -2,8 +2,6 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysAttachmentConvert;
 import com.brycehan.cloud.system.entity.dto.SysAttachmentDto;
 import com.brycehan.cloud.system.entity.dto.SysAttachmentPageDto;
 import com.brycehan.cloud.system.entity.po.SysAttachment;
@@ -22,21 +20,14 @@ public interface SysAttachmentService extends BaseService<SysAttachment> {
      *
      * @param sysAttachmentDto 系统附件Dto
      */
-    default void save(SysAttachmentDto sysAttachmentDto) {
-        SysAttachment sysAttachment = SysAttachmentConvert.INSTANCE.convert(sysAttachmentDto);
-        sysAttachment.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysAttachment);
-    }
+    void save(SysAttachmentDto sysAttachmentDto);
 
     /**
      * 更新系统附件
      *
      * @param sysAttachmentDto 系统附件Dto
      */
-    default void update(SysAttachmentDto sysAttachmentDto) {
-        SysAttachment sysAttachment = SysAttachmentConvert.INSTANCE.convert(sysAttachmentDto);
-        this.getBaseMapper().updateById(sysAttachment);
-    }
+    void update(SysAttachmentDto sysAttachmentDto);
 
     /**
      * 系统附件分页查询
@@ -45,12 +36,5 @@ public interface SysAttachmentService extends BaseService<SysAttachment> {
      * @return 分页信息
      */
     PageResult<SysAttachmentVo> page(SysAttachmentPageDto sysAttachmentPageDto);
-
-    /**
-     * 系统附件导出数据
-     *
-     * @param sysAttachmentPageDto 系统附件查询条件
-     */
-    void export(SysAttachmentPageDto sysAttachmentPageDto);
 
 }

@@ -1,5 +1,7 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -7,11 +9,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.brycehan.cloud.common.core.base.DictTransService;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysDictTypeConvert;
 import com.brycehan.cloud.system.entity.dto.SysDictTypeCodeDto;
+import com.brycehan.cloud.system.entity.dto.SysDictTypeDto;
 import com.brycehan.cloud.system.entity.dto.SysDictTypePageDto;
 import com.brycehan.cloud.system.entity.po.SysDictData;
 import com.brycehan.cloud.system.entity.po.SysDictType;
@@ -26,10 +29,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -48,6 +48,27 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
     private final SysDictDataMapper sysDictDataMapper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final Map<String, String> localCacheMap = new ConcurrentHashMap<>();
+
+     /**
+     * 添加系统字典类型
+     *
+     * @param sysDictTypeDto 系统字典类型Dto
+     */
+    public void save(SysDictTypeDto sysDictTypeDto) {
+        SysDictType sysDictType = SysDictTypeConvert.INSTANCE.convert(sysDictTypeDto);
+        sysDictType.setId(IdGenerator.nextId());
+        this.baseMapper.insert(sysDictType);
+    }
+
+    /**
+     * 更新系统字典类型
+     *
+     * @param sysDictTypeDto 系统字典类型Dto
+     */
+    public void update(SysDictTypeDto sysDictTypeDto) {
+        SysDictType sysDictType = SysDictTypeConvert.INSTANCE.convert(sysDictTypeDto);
+        this.baseMapper.updateById(sysDictType);
+    }
 
     @Override
     public PageResult<SysDictTypeVo> page(SysDictTypePageDto sysDictTypePageDto) {
@@ -75,7 +96,8 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
     public void export(SysDictTypePageDto sysDictTypePageDto) {
         List<SysDictType> sysDictTypeList = this.baseMapper.selectList(getWrapper(sysDictTypePageDto));
         List<SysDictTypeVo> sysDictTypeVoList = SysDictTypeConvert.INSTANCE.convert(sysDictTypeList);
-        ExcelUtils.export(SysDictTypeVo.class, "系统字典类型_" + DateTimeUtils.today(), "系统字典类型", sysDictTypeVoList);
+        String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
+        ExcelUtils.export(SysDictTypeVo.class, "系统字典类型_" + today, "系统字典类型", sysDictTypeVoList);
     }
 
     @Override

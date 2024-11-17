@@ -1,5 +1,7 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,10 +10,10 @@ import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.enums.DataStatusType;
-import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.core.util.TreeUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
 import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
@@ -39,6 +41,17 @@ import java.util.*;
 public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
 
     private final SysRoleMenuService sysRoleMenuService;
+
+    /**
+     * 添加系统菜单
+     *
+     * @param sysMenuDto 系统菜单Dto
+     */
+    public void save(SysMenuDto sysMenuDto) {
+        SysMenu sysMenu = SysMenuConvert.INSTANCE.convert(sysMenuDto);
+        sysMenu.setId(IdGenerator.nextId());
+        this.baseMapper.insert(sysMenu);
+    }
 
     /**
      * 更新系统菜单
@@ -99,7 +112,8 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
     public void export(SysMenuPageDto sysMenuPageDto) {
         List<SysMenu> sysMenuList = this.baseMapper.selectList(getWrapper(sysMenuPageDto));
         List<SysMenuVo> sysMenuVoList = SysMenuConvert.INSTANCE.convert(sysMenuList);
-        ExcelUtils.export(SysMenuVo.class, "系统菜单_" + DateTimeUtils.today(), "系统菜单", sysMenuVoList);
+        String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
+        ExcelUtils.export(SysMenuVo.class, "系统菜单_" + today, "系统菜单", sysMenuVoList);
     }
 
     @Override

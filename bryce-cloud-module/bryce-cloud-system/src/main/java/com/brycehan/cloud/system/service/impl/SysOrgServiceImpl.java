@@ -9,6 +9,7 @@ import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.util.TreeUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysOrgConvert;
 import com.brycehan.cloud.system.entity.dto.SysOrgDto;
 import com.brycehan.cloud.system.entity.dto.SysOrgPageDto;
@@ -37,6 +38,17 @@ import java.util.*;
 public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> implements SysOrgService {
 
     private final SysUserMapper sysUserMapper;
+
+    /**
+     * 添加系统机构
+     *
+     * @param sysOrgDto 系统机构Dto
+     */
+    public void save(SysOrgDto sysOrgDto) {
+        SysOrg sysOrg = SysOrgConvert.INSTANCE.convert(sysOrgDto);
+        sysOrg.setId(IdGenerator.nextId());
+        this.baseMapper.insert(sysOrg);
+    }
 
     @Override
     public void update(SysOrgDto sysOrgDto) {

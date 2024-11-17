@@ -2,8 +2,6 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysParamConvert;
 import com.brycehan.cloud.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.system.entity.dto.SysParamKeyDto;
 import com.brycehan.cloud.system.entity.dto.SysParamPageDto;
@@ -24,21 +22,14 @@ public interface SysParamService extends BaseService<SysParam> {
      *
      * @param sysParamDto 系统参数Dto
      */
-    default void save(SysParamDto sysParamDto) {
-        SysParam sysParam = SysParamConvert.INSTANCE.convert(sysParamDto);
-        sysParam.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysParam);
-    }
+    void save(SysParamDto sysParamDto);
 
     /**
      * 更新系统参数
      *
      * @param sysParamDto 系统参数Dto
      */
-    default void update(SysParamDto sysParamDto) {
-        SysParam sysParam = SysParamConvert.INSTANCE.convert(sysParamDto);
-        this.getBaseMapper().updateById(sysParam);
-    }
+    void update(SysParamDto sysParamDto);
 
     /**
      * 系统参数分页查询

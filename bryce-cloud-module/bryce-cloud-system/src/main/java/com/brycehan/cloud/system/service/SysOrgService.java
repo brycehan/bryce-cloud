@@ -3,8 +3,6 @@ package com.brycehan.cloud.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysOrgConvert;
 import com.brycehan.cloud.system.entity.dto.SysOrgDto;
 import com.brycehan.cloud.system.entity.dto.SysOrgPageDto;
 import com.brycehan.cloud.system.entity.po.SysOrg;
@@ -29,21 +27,14 @@ public interface SysOrgService extends BaseService<SysOrg> {
      *
      * @param sysOrgDto 系统机构Dto
      */
-    default void save(SysOrgDto sysOrgDto) {
-        SysOrg sysOrg = SysOrgConvert.INSTANCE.convert(sysOrgDto);
-        sysOrg.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysOrg);
-    }
+    void save(SysOrgDto sysOrgDto);
 
     /**
      * 更新系统机构
      *
      * @param sysOrgDto 系统机构Dto
      */
-    default void update(SysOrgDto sysOrgDto) {
-        SysOrg sysOrg = SysOrgConvert.INSTANCE.convert(sysOrgDto);
-        this.getBaseMapper().updateById(sysOrg);
-    }
+    void update(SysOrgDto sysOrgDto);
 
     /**
      * 系统机构分页查询

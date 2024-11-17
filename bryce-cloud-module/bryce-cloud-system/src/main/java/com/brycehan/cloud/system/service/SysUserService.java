@@ -1,18 +1,13 @@
 package com.brycehan.cloud.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.brycehan.cloud.common.core.base.VersionException;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,24 +29,14 @@ public interface SysUserService extends BaseService<SysUser> {
      *
      * @param sysUserDto 系统用户Dto
      */
-    default void save(SysUserDto sysUserDto) {
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
-        sysUser.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysUser);
-    }
+    void save(SysUserDto sysUserDto);
 
     /**
      * 更新系统用户
      *
      * @param sysUserDto 系统用户Dto
      */
-    @Retryable(retryFor = VersionException.class, backoff = @Backoff(delay = 0))
-    default void update(SysUserDto sysUserDto) {
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
-
-        // 更新
-        this.getBaseMapper().updateById(sysUser);
-    }
+    void update(SysUserDto sysUserDto);
 
     /**
      * 根据ID查询系统用户

@@ -2,8 +2,6 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
@@ -22,21 +20,14 @@ public interface SysLoginLogService extends BaseService<SysLoginLog> {
      *
      * @param sysLoginLogDto 系统登录日志Dto
      */
-    default void save(SysLoginLogDto sysLoginLogDto) {
-        SysLoginLog sysLoginLog = SysLoginLogConvert.INSTANCE.convert(sysLoginLogDto);
-        sysLoginLog.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysLoginLog);
-    }
+    void save(SysLoginLogDto sysLoginLogDto);
 
     /**
      * 更新系统登录日志
      *
      * @param sysLoginLogDto 系统登录日志Dto
      */
-    default void update(SysLoginLogDto sysLoginLogDto) {
-        SysLoginLog sysLoginLog = SysLoginLogConvert.INSTANCE.convert(sysLoginLogDto);
-        this.getBaseMapper().updateById(sysLoginLog);
-    }
+    void update(SysLoginLogDto sysLoginLogDto);
 
     /**
      * 系统登录日志分页查询

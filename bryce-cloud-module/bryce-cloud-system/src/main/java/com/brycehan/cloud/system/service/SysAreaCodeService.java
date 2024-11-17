@@ -3,7 +3,6 @@ package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.convert.SysAreaCodeConvert;
 import com.brycehan.cloud.system.entity.dto.SysAreaCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysAreaCodePageDto;
 import com.brycehan.cloud.system.entity.po.SysAreaCode;
@@ -24,10 +23,7 @@ public interface SysAreaCodeService extends BaseService<SysAreaCode> {
      *
      * @param sysAreaCodeDto 地区编码Dto
      */
-    default void update(SysAreaCodeDto sysAreaCodeDto) {
-        SysAreaCode sysAreaCode = SysAreaCodeConvert.INSTANCE.convert(sysAreaCodeDto);
-        this.getBaseMapper().updateById(sysAreaCode);
-    }
+    void update(SysAreaCodeDto sysAreaCodeDto);
 
     /**
      * 地区编码分页查询

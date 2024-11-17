@@ -2,10 +2,11 @@ package com.brycehan.cloud.common.security.common.utils;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
-import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Objects;
 
 import static com.brycehan.cloud.common.core.constant.TokenConstants.SOURCE_CLIENT_HEADER;
 
@@ -36,15 +37,11 @@ public class TokenUtils {
     public static SourceClientType getSourceClient(HttpServletRequest request) {
         String sourceClient = request.getHeader(SOURCE_CLIENT_HEADER);
 
-        if (StrUtil.isBlank(sourceClient)) {
-            throw new ServerException("非法来源客户端请求");
+         if (StrUtil.isBlank(sourceClient)) {
+            return SourceClientType.UNKNOWN;
         }
 
         SourceClientType sourceClientType = SourceClientType.getByValue(sourceClient);
-        if (sourceClientType != null) {
-            return sourceClientType;
-        }
-
-        throw new ServerException("非法来源客户端请求");
+        return Objects.requireNonNullElse(sourceClientType, SourceClientType.UNKNOWN);
     }
 }

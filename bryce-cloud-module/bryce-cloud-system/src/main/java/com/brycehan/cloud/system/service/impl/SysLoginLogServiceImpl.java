@@ -1,16 +1,18 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;
+import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
 import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
@@ -20,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +34,27 @@ import java.util.Objects;
  */
 @Service
 public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, SysLoginLog> implements SysLoginLogService {
+
+    /**
+     * 添加系统登录日志
+     *
+     * @param sysLoginLogDto 系统登录日志Dto
+     */
+    public void save(SysLoginLogDto sysLoginLogDto) {
+        SysLoginLog sysLoginLog = SysLoginLogConvert.INSTANCE.convert(sysLoginLogDto);
+        sysLoginLog.setId(IdGenerator.nextId());
+        this.baseMapper.insert(sysLoginLog);
+    }
+
+    /**
+     * 更新系统登录日志
+     *
+     * @param sysLoginLogDto 系统登录日志Dto
+     */
+    public void update(SysLoginLogDto sysLoginLogDto) {
+        SysLoginLog sysLoginLog = SysLoginLogConvert.INSTANCE.convert(sysLoginLogDto);
+        this.baseMapper.updateById(sysLoginLog);
+    }
 
     @Override
     public PageResult<SysLoginLogVo> page(SysLoginLogPageDto sysLoginLogPageDto) {
@@ -61,7 +85,8 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
         // 数据字典翻译
         ExcelUtils.transList(sysLoginLogVoList);
 
-        ExcelUtils.export(SysLoginLogVo.class, "系统登录日志_".concat(DateTimeUtils.today()), "系统登录日志", sysLoginLogVoList);
+        String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
+        ExcelUtils.export(SysLoginLogVo.class, "系统登录日志_".concat(today), "系统登录日志", sysLoginLogVoList);
     }
 
     @Override

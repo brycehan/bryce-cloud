@@ -6,12 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.util.DateTimeUtils;
-import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.operatelog.aspect.OperateLogDto;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysOperateLogConvert;
+import com.brycehan.cloud.system.entity.dto.SysOperateLogDto;
 import com.brycehan.cloud.system.entity.dto.SysOperateLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysOperateLog;
 import com.brycehan.cloud.system.entity.vo.SysOperateLogVo;
@@ -48,6 +47,27 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
     private final RedisTemplate<String, OperateLogDto> redisTemplate;
     private final SysOrgService sysOrgService;
 
+     /**
+     * 添加系统操作日志
+     *
+     * @param sysOperateLogDto 系统操作日志Dto
+     */
+    public void save(SysOperateLogDto sysOperateLogDto) {
+        SysOperateLog sysOperateLog = SysOperateLogConvert.INSTANCE.convert(sysOperateLogDto);
+        sysOperateLog.setId(IdGenerator.nextId());
+        this.baseMapper.insert(sysOperateLog);
+    }
+
+    /**
+     * 更新系统操作日志
+     *
+     * @param sysOperateLogDto 系统操作日志Dto
+     */
+    public void update(SysOperateLogDto sysOperateLogDto) {
+        SysOperateLog sysOperateLog = SysOperateLogConvert.INSTANCE.convert(sysOperateLogDto);
+        this.baseMapper.updateById(sysOperateLog);
+    }
+
     @Override
     public SysOperateLogVo get(Long id) {
         SysOperateLog sysOperateLog = this.getById(id);
@@ -83,13 +103,6 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
         addTimeRangeCondition(wrapper, SysOperateLog::getOperatedTime, sysOperateLogPageDto.getOperatedTimeStart(), sysOperateLogPageDto.getOperatedTimeEnd());
 
         return wrapper;
-    }
-
-    @Override
-    public void export(SysOperateLogPageDto sysOperateLogPageDto) {
-        List<SysOperateLog> sysOperateLogList = this.baseMapper.selectList(getWrapper(sysOperateLogPageDto));
-        List<SysOperateLogVo> sysOperateLogVoList = SysOperateLogConvert.INSTANCE.convert(sysOperateLogList);
-        ExcelUtils.export(SysOperateLogVo.class, "系统操作日志_".concat(DateTimeUtils.today()), "系统操作日志", sysOperateLogVoList);
     }
 
     /**

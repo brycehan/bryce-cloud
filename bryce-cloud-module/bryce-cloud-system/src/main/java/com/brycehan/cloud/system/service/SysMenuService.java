@@ -3,8 +3,6 @@ package com.brycehan.cloud.system.service;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.common.server.common.IdGenerator;
-import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
 import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
@@ -27,21 +25,14 @@ public interface SysMenuService extends BaseService<SysMenu> {
      *
      * @param sysMenuDto 系统菜单Dto
      */
-    default void save(SysMenuDto sysMenuDto) {
-        SysMenu sysMenu = SysMenuConvert.INSTANCE.convert(sysMenuDto);
-        sysMenu.setId(IdGenerator.nextId());
-        this.getBaseMapper().insert(sysMenu);
-    }
+    void save(SysMenuDto sysMenuDto);
 
     /**
      * 更新系统菜单
      *
      * @param sysMenuDto 系统菜单Dto
      */
-    default void update(SysMenuDto sysMenuDto) {
-        SysMenu sysMenu = SysMenuConvert.INSTANCE.convert(sysMenuDto);
-        this.getBaseMapper().updateById(sysMenu);
-    }
+    void update(SysMenuDto sysMenuDto);
 
     /**
      * 系统菜单分页查询
