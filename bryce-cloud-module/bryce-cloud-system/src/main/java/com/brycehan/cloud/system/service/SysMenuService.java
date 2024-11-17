@@ -1,9 +1,9 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysMenuConvert;
 import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;

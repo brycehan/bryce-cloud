@@ -1,8 +1,8 @@
 package com.brycehan.cloud.gateway.utils;
 
+import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.common.core.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.response.ResponseResult;
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -57,7 +57,7 @@ public class ReactiveUtils {
 
         ResponseResult<?> responseResult = ResponseResult.error(HttpResponseStatus.HTTP_UNAUTHORIZED.code(), message);
 
-        DataBuffer dataBuffer = response.bufferFactory().wrap(JsonUtils.writeValueAsString(responseResult).getBytes(StandardCharsets.UTF_8));
+        DataBuffer dataBuffer = response.bufferFactory().wrap(JSONUtil.toJsonStr(responseResult).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(dataBuffer));
     }
 
@@ -77,7 +77,7 @@ public class ReactiveUtils {
 
         ResponseResult<?> responseResult = ResponseResult.error(httpResponseStatus.code(), message);
 
-        DataBuffer dataBuffer = response.bufferFactory().wrap(JsonUtils.writeValueAsString(responseResult).getBytes(StandardCharsets.UTF_8));
+        DataBuffer dataBuffer = response.bufferFactory().wrap(JSONUtil.toJsonStr(responseResult).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(dataBuffer));
     }
 

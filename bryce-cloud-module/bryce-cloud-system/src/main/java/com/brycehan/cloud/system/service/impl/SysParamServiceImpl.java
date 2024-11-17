@@ -2,18 +2,18 @@ package com.brycehan.cloud.system.service.impl;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysParamConvert;
 import com.brycehan.cloud.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.system.entity.dto.SysParamKeyDto;
@@ -113,7 +113,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public PageResult<SysParamVo> page(SysParamPageDto sysParamPageDto) {
-        IPage<SysParam> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysParamPageDto));
+        IPage<SysParam> page = this.baseMapper.selectPage(sysParamPageDto.toPage(), getWrapper(sysParamPageDto));
         return new PageResult<>(page.getTotal(), SysParamConvert.INSTANCE.convert(page.getRecords()));
     }
 
@@ -187,7 +187,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public <T> T getJSONObject(String paramKey, Class<T> valueType) {
         String value = getString(paramKey);
-        return JsonUtils.readValue(value, valueType);
+        return JSONUtil.toBean(value, valueType);
     }
 
     @Override

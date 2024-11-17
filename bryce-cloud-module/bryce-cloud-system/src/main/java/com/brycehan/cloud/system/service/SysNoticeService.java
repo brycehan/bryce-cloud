@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysNoticeConvert;
 import com.brycehan.cloud.system.entity.dto.SysNoticeDto;
 import com.brycehan.cloud.system.entity.dto.SysNoticePageDto;

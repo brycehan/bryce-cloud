@@ -1,9 +1,9 @@
 package com.brycehan.cloud.auth.common.security;
 
+import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +31,7 @@ public class LoginUserDetailsCheck implements UserDetailsChecker {
 
     @Override
     public void check(UserDetails toCheck) {
-        log.debug("用户参数：{}", JsonUtils.writeValueAsString(toCheck));
+        log.debug("用户参数：{}", JSONUtil.toJsonStr(toCheck));
 
         // 超过密码错误最大次数锁定账户
         Integer retryCount = this.redisTemplate.opsForValue()

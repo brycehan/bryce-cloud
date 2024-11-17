@@ -1,5 +1,8 @@
 package com.brycehan.cloud.common.core.util;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.json.JSONConfig;
+import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.common.core.base.ServerException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -60,7 +63,7 @@ public class ServletUtils {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         try {
-            response.getWriter().print(JsonUtils.writeValueAsString(t));
+            response.getWriter().print(JSONUtil.toJsonStr(t, new JSONConfig().setDateFormat(DatePattern.NORM_DATETIME_PATTERN)));
         } catch (IOException e) {
             throw new ServerException(e.getMessage());
         }

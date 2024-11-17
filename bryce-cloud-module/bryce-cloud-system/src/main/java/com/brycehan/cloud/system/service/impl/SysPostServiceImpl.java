@@ -56,7 +56,7 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostMapper, SysPost> 
 
     @Override
     public PageResult<SysPostVo> page(SysPostPageDto sysPostPageDto) {
-        IPage<SysPost> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysPostPageDto));
+        IPage<SysPost> page = this.baseMapper.selectPage(sysPostPageDto.toPage(), getWrapper(sysPostPageDto));
         return new PageResult<>(page.getTotal(), SysPostConvert.INSTANCE.convert(page.getRecords()));
     }
 

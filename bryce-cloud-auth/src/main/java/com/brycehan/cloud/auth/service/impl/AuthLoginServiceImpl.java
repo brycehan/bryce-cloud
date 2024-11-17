@@ -1,5 +1,6 @@
 package com.brycehan.cloud.auth.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.api.system.api.SysLoginLogApi;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
@@ -8,6 +9,7 @@ import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.DataConstants;
@@ -16,8 +18,6 @@ import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.base.LoginUserContext;
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -113,7 +113,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
         // 设置登录信息
         LoginUserContextHolder.setUserKey(loginUser.getUserKey());
-        LoginUserContextHolder.setUserData(JsonUtils.writeValueAsString(loginUser));
+        LoginUserContextHolder.setUserData(JSONUtil.toJsonStr(loginUser));
         LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType().value());
 
         // 封装 LoginVo

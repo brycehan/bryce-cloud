@@ -4,13 +4,13 @@ import cn.hutool.core.thread.ThreadUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.util.DateTimeUtils;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.operatelog.aspect.OperateLogDto;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysOperateLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysOperateLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysOperateLog;
@@ -62,7 +62,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 
     @Override
     public PageResult<SysOperateLogVo> page(SysOperateLogPageDto sysOperateLogPageDto) {
-        IPage<SysOperateLog> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysOperateLogPageDto));
+        IPage<SysOperateLog> page = this.baseMapper.selectPage(sysOperateLogPageDto.toPage(), getWrapper(sysOperateLogPageDto));
         return new PageResult<>(page.getTotal(), SysOperateLogConvert.INSTANCE.convert(page.getRecords()));
     }
 

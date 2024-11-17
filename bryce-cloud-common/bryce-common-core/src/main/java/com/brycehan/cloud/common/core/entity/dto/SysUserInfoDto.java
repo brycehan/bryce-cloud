@@ -1,5 +1,6 @@
 package com.brycehan.cloud.common.core.entity.dto;
 
+import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -47,6 +48,6 @@ public class SysUserInfoDto extends BaseDto {
      */
     @Schema(description = "性别（M：男, F：女）")
     @Pattern(regexp = "^[MF]$", message = "性别值只能是M或F")
-    private String gender;
+    private GenderType gender;
 
 }

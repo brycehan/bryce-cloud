@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.entity.dto;
 
+import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
@@ -34,8 +35,7 @@ public class SysUserPageDto extends BasePageDto {
      * 性别（M：男, F：女）
      */
     @Schema(description = "性别（M：男, F：女）")
-    @Size(max = 1)
-    private String gender;
+    private GenderType gender;
 
     /**
      * 用户类型（0：系统用户）

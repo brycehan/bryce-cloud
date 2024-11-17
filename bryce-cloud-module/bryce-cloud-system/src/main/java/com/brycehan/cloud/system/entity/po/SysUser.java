@@ -2,6 +2,7 @@ package com.brycehan.cloud.system.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -50,7 +51,7 @@ public class SysUser extends BaseEntity {
     /**
      * 性别（M：男, F：女）
      */
-    private String gender;
+    private GenderType gender;
 
     /**
      * 用户类型（0：系统用户）

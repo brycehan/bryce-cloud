@@ -1,7 +1,9 @@
 package com.brycehan.cloud.common.core.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.brycehan.cloud.common.core.util.JsonUtils;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 import java.io.Serial;
@@ -55,15 +57,5 @@ public abstract class BaseEntity implements Serializable {
      */
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updatedTime;
-
-    /**
-     * 转换为JSON字符串
-     *
-     * @return JSON字符串
-     */
-    @SuppressWarnings("unused")
-    public String toJson(){
-        return JsonUtils.writeValueAsString(this);
-    }
 
 }

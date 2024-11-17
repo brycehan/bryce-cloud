@@ -1,11 +1,10 @@
 package com.brycehan.cloud.system.entity.vo;
 
-import cn.hutool.core.date.DatePattern;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.base.Trans;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -55,7 +54,7 @@ public class SysUserVo implements Serializable {
      */
     @Schema(description = "性别（M：男, F：女）")
     @Trans(dict = "sys_user_gender", ref = "genderLabel")
-    private String gender;
+    private GenderType gender;
 
     /**
      * 性别
@@ -130,7 +129,6 @@ public class SysUserVo implements Serializable {
     @ColumnWidth(20)
     @ExcelProperty(value = "创建时间")
     @Schema(description = "创建时间")
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     private LocalDateTime createdTime;
 
     /**

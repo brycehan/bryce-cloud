@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.service;
 
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;

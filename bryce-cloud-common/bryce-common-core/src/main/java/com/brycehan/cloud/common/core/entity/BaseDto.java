@@ -1,6 +1,5 @@
 package com.brycehan.cloud.common.core.entity;
 
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import lombok.Data;
 
 import java.io.Serial;
@@ -17,13 +16,5 @@ public abstract class BaseDto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 转换为JSON字符串
-     * @return JSON字符串
-     */
-    public String toJson(){
-        return JsonUtils.writeValueAsString(this);
-    }
 
 }

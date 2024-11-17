@@ -1,7 +1,6 @@
 package com.brycehan.cloud.api.system.entity.vo;
 
-import cn.hutool.core.date.DatePattern;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.brycehan.cloud.common.core.base.GenderType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -51,7 +50,7 @@ public class SysUserVo implements Serializable {
      * 性别（M：男, F：女）
      */
     @Schema(description = "性别（M：男, F：女）")
-    private String gender;
+    private GenderType gender;
 
     /**
      * 性别
@@ -115,7 +114,6 @@ public class SysUserVo implements Serializable {
      * 创建时间
      */
     @Schema(description = "创建时间")
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     private LocalDateTime createdTime;
 
     /**

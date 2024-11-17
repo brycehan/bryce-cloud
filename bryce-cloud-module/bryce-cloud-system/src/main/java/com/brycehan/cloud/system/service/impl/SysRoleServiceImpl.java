@@ -3,12 +3,12 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
 import com.brycehan.cloud.system.entity.dto.SysRoleCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysRoleDataScopeDto;
@@ -99,7 +99,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
     @Override
     public PageResult<SysRoleVo> page(SysRolePageDto sysRolePageDto) {
-        IPage<SysRole> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysRolePageDto));
+        IPage<SysRole> page = this.baseMapper.selectPage(sysRolePageDto.toPage(), getWrapper(sysRolePageDto));
         return new PageResult<>(page.getTotal(), SysRoleConvert.INSTANCE.convert(page.getRecords()));
     }
 

@@ -76,7 +76,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
 
     @Override
     public PageResult<SysMenuVo> page(SysMenuPageDto sysMenuPageDto) {
-        IPage<SysMenu> page = this.baseMapper.selectPage(sysDictTypePageDto.toPage(), getWrapper(sysMenuPageDto));
+        IPage<SysMenu> page = this.baseMapper.selectPage(sysMenuPageDto.toPage(), getWrapper(sysMenuPageDto));
         return new PageResult<>(page.getTotal(), SysMenuConvert.INSTANCE.convert(page.getRecords()));
     }
 

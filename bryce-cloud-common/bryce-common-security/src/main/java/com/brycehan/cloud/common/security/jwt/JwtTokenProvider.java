@@ -1,13 +1,13 @@
 package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
-import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -76,7 +76,7 @@ public class JwtTokenProvider {
                 expiredInSeconds = tokenValidityInSeconds;
             }
             case APP -> {
-                claims.put(JwtConstants.USER_DATA, JsonUtils.writeValueAsString(loginUser));
+                claims.put(JwtConstants.USER_DATA, JSONUtil.toJsonStr(loginUser));
                 expiredInSeconds = appTokenValidityInDays * 24 * 3600;
             }
             default -> throw new IllegalArgumentException("不支持的来源客户端");
