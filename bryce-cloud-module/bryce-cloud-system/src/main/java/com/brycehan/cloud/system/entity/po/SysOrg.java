@@ -2,6 +2,7 @@ package com.brycehan.cloud.system.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.brycehan.cloud.common.core.entity.BaseEntity;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -64,6 +65,6 @@ public class SysOrg extends BaseEntity {
     /**
      * 状态（0：停用，1：正常）
      */
-    private Boolean status;
+    private StatusType status;
 
 }

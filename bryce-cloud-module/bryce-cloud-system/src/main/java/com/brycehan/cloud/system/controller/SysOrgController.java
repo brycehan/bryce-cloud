@@ -6,7 +6,7 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.convert.SysOrgConvert;
 import com.brycehan.cloud.system.entity.dto.SysOrgDto;
 import com.brycehan.cloud.system.entity.dto.SysOrgPageDto;
@@ -44,7 +44,7 @@ public class SysOrgController {
      * @return 响应结果
      */
     @Operation(summary = "保存系统机构")
-    @OperateLog(type = OperateType.INSERT)
+    @OperateLog(type = OperatedType.INSERT)
     @PreAuthorize("hasAuthority('system:org:save')")
     @PostMapping
     public ResponseResult<Void> save(@Validated(value = SaveGroup.class) @RequestBody SysOrgDto sysOrgDto) {
@@ -59,7 +59,7 @@ public class SysOrgController {
      * @return 响应结果
      */
     @Operation(summary = "更新系统机构")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("hasAuthority('system:org:update')")
     @PutMapping
     public ResponseResult<Void> update(@Validated(value = UpdateGroup.class) @RequestBody SysOrgDto sysOrgDto) {
@@ -74,7 +74,7 @@ public class SysOrgController {
      * @return 响应结果
      */
     @Operation(summary = "删除系统机构")
-    @OperateLog(type = OperateType.DELETE)
+    @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("hasAuthority('system:org:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {

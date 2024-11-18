@@ -6,7 +6,7 @@ import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.system.entity.dto.OnlineUserPageDto;
 import com.brycehan.cloud.system.entity.vo.OnlineUserVo;
@@ -86,7 +86,7 @@ public class OnlineUserController {
      * @return 响应结果
      */
     @Operation(summary = "强制退出")
-    @OperateLog(type = OperateType.FORCE_QUIT)
+    @OperateLog(type = OperatedType.FORCE_QUIT)
     @PreAuthorize("hasAuthority('monitor:onlineUser:delete')")
     @DeleteMapping(path = "/{tokenKey}")
     public ResponseResult<Void> delete(@PathVariable String tokenKey) {

@@ -6,7 +6,7 @@ import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.convert.SysPostConvert;
 import com.brycehan.cloud.system.entity.dto.SysPostCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysPostDto;
@@ -45,7 +45,7 @@ public class SysPostController {
      * @return 响应结果
      */
     @Operation(summary = "保存系统岗位")
-    @OperateLog(type = OperateType.INSERT)
+    @OperateLog(type = OperatedType.INSERT)
     @PreAuthorize("hasAuthority('system:post:save')")
     @PostMapping
     public ResponseResult<Void> save(@Validated(value = SaveGroup.class) @RequestBody SysPostDto sysPostDto) {
@@ -60,7 +60,7 @@ public class SysPostController {
      * @return 响应结果
      */
     @Operation(summary = "更新系统岗位")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("hasAuthority('system:post:update')")
     @PutMapping
     public ResponseResult<Void> update(@Validated(value = UpdateGroup.class) @RequestBody SysPostDto sysPostDto) {
@@ -75,7 +75,7 @@ public class SysPostController {
      * @return 响应结果
      */
     @Operation(summary = "删除系统岗位")
-    @OperateLog(type = OperateType.DELETE)
+    @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("hasAuthority('system:post:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {

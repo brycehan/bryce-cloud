@@ -1,6 +1,8 @@
 package com.brycehan.cloud.common.core.base;
 
+import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +51,7 @@ public class LoginUser implements UserDetails {
 
     private Long orgId;
 
-    private Boolean status;
+    private StatusType status;
 
     private boolean superAdmin;
 

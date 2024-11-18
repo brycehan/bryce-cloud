@@ -4,7 +4,7 @@ import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.dto.SysOperateLogPageDto;
 import com.brycehan.cloud.system.entity.vo.SysOperateLogVo;
 import com.brycehan.cloud.system.service.SysOperateLogService;
@@ -37,7 +37,7 @@ public class SysOperateLogController {
      * @return 响应结果
      */
     @Operation(summary = "删除系统操作日志")
-    @OperateLog(type = OperateType.DELETE)
+    @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("hasAuthority('system:operateLog:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {
@@ -71,18 +71,6 @@ public class SysOperateLogController {
     public ResponseResult<PageResult<SysOperateLogVo>> page(@Validated @RequestBody SysOperateLogPageDto sysOperateLogPageDto) {
         PageResult<SysOperateLogVo> page = this.sysOperateLogService.page(sysOperateLogPageDto);
         return ResponseResult.ok(page);
-    }
-
-    /**
-     * 系统操作日志导出数据
-     *
-     * @param sysOperateLogPageDto 查询条件
-     */
-    @Operation(summary = "系统操作日志导出")
-    @PreAuthorize("hasAuthority('system:operateLog:export')")
-    @PostMapping(path = "/export")
-    public void export(@Validated @RequestBody SysOperateLogPageDto sysOperateLogPageDto) {
-        this.sysOperateLogService.export(sysOperateLogPageDto);
     }
 
 }

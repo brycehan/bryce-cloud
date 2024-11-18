@@ -1,6 +1,5 @@
 package com.brycehan.cloud.auth.service.impl;
 
-import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.api.system.api.SysLoginLogApi;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
@@ -12,12 +11,13 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginOperateType;
+import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,8 +55,8 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             // 保存登录日志
             SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
             sysLoginLogDto.setUsername(accountLoginDto.getUsername());
-            sysLoginLogDto.setStatus(DataConstants.FAIL);
-            sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL.value());
+            sysLoginLogDto.setStatus(OperationStatusType.FAIL);
+            sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL);
             this.sysLoginLogApi.save(sysLoginLogDto);
             throw new ServerException("验证码错误");
         }
@@ -113,8 +113,8 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
         // 设置登录信息
         LoginUserContextHolder.setUserKey(loginUser.getUserKey());
-        LoginUserContextHolder.setUserData(JSONUtil.toJsonStr(loginUser));
-        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType().value());
+        LoginUserContextHolder.setUserData(JsonUtils.writeValueAsString(loginUser));
+        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType());
 
         // 封装 LoginVo
         LoginVo loginVo = new LoginVo();
@@ -145,8 +145,8 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         // 记录用户退出日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(loginUser.getUsername());
-        sysLoginLogDto.setStatus(DataConstants.SUCCESS);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGOUT_SUCCESS.value());
+        sysLoginLogDto.setStatus(OperationStatusType.SUCCESS);
+        sysLoginLogDto.setInfo(LoginOperateType.LOGOUT_SUCCESS);
         this.sysLoginLogApi.save(sysLoginLogDto);
     }
 

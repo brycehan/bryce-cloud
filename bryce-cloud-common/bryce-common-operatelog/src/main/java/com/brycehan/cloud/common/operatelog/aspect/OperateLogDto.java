@@ -1,6 +1,8 @@
 package com.brycehan.cloud.common.operatelog.aspect;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
+import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -52,7 +54,7 @@ public class OperateLogDto extends BaseDto {
     /**
      * 操作类型
      */
-    private String operatedType;
+    private OperatedType operatedType;
 
     /**
      * 操作时间
@@ -67,7 +69,7 @@ public class OperateLogDto extends BaseDto {
     /**
      * 操作状态（0：失败，1：成功）
      */
-    private Boolean status;
+    private OperationStatusType status;
 
     /**
      * User Agent

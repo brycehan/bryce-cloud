@@ -1,7 +1,8 @@
 package com.brycehan.cloud.system.entity.dto;
 
-import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.entity.BaseDto;
+import com.brycehan.cloud.common.core.enums.GenderType;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -111,7 +112,7 @@ public class SysUserDto extends BaseDto {
      * 状态（0：停用，1：正常）
      */
     @Schema(description = "状态（0：停用，1：正常）")
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 备注

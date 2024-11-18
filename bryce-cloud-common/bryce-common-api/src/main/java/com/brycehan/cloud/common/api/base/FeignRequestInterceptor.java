@@ -4,6 +4,7 @@ import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.constant.TokenConstants;
+import com.brycehan.cloud.common.core.enums.YesNoType;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,7 +46,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                     }
                 }
                 // Feign内部调用添加请求头 X-Inner-Call
-                requestTemplate.header(DataConstants.INNER_CALL, DataConstants.INNER_CALL_YES);
+                requestTemplate.header(DataConstants.INNER_CALL, YesNoType.YES.getValue());
             }
         } else {
             // Async 异步调用时处理请求头
@@ -55,10 +56,10 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             if (StringUtils.hasText(LoginUserContextHolder.getUserData())) {
                 requestTemplate.header(JwtConstants.USER_DATA, LoginUserContextHolder.getUserData());
             }
-            if (StringUtils.hasText(LoginUserContextHolder.getSourceClient())) {
-                requestTemplate.header(TokenConstants.SOURCE_CLIENT_HEADER, LoginUserContextHolder.getSourceClient());
+            if (LoginUserContextHolder.getSourceClient() != null) {
+                requestTemplate.header(TokenConstants.SOURCE_CLIENT_HEADER, LoginUserContextHolder.getSourceClient().getValue());
             }
-            requestTemplate.header(DataConstants.INNER_CALL, DataConstants.INNER_CALL_YES);
+            requestTemplate.header(DataConstants.INNER_CALL, YesNoType.YES.getValue());
         }
     }
 

@@ -4,7 +4,7 @@ import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.convert.SysLoginLogConvert;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
@@ -39,7 +39,7 @@ public class SysLoginLogController {
      * @return 响应结果
      */
     @Operation(summary = "删除系统登录日志")
-    @OperateLog(type = OperateType.DELETE)
+    @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("hasAuthority('system:loginLog:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {

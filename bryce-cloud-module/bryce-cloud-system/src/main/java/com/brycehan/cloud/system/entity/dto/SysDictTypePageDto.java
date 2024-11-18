@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -47,7 +48,7 @@ public class SysDictTypePageDto extends BasePageDto {
      * 状态（false：停用，true：正常）
      */
     @Schema(description = "状态（false：停用，true：正常）")
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 创建时间开始

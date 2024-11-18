@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class SysLoginLogPageDto extends BasePageDto {
      * 状态（0：失败，1：成功）
      */
     @Schema(description = "状态（0：失败，1：成功）")
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 访问时间开始

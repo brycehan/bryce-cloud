@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.entity.vo;
 
-import com.brycehan.cloud.common.core.base.GenderType;
+import com.brycehan.cloud.common.core.enums.GenderType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

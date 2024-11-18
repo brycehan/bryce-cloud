@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,6 @@ public class SysNoticePageDto extends BasePageDto {
      * 状态（0：关闭，1：正常）
      */
     @Schema(description = "状态（0：关闭，1：正常）")
-    private Boolean status;
+    private StatusType status;
 
 }

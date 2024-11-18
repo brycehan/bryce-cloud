@@ -4,7 +4,7 @@ import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.dto.SysUserPasswordDto;
 import com.brycehan.cloud.system.entity.vo.SysUserInfoVo;
 import com.brycehan.cloud.system.service.SysUserService;
@@ -52,7 +52,7 @@ public class SysProfileController {
      * @return 响应结果
      */
     @Operation(summary = "修改用户个人信息")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PutMapping
     public ResponseResult<Void> updateUserInfo(@RequestBody SysUserInfoDto sysUserInfoDto) {
         this.sysUserService.updateUserInfo(sysUserInfoDto);
@@ -66,7 +66,7 @@ public class SysProfileController {
      * @return 响应结果
      */
     @Operation(summary = "修改用户头像")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PostMapping(path = "/avatar")
     public ResponseResult<String> updateAvatar(@RequestPart MultipartFile file) {
         String avatar = this.sysUserService.updateAvatar(file);
@@ -80,7 +80,7 @@ public class SysProfileController {
      * @return 响应结果
      */
     @Operation(summary = "修改密码")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PutMapping(path = "/password")
     public ResponseResult<Void> updatePassword(@Validated @RequestBody SysUserPasswordDto sysUserPasswordDto) {
         this.sysUserService.updatePassword(sysUserPasswordDto);

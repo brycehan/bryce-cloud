@@ -1,8 +1,8 @@
 package com.brycehan.cloud.common.core.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 /**
  * 数据范围类型
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2022/5/8
  * @author Bryce Han
  */
-@RequiredArgsConstructor
+@Getter
 public enum DataScopeType {
 
     /** 全部数据 */
@@ -24,32 +24,12 @@ public enum DataScopeType {
     /** 自定义数据 */
     CUSTOM(5);
 
+    @EnumValue
+    @JsonValue
     private final Integer value;
 
-    /**
-     * 获取值
-     *
-     * @return 值
-     */
-    @JsonValue
-    public Integer value() {
-        return value;
-    }
-
-    /**
-     * 根据值获取枚举
-     *
-     * @param value 值
-     * @return 枚举
-     */
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static DataScopeType getByValue(Integer value) {
-        for (DataScopeType type : values()) {
-            if(value.equals(type.value)){
-                return type;
-            }
-        }
-        return null;
+    DataScopeType(Integer value) {
+        this.value = value;
     }
 
 }

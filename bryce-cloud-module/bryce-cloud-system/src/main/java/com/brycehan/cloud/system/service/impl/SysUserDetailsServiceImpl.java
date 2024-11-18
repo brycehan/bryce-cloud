@@ -5,6 +5,7 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
@@ -44,7 +45,7 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
     @Override
     public UserDetails getUserDetails(LoginUser loginUser) {
         // 账号不可用
-        loginUser.setEnabled(loginUser.getStatus());
+        loginUser.setEnabled(loginUser.getStatus() == StatusType.ENABLE);
         if (!loginUser.isEnabled()) {
             log.info("登录用户：{}已被锁定.", loginUser.getUsername());
             return loginUser;

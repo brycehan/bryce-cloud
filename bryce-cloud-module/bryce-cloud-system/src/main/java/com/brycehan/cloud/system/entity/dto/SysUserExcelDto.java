@@ -2,8 +2,9 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.brycehan.cloud.common.core.base.GenderType;
 import com.brycehan.cloud.common.core.base.UnTrans;
+import com.brycehan.cloud.common.core.enums.GenderType;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import lombok.Data;
 
 import java.io.Serial;
@@ -75,7 +76,7 @@ public class SysUserExcelDto implements Serializable {
      * 状态（0：停用，1：正常）
      */
     @UnTrans(dict = "sys_status", ref = "statusLabel")
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 状态

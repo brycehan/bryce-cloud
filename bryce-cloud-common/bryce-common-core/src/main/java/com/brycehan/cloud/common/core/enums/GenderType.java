@@ -1,34 +1,32 @@
-package com.brycehan.cloud.system.common.enums;
+package com.brycehan.cloud.common.core.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
- * 菜单类型
+ * 性别类型
  *
  * @author Bryce Han
  * @since 2023/11/23
  */
 @Getter
-@RequiredArgsConstructor
-public enum MenuType {
+public enum GenderType {
     /**
-     * 菜单
+     * 男
      */
-    MENU("M"),
+    MALE("M"),
     /**
-     * 按钮
+     * 女
      */
-    BUTTON("B"),
-    /**
-     * 接口
-     */
-    INTERFACE("I");
+    FEMALE("F");
 
     @EnumValue
     @JsonValue
     private final String value;
+
+    GenderType(String value) {
+        this.value = value;
+    }
 
 }

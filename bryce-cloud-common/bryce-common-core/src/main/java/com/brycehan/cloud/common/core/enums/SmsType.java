@@ -1,8 +1,7 @@
 package com.brycehan.cloud.common.core.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 /**
  * 短信类型
@@ -10,43 +9,19 @@ import lombok.RequiredArgsConstructor;
  * @author Bryce Han
  * @since 2024/5/23
  */
-@RequiredArgsConstructor
+@Getter
 public enum SmsType {
 
     LOGIN("login", "登录"),
     REGISTER("register", "注册");
 
+    @JsonValue
     private final String value;
     private final String desc;
 
-    /**
-     * 获取值
-     *
-     * @return 值
-     */
-    @JsonValue
-    public String value() {
-        return value;
-    }
-
-    public String desc() {
-        return desc;
-    }
-
-    /**
-     * 根据值获取枚举
-     *
-     * @param value 值
-     * @return 枚举
-     */
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static SmsType getByValue(String value) {
-        for (SmsType smsType : values()) {
-            if (smsType.value.equals(value)) {
-                return smsType;
-            }
-        }
-        return null;
+    SmsType(String value, String desc) {
+        this.value = value;
+        this.desc = desc;
     }
 
 }

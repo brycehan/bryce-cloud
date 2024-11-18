@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.brycehan.cloud.common.core.entity.BaseEntity;
+import com.brycehan.cloud.common.core.enums.DataScopeType;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,7 +38,7 @@ public class SysRole extends BaseEntity {
     /**
      * 数据范围（1：全部数据，2：本机构及以下机构数据，3：本机构数据，4：本人数据，5：自定义数据）
      */
-    private Integer dataScope;
+    private DataScopeType dataScope;
 
     /**
      * 显示顺序
@@ -46,7 +48,7 @@ public class SysRole extends BaseEntity {
     /**
      * 状态（0：停用，1：正常）
      */
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 备注

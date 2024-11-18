@@ -5,7 +5,7 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.convert.SysAreaCodeConvert;
 import com.brycehan.cloud.system.entity.dto.SysAreaCodeDto;
 import com.brycehan.cloud.system.entity.dto.SysAreaCodePageDto;
@@ -41,7 +41,7 @@ public class SysAreaCodeController {
      * @return 响应结果
      */
     @Operation(summary = "更新地区编码")
-    @OperateLog(type = OperateType.UPDATE)
+    @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("hasAuthority('system:areaCode:update')")
     @PutMapping
     public ResponseResult<Void> update(@Validated(value = UpdateGroup.class) @RequestBody SysAreaCodeDto sysAreaCodeDto) {
@@ -56,7 +56,7 @@ public class SysAreaCodeController {
      * @return 响应结果
      */
     @Operation(summary = "删除地区编码")
-    @OperateLog(type = OperateType.DELETE)
+    @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("hasAuthority('system:areaCode:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {

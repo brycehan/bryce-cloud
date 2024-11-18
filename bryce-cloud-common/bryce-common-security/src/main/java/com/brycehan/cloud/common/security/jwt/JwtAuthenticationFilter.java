@@ -1,10 +1,10 @@
 package com.brycehan.cloud.common.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
+import com.brycehan.cloud.common.core.util.JsonUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(StringUtils.isNotEmpty(userKey)) {
             loginUser = this.jwtTokenProvider.loadLoginUser(userKey);
         } else if (StringUtils.isNotEmpty(userData)) {
-            loginUser = JSONUtil.toBean(URLDecoder.decode(userData, StandardCharsets.UTF_8), LoginUser.class);
+            loginUser = JsonUtils.readValue(URLDecoder.decode(userData, StandardCharsets.UTF_8), LoginUser.class);
         }
 
         if(loginUser == null) {
@@ -70,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         LoginUserContextHolder.setContext(loginUser);
         LoginUserContextHolder.setUserKey(userKey);
         LoginUserContextHolder.setUserData(userData);
-        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType().value());
+        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType());
 
         log.info("将认证信息设置到安全上下文中，username：{}', uri: {}", loginUser.getUsername(), request.getRequestURI());
 

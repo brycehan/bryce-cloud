@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.entity.dto;
 
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.TreeNode;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
@@ -80,6 +81,6 @@ public class SysOrgDto extends TreeNode<SysOrgDto> {
      * 状态（0：停用，1：正常）
      */
     @Schema(description = "状态（0：停用，1：正常）")
-    private Boolean status;
+    private StatusType status;
 
 }

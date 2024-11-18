@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -49,7 +50,7 @@ public class SysDictTypeDto extends BaseDto {
      * 状态（false：停用，true：正常）
      */
     @Schema(description = "状态（false：停用，true：正常）")
-    private Boolean status;
+    private StatusType status;
 
     /**
      * 备注

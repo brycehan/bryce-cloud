@@ -5,7 +5,7 @@ import com.brycehan.cloud.auth.service.AuthRegisterService;
 import com.brycehan.cloud.common.core.response.ResponseResult;
 import com.brycehan.cloud.common.core.response.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
-import com.brycehan.cloud.common.operatelog.annotation.OperateType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,7 +34,7 @@ public class AuthRegisterController {
      * @return 响应结果
      */
     @Operation(summary = "注册")
-    @OperateLog(type = OperateType.INSERT)
+    @OperateLog(type = OperatedType.INSERT)
     @PostMapping
     public ResponseResult<Void> register(@Parameter(description = "注册参数", required = true) @Validated @RequestBody RegisterDto registerDto) {
         // 查询注册开关

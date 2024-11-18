@@ -1,6 +1,8 @@
 package com.brycehan.cloud.system.entity.vo;
 
 import com.brycehan.cloud.common.core.base.Trans;
+import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -68,7 +70,7 @@ public class SysOperateLogVo implements Serializable {
      */
     @Schema(description = "操作类型")
     @Trans(dict = "sys_operate_type", ref = "operatedTypeName")
-    private String operatedType;
+    private OperatedType operatedType;
 
     /**
      * 操作类型名称
@@ -92,7 +94,7 @@ public class SysOperateLogVo implements Serializable {
      * 操作状态（0：失败，1：成功）
      */
     @Schema(description = "操作状态（0：失败，1：成功）")
-    private Boolean status;
+    private OperationStatusType status;
 
     /**
      * User Agent

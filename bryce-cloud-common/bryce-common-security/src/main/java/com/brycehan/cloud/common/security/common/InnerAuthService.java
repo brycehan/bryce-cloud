@@ -1,6 +1,7 @@
 package com.brycehan.cloud.common.security.common;
 
 import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.enums.YesNoType;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class InnerAuthService {
 
     public boolean hasAuthority() {
         String inner = ServletUtils.getRequest().getHeader(DataConstants.INNER_CALL);
-        return DataConstants.INNER_CALL_YES.equalsIgnoreCase(inner);
+        return YesNoType.YES.getValue().equalsIgnoreCase(inner);
     }
 
 }

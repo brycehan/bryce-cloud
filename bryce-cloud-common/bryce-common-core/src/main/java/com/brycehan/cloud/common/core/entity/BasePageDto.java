@@ -2,11 +2,11 @@ package com.brycehan.cloud.common.core.entity;
 
 import cn.hutool.core.text.NamingCase;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.util.JsonUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -41,7 +41,7 @@ public abstract class BasePageDto implements Serializable {
     @Schema(description = "当前页码（从1开始计算）")
     @Range(min = 1, message = "页码最小值为1")
     @NotNull(message = "页码不能为空")
-    private Integer current;
+    private Integer current = 1;
 
     /**
      * 每页条数
@@ -49,7 +49,7 @@ public abstract class BasePageDto implements Serializable {
     @Schema(description = "每页条数")
     @Range(min = 1, max = 1000, message = "每页条数，取值范围在1-1000")
     @NotNull(message = "每页条数不能为空")
-    private Integer size;
+    private Integer size = DataConstants.pageSize;
 
     /**
      * 排序项
@@ -76,7 +76,7 @@ public abstract class BasePageDto implements Serializable {
                     .filter(orderItem -> hasEntityField(this.getClass(), orderItem.getColumn()))
                     .toList();
 
-            log.debug("排序参数: {}", JSONUtil.toJsonStr(itemDtoList));
+            log.debug("排序参数: {}", JsonUtils.writeValueAsString(itemDtoList));
 
             if (CollectionUtils.isNotEmpty(itemDtoList)) {
                 // 驼峰转下划线命名

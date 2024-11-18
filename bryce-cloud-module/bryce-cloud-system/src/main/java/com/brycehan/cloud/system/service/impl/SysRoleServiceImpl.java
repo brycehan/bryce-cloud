@@ -54,7 +54,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         sysRole.setId(IdGenerator.nextId());
 
         // 保存角色
-        sysRole.setDataScope(DataScopeType.SELF.value());
+        sysRole.setDataScope(DataScopeType.SELF);
         this.baseMapper.insert(sysRole);
 
         // 保存角色菜单关系
@@ -148,7 +148,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         this.baseMapper.updateById(sysRole);
 
         // 更新角色数据范围关系
-        if (dataScopeDto.getDataScope().equals(DataScopeType.CUSTOM.value())) {
+        if (dataScopeDto.getDataScope() == DataScopeType.CUSTOM) {
             this.sysRoleDataScopeService.saveOrUpdate(dataScopeDto.getId(), dataScopeDto.getOrgIds());
         } else {
             this.sysRoleDataScopeService.deleteByRoleIds(Collections.singletonList(dataScopeDto.getId()));

@@ -1,6 +1,7 @@
 package com.brycehan.cloud.common.core.base;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.brycehan.cloud.common.core.enums.SourceClientType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,7 +18,7 @@ public class LoginUserContextHolder {
     private static final InheritableThreadLocal<LoginUser> CONTEXT_HOLDER = new TransmittableThreadLocal<>();
     private static final InheritableThreadLocal<String> USER_KEY_HOLDER = new TransmittableThreadLocal<>();
     private static final InheritableThreadLocal<String> USER_DATA_HOLDER = new TransmittableThreadLocal<>();
-    private static final InheritableThreadLocal<String> SOURCE_CLIENT_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<SourceClientType> SOURCE_CLIENT_HOLDER = new TransmittableThreadLocal<>();
 
 
     /**
@@ -83,7 +84,7 @@ public class LoginUserContextHolder {
      * 获取客户端类型
      * @return 客户端类型
      */
-    public static String getSourceClient() {
+    public static SourceClientType getSourceClient() {
         return SOURCE_CLIENT_HOLDER.get();
     }
 
@@ -92,7 +93,7 @@ public class LoginUserContextHolder {
      *
      * @param sourceClient 客户端类型
      */
-    public static void setSourceClient(String sourceClient) {
+    public static void setSourceClient(SourceClientType sourceClient) {
         SOURCE_CLIENT_HOLDER.set(sourceClient);
     }
 

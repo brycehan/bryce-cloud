@@ -4,7 +4,6 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -13,6 +12,7 @@ import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
+import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysParamConvert;
@@ -190,7 +190,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public <T> T getJSONObject(String paramKey, Class<T> valueType) {
         String value = getString(paramKey);
-        return JSONUtil.toBean(value, valueType);
+        return JsonUtils.readValue(value, valueType);
     }
 
     @Override

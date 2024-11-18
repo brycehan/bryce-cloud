@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.enums.LoginOperateType;
+import com.brycehan.cloud.common.core.enums.OperationStatusType;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -90,7 +92,7 @@ public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLogMapper, S
     }
 
     @Override
-    public void save(String username, boolean status, Integer info) {
+    public void save(String username, OperationStatusType status, LoginOperateType info) {
         LoginUser loginUser = LoginUserContext.currentUser();
         if (loginUser == null) {
             return;

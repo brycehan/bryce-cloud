@@ -1,8 +1,10 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
+import com.brycehan.cloud.common.core.enums.OperationStatusType;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
+import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -78,7 +80,7 @@ public class SysOperateLogDto extends BaseDto {
      */
     @Schema(description = "操作类型")
     @Size(max = 20, groups = {SaveGroup.class, UpdateGroup.class})
-    private String operatedType;
+    private OperatedType operatedType;
 
     /**
      * 操作时间
@@ -96,7 +98,7 @@ public class SysOperateLogDto extends BaseDto {
      * 操作状态（0：失败，1：成功）
      */
     @Schema(description = "操作状态（0：失败，1：成功）")
-    private Boolean status;
+    private OperationStatusType status;
 
     /**
      * User Agent
