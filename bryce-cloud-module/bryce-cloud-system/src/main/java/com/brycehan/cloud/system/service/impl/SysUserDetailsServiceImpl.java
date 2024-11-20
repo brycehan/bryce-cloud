@@ -4,7 +4,7 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.constant.DataConstants;
-import com.brycehan.cloud.common.core.enums.DataScopeType;
+import com.brycehan.cloud.common.core.enums.DataScope;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
@@ -108,10 +108,10 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
             return new HashSet<>();
         }
 
-        if (dataScope.equals(DataScopeType.ALL.value())) {
+        if (dataScope.equals(DataScope.ALL.value())) {
             // 全部数据范围权限，则返回null
             return null;
-        } else if (dataScope.equals(DataScopeType.ORG_AND_CHILDREN.value())) {
+        } else if (dataScope.equals(DataScope.ORG_AND_CHILDREN.value())) {
             // 本机构及子机构数据
             List<Long> dataScopeList = this.sysOrgService.getSubOrgIds(loginUser.getOrgId());
             // 自定义数据权限范围
@@ -119,7 +119,7 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
             dataScopeList.addAll(dataScopeOrgIds.stream().filter(Objects::nonNull).toList());
 
             return Set.copyOf(dataScopeList);
-        } else if (dataScope.equals(DataScopeType.ORG_ONLY.value())) {
+        } else if (dataScope.equals(DataScope.ORG_ONLY.value())) {
             // 本机构数据
             List<Long> dataScopeList = new ArrayList<>();
             dataScopeList.add(loginUser.getOrgId());
@@ -127,7 +127,7 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
             dataScopeList.addAll(this.sysRoleDataScopeMapper.getDataScopeOrgIds(loginUser.getId()));
 
             return Set.copyOf(dataScopeList);
-        } else if (dataScope.equals(DataScopeType.CUSTOM.value())) {
+        } else if (dataScope.equals(DataScope.CUSTOM.value())) {
             // 自定义数据权限范围
             List<Long> dataScopeOrgIds = this.sysRoleDataScopeMapper.getDataScopeOrgIds(loginUser.getId());
             return Set.copyOf(dataScopeOrgIds);

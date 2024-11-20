@@ -3,28 +3,24 @@ package com.brycehan.cloud.common.core.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
- * 数据范围类型
+ * 操作状态
  *
- * @since 2022/5/8
+ * @since 2022/11/21
  * @author Bryce Han
  */
 @Getter
-public enum DataScopeType {
+public enum OperateStatus {
 
-    ALL(1, "全部数据"),
-    ORG_AND_CHILDREN(2, "本机构及以下机构数据"),
-    ORG_ONLY(3, "本机构数据"),
-    SELF(4, "本人数据"),
-    CUSTOM(5, "自定义数据");
+    SUCCESS(1, "成功"),
+    FAIL(0, "失败");
 
     /**
-     * 类型值
+     * 状态值
      */
-    @EnumValue
     @JsonValue
+    @EnumValue
     private final Integer value;
 
     /**
@@ -32,7 +28,7 @@ public enum DataScopeType {
      */
     private final String desc;
 
-    DataScopeType(Integer value, String desc) {
+    OperateStatus(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }

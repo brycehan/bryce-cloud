@@ -5,16 +5,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
- * 状态类型
+ * 通知状态
  *
- * @since 2022/5/9
+ * @since 2022/11/21
  * @author Bryce Han
  */
 @Getter
-public enum StatusType {
+@SuppressWarnings("unused")
+public enum NoticeStatus {
 
-    ENABLE(1, "正常"),
-    DISABLE(0, "停用");
+    OFF(0, "关闭"),
+    ON(1, "正常"),
+    ;
 
     /**
      * 状态值
@@ -28,7 +30,7 @@ public enum StatusType {
      */
     private final String desc;
 
-    StatusType(Integer value, String desc) {
+    NoticeStatus(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }

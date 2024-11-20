@@ -1,8 +1,8 @@
 package com.brycehan.cloud.api.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
-import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.LoginStatus;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.core.validator.SaveGroup;
 import com.brycehan.cloud.common.core.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,12 +32,12 @@ public class SysLoginLogDto extends BaseDto {
      * 登录状态
      */
     @Schema(description = "登录状态")
-    private OperationStatusType status;
+    private OperateStatus status;
 
     /**
      * 操作信息
      */
     @Schema(description = "操作信息")
-    private LoginOperateType info;
+    private LoginStatus info;
 
 }

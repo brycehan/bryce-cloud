@@ -15,8 +15,8 @@ import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
-import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.LoginStatus;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -55,8 +55,8 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             // 保存登录日志
             SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
             sysLoginLogDto.setUsername(accountLoginDto.getUsername());
-            sysLoginLogDto.setStatus(OperationStatusType.FAIL);
-            sysLoginLogDto.setInfo(LoginOperateType.CAPTCHA_FAIL);
+            sysLoginLogDto.setStatus(OperateStatus.FAIL);
+            sysLoginLogDto.setInfo(LoginStatus.CAPTCHA_FAIL);
             this.sysLoginLogApi.save(sysLoginLogDto);
             throw new ServerException("验证码错误");
         }
@@ -145,8 +145,8 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         // 记录用户退出日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(loginUser.getUsername());
-        sysLoginLogDto.setStatus(OperationStatusType.SUCCESS);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGOUT_SUCCESS);
+        sysLoginLogDto.setStatus(OperateStatus.SUCCESS);
+        sysLoginLogDto.setInfo(LoginStatus.LOGOUT_SUCCESS);
         this.sysLoginLogApi.save(sysLoginLogDto);
     }
 

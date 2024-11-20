@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
- * 登录操作类型
+ * 登录状态
  *
  * @since 2023/9/25
  * @author Bryce Han
  */
 @Getter
-public enum LoginOperateType {
+public enum LoginStatus {
 
     LOGIN_SUCCESS(0, "登录成功"),
     LOGOUT_SUCCESS(1, "退出成功"),
@@ -30,7 +30,7 @@ public enum LoginOperateType {
      */
     private final String desc;
 
-    LoginOperateType(Integer value, String desc) {
+    LoginStatus(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }

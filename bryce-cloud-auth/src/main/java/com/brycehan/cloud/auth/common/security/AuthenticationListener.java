@@ -5,8 +5,8 @@ import com.brycehan.cloud.api.system.client.SysUserClient;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.LoginStatus;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -44,8 +44,8 @@ public class AuthenticationListener {
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(loginUser.getUsername());
-        sysLoginLogDto.setStatus(OperationStatusType.SUCCESS);
-        sysLoginLogDto.setInfo(LoginOperateType.LOGIN_SUCCESS);
+        sysLoginLogDto.setStatus(OperateStatus.SUCCESS);
+        sysLoginLogDto.setInfo(LoginStatus.LOGIN_SUCCESS);
         this.sysLoginLogClient.save(sysLoginLogDto);
 
         // 更新用户登录信息
@@ -70,8 +70,8 @@ public class AuthenticationListener {
         // 记录登录日志
         SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
         sysLoginLogDto.setUsername(username);
-        sysLoginLogDto.setStatus(OperationStatusType.FAIL);
-        sysLoginLogDto.setInfo(LoginOperateType.ACCOUNT_FAIL);
+        sysLoginLogDto.setStatus(OperateStatus.FAIL);
+        sysLoginLogDto.setInfo(LoginStatus.ACCOUNT_FAIL);
         this.sysLoginLogClient.save(sysLoginLogDto);
     }
 

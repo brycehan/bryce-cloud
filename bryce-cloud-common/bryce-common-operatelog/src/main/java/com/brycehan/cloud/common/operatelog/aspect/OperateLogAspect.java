@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
@@ -72,12 +72,12 @@ public class OperateLogAspect {
             Object result = joinPoint.proceed();
 
             // 处理日志
-            handleLog(joinPoint, operateLog, startTime, OperationStatusType.SUCCESS);
+            handleLog(joinPoint, operateLog, startTime, OperateStatus.SUCCESS);
 
             return result;
         } catch (Throwable ex) {
             // 处理日志
-            handleLog(joinPoint, operateLog, startTime, OperationStatusType.FAIL);
+            handleLog(joinPoint, operateLog, startTime, OperateStatus.FAIL);
             throw ex;
         }
     }
@@ -90,7 +90,7 @@ public class OperateLogAspect {
      * @param startTime 操作开始时间
      * @param status 操作状态
      */
-    private void handleLog(final ProceedingJoinPoint joinPoint, OperateLog operateLog, LocalDateTime startTime, OperationStatusType status) {
+    private void handleLog(final ProceedingJoinPoint joinPoint, OperateLog operateLog, LocalDateTime startTime, OperateStatus status) {
         OperateLogDto operateLogDto = new OperateLogDto();
 
         Annotation[] annotations = getClassAnnotations(joinPoint);

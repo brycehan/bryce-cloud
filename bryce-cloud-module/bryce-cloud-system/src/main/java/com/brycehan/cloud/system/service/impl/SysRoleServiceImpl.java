@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
-import com.brycehan.cloud.common.core.enums.DataScopeType;
+import com.brycehan.cloud.common.core.enums.DataScope;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -54,7 +54,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         sysRole.setId(IdGenerator.nextId());
 
         // 保存角色
-        sysRole.setDataScope(DataScopeType.SELF);
+        sysRole.setDataScope(DataScope.SELF);
         this.baseMapper.insert(sysRole);
 
         // 保存角色菜单关系
@@ -148,7 +148,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         this.baseMapper.updateById(sysRole);
 
         // 更新角色数据范围关系
-        if (dataScopeDto.getDataScope() == DataScopeType.CUSTOM) {
+        if (dataScopeDto.getDataScope() == DataScope.CUSTOM) {
             this.sysRoleDataScopeService.saveOrUpdate(dataScopeDto.getId(), dataScopeDto.getOrgIds());
         } else {
             this.sysRoleDataScopeService.deleteByRoleIds(Collections.singletonList(dataScopeDto.getId()));

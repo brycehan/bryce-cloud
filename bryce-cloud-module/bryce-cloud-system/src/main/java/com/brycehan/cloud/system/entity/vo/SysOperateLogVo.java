@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.entity.vo;
 
 import com.brycehan.cloud.common.core.base.Trans;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -94,7 +94,7 @@ public class SysOperateLogVo implements Serializable {
      * 操作状态（0：失败，1：成功）
      */
     @Schema(description = "操作状态（0：失败，1：成功）")
-    private OperationStatusType status;
+    private OperateStatus status;
 
     /**
      * User Agent

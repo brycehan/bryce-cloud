@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.operatelog.aspect;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import lombok.Data;
 
@@ -69,7 +69,7 @@ public class OperateLogDto extends BaseDto {
     /**
      * 操作状态（0：失败，1：成功）
      */
-    private OperationStatusType status;
+    private OperateStatus status;
 
     /**
      * User Agent

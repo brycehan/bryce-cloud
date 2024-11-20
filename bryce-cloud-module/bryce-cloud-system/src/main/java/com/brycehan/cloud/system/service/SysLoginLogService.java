@@ -1,8 +1,8 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.enums.LoginOperateType;
-import com.brycehan.cloud.common.core.enums.OperationStatusType;
+import com.brycehan.cloud.common.core.enums.LoginStatus;
+import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
@@ -53,5 +53,5 @@ public interface SysLoginLogService extends BaseService<SysLoginLog> {
      * @param status   登录状态
      * @param info     操作信息
      */
-    void save(String username, OperationStatusType status, LoginOperateType info);
+    void save(String username, OperateStatus status, LoginStatus info);
 }

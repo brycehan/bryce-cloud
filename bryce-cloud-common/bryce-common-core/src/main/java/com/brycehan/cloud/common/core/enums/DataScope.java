@@ -5,22 +5,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
- * 状态类型
+ * 数据范围
  *
- * @since 2022/5/9
+ * @since 2022/5/8
  * @author Bryce Han
  */
 @Getter
-public enum StatusType {
+public enum DataScope {
 
-    ENABLE(1, "正常"),
-    DISABLE(0, "停用");
+    ALL(1, "全部数据"),
+    ORG_AND_CHILDREN(2, "本机构及以下机构数据"),
+    ORG_ONLY(3, "本机构数据"),
+    SELF(4, "本人数据"),
+    CUSTOM(5, "自定义数据");
 
     /**
-     * 状态值
+     * 类型值
      */
-    @JsonValue
     @EnumValue
+    @JsonValue
     private final Integer value;
 
     /**
@@ -28,7 +31,7 @@ public enum StatusType {
      */
     private final String desc;
 
-    StatusType(Integer value, String desc) {
+    DataScope(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }
