@@ -105,8 +105,8 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         this.baseMapper.deleteByIds(ids);
 
         // 删除缓存
-        Object[] paramKeys = sysParams.stream().map(SysParam::getParamKey)
-                .filter(StrUtil::isNotBlank).toArray();
+        List<String> paramKeys = sysParams.stream().map(SysParam::getParamKey)
+                .filter(StrUtil::isNotBlank).toList();
         if(ArrayUtil.isNotEmpty(paramKeys)) {
             this.stringRedisTemplate.opsForHash()
                     .delete(CacheConstants.SYSTEM_PARAM_KEY, paramKeys);

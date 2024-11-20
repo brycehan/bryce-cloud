@@ -12,21 +12,26 @@ import lombok.Getter;
  */
 @Getter
 public enum GenderType {
-    /**
-     * 男
-     */
-    MALE("M"),
-    /**
-     * 女
-     */
-    FEMALE("F");
 
+    MALE("M", "男"),
+    FEMALE("F", "女"),
+    UNKNOWN("N", "未知");
+
+    /**
+     * 类型值
+     */
     @EnumValue
     @JsonValue
     private final String value;
 
-    GenderType(String value) {
+    /**
+     * 描述
+     */
+    private final String desc;
+
+    GenderType(String value, String desc) {
         this.value = value;
+        this.desc = desc;
     }
 
 }

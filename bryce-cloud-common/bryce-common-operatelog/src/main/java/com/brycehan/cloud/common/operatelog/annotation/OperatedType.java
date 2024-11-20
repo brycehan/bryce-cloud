@@ -1,7 +1,8 @@
 package com.brycehan.cloud.common.operatelog.annotation;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 操作类型
@@ -10,64 +11,35 @@ import lombok.RequiredArgsConstructor;
  * @author Bryce Han
  */
 @Getter
-@RequiredArgsConstructor
 public enum OperatedType {
 
-    /**
-     * 新增
-     */
-    INSERT("新增"),
+    INSERT(0, "新增"),
+    UPDATE(1, "修改"),
+    DELETE(2, "删除"),
+    GET(3, "查询"),
+    IMPORT(4, "导入"),
+    EXPORT(5, "导出"),
+    GRANT(6, "授权"),
+    FORCE_QUIT(7, "强退"),
+    GEN_CODE(8, "生成代码"),
+    CLEAN_DATA(9, "清空数据"),
+    OTHER(10, "其它");
 
     /**
-     * 修改
+     * 类型值
      */
-    UPDATE("修改"),
+    @JsonValue
+    @EnumValue
+    private final Integer value;
 
     /**
-     * 删除
+     * 描述
      */
-    DELETE("删除"),
+    private final String desc;
 
-    /**
-     * 查询
-     */
-    GET("查询"),
-
-    /**
-     * 导入
-     */
-    IMPORT("导入"),
-
-    /**
-     * 导出
-     */
-    EXPORT("导出"),
-
-    /**
-     * 授权
-     */
-    GRANT("授权"),
-
-    /**
-     * 强退
-     */
-    FORCE_QUIT("强退"),
-
-    /**
-     * 生成代码
-     */
-    GEN_CODE("生成代码"),
-
-    /**
-     * 清空数据
-     */
-    CLEAN_DATA("清空数据"),
-
-    /**
-     * 其它
-     */
-    OTHER("其它");
-
-    private final String value;
+    OperatedType(Integer value, String desc) {
+        this.value = value;
+        this.desc = desc;
+    }
 
 }

@@ -15,8 +15,15 @@ public enum EmailType {
     LOGIN("login", "登录"),
     REGISTER("register", "注册账号");
 
+    /**
+     * 值
+     */
     @JsonValue
     private final String value;
+
+    /**
+     * 描述
+     */
     private final String desc;
 
     EmailType(String value, String desc) {

@@ -1,8 +1,7 @@
 package com.brycehan.cloud.auth.common;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 /**
  * 验证码类型
@@ -10,43 +9,19 @@ import lombok.RequiredArgsConstructor;
  * @author Bryce Han
  * @since 2023/11/23
  */
-@RequiredArgsConstructor
+@Getter
 public enum CaptchaType {
-    /**
-     * 登录
-     */
-    LOGIN("login"),
-    /**
-     * 注册
-     */
-    REGISTER("register");
 
-    private final String value;
+    LOGIN("login", "登录"),
+    REGISTER("register", "注册");
 
-    /**
-     * 获取值
-     *
-     * @return 值
-     */
     @JsonValue
-    public String value() {
-        return value;
-    }
+    private final String value;
+    private final String desc;
 
-    /**
-     * 根据值获取枚举
-     *
-     * @param value 值
-     * @return 枚举
-     */
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CaptchaType getByValue(String value) {
-        for (CaptchaType captchaType : values()) {
-            if (captchaType.value.equals(value)) {
-                return captchaType;
-            }
-        }
-        return null;
+    CaptchaType(String value, String desc) {
+        this.value = value;
+        this.desc = desc;
     }
 
 }

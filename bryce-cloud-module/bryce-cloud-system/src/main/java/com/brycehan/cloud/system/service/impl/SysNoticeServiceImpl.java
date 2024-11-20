@@ -71,12 +71,13 @@ public class SysNoticeServiceImpl extends BaseServiceImpl<SysNoticeMapper, SysNo
     @Override
     public PageResult<SysNoticeVo> page(SysNoticePageDto sysNoticePageDto) {
         IPage<SysNotice> page = this.baseMapper.selectPage(sysNoticePageDto.toPage(), getWrapper(sysNoticePageDto));
+
         List<SysNoticeVo> sysNoticeVoList = SysNoticeConvert.INSTANCE.convert(page.getRecords());
         // 处理创建用户名称
         Map<Long, String> usernames = sysUserService.getUsernamesByIds(sysNoticeVoList.stream().map(SysNoticeVo::getCreatedUserId).toList());
         sysNoticeVoList.forEach(sysNotice -> sysNotice.setCreatedUsername(usernames.get(sysNotice.getCreatedUserId())));
 
-        return new PageResult<>(page.getTotal(), SysNoticeConvert.INSTANCE.convert(page.getRecords()));
+        return new PageResult<>(page.getTotal(), sysNoticeVoList);
     }
 
     /**
