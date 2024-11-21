@@ -1,8 +1,9 @@
 package com.brycehan.cloud.system.entity.vo;
 
-import com.brycehan.cloud.common.core.base.Trans;
+import com.brycehan.cloud.common.core.enums.EnumTypeDescSerializer;
 import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -69,14 +70,8 @@ public class SysOperateLogVo implements Serializable {
      * 操作类型
      */
     @Schema(description = "操作类型")
-    @Trans(dict = "sys_operate_type", ref = "operatedTypeName")
+    @JsonSerialize(using = EnumTypeDescSerializer.class)
     private OperatedType operatedType;
-
-    /**
-     * 操作类型名称
-     */
-    @Schema(description = "操作类型名称")
-    private String operatedTypeName;
 
     /**
      * 操作时间

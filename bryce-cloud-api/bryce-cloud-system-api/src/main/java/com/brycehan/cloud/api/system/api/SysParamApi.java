@@ -2,7 +2,7 @@ package com.brycehan.cloud.api.system.api;
 
 import com.brycehan.cloud.api.system.entity.dto.SysParamDto;
 import com.brycehan.cloud.api.system.entity.vo.SysParamVo;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import org.springframework.web.bind.annotation.*;
 
 /**

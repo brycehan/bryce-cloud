@@ -3,7 +3,7 @@ package com.brycehan.cloud.auth.controller;
 import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

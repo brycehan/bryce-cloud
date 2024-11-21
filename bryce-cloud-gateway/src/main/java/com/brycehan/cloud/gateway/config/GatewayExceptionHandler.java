@@ -1,6 +1,6 @@
 package com.brycehan.cloud.gateway.config;
 
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
 import com.brycehan.cloud.gateway.utils.ReactiveUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;

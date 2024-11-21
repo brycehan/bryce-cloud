@@ -10,7 +10,7 @@ import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.core.enums.SmsType;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.util.RegexUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

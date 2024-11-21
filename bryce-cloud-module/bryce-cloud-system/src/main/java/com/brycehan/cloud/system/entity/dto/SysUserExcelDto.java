@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.brycehan.cloud.common.core.base.UnTrans;
+import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import lombok.Data;
@@ -25,12 +25,6 @@ public class SysUserExcelDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * ID
-     * <p>本属性对于导入无用，只是用于翻译</p>
-     */
-    private Long id;
-
-    /**
      * 账号
      */
     @ExcelProperty(value = "账号")
@@ -45,14 +39,8 @@ public class SysUserExcelDto implements Serializable {
     /**
      * 性别（M：男, F：女，N：未知）
      */
-    @UnTrans(dict = "sys_user_gender", ref = "genderLabel")
+    @ExcelProperty(value = "性别", converter = EnumTypeDescConverter.class)
     private GenderType gender;
-
-    /**
-     * 性别
-     */
-    @ExcelProperty(value = "性别")
-    private String genderLabel;
 
     /**
      * 手机号码
@@ -75,14 +63,8 @@ public class SysUserExcelDto implements Serializable {
     /**
      * 状态（0：停用，1：正常）
      */
-    @UnTrans(dict = "sys_status", ref = "statusLabel")
+    @ExcelProperty(value = "状态", converter = EnumTypeDescConverter.class)
     private StatusType status;
-
-    /**
-     * 状态
-     */
-    @ExcelProperty(value = "状态")
-    private String statusLabel;
 
     /**
      * 创建时间

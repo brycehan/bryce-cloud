@@ -1,7 +1,7 @@
 package com.brycehan.cloud.api.system.api;
 
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

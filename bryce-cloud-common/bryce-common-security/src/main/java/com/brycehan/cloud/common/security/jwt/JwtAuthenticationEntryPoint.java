@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.security.jwt;
 
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

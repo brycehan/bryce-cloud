@@ -4,7 +4,7 @@ import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

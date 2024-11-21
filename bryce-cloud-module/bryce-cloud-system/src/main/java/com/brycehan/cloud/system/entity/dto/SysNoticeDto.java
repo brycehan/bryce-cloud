@@ -3,13 +3,12 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.NoticeType;
 import com.brycehan.cloud.common.core.enums.StatusType;
-import com.brycehan.cloud.common.core.validator.SaveGroup;
-import com.brycehan.cloud.common.core.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.base.validator.SaveGroup;
+import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.aspectj.weaver.ast.Not;
 
 /**
  * 系统通知公告Dto

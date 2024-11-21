@@ -16,8 +16,8 @@ import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
-import com.brycehan.cloud.common.core.response.ResponseResult;
-import com.brycehan.cloud.common.core.response.UserResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.UserResponseStatus;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -226,8 +226,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     public void export(SysUserPageDto sysUserPageDto) {
         List<SysUser> sysUserList = this.baseMapper.selectList(getWrapper(sysUserPageDto));
         List<SysUserVo> sysUserVoList = SysUserConvert.INSTANCE.convert(sysUserList);
-        // 数据字典翻译
-        ExcelUtils.transList(sysUserVoList);
         String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
         ExcelUtils.export(SysUserVo.class, "系统用户_".concat(today), "系统用户", sysUserVoList);
     }
@@ -241,7 +239,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveUsers(List<SysUserExcelDto> list, String password) {
-        ExcelUtils.unTransList(list);
         List<SysUser> sysUsers = SysUserConvert.INSTANCE.convertList(list);
         sysUsers.forEach(sysUser -> {
             sysUser.setId(IdGenerator.nextId());

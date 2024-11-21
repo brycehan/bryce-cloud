@@ -1,7 +1,7 @@
 package com.brycehan.cloud.api.storage.api;
 
 import com.brycehan.cloud.api.storage.entity.StorageVo;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

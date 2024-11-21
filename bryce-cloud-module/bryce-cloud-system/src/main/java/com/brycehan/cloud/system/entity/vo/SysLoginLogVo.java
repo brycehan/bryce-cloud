@@ -3,7 +3,7 @@ package com.brycehan.cloud.system.entity.vo;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import com.brycehan.cloud.common.core.base.Trans;
+import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.LoginStatus;
 import com.brycehan.cloud.common.core.enums.OperateStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,13 +44,10 @@ public class SysLoginLogVo implements Serializable {
     /**
      * 操作信息
      */
-    @Trans(dict = "sys_login_status", ref = "infoLabel")
+    @ColumnWidth(14)
+    @ExcelProperty(value = "操作信息", index = 1, converter = EnumTypeDescConverter.class)
     @Schema(description = "操作信息")
     private LoginStatus info;
-
-    @ColumnWidth(14)
-    @ExcelProperty(value = "操作信息", index = 1)
-    private String infoLabel;
 
     /**
      * 登录IP
@@ -96,15 +93,9 @@ public class SysLoginLogVo implements Serializable {
      * 状态（0：失败，1：成功）
      */
     @Schema(description = "状态（0：失败，1：成功）")
-    @Trans(dict = "sys_operate_status", ref = "statusLabel")
-    private OperateStatus status;
-
-    /**
-     * 状态（0：失败，1：成功）
-     */
     @ColumnWidth(14)
-    @ExcelProperty(value = "操作状态", index = 2)
-    private String statusLabel;
+    @ExcelProperty(value = "操作状态", index = 2, converter = EnumTypeDescConverter.class)
+    private OperateStatus status;
 
     /**
      * 访问时间

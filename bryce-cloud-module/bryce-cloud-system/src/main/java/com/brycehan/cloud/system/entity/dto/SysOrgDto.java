@@ -2,8 +2,8 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.TreeNode;
-import com.brycehan.cloud.common.core.validator.SaveGroup;
-import com.brycehan.cloud.common.core.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.base.validator.SaveGroup;
+import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

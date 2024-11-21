@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.core.validator;
+package com.brycehan.cloud.common.core.base.validator;
 
 /**
  * 保存组

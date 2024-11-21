@@ -2,8 +2,8 @@ package com.brycehan.cloud.auth.controller;
 
 import com.brycehan.cloud.api.system.entity.dto.RegisterDto;
 import com.brycehan.cloud.auth.service.AuthRegisterService;
-import com.brycehan.cloud.common.core.response.ResponseResult;
-import com.brycehan.cloud.common.core.response.UserResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.UserResponseStatus;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import io.swagger.v3.oas.annotations.Operation;

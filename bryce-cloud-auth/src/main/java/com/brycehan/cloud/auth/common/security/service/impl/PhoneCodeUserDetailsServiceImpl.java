@@ -3,7 +3,7 @@ package com.brycehan.cloud.auth.common.security.service.impl;
 import com.brycehan.cloud.api.system.api.SysUserApi;
 import com.brycehan.cloud.auth.common.security.service.PhoneCodeUserDetailsService;
 import com.brycehan.cloud.common.core.base.LoginUser;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

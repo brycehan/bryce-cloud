@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.core.base;
 
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
-import com.brycehan.cloud.common.core.response.ResponseStatus;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseStatus;
 import com.brycehan.cloud.common.core.util.StringFormatUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,10 +1,10 @@
 package com.brycehan.cloud.common.server.controller;
 
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
-import com.brycehan.cloud.common.core.response.ResponseResult;
-import com.brycehan.cloud.common.core.response.UploadResponseStatus;
-import com.brycehan.cloud.common.core.response.UserResponseStatus;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.UploadResponseStatus;
+import com.brycehan.cloud.common.core.base.response.UserResponseStatus;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;

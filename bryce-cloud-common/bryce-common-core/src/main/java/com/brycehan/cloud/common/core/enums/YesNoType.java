@@ -3,6 +3,7 @@ package com.brycehan.cloud.common.core.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 是/否类型
@@ -11,7 +12,9 @@ import lombok.Getter;
  * @since 2024/11/18
  */
 @Getter
-public enum YesNoType {
+@SuppressWarnings("unused")
+@RequiredArgsConstructor
+public enum YesNoType implements EnumType {
 
     YES("Y", "是"),
     NO("N", "否");
@@ -28,9 +31,19 @@ public enum YesNoType {
      */
     private final String desc;
 
-    YesNoType(String value, String desc) {
-        this.value = value;
-        this.desc = desc;
+    /**
+     * 根据描述获取枚举类型
+     *
+     * @param desc 描述
+     * @return 枚举类型
+     */
+    public static YesNoType getByDesc(String desc) {
+        for (YesNoType type : values()) {
+            if (type.getDesc().equals(desc)) {
+                return type;
+            }
+        }
+        return null;
     }
 
 }

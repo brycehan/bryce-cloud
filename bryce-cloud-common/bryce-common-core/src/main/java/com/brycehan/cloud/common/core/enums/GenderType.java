@@ -3,6 +3,7 @@ package com.brycehan.cloud.common.core.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 性别类型
@@ -11,7 +12,9 @@ import lombok.Getter;
  * @since 2023/11/23
  */
 @Getter
-public enum GenderType {
+@SuppressWarnings("unused")
+@RequiredArgsConstructor
+public enum GenderType implements EnumType {
 
     MALE("M", "男"),
     FEMALE("F", "女"),
@@ -29,9 +32,19 @@ public enum GenderType {
      */
     private final String desc;
 
-    GenderType(String value, String desc) {
-        this.value = value;
-        this.desc = desc;
+    /**
+     * 根据描述获取枚举类型
+     *
+     * @param desc 描述
+     * @return 枚举类型
+     */
+    public static GenderType getByDesc(String desc) {
+        for (GenderType genderType : values()) {
+            if (genderType.getDesc().equals(desc)) {
+                return genderType;
+            }
+        }
+        return null;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.brycehan.cloud.api.sms.api;
 
 import com.brycehan.cloud.common.core.enums.SmsType;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

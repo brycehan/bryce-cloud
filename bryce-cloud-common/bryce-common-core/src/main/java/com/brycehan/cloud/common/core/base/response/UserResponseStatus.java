@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.core.response;
+package com.brycehan.cloud.common.core.base.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

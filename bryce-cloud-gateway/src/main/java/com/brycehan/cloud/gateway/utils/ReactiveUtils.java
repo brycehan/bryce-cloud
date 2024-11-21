@@ -1,7 +1,7 @@
 package com.brycehan.cloud.gateway.utils;
 
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

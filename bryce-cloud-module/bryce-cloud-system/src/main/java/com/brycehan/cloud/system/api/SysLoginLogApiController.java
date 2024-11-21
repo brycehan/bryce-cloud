@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.api;
 
 import com.brycehan.cloud.api.system.api.SysLoginLogApi;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.system.service.SysLoginLogService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

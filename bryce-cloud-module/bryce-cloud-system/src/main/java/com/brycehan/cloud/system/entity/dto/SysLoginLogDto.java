@@ -2,8 +2,8 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.LoginStatus;
-import com.brycehan.cloud.common.core.validator.SaveGroup;
-import com.brycehan.cloud.common.core.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.base.validator.SaveGroup;
+import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.server.controller;
 
-import com.brycehan.cloud.common.core.response.HttpResponseStatus;
-import com.brycehan.cloud.common.core.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
