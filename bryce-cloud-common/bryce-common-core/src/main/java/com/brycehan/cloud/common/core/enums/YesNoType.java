@@ -32,6 +32,21 @@ public enum YesNoType implements EnumType {
     private final String desc;
 
     /**
+     * 根据值获取描述
+     *
+     * @param value 值
+     * @return 描述
+     */
+    public static String getDesc(String value) {
+        for (YesNoType type : values()) {
+            if (type.getValue().equals(value)) {
+                return type.getDesc();
+            }
+        }
+        return null;
+    }
+
+    /**
      * 根据描述获取枚举类型
      *
      * @param desc 描述

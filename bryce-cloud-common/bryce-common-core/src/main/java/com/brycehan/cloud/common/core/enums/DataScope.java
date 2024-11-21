@@ -49,4 +49,19 @@ public enum DataScope implements EnumType {
         return null;
     }
 
+    /**
+     * 根据描述获取枚举
+     *
+     * @param desc 描述
+     * @return 枚举
+     */
+    public static DataScope getByDesc(String desc) {
+        for (DataScope dataScope : DataScope.values()) {
+            if (dataScope.getDesc().equals(desc)) {
+                return dataScope;
+            }
+        }
+        return null;
+    }
+
 }
