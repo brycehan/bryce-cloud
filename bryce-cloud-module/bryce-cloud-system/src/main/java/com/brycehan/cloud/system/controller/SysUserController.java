@@ -1,6 +1,8 @@
 package com.brycehan.cloud.system.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.entity.PageResult;
@@ -8,6 +10,7 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.dto.*;
@@ -22,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -130,6 +134,17 @@ public class SysUserController {
     }
 
     /**
+     * 下载导入用户模板
+     */
+    @Operation(summary = "下载导入用户模板")
+    @PreAuthorize("hasAuthority('system:user:import')")
+    @GetMapping(path = "/importTemplate")
+    public void importTemplate() {
+        String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
+        ExcelUtils.export(SysUserExcelDto.class, "用户模板_" + today, "用户数据", null);
+    }
+
+    /**
      * 导入用户
      *
      * @param file 文件的 Excel 文件
@@ -139,14 +154,9 @@ public class SysUserController {
     @OperateLog(type = OperatedType.IMPORT)
     @PreAuthorize("hasAuthority('system:user:import')")
     @PostMapping(path = "/import")
-    public ResponseResult<Void> importByExcel(@RequestPart MultipartFile file) {
-        if(file.isEmpty()) {
-            return ResponseResult.error("请选择需要上传的文件");
-        }
-
-        this.sysUserService.importByExcel(file, "123456");
-
-        return ResponseResult.ok();
+    public ResponseResult<String> importByExcel(@RequestParam MultipartFile file, boolean isUpdateSupport) {
+        String message = this.sysUserService.importByExcel(file, isUpdateSupport);
+        return ResponseResult.ok(null, message);
     }
 
     /**
