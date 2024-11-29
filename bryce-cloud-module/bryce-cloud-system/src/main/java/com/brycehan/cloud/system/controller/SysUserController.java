@@ -10,6 +10,7 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
@@ -72,6 +73,15 @@ public class SysUserController {
         return ResponseResult.ok();
     }
 
+    @Operation(summary = "更新系统用户状态")
+    @OperateLog(type = OperatedType.UPDATE)
+    @PreAuthorize("hasAuthority('system:user:update')")
+    @PatchMapping(path = "/{id}/{status}")
+    public ResponseResult<Void> patch(@PathVariable Long id, @PathVariable StatusType status) {
+        this.sysUserService.update(id, status);
+        return ResponseResult.ok();
+    }
+
     /**
      * 删除系统用户
      *
@@ -83,9 +93,8 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {
-        // 用户不能删除自己的账号
         if (CollectionUtil.contains(idsDto.getIds(), LoginUserContext.currentUserId())) {
-            throw new ServerException("不能删除当前登录用户");
+            throw new RuntimeException("当前用户不能删除");
         }
 
         this.sysUserService.delete(idsDto);
@@ -168,7 +177,7 @@ public class SysUserController {
     @Operation(summary = "重置密码")
     @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("hasAuthority('system:user:resetPassword')")
-    @PostMapping(path = "/resetPassword")
+    @PatchMapping(path = "/resetPassword")
     public ResponseResult<Void> resetPassword(@Validated @RequestBody SysResetPasswordDto sysResetPasswordDto) {
         this.sysUserService.resetPassword(sysResetPasswordDto);
         return ResponseResult.ok();

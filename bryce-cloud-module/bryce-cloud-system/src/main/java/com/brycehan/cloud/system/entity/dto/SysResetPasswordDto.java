@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -22,7 +22,7 @@ public class SysResetPasswordDto extends BaseDto {
      * ID
      */
     @Schema(description = "ID")
-    @NotBlank(message = "ID不能为空")
+    @NotNull
     private Long id;
 
     /**

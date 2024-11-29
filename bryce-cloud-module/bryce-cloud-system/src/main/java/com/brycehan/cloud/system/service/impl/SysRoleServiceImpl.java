@@ -1,5 +1,6 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -8,14 +9,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.enums.DataScope;
+import com.brycehan.cloud.common.core.enums.YesNoType;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
-import com.brycehan.cloud.system.entity.dto.SysRoleCodeDto;
-import com.brycehan.cloud.system.entity.dto.SysRoleDataScopeDto;
-import com.brycehan.cloud.system.entity.dto.SysRoleDto;
-import com.brycehan.cloud.system.entity.dto.SysRolePageDto;
+import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysRole;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
@@ -174,6 +173,26 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
         // 修改时，同角色编码同ID为编码唯一
         return Objects.isNull(sysRole) || Objects.equals(sysRoleCodeDto.getId(), sysRole.getId());
+    }
+
+    @Override
+    public PageResult<SysRoleVo> assignRolePage(SysAssignRolePageDto sysAssignRolePageDto) {
+        List<Long> roleIds = this.sysUserRoleService.getRoleIdsByUserId(sysAssignRolePageDto.getUserId());
+        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(SysRole::getId, SysRole::getName, SysRole::getCode, SysRole::getCreatedTime);
+
+        if (CollUtil.isEmpty(roleIds) && sysAssignRolePageDto.getAssigned() == YesNoType.YES) {
+            return new PageResult<>(0, new ArrayList<>(0));
+        }
+
+        if (sysAssignRolePageDto.getAssigned() == YesNoType.YES) {
+            queryWrapper.in(CollUtil.isNotEmpty(roleIds), SysRole::getId, roleIds);
+        } else {
+            queryWrapper.notIn(CollUtil.isNotEmpty(roleIds), SysRole::getId, roleIds);
+        }
+
+        IPage<SysRole> page = this.page(sysAssignRolePageDto.toPage(), queryWrapper);
+        return new PageResult<>(page.getTotal(), SysRoleConvert.INSTANCE.convert(page.getRecords()));
     }
 
 }

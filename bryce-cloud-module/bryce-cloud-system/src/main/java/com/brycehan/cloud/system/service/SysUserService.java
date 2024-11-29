@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysUser;
@@ -140,6 +141,13 @@ public interface SysUserService extends BaseService<SysUser> {
     void checkUserAllowed(SysUser sysUser);
 
     /**
+     * 校验用户数据权限
+     *
+     * @param sysUser 系统用户信息
+     */
+    void checkUserDataScope(SysUser sysUser);
+
+    /**
      * 更新个人信息
      *
      * @param sysUserInfoDto 个人信息
@@ -159,6 +167,14 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param passwordDto 系统用户密码Dto
      */
     void updatePassword(SysUserPasswordDto passwordDto);
+
+    /**
+     * 更新系统用户状态
+     *
+     * @param id 系统用户ID
+     * @param status 用户状态
+     */
+    void update(Long id, StatusType status);
 
     /**
      * 重置密码
