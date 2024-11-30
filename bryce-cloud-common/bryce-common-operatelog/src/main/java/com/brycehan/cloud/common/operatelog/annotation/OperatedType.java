@@ -1,8 +1,10 @@
 package com.brycehan.cloud.common.operatelog.annotation;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.brycehan.cloud.common.core.enums.EnumType;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 操作类型
@@ -11,7 +13,9 @@ import lombok.Getter;
  * @author Bryce Han
  */
 @Getter
-public enum OperatedType {
+@RequiredArgsConstructor
+@SuppressWarnings("unused")
+public enum OperatedType implements EnumType {
 
     INSERT(0, "新增"),
     UPDATE(1, "修改"),
@@ -37,9 +41,19 @@ public enum OperatedType {
      */
     private final String desc;
 
-    OperatedType(Integer value, String desc) {
-        this.value = value;
-        this.desc = desc;
+    /**
+     * 根据描述获取枚举值
+     *
+     * @param desc 描述
+     * @return 枚举值
+     */
+    public static OperatedType getByDesc(String desc) {
+        for (OperatedType type : values()) {
+            if (type.getDesc().equals(desc)) {
+                return type;
+            }
+        }
+        return null;
     }
 
 }
