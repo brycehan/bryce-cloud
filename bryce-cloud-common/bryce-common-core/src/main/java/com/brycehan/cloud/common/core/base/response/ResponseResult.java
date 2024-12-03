@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.core.base.response;
 
+import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.ServerException;
-import com.brycehan.cloud.common.core.util.StringFormatUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -134,8 +134,8 @@ public class ResponseResult<T> implements Serializable {
      * @param params         参数
      * @return 响应结果
      */
-    public static <T> ResponseResult<T> error(ResponseStatus responseStatus, String ...params) {
-        return error(responseStatus.code(), StringFormatUtils.format(responseStatus.message(), params));
+    public static <T> ResponseResult<T> error(ResponseStatus responseStatus, Object... params) {
+        return error(responseStatus.code(), StrUtil.format(responseStatus.message(), params));
     }
 
     /**

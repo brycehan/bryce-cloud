@@ -1,5 +1,10 @@
 package com.brycehan.cloud.system.entity.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
+import com.brycehan.cloud.system.common.ParamType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -15,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "系统参数Vo")
+@ExcelIgnoreUnannotated
 public class SysParamVo implements Serializable {
 
     @Serial
@@ -24,38 +30,47 @@ public class SysParamVo implements Serializable {
      * ID
      */
     @Schema(description = "ID")
+    @ColumnWidth(20)
+    @ExcelProperty("参数编号")
     private Long id;
 
     /**
      * 参数名称
      */
     @Schema(description = "参数名称")
+    @ColumnWidth(25)
+    @ExcelProperty("参数名称")
     private String paramName;
 
     /**
      * 参数键名
      */
     @Schema(description = "参数键名")
+    @ColumnWidth(30)
+    @ExcelProperty("参数键名")
     private String paramKey;
 
     /**
      * 参数值
      */
     @Schema(description = "参数值")
+    @ColumnWidth(14)
+    @ExcelProperty("参数值")
     private String paramValue;
 
     /**
-     * 参数类型（built_in：内置，system：系统）
+     * 参数类型（0：内置，0：应用）
      */
-    @Schema(description = "参数类型（built_in：内置，system：系统）")
-    private String paramType;
+    @Schema(description = "参数类型（0：内置，0：应用）")
+    @ColumnWidth(20)
+    @ExcelProperty(value = "参数类型", converter = EnumTypeDescConverter.class)
+    private ParamType paramType;
 
     /**
      * 备注
      */
     @Schema(description = "备注")
     private String remark;
-
 
     /**
      * 创建时间

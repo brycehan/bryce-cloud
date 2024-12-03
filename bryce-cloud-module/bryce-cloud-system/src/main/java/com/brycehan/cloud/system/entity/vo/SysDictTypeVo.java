@@ -1,5 +1,9 @@
 package com.brycehan.cloud.system.entity.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -16,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "系统字典类型Vo")
+@ExcelIgnoreUnannotated
 public class SysDictTypeVo implements Serializable {
 
     @Serial
@@ -25,18 +30,24 @@ public class SysDictTypeVo implements Serializable {
      * ID
      */
     @Schema(description = "ID")
+    @ColumnWidth(20)
+    @ExcelProperty(value = "字典编号")
     private Long id;
 
     /**
      * 字典名称
      */
     @Schema(description = "字典名称")
+    @ColumnWidth(20)
+    @ExcelProperty(value = "字典名称")
     private String dictName;
 
     /**
      * 字典类型
      */
     @Schema(description = "字典类型")
+    @ColumnWidth(20)
+    @ExcelProperty(value = "字典类型")
     private String dictType;
 
     /**
@@ -49,6 +60,8 @@ public class SysDictTypeVo implements Serializable {
      * 状态（0：停用，1：正常）
      */
     @Schema(description = "状态（0：停用，1：正常）")
+    @ColumnWidth(14)
+    @ExcelProperty(value = "状态", converter = EnumTypeDescConverter.class)
     private StatusType status;
 
     /**
@@ -56,7 +69,6 @@ public class SysDictTypeVo implements Serializable {
      */
     @Schema(description = "备注")
     private String remark;
-
 
     /**
      * 创建时间
