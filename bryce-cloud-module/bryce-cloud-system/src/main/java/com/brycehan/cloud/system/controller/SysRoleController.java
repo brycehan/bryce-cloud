@@ -182,9 +182,9 @@ public class SysRoleController {
     @Operation(summary = "分配数据权限")
     @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("hasAuthority('system:role:update')")
-    @PutMapping(path = "/dataScope")
-    public ResponseResult<Void> dataScope(@Validated @RequestBody SysRoleDataScopeDto dataScopeDto) {
-        this.sysRoleService.dataScope(dataScopeDto);
+    @PutMapping(path = "/assignDataScope")
+    public ResponseResult<Void> assignDataScope(@Validated @RequestBody SysRoleDataScopeDto dataScopeDto) {
+        this.sysRoleService.assignDataScope(dataScopeDto);
         return ResponseResult.ok();
     }
 
@@ -243,7 +243,7 @@ public class SysRoleController {
     @Operation(summary = "角色用户分页查询")
     @PreAuthorize("hasAuthority('system:role:page')")
     @PostMapping(path = "/user/page")
-    public ResponseResult<PageResult<SysUserVo>> userPage(@Validated @RequestBody SysRoleUserPageDto pageDto) {
+    public ResponseResult<PageResult<SysUserVo>> userPage(@Validated @RequestBody SysAssignUserPageDto pageDto) {
         PageResult<SysUserVo> page = this.sysUserService.roleUserPage(pageDto);
         return ResponseResult.ok(page);
     }

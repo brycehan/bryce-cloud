@@ -68,14 +68,4 @@ public class CacheConstants {
      */
     public static final String WORKER_ID_LOCK = LOCK_KEY + "worker_id";
 
-    /**
-     * 系统字典翻译键
-     */
-    public static final String SYSTEM_DICT_TRANS_KEY = "sys:dict:trans:";
-
-    /**
-     * 系统字典反向翻译键
-     */
-    public static final String SYSTEM_DICT_UN_TRANS_KEY = "sys:dict:un_trans:";
-
 }
