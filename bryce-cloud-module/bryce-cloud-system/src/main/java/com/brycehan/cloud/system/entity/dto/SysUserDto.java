@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,8 +44,9 @@ public class SysUserDto extends BaseDto {
      * 密码
      */
     @Schema(description = "密码")
-    @Size(max = 30, groups = {UpdateGroup.class})
-    @Size(min = 6, max = 30, groups = SaveGroup.class, message = "密码长度在6-30个字符")
+    @Length(max = 0, groups = {UpdateGroup.class}, message = "不能在些修改密码")
+    @Length(min = 6, max = 20, groups = SaveGroup.class)
+    @Pattern(regexp = "^[^\\s\\u4e00-\\u9fa5]*$", groups = SaveGroup.class, message = "不允许有空格、中文")
     private String password;
 
     /**

@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 /**
- * 上传响应状态枚举
+ * 用户响应状态枚举
+ * <br/>
+ * Warn 警告消息状态编码在 600-999 之间
  *
  * @since 2022/5/30
  * @author Bryce Han
@@ -14,13 +16,10 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(fluent = true)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-public enum UploadResponseStatus implements ResponseStatus {
+public enum SystemResponseStatus implements ResponseStatus {
 
-    UPLOAD_EXCEED_MAX_SIZE(1200, "上传的文件大小超出限制，允许的最大大小是：{}"),
-
-    UPLOAD_FILENAME_EXCEED_LENGTH(1201, "上传的文件名最长{}个字符"),
-
-    UPLOAD_INVALID_EXTENSION(1202, "文件[{}]后缀[{}]不正确，请上传{}格式");
+    ORG_LOWER_LEVEL_ORG_EXIST_CANNOT_BE_DELETED(601, "存在下级部门,不允许删除"),
+    ;
 
     /**
      * 状态编码

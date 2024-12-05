@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 系统字典类型编码Dto
@@ -27,9 +28,9 @@ public class SysDictTypeCodeDto extends BaseDto {
     /**
      * 字典类型
      */
+    @NotBlank
+    @Length(max = 100)
     @Schema(description = "字典类型")
-    @NotBlank(message = "字典类型不能为空")
-    @Size(max = 100, message = "字典类型长度在2-100个字符")
     private String dictType;
 
 }
