@@ -2,8 +2,11 @@ package com.brycehan.cloud.common.operatelog.aspect;
 
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.OperateStatus;
+import com.brycehan.cloud.common.core.enums.SourceClientType;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +17,8 @@ import java.time.LocalDateTime;
  * @author Bryce Han
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
+@Schema(description = "系统操作日志Dto")
 public class OperateLogDto extends BaseDto {
 
     /**
@@ -37,7 +42,7 @@ public class OperateLogDto extends BaseDto {
     private String requestUri;
 
     /**
-     * 请求方法
+     * 请求方式
      */
     private String requestMethod;
 
@@ -47,9 +52,14 @@ public class OperateLogDto extends BaseDto {
     private String requestParam;
 
     /**
-     * 返回消息
+     * 返回结果
      */
-    private String resultMessage;
+    private String jsonResult;
+
+    /**
+     * 错误消息
+     */
+    private String errorMessage;
 
     /**
      * 操作类型
@@ -72,11 +82,6 @@ public class OperateLogDto extends BaseDto {
     private OperateStatus status;
 
     /**
-     * User Agent
-     */
-    private String userAgent;
-
-    /**
      * 操作IP
      */
     private String ip;
@@ -85,6 +90,16 @@ public class OperateLogDto extends BaseDto {
      * 操作地点
      */
     private String location;
+
+    /**
+     * 来源客户端
+     */
+    private SourceClientType sourceClient;
+
+    /**
+     * User Agent
+     */
+    private String userAgent;
 
     /**
      * 操作人ID
@@ -100,6 +115,11 @@ public class OperateLogDto extends BaseDto {
      * 机构ID
      */
     private Long orgId;
+
+    /**
+     * 机构名称
+     */
+    private String orgName;
 
     /**
      * 创建时间

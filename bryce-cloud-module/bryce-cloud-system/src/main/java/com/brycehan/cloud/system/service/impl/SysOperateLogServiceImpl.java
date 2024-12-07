@@ -1,11 +1,14 @@
 package com.brycehan.cloud.system.service.impl;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.util.ExcelUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.operatelog.aspect.OperateLogDto;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -28,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
@@ -84,6 +88,14 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
     public PageResult<SysOperateLogVo> page(SysOperateLogPageDto sysOperateLogPageDto) {
         IPage<SysOperateLog> page = this.baseMapper.selectPage(sysOperateLogPageDto.toPage(), getWrapper(sysOperateLogPageDto));
         return new PageResult<>(page.getTotal(), SysOperateLogConvert.INSTANCE.convert(page.getRecords()));
+    }
+
+    @Override
+    public void export(SysOperateLogPageDto sysOperateLogPageDto) {
+        List<SysOperateLog> sysOperateLogList = this.baseMapper.selectList(getWrapper(sysOperateLogPageDto));
+        List<SysOperateLogVo> sysOperateLogVoList = SysOperateLogConvert.INSTANCE.convert(sysOperateLogList);
+        String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
+        ExcelUtils.export(SysOperateLogVo.class, "操作日志_".concat(today), "操作日志", sysOperateLogVoList);
     }
 
     @Override

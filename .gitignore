@@ -36,3 +36,4 @@ build/
 logs/
 *.log
 .flattened-pom.xml
+qodana.yaml

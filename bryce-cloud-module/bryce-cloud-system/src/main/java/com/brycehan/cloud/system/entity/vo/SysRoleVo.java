@@ -3,6 +3,8 @@ package com.brycehan.cloud.system.entity.vo;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentStyle;
+import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,6 +24,7 @@ import java.util.List;
 @Data
 @Schema(description = "系统角色Vo")
 @ExcelIgnoreUnannotated
+@ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER)
 public class SysRoleVo implements Serializable {
 
     @Serial

@@ -3,6 +3,8 @@ package com.brycehan.cloud.system.entity.dto;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentStyle;
+import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
@@ -23,6 +25,7 @@ import java.io.Serializable;
  */
 @Data
 @ExcelIgnoreUnannotated
+@ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER)
 public class SysUserExcelDto implements Serializable {
 
     @Serial

@@ -3,6 +3,8 @@ package com.brycehan.cloud.system.entity.vo;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentStyle;
+import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
@@ -22,6 +24,7 @@ import java.util.List;
  */
 @Data
 @ExcelIgnoreUnannotated
+@ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER)
 @Schema(description = "系统用户Vo")
 public class SysUserVo implements Serializable {
 
