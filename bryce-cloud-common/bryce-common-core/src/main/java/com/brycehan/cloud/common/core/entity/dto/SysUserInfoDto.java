@@ -4,7 +4,6 @@ import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,10 +43,9 @@ public class SysUserInfoDto extends BaseDto {
     private String email;
 
     /**
-     * 性别（M：男, F：女）
+     * 性别（M：男，F：女，N：未知）
      */
-    @Schema(description = "性别（M：男, F：女）")
-    @Pattern(regexp = "^[MF]$", message = "性别值只能是M或F")
+    @Schema(description = "性别（M：男，F：女，N：未知）")
     private GenderType gender;
 
 }

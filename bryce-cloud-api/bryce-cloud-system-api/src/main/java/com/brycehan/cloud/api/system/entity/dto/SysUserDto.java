@@ -1,13 +1,12 @@
 package com.brycehan.cloud.api.system.entity.dto;
 
+import com.brycehan.cloud.common.core.base.validator.SaveGroup;
+import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
-import com.brycehan.cloud.common.core.base.validator.SaveGroup;
-import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -62,11 +61,9 @@ public class SysUserDto extends BaseDto {
     private String avatar;
 
     /**
-     * 性别（M：男, F：女）
+     * 性别（M：男，F：女，N：未知）
      */
-    @Schema(description = "性别（M：男, F：女）")
-    @Size(max = 1, groups = {SaveGroup.class, UpdateGroup.class})
-    @Pattern(regexp = "^[MF]$", groups = {SaveGroup.class, UpdateGroup.class}, message = "性别值只能是M、F")
+    @Schema(description = "性别（M：男，F：女，N：未知）")
     private GenderType gender;
 
     /**

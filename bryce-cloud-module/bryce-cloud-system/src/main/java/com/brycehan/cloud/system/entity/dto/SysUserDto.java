@@ -64,11 +64,9 @@ public class SysUserDto extends BaseDto {
     private String avatar;
 
     /**
-     * 性别（M：男, F：女，N：未知）
+     * 性别（M：男，F：女，N：未知）
      */
-    @Schema(description = "性别（M：男, F：女，N：未知）")
-    @Size(max = 1, groups = {SaveGroup.class, UpdateGroup.class})
-    @Pattern(regexp = "^[MFN]$", groups = {SaveGroup.class, UpdateGroup.class}, message = "性别值只能是M、F、N")
+    @Schema(description = "性别（M：男，F：女，N：未知）")
     private GenderType gender;
 
     /**
