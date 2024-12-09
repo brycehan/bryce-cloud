@@ -62,7 +62,7 @@ public class SecurityFilterConfig implements Ordered {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // 授权请求
-                .authorizeHttpRequests(registry -> registry
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(this.authProperties.getIgnoreUrls().getAll()).permitAll()
                         .requestMatchers(HttpMethod.GET, this.authProperties.getIgnoreUrls().getGet()).permitAll()
                         .requestMatchers(HttpMethod.POST, this.authProperties.getIgnoreUrls().getPost()).permitAll()
