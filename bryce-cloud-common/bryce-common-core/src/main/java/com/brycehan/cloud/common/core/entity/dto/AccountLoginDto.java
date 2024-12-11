@@ -4,9 +4,9 @@ import com.brycehan.cloud.common.core.constant.UserConstants;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 账号登录Dto
@@ -23,7 +23,7 @@ public class AccountLoginDto extends BaseDto {
      * 账号
      */
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Length(min = 2, max = 50)
     @Schema(description = "账号")
     private String username;
 
@@ -31,21 +31,21 @@ public class AccountLoginDto extends BaseDto {
      * 密码
      */
     @NotBlank
-    @Size(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
+    @Length(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
     @Schema(description = "密码")
     private String password;
 
     /**
      * key
      */
-    @Size(max = 36)
+    @Length(max = 36)
     @Schema(description = "key")
     private String key;
 
     /**
      * 验证码
      */
-    @Size(max = 8)
+    @Length(max = 8)
     @Schema(description = "验证码")
     private String code;
 

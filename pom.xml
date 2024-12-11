@@ -93,6 +93,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Mybatis Plus 框架 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-bom</artifactId>
