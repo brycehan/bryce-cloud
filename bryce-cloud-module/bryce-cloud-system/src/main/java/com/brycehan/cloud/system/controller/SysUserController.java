@@ -56,7 +56,7 @@ public class SysUserController {
      */
     @Operation(summary = "保存系统用户")
     @OperateLog(type = OperatedType.INSERT)
-    @PreAuthorize("hasAuthority('system:user:save')")
+    @PreAuthorize("@auth.hasAuthority('system:user:save')")
     @PostMapping
     public ResponseResult<Void> save(@Validated(value = SaveGroup.class) @RequestBody SysUserDto sysUserDto) {
         this.sysUserService.save(sysUserDto);
@@ -71,7 +71,7 @@ public class SysUserController {
      */
     @Operation(summary = "更新系统用户")
     @OperateLog(type = OperatedType.UPDATE)
-    @PreAuthorize("hasAuthority('system:user:update')")
+    @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @PutMapping
     public ResponseResult<Void> update(@Validated(value = UpdateGroup.class) @RequestBody SysUserDto sysUserDto) {
         this.sysUserService.update(sysUserDto);
@@ -80,7 +80,7 @@ public class SysUserController {
 
     @Operation(summary = "更新系统用户状态")
     @OperateLog(type = OperatedType.UPDATE)
-    @PreAuthorize("hasAuthority('system:user:update')")
+    @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @PatchMapping(path = "/{id}/{status}")
     public ResponseResult<Void> updateStatus(@PathVariable Long id, @PathVariable StatusType status) {
         this.sysUserService.update(id, status);
@@ -95,7 +95,7 @@ public class SysUserController {
      */
     @Operation(summary = "删除系统用户")
     @OperateLog(type = OperatedType.DELETE)
-    @PreAuthorize("hasAuthority('system:user:delete')")
+    @PreAuthorize("@auth.hasAuthority('system:user:delete')")
     @DeleteMapping
     public ResponseResult<Void> delete(@Validated @RequestBody IdsDto idsDto) {
         if (CollectionUtil.contains(idsDto.getIds(), LoginUserContext.currentUserId())) {
@@ -114,7 +114,7 @@ public class SysUserController {
      * @return 响应结果
      */
     @Operation(summary = "查询系统用户详情")
-    @PreAuthorize("hasAuthority('system:user:info')")
+    @PreAuthorize("@auth.hasAuthority('system:user:info')")
     @GetMapping(path = "/{id}")
     public ResponseResult<SysUserVo> get(@Parameter(description = "系统用户ID", required = true) @PathVariable Long id) {
         SysUserVo sysUserVo = this.sysUserService.get(id);
@@ -128,7 +128,7 @@ public class SysUserController {
      * @return 系统用户分页列表
      */
     @Operation(summary = "系统用户分页查询")
-    @PreAuthorize("hasAuthority('system:user:page')")
+    @PreAuthorize("@auth.hasAuthority('system:user:page')")
     @PostMapping(path = "/page")
     public ResponseResult<PageResult<SysUserVo>> page(@Validated @RequestBody SysUserPageDto sysUserPageDto) {
         PageResult<SysUserVo> page = this.sysUserService.page(sysUserPageDto);
@@ -141,7 +141,7 @@ public class SysUserController {
      * @param sysUserPageDto 查询条件
      */
     @Operation(summary = "系统用户导出")
-    @PreAuthorize("hasAuthority('system:user:export')")
+    @PreAuthorize("@auth.hasAuthority('system:user:export')")
     @PostMapping(path = "/export")
     public void export(@Validated @RequestBody SysUserPageDto sysUserPageDto) {
         this.sysUserService.export(sysUserPageDto);
@@ -151,7 +151,7 @@ public class SysUserController {
      * 下载导入用户模板
      */
     @Operation(summary = "下载导入用户模板")
-    @PreAuthorize("hasAuthority('system:user:import')")
+    @PreAuthorize("@auth.hasAuthority('system:user:import')")
     @GetMapping(path = "/importTemplate")
     public void importTemplate() {
         String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
@@ -166,7 +166,7 @@ public class SysUserController {
      */
     @Operation(summary = "导入用户")
     @OperateLog(type = OperatedType.IMPORT)
-    @PreAuthorize("hasAuthority('system:user:import')")
+    @PreAuthorize("@auth.hasAuthority('system:user:import')")
     @PostMapping(path = "/import")
     public ResponseResult<String> importByExcel(@RequestParam MultipartFile file, boolean isUpdateSupport) {
         String message = this.sysUserService.importByExcel(file, isUpdateSupport);
@@ -181,7 +181,7 @@ public class SysUserController {
      */
     @Operation(summary = "重置密码")
     @OperateLog(type = OperatedType.UPDATE)
-    @PreAuthorize("hasAuthority('system:user:resetPassword')")
+    @PreAuthorize("@auth.hasAuthority('system:user:resetPassword')")
     @PatchMapping(path = "/resetPassword")
     public ResponseResult<Void> resetPassword(@Validated @RequestBody SysResetPasswordDto sysResetPasswordDto) {
         this.sysUserService.resetPassword(sysResetPasswordDto);
@@ -195,7 +195,7 @@ public class SysUserController {
      * @return 角色分页查询
      */
     @Operation(summary = "分配给用户的角色分页查询")
-    @PreAuthorize("hasAuthority('system:user:update')")
+    @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @PostMapping(path = "/assignRole/page")
     public ResponseResult<PageResult<SysRoleVo>> assignRolePage(@Validated @RequestBody SysAssignRolePageDto sysAssignRolePageDto) {
         PageResult<SysRoleVo> page = this.sysRoleService.assignRolePage(sysAssignRolePageDto);
@@ -211,7 +211,7 @@ public class SysUserController {
      */
     @Operation(summary = "分配给用户多个角色")
     @OperateLog(type = OperatedType.INSERT)
-    @PreAuthorize("hasAuthority('system:user:update')")
+    @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @PostMapping(path = "/assignRole/{userId}")
     public ResponseResult<Void> assignRoleSave(@PathVariable Long userId, @RequestBody List<Long> roleIds) {
         this.sysUserRoleService.assignRoleSave(userId, roleIds);
@@ -227,7 +227,7 @@ public class SysUserController {
      */
     @Operation(summary = "删除分配给用户的角色")
     @OperateLog(type = OperatedType.DELETE)
-    @PreAuthorize("hasAuthority('system:user:update')")
+    @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @DeleteMapping(path = "/assignRole/{userId}")
     public ResponseResult<Void> assignRoleDelete(@PathVariable Long userId, @RequestBody List<Long> roleIds) {
         this.sysUserRoleService.deleteByUserIdAndRoleIds(userId, roleIds);
