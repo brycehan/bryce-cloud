@@ -32,7 +32,7 @@ public class MaUserApiController implements MaUserApi {
      */
     @Override
     @Operation(summary = "根据微信openid获取用户信息")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<MaUserVo> loadMaUserByOpenid(String openid) {
         return null;
     }

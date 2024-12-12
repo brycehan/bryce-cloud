@@ -45,7 +45,7 @@ public class SysUserApiController implements SysUserApi {
      * @return paramKey 是否存在
      */
     @Operation(summary = "查询系统账号")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     @Override
     public ResponseResult<LoginUser> loadUserByUsername(String username) {
         // 查询用户
@@ -68,7 +68,7 @@ public class SysUserApiController implements SysUserApi {
      * @return paramKey 是否存在
      */
     @Operation(summary = "查询系统账号")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     @Override
     public ResponseResult<LoginUser> loadUserByPhone(String phone) {
         // 查询用户
@@ -92,7 +92,7 @@ public class SysUserApiController implements SysUserApi {
      */
     @Override
     @Operation(summary = "获取登录对象")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<LoginUser> loadUserById(Long id) {
         // 查询用户
         SysUser sysUser = this.sysUserService.getById(id);
@@ -115,7 +115,7 @@ public class SysUserApiController implements SysUserApi {
      */
     @Override
     @Operation(summary = "注册用户")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<SysUserVo> registerUser(SysUserDto sysUserDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserDto, sysUser);
@@ -136,7 +136,7 @@ public class SysUserApiController implements SysUserApi {
      */
     @Override
     @Operation(summary = "更新用户登录信息")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> updateLoginInfo(SysUserLoginInfoDto sysUserLoginInfoDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserLoginInfoDto, sysUser);
@@ -153,7 +153,7 @@ public class SysUserApiController implements SysUserApi {
      */
     @Override
     @Operation(summary = "校验用户账号是否唯一")
-    @PreAuthorize("@innerAuth.hasAuthority()")
+    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> checkUsernameUnique(String username) {
         SysUsernameDto sysUsernameDto = new SysUsernameDto();
         sysUsernameDto.setUsername(username);

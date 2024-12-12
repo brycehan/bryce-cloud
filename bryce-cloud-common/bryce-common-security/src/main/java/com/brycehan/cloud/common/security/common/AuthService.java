@@ -6,6 +6,8 @@ import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.constant.DataConstants;
+import com.brycehan.cloud.common.core.enums.YesNoType;
+import com.brycehan.cloud.common.core.util.ServletUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -95,6 +97,11 @@ public class AuthService {
         }
 
         return hasAnyAuthority(loginUser.getRoleSet(), role);
+    }
+
+    public boolean hasInnerCall() {
+        String inner = ServletUtils.getRequest().getHeader(DataConstants.INNER_CALL);
+        return YesNoType.YES.getValue().equalsIgnoreCase(inner);
     }
 
     /**
