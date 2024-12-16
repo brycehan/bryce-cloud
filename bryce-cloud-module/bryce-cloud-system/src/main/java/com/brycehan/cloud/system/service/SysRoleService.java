@@ -1,12 +1,14 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysRole;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 系统角色服务
@@ -37,6 +39,14 @@ public interface SysRoleService extends BaseService<SysRole> {
      * @return 分页信息
      */
     PageResult<SysRoleVo> page(SysRolePageDto sysRolePageDto);
+
+    /**
+     * 更新角色状态
+     *
+     * @param id    角色ID
+     * @param status 状态
+     */
+    void update(Long id, StatusType status);
 
     /**
      * 系统角色导出数据
@@ -75,6 +85,36 @@ public interface SysRoleService extends BaseService<SysRole> {
      * @return 角色名称列表
      */
     List<String> getRoleNameList(List<Long> roleIdList);
+
+    /**
+     * 根据用户ID查询角色集合
+     *
+     * @param userId 用户ID
+     * @return 角色集合
+     */
+    Set<SysRole> getRoleByUserId(Long userId);
+
+    /**
+     * 分配/未分配 给用户的角色分页查询
+     *
+     * @param sysAssignRolePageDto 查询条件
+     * @return 角色分页信息
+     */
+    PageResult<SysRoleVo> assignRolePage(SysAssignRolePageDto sysAssignRolePageDto);
+
+    /**
+     * 校验角色是否允许操作
+     *
+     * @param sysRole 角色
+     */
+    void checkRoleAllowed(SysRole sysRole);
+
+    /**
+     * 校验角色是否有数据权限
+     *
+     * @param roleIds 角色IDs
+     */
+    void checkRoleDataScope(Long... roleIds);
 
     /**
      * 校验角色编码是否唯一

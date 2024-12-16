@@ -104,7 +104,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
         sysUser.setPassword(passwordEncoder.encode(sysUserDto.getPassword()));
         sysUser.setId(IdGenerator.nextId());
-        sysUser.setSuperAdmin(false);
 
         // 保存用户
         this.baseMapper.insert(sysUser);
@@ -176,33 +175,28 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional
     public void delete(IdsDto idsDto) {
-        // 过滤无效参数
-        List<Long> ids = idsDto.getIds().stream().filter(Objects::nonNull).toList();
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(SysUser::getId);
+        queryWrapper.in(SysUser::getId, idsDto.getIds());
+        List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
 
-        if (CollUtil.isNotEmpty(ids)) {
-            LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.select(SysUser::getId, SysUser::getSuperAdmin);
-            queryWrapper.in(SysUser::getId, ids);
-            List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
-
-            if (CollUtil.isEmpty(sysUsers)) {
-                return;
-            }
-
-            for (SysUser sysUser : sysUsers) {
-                checkUserAllowed(sysUser);
-                checkUserDataScope(sysUser);
-            }
-
-            // 删除用户角色关系
-            this.sysUserRoleService.deleteByUserIds(ids);
-
-            // 删除用户岗位关系
-            this.sysUserPostService.deleteByUserIds(ids);
-
-            // 删除用户
-            this.baseMapper.deleteByIds(ids);
+        if (CollUtil.isEmpty(sysUsers)) {
+            return;
         }
+
+        for (SysUser sysUser : sysUsers) {
+            checkUserAllowed(sysUser);
+            checkUserDataScope(sysUser);
+        }
+
+        // 删除用户角色关系
+        this.sysUserRoleService.deleteByUserIds(idsDto.getIds());
+
+        // 删除用户岗位关系
+        this.sysUserPostService.deleteByUserIds(idsDto.getIds());
+
+        // 删除用户
+        this.baseMapper.deleteByIds(idsDto.getIds());
     }
 
     @Override
@@ -267,7 +261,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         wrapper.eq(Objects.nonNull(sysUserPageDto.getStatus()), SysUser::getStatus, sysUserPageDto.getStatus());
         addTimeRangeCondition(wrapper, SysUser::getCreatedTime, sysUserPageDto.getCreatedTimeStart(), sysUserPageDto.getCreatedTimeEnd());
 
-        // 数据权限
+        // 数据权限过滤
         dataScopeWrapper(wrapper);
 
         return wrapper;
@@ -319,7 +313,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                     ValidatorUtils.validate(validator, sysUserExcelDto);
                     sysUser.setId(IdGenerator.nextId());
                     sysUser.setPassword(encodedPassword);
-                    sysUser.setSuperAdmin(false);
                     this.baseMapper.insert(sysUser);
                     successNum++;
                     successMessage.append("<br/>").append(successNum).append("、账号 ").append(username).append(" 导入成功");
@@ -396,7 +389,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         }
 
         sysUser.setId(IdGenerator.nextId());
-        sysUser.setSuperAdmin(false);
         sysUser.setPassword(passwordEncoder.encode(sysUser.getPassword().trim()));
 
         // 添加默认角色
@@ -457,8 +449,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         if (sysUser == null) {
             return;
         }
-        Assert.notNull(sysUser.getSuperAdmin(), "是否超级管理员不能为空");
-        if (sysUser.getId() != null && sysUser.getSuperAdmin()) {
+        if (sysUser.getId() != null && sysUser.isSuperAdmin()) {
             throw new RuntimeException("不允许操作超级管理员用户");
         }
     }
@@ -531,7 +522,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         Assert.notNull(status, "用户状态不能为空");
 
         // 过滤无效的用户
-        Optional<SysUser> sysUser = lambdaQuery().select(SysUser::getId, SysUser::getSuperAdmin).eq(SysUser::getId, id).oneOpt();
+        Optional<SysUser> sysUser = lambdaQuery().select(SysUser::getId).eq(SysUser::getId, id).oneOpt();
         if (sysUser.isEmpty()) {
             return;
         }
@@ -590,7 +581,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 用户角色名称列表
         List<Long> roleIdList = this.sysUserRoleService.getRoleIdsByUserId(userId);
         List<String> roleNameList = this.sysRoleService.getRoleNameList(roleIdList);
-        if (sysUser.getSuperAdmin()) {
+        if (sysUser.isSuperAdmin()) {
             roleNameList = new ArrayList<>(roleNameList);
             roleNameList.add(DataConstants.SUPER_ADMIN_NAME);
         }

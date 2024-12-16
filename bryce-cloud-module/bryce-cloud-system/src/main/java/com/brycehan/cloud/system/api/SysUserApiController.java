@@ -6,7 +6,6 @@ import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
 import com.brycehan.cloud.api.system.entity.vo.SysUserVo;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
-import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.dto.SysUsernameDto;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.service.SysUserDetailsService;
@@ -56,7 +55,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertLoginUser(sysUser));
+        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
@@ -80,7 +79,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertLoginUser(sysUser));
+        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
@@ -103,7 +102,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertLoginUser(sysUser));
+        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 

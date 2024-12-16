@@ -24,7 +24,6 @@ import com.brycehan.cloud.system.entity.vo.SysParamVo;
 import com.brycehan.cloud.system.mapper.SysParamMapper;
 import com.brycehan.cloud.system.service.SysParamService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -90,19 +89,11 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public void delete(IdsDto idsDto) {
-        // 过滤无效参数
-        List<Long> ids = idsDto.getIds().stream()
-                .filter(Objects::nonNull)
-                .toList();
-        if (CollectionUtils.isEmpty(ids)) {
-            return;
-        }
-
         // 查询列表
-        List<SysParam> sysParams = this.baseMapper.selectByIds(ids);
+        List<SysParam> sysParams = this.baseMapper.selectByIds(idsDto.getIds());
 
         // 删除数据
-        this.baseMapper.deleteByIds(ids);
+        this.baseMapper.deleteByIds(idsDto.getIds());
 
         // 删除缓存
         List<String> paramKeys = sysParams.stream().map(SysParam::getParamKey)

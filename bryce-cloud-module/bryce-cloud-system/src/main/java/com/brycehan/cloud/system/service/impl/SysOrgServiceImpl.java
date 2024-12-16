@@ -1,19 +1,15 @@
 package com.brycehan.cloud.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.response.SystemResponseStatus;
 import com.brycehan.cloud.common.core.constant.DataConstants;
-import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.util.TreeUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysOrgConvert;
 import com.brycehan.cloud.system.entity.dto.SysOrgDto;
-import com.brycehan.cloud.system.entity.dto.SysOrgPageDto;
 import com.brycehan.cloud.system.entity.po.SysOrg;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysOrgVo;
@@ -21,12 +17,13 @@ import com.brycehan.cloud.system.mapper.SysOrgMapper;
 import com.brycehan.cloud.system.mapper.SysUserMapper;
 import com.brycehan.cloud.system.service.SysOrgService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 系统机构服务实现类
@@ -70,49 +67,22 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void delete(IdsDto idsDto) {
-        // 过滤无效参数
-        List<Long> ids = idsDto.getIds().stream().filter(Objects::nonNull).toList();
-
-        if (CollectionUtils.isEmpty(ids)) {
-            return;
-        }
-
         // 判断是否有子机构
-        long orgCount = this.count(new LambdaQueryWrapper<SysOrg>().in(SysOrg::getParentId, ids));
+        long orgCount = this.count(new LambdaQueryWrapper<SysOrg>().in(SysOrg::getParentId, idsDto.getIds()));
         if (orgCount > 0) {
             throw new ServerException(SystemResponseStatus.ORG_LOWER_LEVEL_ORG_EXIST_CANNOT_BE_DELETED);
         }
 
         // 判断机构下面是否有用户
-        long userCount = this.sysUserMapper.selectCount(new LambdaQueryWrapper<SysUser>().in(SysUser::getOrgId, ids));
+        long userCount = this.sysUserMapper.selectCount(new LambdaQueryWrapper<SysUser>().in(SysUser::getOrgId, idsDto.getIds()));
         if (userCount > 0) {
             throw new ServerException("机构下面有用户，不能删除");
         }
 
         // 删除
-        this.baseMapper.deleteByIds(ids);
-    }
-
-    @Override
-    public PageResult<SysOrgVo> page(SysOrgPageDto sysOrgPageDto) {
-        IPage<SysOrg> page = this.baseMapper.selectPage(sysOrgPageDto.toPage(), getWrapper(sysOrgPageDto));
-        return new PageResult<>(page.getTotal(), SysOrgConvert.INSTANCE.convert(page.getRecords()));
-    }
-
-    /**
-     * 封装查询条件
-     *
-     * @param sysOrgPageDto 系统机构分页dto
-     * @return 查询条件Wrapper
-     */
-    private Wrapper<SysOrg> getWrapper(SysOrgPageDto sysOrgPageDto) {
-        LambdaQueryWrapper<SysOrg> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Objects.nonNull(sysOrgPageDto.getStatus()), SysOrg::getStatus, sysOrgPageDto.getStatus());
-        wrapper.like(StringUtils.isNotEmpty(sysOrgPageDto.getName()), SysOrg::getName, sysOrgPageDto.getName());
-
-        return wrapper;
+        this.baseMapper.deleteByIds(idsDto.getIds());
     }
 
     @Override
