@@ -25,7 +25,7 @@ import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysRole;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
-import com.brycehan.cloud.system.service.SysRoleDataScopeService;
+import com.brycehan.cloud.system.service.SysRoleOrgService;
 import com.brycehan.cloud.system.service.SysRoleMenuService;
 import com.brycehan.cloud.system.service.SysRoleService;
 import com.brycehan.cloud.system.service.SysUserRoleService;
@@ -53,7 +53,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
     private final SysRoleMenuService sysRoleMenuService;
 
-    private final SysRoleDataScopeService sysRoleDataScopeService;
+    private final SysRoleOrgService sysRoleOrgService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -106,7 +106,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         this.sysRoleMenuService.deleteByRoleIds(idsDto.getIds());
 
         // 删除角色数据权限关系
-        this.sysRoleDataScopeService.deleteByRoleIds(idsDto.getIds());
+        this.sysRoleOrgService.deleteByRoleIds(idsDto.getIds());
     }
 
     @Override
@@ -172,7 +172,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
     @Override
     @Transactional
-    public void assignDataScope(SysRoleDataScopeDto dataScopeDto) {
+    public void assignDataScope(SysRoleOrgDto dataScopeDto) {
         SysRole sysRole = this.baseMapper.selectById(dataScopeDto.getId());
         if (sysRole == null) {
             return;
@@ -185,9 +185,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
         // 更新角色数据范围关系
         if (dataScopeDto.getDataScope() == DataScopeType.CUSTOM) {
-            this.sysRoleDataScopeService.saveOrUpdate(dataScopeDto.getId(), dataScopeDto.getOrgIds());
+            this.sysRoleOrgService.saveOrUpdate(dataScopeDto.getId(), dataScopeDto.getOrgIds());
         } else {
-            this.sysRoleDataScopeService.deleteByRoleIds(Collections.singletonList(dataScopeDto.getId()));
+            this.sysRoleOrgService.deleteByRoleIds(Collections.singletonList(dataScopeDto.getId()));
         }
     }
 

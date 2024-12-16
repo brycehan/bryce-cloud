@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.po.SysRoleDataScope;
+import com.brycehan.cloud.system.entity.po.SysRoleOrg;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @since 2023/09/15
  * @author Bryce Han
  */
-public interface SysRoleDataScopeService extends BaseService<SysRoleDataScope> {
+public interface SysRoleOrgService extends BaseService<SysRoleOrg> {
 
     /**
      * 保存或修改

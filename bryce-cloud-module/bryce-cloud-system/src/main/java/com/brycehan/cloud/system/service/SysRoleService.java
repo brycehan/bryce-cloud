@@ -68,7 +68,7 @@ public interface SysRoleService extends BaseService<SysRole> {
      *
      * @param dataScopeDto 数据范围Dto
      */
-    void assignDataScope(SysRoleDataScopeDto dataScopeDto);
+    void assignDataScope(SysRoleOrgDto dataScopeDto);
 
     /**
      * 分配/未分配 给用户的角色分页查询

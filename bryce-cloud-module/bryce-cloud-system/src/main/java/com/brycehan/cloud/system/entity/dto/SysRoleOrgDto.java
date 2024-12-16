@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统角色Dto")
-public class SysRoleDataScopeDto extends BaseDto {
+public class SysRoleOrgDto extends BaseDto {
 
     /**
      * ID

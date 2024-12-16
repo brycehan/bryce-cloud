@@ -46,7 +46,7 @@ public class SysRoleController {
 
     private final SysRoleMenuService sysRoleMenuService;
 
-    private final SysRoleDataScopeService sysRoleDataScopeService;
+    private final SysRoleOrgService sysRoleOrgService;
 
     private final SysUserRoleService sysUserRoleService;
 
@@ -115,7 +115,7 @@ public class SysRoleController {
         sysRoleVo.setMenuIds(menuIds);
 
         // 查询角色对应的数据权限
-        List<Long> orgIds = this.sysRoleDataScopeService.getOrgIdsByRoleId(id);
+        List<Long> orgIds = this.sysRoleOrgService.getOrgIdsByRoleId(id);
         sysRoleVo.setOrgIds(orgIds);
 
         return ResponseResult.ok(sysRoleVo);
@@ -193,7 +193,7 @@ public class SysRoleController {
     @OperateLog(type = OperatedType.UPDATE)
     @PreAuthorize("@auth.hasAuthority('system:role:update')")
     @PutMapping(path = "/assignDataScope")
-    public ResponseResult<Void> assignDataScope(@Validated @RequestBody SysRoleDataScopeDto dataScopeDto) {
+    public ResponseResult<Void> assignDataScope(@Validated @RequestBody SysRoleOrgDto dataScopeDto) {
         this.sysRoleService.assignDataScope(dataScopeDto);
         return ResponseResult.ok();
     }
