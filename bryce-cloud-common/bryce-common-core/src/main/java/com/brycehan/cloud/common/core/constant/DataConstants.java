@@ -86,8 +86,4 @@ public class DataConstants {
      */
     public static final String INNER_CALL = "X-Inner-Call";
 
-    /**
-     * 内部调用header
-     */
-    public static final String INNER_CALL_YES = "Y";
 }
