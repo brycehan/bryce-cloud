@@ -11,7 +11,7 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.entity.vo.RoleVo;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
-import com.brycehan.cloud.common.mybatis.interceptor.DataScope;
+import com.brycehan.cloud.common.core.entity.DataScope;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,7 +77,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 
         Map<DataScopeType, List<RoleVo>> dataScopeMap = loginUser.getRoles().stream()
                 .filter(role -> role.getAuthoritySet().contains(authority))
-                .collect(Collectors.groupingBy(RoleVo::getDataScope));
+                .collect(Collectors.groupingBy(RoleVo::getDataScopeType));
 
         Set<DataScopeType> dataScopes = dataScopeMap.keySet();
 

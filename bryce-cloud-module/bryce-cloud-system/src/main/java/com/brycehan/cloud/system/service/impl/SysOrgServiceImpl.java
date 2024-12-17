@@ -87,18 +87,12 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
 
     @Override
     public List<SysOrgVo> list(SysOrgDto sysOrgDto) {
-        Map<String, Object> params = new HashMap<>();
+        SysOrg sysOrg = SysOrgConvert.INSTANCE.convert(sysOrgDto);
 
-        params.put("name", sysOrgDto.getName());
-        if (sysOrgDto.getStatus() != null) {
-            params.put("status", sysOrgDto.getStatus().getValue());
-        }
-        // 数据权限
-        params.put(DataConstants.DATA_SCOPE, getDataScope("bso", "id"));
+        // 数据权限过滤
+        sysOrg.setDataScope(getDataScope("so", "id"));
 
-        // 机构列表
-        List<SysOrg> sysOrgList = this.baseMapper.list(params);
-
+        List<SysOrg> sysOrgList = baseMapper.list(sysOrg);
         return TreeUtils.build(SysOrgConvert.INSTANCE.convert(sysOrgList));
     }
 

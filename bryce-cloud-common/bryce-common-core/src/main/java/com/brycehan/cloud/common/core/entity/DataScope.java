@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.mybatis.interceptor;
+package com.brycehan.cloud.common.core.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
