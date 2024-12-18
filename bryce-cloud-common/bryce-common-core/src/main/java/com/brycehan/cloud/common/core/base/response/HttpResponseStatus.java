@@ -46,7 +46,7 @@ public enum HttpResponseStatus implements ResponseStatus {
 
     HTTP_WARN(600, "系统警告消息"),
     ;
-            ;
+
     /**
      * 状态编码
      */

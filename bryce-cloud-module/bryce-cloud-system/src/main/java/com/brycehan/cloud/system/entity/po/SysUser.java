@@ -7,7 +7,6 @@ import com.brycehan.cloud.common.core.entity.BaseEntity;
 import com.brycehan.cloud.common.core.entity.vo.RoleVo;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.util.CollectionUtils;

@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class SmsServiceImpl implements SmsService {
 
     @Value("${sms.number_text_messages_sent_per_day}")
-    private int numberTextMessagesSentPerDay = 5;
+    private final int numberTextMessagesSentPerDay = 5;
 
     private final RedisTemplate<String, Integer> redisTemplate;
 

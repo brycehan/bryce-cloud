@@ -42,7 +42,7 @@ public class JwtTokenProvider {
      * jwt密钥
      */
     @Value("${bryce.auth.jwt.secret}")
-    private String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
+    private final String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
 
     /**
      * 令牌过期时间间隔

@@ -1,8 +1,8 @@
 package com.brycehan.cloud.api.system.entity.dto;
 
-import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

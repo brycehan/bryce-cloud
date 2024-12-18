@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Bryce Han
  */
 @Mapper
+@SuppressWarnings("all")
 public interface SysParamMapper extends BryceBaseMapper<SysParam> {
 
     default boolean exists(String paramKey) {

@@ -28,7 +28,7 @@ public class JwtTokenParser {
      * jwt密钥
      */
     @Value("${bryce.auth.jwt.secret}")
-    private String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
+    private final String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
 
     /**
      * 获取用户key

@@ -9,9 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.brycehan.cloud.common.core.base.AuthContextHolder;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
+import com.brycehan.cloud.common.core.entity.DataScope;
 import com.brycehan.cloud.common.core.entity.vo.RoleVo;
 import com.brycehan.cloud.common.core.enums.DataScopeType;
-import com.brycehan.cloud.common.core.entity.DataScope;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 

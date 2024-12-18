@@ -8,7 +8,6 @@ import com.brycehan.cloud.common.core.enums.DataScopeType;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.util.Optional;

@@ -2,7 +2,6 @@ package com.brycehan.cloud.auth.common.security;
 
 import com.brycehan.cloud.auth.common.security.service.PhoneCodeUserDetailsService;
 import com.brycehan.cloud.auth.common.security.service.PhoneCodeValidateService;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
@@ -43,8 +42,9 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
         Assert.notNull(this.phoneCodeValidateService, "phoneCodeValidateService must not be null");
     }
 
+    @SuppressWarnings("all")
     @Override
-    public void setMessageSource(@NotNull MessageSource messageSource) {
+    public void setMessageSource(MessageSource messageSource) {
         this.messages = new MessageSourceAccessor(messageSource);
     }
 
