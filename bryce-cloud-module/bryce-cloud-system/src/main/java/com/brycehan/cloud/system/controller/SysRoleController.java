@@ -7,11 +7,13 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
+import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.operatelog.annotation.OperateLog;
 import com.brycehan.cloud.common.operatelog.annotation.OperatedType;
 import com.brycehan.cloud.system.entity.convert.SysRoleConvert;
 import com.brycehan.cloud.system.entity.dto.*;
 import com.brycehan.cloud.system.entity.po.SysRole;
+import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysMenuVo;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 import com.brycehan.cloud.system.entity.vo.SysUserVo;
@@ -224,6 +226,10 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasAuthority('system:role:update')")
     @PostMapping(path = "/assignUser/{roleId}")
     public ResponseResult<Void> assignUserSave(@PathVariable Long roleId, @RequestBody List<Long> userIds) {
+        userIds.forEach(userId -> {
+            this.sysUserService.checkUserAllowed(SysUser.of(userId));
+            this.sysUserService.checkUserDataScope(SysUser.of(userId));
+        });
         this.sysRoleService.checkRoleDataScope(roleId);
         this.sysUserRoleService.assignUserSave(roleId, userIds);
         return ResponseResult.ok();
@@ -241,6 +247,10 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasAuthority('system:role:update')")
     @DeleteMapping(path = "/assignUser/{roleId}")
     public ResponseResult<Void> assignUserDelete(@PathVariable Long roleId, @RequestBody List<Long> userIds) {
+        userIds.forEach(userId -> {
+            this.sysUserService.checkUserAllowed(SysUser.of(userId));
+            this.sysUserService.checkUserDataScope(SysUser.of(userId));
+        });
         this.sysRoleService.checkRoleDataScope(roleId);
         this.sysUserRoleService.deleteByRoleIdAndUserIds(roleId, userIds);
         return ResponseResult.ok();

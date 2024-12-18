@@ -18,14 +18,17 @@ import com.brycehan.cloud.system.entity.po.SysDictData;
 import com.brycehan.cloud.system.entity.po.SysDictType;
 import com.brycehan.cloud.system.entity.vo.SysDictTypeVo;
 import com.brycehan.cloud.system.entity.vo.SysDictVo;
-import com.brycehan.cloud.system.mapper.SysDictDataMapper;
 import com.brycehan.cloud.system.mapper.SysDictTypeMapper;
+import com.brycehan.cloud.system.service.SysDictDataService;
 import com.brycehan.cloud.system.service.SysDictTypeService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 系统字典类型服务实现类
@@ -37,7 +40,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictType> implements SysDictTypeService {
 
-    private final SysDictDataMapper sysDictDataMapper;
+    private final SysDictDataService sysDictDataService;
 
      /**
      * 添加系统字典类型
@@ -94,9 +97,8 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
     public List<SysDictVo> dictList() {
         // 全部字典类型列表
         List<SysDictType> typeList = this.baseMapper.selectList(Wrappers.emptyWrapper());
-
         // 全部字典数据列表
-        List<SysDictData> dataList = this.sysDictDataMapper.selectList(new LambdaQueryWrapper<SysDictData>()
+        List<SysDictData> dataList = this.sysDictDataService.list(new LambdaQueryWrapper<SysDictData>()
                 .orderByAsc(SysDictData::getSort));
 
         // 全部字典列表

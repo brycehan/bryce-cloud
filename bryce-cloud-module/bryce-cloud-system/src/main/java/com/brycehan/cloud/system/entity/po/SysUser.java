@@ -24,7 +24,6 @@ import java.util.Set;
  * @since 2022/5/8
  */
 @Data
-@SuppressWarnings("unused")
 @EqualsAndHashCode(callSuper = true)
 @TableName("brc_sys_user")
 public class SysUser extends BaseEntity {
@@ -131,6 +130,7 @@ public class SysUser extends BaseEntity {
      * @param roleKey 角色key
      * @return 是否具有某个角色布尔值
      */
+    @SuppressWarnings("unused")
     public boolean hasRole(String roleKey) {
         return !CollectionUtils.isEmpty(this.roleSet) && this.roleSet.contains(roleKey);
     }
@@ -166,6 +166,12 @@ public class SysUser extends BaseEntity {
         sysUser.setStatus(loginUser.getStatus());
         sysUser.setRoles(loginUser.getRoles());
         sysUser.setAuthoritySet(loginUser.getAuthoritySet());
+        return sysUser;
+    }
+
+    public static SysUser of(Long userId) {
+        SysUser sysUser = new SysUser();
+        sysUser.setId(userId);
         return sysUser;
     }
 }

@@ -95,14 +95,6 @@ public interface SysRoleService extends BaseService<SysRole> {
     Set<SysRole> getRoleByUserId(Long userId);
 
     /**
-     * 分配/未分配 给用户的角色分页查询
-     *
-     * @param sysAssignRolePageDto 查询条件
-     * @return 角色分页信息
-     */
-    PageResult<SysRoleVo> assignRolePage(SysAssignRolePageDto sysAssignRolePageDto);
-
-    /**
      * 校验角色是否允许操作
      *
      * @param sysRole 角色

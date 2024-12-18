@@ -3,7 +3,6 @@ package com.brycehan.cloud.common.mybatis.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
-import com.brycehan.cloud.common.core.entity.BaseEntity;
 import com.brycehan.cloud.common.core.entity.DataScope;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
@@ -49,9 +48,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
         }
 
         // 判断参数里是否有 DataScope 对象
-        if (parameter instanceof BaseEntity baseEntity) {
-            return baseEntity.getDataScope();
-        } else if(parameter instanceof Map<?, ?> parameterMap) {
+        if(parameter instanceof Map<?, ?> parameterMap) {
             for (Map.Entry<?, ?> entry : parameterMap.entrySet()) {
                 if(entry.getValue() != null && entry.getValue() instanceof DataScope) {
                     return (DataScope) entry.getValue();

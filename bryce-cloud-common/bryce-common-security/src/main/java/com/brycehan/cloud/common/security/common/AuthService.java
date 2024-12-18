@@ -3,6 +3,7 @@ package com.brycehan.cloud.common.security.common;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.core.base.AuthContextHolder;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.constant.DataConstants;

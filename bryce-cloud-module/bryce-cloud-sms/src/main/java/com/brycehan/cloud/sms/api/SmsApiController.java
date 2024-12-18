@@ -43,7 +43,7 @@ public class SmsApiController implements SmsApi {
     @Operation(summary = "发送短信")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> send(String phone, SmsType smsType, LinkedHashMap<String, String> params) {
-        String templateIdKey = "sms." + smsType.value() + "-template-id";
+        String templateIdKey = "sms." + smsType.getValue() + "-template-id";
         String templateId = this.environment.getProperty(templateIdKey);
 
         boolean send = this.smsService.send(phone, templateId, params);

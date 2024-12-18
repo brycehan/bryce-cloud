@@ -14,6 +14,7 @@ import com.brycehan.cloud.system.entity.dto.SysMenuAuthorityDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuDto;
 import com.brycehan.cloud.system.entity.dto.SysMenuPageDto;
 import com.brycehan.cloud.system.entity.po.SysMenu;
+import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.entity.vo.SysMenuVo;
 import com.brycehan.cloud.system.service.SysAuthorityService;
 import com.brycehan.cloud.system.service.SysMenuService;
@@ -166,7 +167,7 @@ public class SysMenuController {
     @Operation(summary = "获取用户权限标识", description = "用户权限标识集合")
     @GetMapping(path = "/authority")
     public ResponseResult<Set<String>> authority() {
-        Set<String> authoritySet = this.sysAuthorityService.findAuthority(LoginUserContext.currentUser(), false);
+        Set<String> authoritySet = this.sysAuthorityService.findAuthority(SysUser.of(LoginUserContext.currentUser()), false);
         return ResponseResult.ok(authoritySet);
     }
 

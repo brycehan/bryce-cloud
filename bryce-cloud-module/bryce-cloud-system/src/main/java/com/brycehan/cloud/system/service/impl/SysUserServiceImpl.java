@@ -44,7 +44,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -118,6 +117,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional
     public void update(SysUserDto sysUserDto) {
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
+        checkUserAllowed(sysUser);
+        checkUserDataScope(sysUser);
+
         // 判断手机号是否存在
         if (StrUtil.isNotBlank(sysUserDto.getPhone())) {
             SysUser user = this.baseMapper.getByPhone(sysUserDto.getPhone());
@@ -125,8 +128,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                 throw new RuntimeException("手机号已经存在");
             }
         }
-
-        SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
 
         // 如果密码不为空，则进行加密处理
         if (StrUtil.isBlank(sysUser.getPassword())) {
@@ -154,37 +155,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public SysUserVo get(Long id) {
-        SysUser sysUser = this.getById(id);
-        SysUserVo sysUserVo = SysUserConvert.INSTANCE.convert(sysUser);
-
-        // 机构名称
-        sysUserVo.setOrgName(this.sysOrgService.getOrgNameById(sysUser.getOrgId()));
-
-        // 用户角色Ids
-        List<Long> roleIds = this.sysUserRoleService.getRoleIdsByUserId(id);
-        sysUserVo.setRoleIds(roleIds);
-
-        // 用户岗位Ids
-        List<Long> postIds = this.sysUserPostService.getPostIdsByUserId(id);
-        sysUserVo.setPostIds(postIds);
-
-        return sysUserVo;
-    }
-
-    @Override
     @Transactional
     public void delete(IdsDto idsDto) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(SysUser::getId);
-        queryWrapper.in(SysUser::getId, idsDto.getIds());
-        List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
-
-        if (CollUtil.isEmpty(sysUsers)) {
-            return;
-        }
-
-        for (SysUser sysUser : sysUsers) {
+        for (Long userId : idsDto.getIds()) {
+            SysUser sysUser = SysUser.of(userId);
             checkUserAllowed(sysUser);
             checkUserDataScope(sysUser);
         }
@@ -200,12 +174,23 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public void checkUserDataScope(SysUser sysUser) {
-        if (SysUser.isSuperAdmin(sysUser)) {
-            return;
-        }
+    public SysUserVo get(Long id) {
+        checkUserDataScope(SysUser.of(id));
+        SysUser sysUser = this.getById(id);
+        SysUserVo sysUserVo = SysUserConvert.INSTANCE.convert(sysUser);
 
+        // 机构名称
+        sysUserVo.setOrgName(this.sysOrgService.getOrgNameById(sysUser.getOrgId()));
 
+        // 用户角色Ids
+        List<Long> roleIds = this.sysUserRoleService.getRoleIdsByUserId(id);
+        sysUserVo.setRoleIds(roleIds);
+
+        // 用户岗位Ids
+        List<Long> postIds = this.sysUserPostService.getPostIdsByUserId(id);
+        sysUserVo.setPostIds(postIds);
+
+        return sysUserVo;
     }
 
     @Override
@@ -229,19 +214,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     private Map<String, Object> getParams(SysUserPageDto sysUserPageDto) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", sysUserPageDto.getUsername());
-        params.put("phone", sysUserPageDto.getPhone());
-        params.put("gender", sysUserPageDto.getGender());
-        params.put("type", sysUserPageDto.getType());
-        params.put("orgId", sysUserPageDto.getOrgId());
-        params.put("status", sysUserPageDto.getStatus());
-        params.put("createdTimeStart", sysUserPageDto.getCreatedTimeStart());
-        params.put("createdTimeEnd", sysUserPageDto.getCreatedTimeEnd());
-
-        // 数据权限
-        params.put(DataConstants.DATA_SCOPE, getDataScope("bsu", null));
-
+        Map<String, Object> params = BeanUtil.beanToMap(sysUserPageDto, false, false);
+        // 数据权限过滤
+        params.put(DataConstants.DATA_SCOPE, getDataScope("su", null));
         return params;
     }
 
@@ -319,6 +294,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                 } else if (isUpdateSupport) {
                     ValidatorUtils.validate(validator, sysUserExcelDto);
                     sysUser.setId(user.getId());
+                    checkUserAllowed(sysUser);
+                    checkUserDataScope(sysUser);
                     this.baseMapper.updateById(sysUser);
                     successNum++;
                     successMessage.append("<br/>").append(successNum).append("、账号 ").append(username).append(" 更新成功");
@@ -376,7 +353,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 分页查询
         IPage<SysUser> page = this.page(sysAssignUserPageDto.toPage(), queryWrapper);
         return new PageResult<>(page.getTotal(), SysUserConvert.INSTANCE.convert(page.getRecords()));
-
     }
 
     @Override
@@ -409,55 +385,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     @Override
-    public boolean checkUsernameUnique(SysUsernameDto sysUsernameDto) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .select(SysUser::getUsername, SysUser::getId)
-                .eq(SysUser::getUsername, sysUsernameDto.getUsername());
-        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
-
-        // 修改时，同账号同ID为账号唯一
-        return Objects.isNull(sysUser) || Objects.equals(sysUsernameDto.getId(), sysUser.getId());
-    }
-
-    @Override
-    public boolean checkPhoneUnique(SysUserPhoneDto sysUserPhoneDto) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .select(SysUser::getPhone, SysUser::getId)
-                .eq(SysUser::getPhone, sysUserPhoneDto.getPhone());
-        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
-
-        // 修改时，同手机号同ID为手机号唯一
-        return Objects.isNull(sysUser) || Objects.equals(sysUserPhoneDto.getId(), sysUser.getId());
-    }
-
-    @Override
-    public boolean checkEmailUnique(SysUserEmailDto sysUserEmailDto) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .select(SysUser::getEmail, SysUser::getId)
-                .eq(SysUser::getEmail, sysUserEmailDto.getEmail());
-        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
-
-        // 修改时，同邮箱同ID为邮箱唯一
-        return Objects.isNull(sysUser) || Objects.equals(sysUserEmailDto.getId(), sysUser.getId());
-    }
-
-    @Override
-    public void checkUserAllowed(SysUser sysUser) {
-        if (sysUser == null) {
-            return;
-        }
-        if (sysUser.getId() != null && sysUser.isSuperAdmin()) {
-            throw new RuntimeException("不允许操作超级管理员用户");
-        }
-    }
-
-    @Override
     public void resetPassword(SysResetPasswordDto sysResetPasswordDto) {
         SysUser sysUser = this.getById(sysResetPasswordDto.getId());
         checkUserAllowed(sysUser);
+        checkUserDataScope(sysUser);
         sysUser.setPassword(passwordEncoder.encode(sysResetPasswordDto.getPassword()));
         this.updateById(sysUser);
     }
@@ -518,22 +449,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     @Override
     public void update(Long id, StatusType status) {
-        Assert.notNull(id, "用户ID不能为空");
-        Assert.notNull(status, "用户状态不能为空");
-
-        // 过滤无效的用户
-        Optional<SysUser> sysUser = lambdaQuery().select(SysUser::getId).eq(SysUser::getId, id).oneOpt();
-        if (sysUser.isEmpty()) {
-            return;
-        }
+        SysUser sysUser = SysUser.of(id);
 
         // 不允许操作超级管理员状态
-        this.checkUserAllowed(sysUser.get());
+        checkUserAllowed(sysUser);
+        checkUserDataScope(sysUser);
 
-        // 更新状态
-        LambdaUpdateWrapper<SysUser> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.set(SysUser::getStatus, status).eq(SysUser::getId, id);
-        this.update(updateWrapper);
+        sysUser.setStatus(status);
+        this.updateById(sysUser);
     }
 
     @Override
@@ -599,4 +522,64 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         return sysUserInfoVo;
     }
 
+    @Override
+    public void checkUserAllowed(SysUser sysUser) {
+        if (sysUser == null) {
+            return;
+        }
+        if (sysUser.getId() != null && sysUser.isSuperAdmin()) {
+            throw new RuntimeException("不允许操作超级管理员用户");
+        }
+    }
+
+    @Override
+    public void checkUserDataScope(SysUser sysUser) {
+        if (SysUser.isSuperAdmin(sysUser)) {
+            return;
+        }
+
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getId, sysUser.getId());
+
+        dataScopeWrapper(queryWrapper);
+        if (!baseMapper.exists(queryWrapper)) {
+            throw new RuntimeException("没有权限访问用户数据");
+        }
+    }
+
+    @Override
+    public boolean checkUsernameUnique(SysUsernameDto sysUsernameDto) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .select(SysUser::getUsername, SysUser::getId)
+                .eq(SysUser::getUsername, sysUsernameDto.getUsername());
+        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
+
+        // 修改时，同账号同ID为账号唯一
+        return Objects.isNull(sysUser) || Objects.equals(sysUsernameDto.getId(), sysUser.getId());
+    }
+
+    @Override
+    public boolean checkPhoneUnique(SysUserPhoneDto sysUserPhoneDto) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .select(SysUser::getPhone, SysUser::getId)
+                .eq(SysUser::getPhone, sysUserPhoneDto.getPhone());
+        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
+
+        // 修改时，同手机号同ID为手机号唯一
+        return Objects.isNull(sysUser) || Objects.equals(sysUserPhoneDto.getId(), sysUser.getId());
+    }
+
+    @Override
+    public boolean checkEmailUnique(SysUserEmailDto sysUserEmailDto) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .select(SysUser::getEmail, SysUser::getId)
+                .eq(SysUser::getEmail, sysUserEmailDto.getEmail());
+        SysUser sysUser = this.baseMapper.selectOne(queryWrapper, false);
+
+        // 修改时，同邮箱同ID为邮箱唯一
+        return Objects.isNull(sysUser) || Objects.equals(sysUserEmailDto.getId(), sysUser.getId());
+    }
 }
