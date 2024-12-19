@@ -87,6 +87,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional
     public void save(SysUserDto sysUserDto) {
+        sysRoleService.checkRoleDataScope(sysUserDto.getRoleIds().toArray(Long[]::new));
+        sysOrgService.checkOrgDataScope(sysUserDto.getOrgId());
         // 判断用户名是否存在
         SysUser user = this.baseMapper.getByUsername(sysUserDto.getUsername());
         if (user != null) {
@@ -120,6 +122,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         SysUser sysUser = SysUserConvert.INSTANCE.convert(sysUserDto);
         checkUserAllowed(sysUser);
         checkUserDataScope(sysUser);
+        sysRoleService.checkRoleDataScope(sysUserDto.getRoleIds().toArray(Long[]::new));
+        sysOrgService.checkOrgDataScope(sysUserDto.getOrgId());
 
         // 判断手机号是否存在
         if (StrUtil.isNotBlank(sysUserDto.getPhone())) {
@@ -286,6 +290,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                 // 系统不存在用户时
                 if (user == null) {
                     ValidatorUtils.validate(validator, sysUserExcelDto);
+                    sysOrgService.checkOrgDataScope(sysUser.getOrgId());
                     sysUser.setId(IdGenerator.nextId());
                     sysUser.setPassword(encodedPassword);
                     this.baseMapper.insert(sysUser);
@@ -296,6 +301,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                     sysUser.setId(user.getId());
                     checkUserAllowed(sysUser);
                     checkUserDataScope(sysUser);
+                    sysOrgService.checkOrgDataScope(sysUser.getOrgId());
                     this.baseMapper.updateById(sysUser);
                     successNum++;
                     successMessage.append("<br/>").append(successNum).append("、账号 ").append(username).append(" 更新成功");
@@ -534,7 +540,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     @Override
     public void checkUserDataScope(SysUser sysUser) {
-        if (SysUser.isSuperAdmin(sysUser)) {
+        if (sysUser.getId() == null || SysUser.isSuperAdmin(sysUser)) {
             return;
         }
 

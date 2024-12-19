@@ -5,6 +5,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
+import com.brycehan.cloud.common.core.base.validator.NotEmptyElements;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.PageResult;
@@ -39,6 +40,7 @@ import java.util.List;
  * @author Bryce Han
  */
 @Tag(name = "系统用户")
+@Validated
 @RequestMapping("/user")
 @RestController
 @RequiredArgsConstructor
@@ -221,7 +223,7 @@ public class SysUserController {
     @OperateLog(type = OperatedType.INSERT)
     @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @PostMapping(path = "/assignRole/{userId}")
-    public ResponseResult<Void> assignRoleSave(@PathVariable Long userId, @RequestBody List<Long> roleIds) {
+    public ResponseResult<Void> assignRoleSave(@PathVariable Long userId, @RequestBody @NotEmptyElements List<Long> roleIds) {
         this.sysUserService.checkUserDataScope(SysUser.of(userId));
         this.sysRoleService.checkRoleDataScope(roleIds.toArray(Long[]::new));
         this.sysUserRoleService.assignRoleSave(userId, roleIds);
@@ -239,7 +241,7 @@ public class SysUserController {
     @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("@auth.hasAuthority('system:user:update')")
     @DeleteMapping(path = "/assignRole/{userId}")
-    public ResponseResult<Void> assignRoleDelete(@PathVariable Long userId, @RequestBody List<Long> roleIds) {
+    public ResponseResult<Void> assignRoleDelete(@PathVariable Long userId, @RequestBody @NotEmptyElements List<Long> roleIds) {
         this.sysUserService.checkUserDataScope(SysUser.of(userId));
         this.sysRoleService.checkRoleDataScope(roleIds.toArray(Long[]::new));
         this.sysUserRoleService.deleteByUserIdAndRoleIds(userId, roleIds);
