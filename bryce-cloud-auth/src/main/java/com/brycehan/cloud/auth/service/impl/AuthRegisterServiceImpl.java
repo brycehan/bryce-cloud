@@ -59,14 +59,14 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
     }
 
     @Override
-    public boolean validate(String key, String code) {
-        return this.authCaptchaService.validate(key, code, CaptchaType.REGISTER);
-    }
-
-    @Override
     public boolean registerEnabled() {
         ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_ENABLED);
         return responseResult.getData();
+    }
+
+    @Override
+    public boolean validate(String key, String code) {
+        return this.authCaptchaService.validate(key, code, CaptchaType.REGISTER);
     }
 
     @Override

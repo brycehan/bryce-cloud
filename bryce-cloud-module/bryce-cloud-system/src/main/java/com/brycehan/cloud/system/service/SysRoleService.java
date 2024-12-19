@@ -41,19 +41,35 @@ public interface SysRoleService extends BaseService<SysRole> {
     PageResult<SysRoleVo> page(SysRolePageDto sysRolePageDto);
 
     /**
-     * 更新角色状态
-     *
-     * @param id    角色ID
-     * @param status 状态
-     */
-    void update(Long id, StatusType status);
-
-    /**
      * 系统角色导出数据
      *
      * @param sysRolePageDto 系统角色查询条件
      */
     void export(SysRolePageDto sysRolePageDto);
+
+    /**
+     * 更新角色状态
+     *
+     * @param id    角色ID
+     * @param status 状态
+     */
+    void updateStatus(Long id, StatusType status);
+
+    /**
+     * 获取角色名称列表
+     *
+     * @param roleIdList 角色ID列表
+     * @return 角色名称列表
+     */
+    List<String> getRoleNameList(List<Long> roleIdList);
+
+    /**
+     * 根据用户ID查询角色集合
+     *
+     * @param userId 用户ID
+     * @return 角色集合
+     */
+    Set<SysRole> getRoleByUserId(Long userId);
 
     /**
      * 角色列表查询
@@ -77,22 +93,6 @@ public interface SysRoleService extends BaseService<SysRole> {
      * @return 角色分页信息
      */
     PageResult<SysRoleVo> assignRolePage(SysAssignRolePageDto sysAssignRolePageDto);
-
-    /**
-     * 获取角色名称列表
-     *
-     * @param roleIdList 角色ID列表
-     * @return 角色名称列表
-     */
-    List<String> getRoleNameList(List<Long> roleIdList);
-
-    /**
-     * 根据用户ID查询角色集合
-     *
-     * @param userId 用户ID
-     * @return 角色集合
-     */
-    Set<SysRole> getRoleByUserId(Long userId);
 
     /**
      * 校验角色是否允许操作

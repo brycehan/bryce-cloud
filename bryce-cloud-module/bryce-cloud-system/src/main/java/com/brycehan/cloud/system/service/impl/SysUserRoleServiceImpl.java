@@ -121,8 +121,6 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
         remove(queryWrapper);
     }
 
-
-
     @Override
     public void deleteByUserIdAndRoleIds(Long userId, List<Long> roleIds) {
         LambdaQueryWrapper<SysUserRole> queryWrapper = new LambdaQueryWrapper<>();
