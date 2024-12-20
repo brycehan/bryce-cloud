@@ -227,7 +227,7 @@ public class SysRoleController {
     @OperateLog(type = OperatedType.INSERT)
     @PreAuthorize("@auth.hasAuthority('system:role:update')")
     @PostMapping(path = "/assignUser/{roleId}")
-    public ResponseResult<Void> assignUserSave(@PathVariable Long roleId, @RequestBody @NotEmptyElements List<Long> userIds) {
+    public ResponseResult<Void> assignUserSave(@PathVariable Long roleId, @RequestBody @Parameter(description = "用户ID集合") @NotEmptyElements List<Long> userIds) {
         userIds.forEach(userId -> {
             this.sysUserService.checkUserAllowed(SysUser.of(userId));
             this.sysUserService.checkUserDataScope(SysUser.of(userId));
@@ -248,7 +248,7 @@ public class SysRoleController {
     @OperateLog(type = OperatedType.DELETE)
     @PreAuthorize("@auth.hasAuthority('system:role:update')")
     @DeleteMapping(path = "/assignUser/{roleId}")
-    public ResponseResult<Void> assignUserDelete(@PathVariable Long roleId, @RequestBody @NotEmptyElements List<Long> userIds) {
+    public ResponseResult<Void> assignUserDelete(@PathVariable Long roleId, @RequestBody @Parameter(description = "用户ID集合") @NotEmptyElements List<Long> userIds) {
         userIds.forEach(userId -> {
             this.sysUserService.checkUserAllowed(SysUser.of(userId));
             this.sysUserService.checkUserDataScope(SysUser.of(userId));
