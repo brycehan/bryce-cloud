@@ -4,9 +4,9 @@ import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class SysUserPageDto extends BasePageDto {
      * 账号
      */
     @Schema(description = "账号")
-    @Size(max = 50)
+    @Length(max = 50)
     private String username;
 
     /**
@@ -48,7 +48,7 @@ public class SysUserPageDto extends BasePageDto {
      * 手机号码
      */
     @Schema(description = "手机号码")
-    @Size(max = 20)
+    @Length(max = 20)
     private String phone;
 
     /**

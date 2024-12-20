@@ -5,9 +5,9 @@ import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 系统岗位Dto
@@ -30,14 +30,14 @@ public class SysPostDto extends BaseDto {
      * 岗位名称
      */
     @Schema(description = "岗位名称")
-    @Size(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
     private String name;
 
     /**
      * 岗位编码
      */
     @Schema(description = "岗位编码")
-    @Size(max = 30, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 30, groups = {SaveGroup.class, UpdateGroup.class})
     private String code;
 
     /**
@@ -56,7 +56,7 @@ public class SysPostDto extends BaseDto {
      * 备注
      */
     @Schema(description = "备注")
-    @Size(max = 500, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 500, groups = {SaveGroup.class, UpdateGroup.class})
     private String remark;
 
 }

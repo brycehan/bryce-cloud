@@ -35,9 +35,9 @@ public class SysMenuVo extends TreeNode<SysMenuVo> {
     private String parentName;
 
     /**
-     * 类型（M：菜单，B：按钮，I：接口）
+     * 类型（C：目录，M：菜单，B：按钮）
      */
-    @Schema(description = "类型（M：菜单，B：按钮，I：接口）")
+    @Schema(description = "类型（C：目录，M：菜单，B：按钮）")
     private String type;
 
     /**

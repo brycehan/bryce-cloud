@@ -3,9 +3,9 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 
@@ -27,14 +27,14 @@ public class SysMenuPageDto extends BasePageDto {
      * 菜单名称
      */
     @Schema(description = "菜单名称")
-    @Size(max = 50)
+    @Length(max = 50)
     private String name;
 
     /**
-     * 类型（M：菜单，B：按钮，I：接口）
+     * 类型（C：目录，M：菜单，B：按钮）
      */
-    @Schema(description = "类型（M：菜单，B：按钮，I：接口）")
-    @Size(max = 1)
+    @Schema(description = "类型（C：目录，M：菜单，B：按钮）")
+    @Length(max = 1)
     private String type;
 
     /**

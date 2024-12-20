@@ -3,9 +3,9 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -28,14 +28,14 @@ public class SysRolePageDto extends BasePageDto {
      * 角色名称
      */
     @Schema(description = "角色名称")
-    @Size(max = 50)
+    @Length(max = 50)
     private String name;
 
     /**
      * 角色编码
      */
     @Schema(description = "角色编码")
-    @Size(max = 50)
+    @Length(max = 50)
     private String code;
 
     /**

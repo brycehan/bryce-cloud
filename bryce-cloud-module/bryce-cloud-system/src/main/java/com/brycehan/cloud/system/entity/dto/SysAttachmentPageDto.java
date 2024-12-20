@@ -2,9 +2,9 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 
@@ -26,21 +26,21 @@ public class SysAttachmentPageDto extends BasePageDto {
      * 附件名称
      */
     @Schema(description = "附件名称")
-    @Size(max = 100)
+    @Length(max = 100)
     private String name;
 
     /**
      * 附件类型
      */
     @Schema(description = "附件类型")
-    @Size(max = 50)
+    @Length(max = 50)
     private String type;
 
     /**
      * 存储平台
      */
     @Schema(description = "存储平台")
-    @Size(max = 50)
+    @Length(max = 50)
     private String platform;
 
 }

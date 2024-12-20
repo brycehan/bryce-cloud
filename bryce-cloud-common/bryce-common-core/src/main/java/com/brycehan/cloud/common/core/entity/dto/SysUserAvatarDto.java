@@ -3,9 +3,9 @@ package com.brycehan.cloud.common.core.entity.dto;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 个人信息Dto
@@ -23,7 +23,7 @@ public class SysUserAvatarDto extends BaseDto {
      */
     @Schema(description = "头像地址")
     @NotEmpty
-    @Size(max = 200)
+    @Length(max = 200)
     private String avatar;
 
 }

@@ -175,7 +175,7 @@ create table brc_sys_menu
 (
     id              bigint               primary key comment 'ID',
     name            varchar(50)          not null comment '菜单名称',
-    type            char                 not null comment '类型（M：菜单，B：按钮，I：接口）',
+    type            char                 not null comment '类型（C：目录，M：菜单，B：按钮）',
     parent_id       bigint               not null comment '父菜单ID，一级菜单为0',
     url             varchar(255)         null comment '组件路径',
     authority       varchar(100)         null comment '权限标识',

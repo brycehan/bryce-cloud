@@ -3,9 +3,9 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -28,14 +28,14 @@ public class SysDictTypePageDto extends BasePageDto {
      * 字典名称
      */
     @Schema(description = "字典名称")
-    @Size(max = 100)
+    @Length(max = 100)
     private String dictName;
 
     /**
      * 字典类型
      */
     @Schema(description = "字典类型")
-    @Size(max = 100)
+    @Length(max = 100)
     private String dictType;
 
     /**

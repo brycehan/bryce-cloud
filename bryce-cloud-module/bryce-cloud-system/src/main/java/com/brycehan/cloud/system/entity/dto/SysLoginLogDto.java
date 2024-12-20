@@ -5,9 +5,9 @@ import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.LoginStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +26,7 @@ public class SysLoginLogDto extends BaseDto {
      * 用户账号
      */
     @Schema(description = "用户账号")
-    @Size(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
     private String username;
 
     /**
@@ -39,35 +39,35 @@ public class SysLoginLogDto extends BaseDto {
      * 登录IP地址
      */
     @Schema(description = "登录IP地址")
-    @Size(max = 128, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 128, groups = {SaveGroup.class, UpdateGroup.class})
     private String ip;
 
     /**
      * 登录地点
      */
     @Schema(description = "登录地点")
-    @Size(max = 255, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 255, groups = {SaveGroup.class, UpdateGroup.class})
     private String location;
 
     /**
      * 浏览器类型
      */
     @Schema(description = "浏览器类型")
-    @Size(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
     private String browser;
 
     /**
      * 操作系统
      */
     @Schema(description = "操作系统")
-    @Size(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
     private String os;
 
     /**
      * User Agent
      */
     @Schema(description = "User Agent")
-    @Size(max = 500, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 500, groups = {SaveGroup.class, UpdateGroup.class})
     private String userAgent;
 
     /**

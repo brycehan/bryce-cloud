@@ -3,7 +3,6 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,14 +27,14 @@ public class SysLoginLogPageDto extends BasePageDto {
      * 用户账号
      */
     @Schema(description = "用户账号")
-    @Size(max = 50)
+    @Length(max = 50)
     private String username;
 
     /**
      * 登录IP地址
      */
     @Schema(description = "登录IP地址")
-    @Size(max = 128)
+    @Length(max = 128)
     private String ip;
 
     /**

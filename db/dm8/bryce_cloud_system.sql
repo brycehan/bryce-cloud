@@ -283,7 +283,7 @@ create table brc_sys_menu
 comment on table brc_sys_menu is '系统菜单表';
 comment on column brc_sys_menu.id is 'ID';
 comment on column brc_sys_menu.name is '菜单名称';
-comment on column brc_sys_menu.type is '类型（M：菜单，B：按钮，I：接口）';
+comment on column brc_sys_menu.type is '类型（C：目录，M：菜单，B：按钮）';
 comment on column brc_sys_menu.parent_id is '父菜单ID，一级菜单为0';
 comment on column brc_sys_menu.url is '组件路径';
 comment on column brc_sys_menu.authority is '权限标识';

@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,15 +36,15 @@ public class SysUserDto extends BaseDto {
      * 账号
      */
     @Schema(description = "账号")
-    @Size(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
+    @Length(max = 50, groups = {SaveGroup.class, UpdateGroup.class})
     private String username;
 
     /**
      * 密码
      */
     @Schema(description = "密码")
-    @Size(max = 30, groups = {UpdateGroup.class})
-    @Size(min = 6, max = 30, groups = SaveGroup.class, message = "密码长度在6-30个字符")
+    @Length(max = 30, groups = {UpdateGroup.class})
+    @Length(min = 6, max = 30, groups = SaveGroup.class, message = "密码长度在6-30个字符")
     private String password;
 
     /**

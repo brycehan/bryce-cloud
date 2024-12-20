@@ -31,7 +31,7 @@ public class SysMenu extends BaseEntity {
     private String name;
 
     /**
-     * 类型（M：菜单，B：按钮，I：接口）
+     * 类型（C：目录，M：菜单，B：按钮）
      */
     private String type;
 

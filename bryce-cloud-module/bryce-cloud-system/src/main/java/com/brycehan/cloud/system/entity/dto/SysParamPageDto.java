@@ -2,9 +2,9 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -27,14 +27,14 @@ public class SysParamPageDto extends BasePageDto {
      * 参数名称
      */
     @Schema(description = "参数名称")
-    @Size(max = 100)
+    @Length(max = 100)
     private String paramName;
 
     /**
      * 参数键名
      */
     @Schema(description = "参数键名")
-    @Size(max = 100)
+    @Length(max = 100)
     private String paramKey;
 
     /**
