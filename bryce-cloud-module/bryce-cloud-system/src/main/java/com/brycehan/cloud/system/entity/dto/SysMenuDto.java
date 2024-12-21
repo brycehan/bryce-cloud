@@ -6,6 +6,7 @@ import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.VisibleType;
+import com.brycehan.cloud.system.common.MenuType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,11 +40,10 @@ public class SysMenuDto extends BaseDto {
     private String name;
 
     /**
-     * 类型（C：目录，M：菜单，B：按钮）
+     * 菜单类型（C：目录，M：菜单，B：按钮）
      */
-    @Schema(description = "类型（C：目录，M：菜单，B：按钮）")
-    @Length(max = 1, groups = {SaveGroup.class, UpdateGroup.class})
-    private String type;
+    @Schema(description = "菜单类型")
+    private MenuType type;
 
     /**
      * 父菜单ID，一级菜单为0

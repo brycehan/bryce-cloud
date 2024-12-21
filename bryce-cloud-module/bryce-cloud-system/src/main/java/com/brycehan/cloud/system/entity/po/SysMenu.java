@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.brycehan.cloud.common.core.entity.BaseEntity;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.VisibleType;
+import com.brycehan.cloud.system.common.MenuType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,7 +35,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 类型（C：目录，M：菜单，B：按钮）
      */
-    private String type;
+    private MenuType type;
 
     /**
      * 父菜单ID，一级菜单为0

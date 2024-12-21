@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.entity.vo;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.VisibleType;
 import com.brycehan.cloud.common.core.util.TreeNode;
+import com.brycehan.cloud.system.common.MenuType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,15 +32,10 @@ public class SysMenuVo extends TreeNode<SysMenuVo> {
     private String name;
 
     /**
-     * 父菜单名称
+     * 菜单类型（C：目录，M：菜单，B：按钮）
      */
-    private String parentName;
-
-    /**
-     * 类型（C：目录，M：菜单，B：按钮）
-     */
-    @Schema(description = "类型（C：目录，M：菜单，B：按钮）")
-    private String type;
+    @Schema(description = "菜单类型")
+    private MenuType type;
 
     /**
      * 组件路径
