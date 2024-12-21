@@ -3,8 +3,8 @@ package com.brycehan.cloud.api.system.entity.dto;
 import com.brycehan.cloud.common.core.constant.UserConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 注册Dto
@@ -20,14 +20,14 @@ public class RegisterDto {
      * 账号
      */
     @NotEmpty
-    @Size(min = UserConstants.USERNAME_MIN_LENGTH, max = UserConstants.USERNAME_MAX_LENGTH)
+    @Length(min = UserConstants.USERNAME_MIN_LENGTH, max = UserConstants.USERNAME_MAX_LENGTH)
     @Schema(description = "账号")
     private String username;
 
     /**
      * 姓名
      */
-    @Size(max = 50)
+    @Length(max = 50)
     @Schema(description = "姓名")
     private String nickname;
 
@@ -35,28 +35,28 @@ public class RegisterDto {
      * 密码
      */
     @NotEmpty
-    @Size(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
+    @Length(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
     @Schema(description = "密码")
     private String password;
 
     /**
      * key
      */
-    @Size(max = 36)
+    @Length(max = 36)
     @Schema(description = "key")
     private String key;
 
     /**
      * 手机号码
      */
-    @Size(max = 20)
+    @Length(max = 20)
     @Schema(description = "手机号码")
     private String phone;
 
     /**
      * 验证码
      */
-    @Size(max = 6)
+    @Length(max = 6)
     @Schema(description = "验证码")
     private String code;
 
