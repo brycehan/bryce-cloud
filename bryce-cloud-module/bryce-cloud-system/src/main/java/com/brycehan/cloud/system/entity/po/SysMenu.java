@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.brycehan.cloud.common.core.entity.BaseEntity;
 import com.brycehan.cloud.common.core.enums.StatusType;
+import com.brycehan.cloud.common.core.enums.VisibleType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -71,7 +72,12 @@ public class SysMenu extends BaseEntity {
     private String remark;
 
     /**
-     * 状态（0：停用，1：正常）
+     * 可见性类型
+     */
+    private VisibleType visible;
+
+    /**
+     * 菜单状态（0：停用，1：正常）
      */
     private StatusType status;
 

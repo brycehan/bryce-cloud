@@ -2,6 +2,7 @@ package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
+import com.brycehan.cloud.common.core.enums.VisibleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,6 +37,12 @@ public class SysMenuPageDto extends BasePageDto {
     @Schema(description = "类型（C：目录，M：菜单，B：按钮）")
     @Length(max = 1)
     private String type;
+
+    /**
+     * 可见性类型
+     */
+    @Schema(description = "可见性类型")
+    private VisibleType visible;
 
     /**
      * 状态（0：停用，1：正常）

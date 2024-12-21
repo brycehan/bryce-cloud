@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.vo;
 
 import com.brycehan.cloud.common.core.enums.StatusType;
+import com.brycehan.cloud.common.core.enums.VisibleType;
 import com.brycehan.cloud.common.core.util.TreeNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -75,6 +76,12 @@ public class SysMenuVo extends TreeNode<SysMenuVo> {
      */
     @Schema(description = "备注")
     private String remark;
+
+    /**
+     * 可见性类型
+     */
+    @Schema(description = "可见性类型")
+    private VisibleType visible;
 
     /**
      * 状态（0：停用，1：正常）

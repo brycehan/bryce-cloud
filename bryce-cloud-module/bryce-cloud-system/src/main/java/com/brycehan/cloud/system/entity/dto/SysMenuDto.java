@@ -5,6 +5,7 @@ import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
+import com.brycehan.cloud.common.core.enums.VisibleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -89,6 +90,12 @@ public class SysMenuDto extends BaseDto {
     @Schema(description = "备注")
     @Length(max = 500, groups = {SaveGroup.class, UpdateGroup.class})
     private String remark;
+
+    /**
+     * 可见性类型
+     */
+    @Schema(description = "可见性类型")
+    private VisibleType visible;
 
     /**
      * 状态（0：停用，1：正常）
