@@ -6,6 +6,7 @@ import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.base.response.UploadResponseStatus;
 import com.brycehan.cloud.common.core.base.response.UserResponseStatus;
+import com.brycehan.cloud.common.core.util.ServletUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -143,6 +144,12 @@ public class ServerExceptionHandler {
                 // 获取字段的实体类class
                 Class<?> rootBeanClass = constraintViolation.getRootBeanClass();
                 String field = fieldError.getField();
+
+                // 如果不是中文请求，直接返回字段名
+                if (ServletUtils.nonZh()) {
+                    return field + " ";
+                }
+
                 // 获取校验出错的实体类字段
                 Field[] fieldsDirectly = ReflectUtil.getFieldsDirectly(rootBeanClass, true);
                 Optional<Field> errorField = Arrays.stream(fieldsDirectly).filter(f -> f.getName().equals(field)).findFirst();
@@ -187,6 +194,12 @@ public class ServerExceptionHandler {
             String methodName = parentNode.getName();
             // 校验失败的参数名称
             String parameterName = leafNode.getName();
+
+            // 如果不是中文请求，直接返回字段名
+            if (ServletUtils.nonZh()) {
+                return parameterName + " ";
+            }
+
             // 获取校验失败的方法
             Method errorMethod = ReflectUtil.getMethod(rootBeanClass, methodName, parentNode.getParameterTypes().toArray(Class[]::new));
             Parameter[] parameters = errorMethod.getParameters();
