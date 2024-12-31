@@ -49,7 +49,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 
 /**
  * 系统用户服务实现
@@ -78,7 +78,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     private final SysParamService sysParamService;
 
-    private final Executor executor;
+    private final ExecutorService executor;
 
     private final StorageApi storageApi;
 

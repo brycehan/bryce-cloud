@@ -9,7 +9,6 @@ import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
-import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
@@ -112,9 +111,9 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         this.jwtTokenProvider.cache(loginUser);
 
         // 设置登录信息
-        LoginUserContextHolder.setUserKey(loginUser.getUserKey());
-        LoginUserContextHolder.setUserData(JsonUtils.writeValueAsString(loginUser));
-        LoginUserContextHolder.setSourceClient(loginUser.getSourceClientType());
+        LoginUserContext.setUserKey(loginUser.getUserKey());
+        LoginUserContext.setUserData(JsonUtils.writeValueAsString(loginUser));
+        LoginUserContext.setSourceClient(loginUser.getSourceClientType());
 
         // 封装 LoginVo
         LoginVo loginVo = new LoginVo();

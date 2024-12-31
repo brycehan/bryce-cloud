@@ -1,6 +1,6 @@
 package com.brycehan.cloud.common.api.base;
 
-import com.brycehan.cloud.common.core.base.LoginUserContextHolder;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.constant.TokenConstants;
@@ -50,14 +50,14 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             }
         } else {
             // Async 异步调用时处理请求头
-            if (StringUtils.hasText(LoginUserContextHolder.getUserKey())) {
-                requestTemplate.header(JwtConstants.USER_KEY, LoginUserContextHolder.getUserKey());
+            if (StringUtils.hasText(LoginUserContext.getUserKey())) {
+                requestTemplate.header(JwtConstants.USER_KEY, LoginUserContext.getUserKey());
             }
-            if (StringUtils.hasText(LoginUserContextHolder.getUserData())) {
-                requestTemplate.header(JwtConstants.USER_DATA, LoginUserContextHolder.getUserData());
+            if (StringUtils.hasText(LoginUserContext.getUserData())) {
+                requestTemplate.header(JwtConstants.USER_DATA, LoginUserContext.getUserData());
             }
-            if (LoginUserContextHolder.getSourceClient() != null) {
-                requestTemplate.header(TokenConstants.SOURCE_CLIENT_HEADER, LoginUserContextHolder.getSourceClient().getValue());
+            if (LoginUserContext.getSourceClient() != null) {
+                requestTemplate.header(TokenConstants.SOURCE_CLIENT_HEADER, LoginUserContext.getSourceClient().getValue());
             }
             requestTemplate.header(DataConstants.INNER_CALL, YesNoType.YES.getValue());
         }
