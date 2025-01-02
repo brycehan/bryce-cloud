@@ -28,6 +28,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.Objects;
 
 /**
@@ -60,6 +61,9 @@ public class AuthLoginServiceImpl implements AuthLoginService {
             throw new ServerException("验证码错误");
         }
 
+        // 设置记住我
+        LoginUserContext.rememberMeHolder.set(Boolean.TRUE.equals(accountLoginDto.getRememberMe()));
+
         Authentication authentication;
         try {
             // 设置需要认证的用户信息
@@ -80,6 +84,9 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
     @Override
     public LoginVo loginByPhone(PhoneLoginDto phoneLoginDto) {
+        // 设置记住我
+        LoginUserContext.rememberMeHolder.set(Boolean.TRUE.equals(phoneLoginDto.getRememberMe()));
+
         Authentication authentication;
         try {
             // 设置需要认证的用户信息
@@ -104,8 +111,6 @@ public class AuthLoginServiceImpl implements AuthLoginService {
 
         // 生成 jwt
         String token = this.jwtTokenProvider.generateToken(loginUser);
-        // 过期时间间隔，单位秒
-        long expiredIn = this.jwtTokenProvider.getExpiredInSeconds(loginUser);
 
         // 缓存 loginUser
         this.jwtTokenProvider.cache(loginUser);
@@ -119,7 +124,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         LoginVo loginVo = new LoginVo();
         BeanUtils.copyProperties(loginUser, loginVo);
         loginVo.setAccessToken(JwtConstants.TOKEN_PREFIX.concat(token));
-        loginVo.setExpiresIn(expiredIn);
+        loginVo.setExpiresIn(Duration.between(loginUser.getLoginTime(), loginUser.getExpireTime()).toSeconds());
 
         return loginVo;
     }

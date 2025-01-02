@@ -4,24 +4,25 @@ import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.brycehan.cloud.common.core.base.LoginUser;
+import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.constant.CacheConstants;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import com.brycehan.cloud.common.core.enums.SourceClientType;
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.security.common.utils.TokenUtils;
+import com.brycehan.cloud.common.security.config.properties.AuthProperties;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -38,23 +39,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    /**
-     * jwt密钥
-     */
-    @Value("${bryce.auth.jwt.secret}")
-    private final String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
-
-    /**
-     * 令牌过期时间间隔
-     */
-    @Value("${bryce.auth.jwt.token-validity-in-seconds}")
-    private long tokenValidityInSeconds;
-
-    /**
-     * App令牌过期时间间隔
-     */
-    @Value("${bryce.auth.jwt.app-token-validity-in-days}")
-    private long appTokenValidityInDays;
+    private final AuthProperties authProperties;
 
     private final RedisTemplate<String, LoginUser> redisTemplate;
 
@@ -67,55 +52,57 @@ public class JwtTokenProvider {
     public String generateToken(LoginUser loginUser) {
         // 创建jwt令牌
         Map<String, Object> claims = new HashMap<>();
-        long expiredInSeconds = tokenValidityInSeconds;
 
-        switch (Objects.requireNonNull(loginUser.getSourceClientType())) {
-            case PC, H5, UNKNOWN -> {
-                loginUser.setUserKey(TokenUtils.uuid());
-                claims.put(JwtConstants.USER_KEY, loginUser.getUserKey());
-            }
-            case APP, MINI_APP -> {
-                claims.put(JwtConstants.USER_DATA, JsonUtils.writeValueAsString(loginUser));
-                expiredInSeconds = appTokenValidityInDays * 24 * 3600;
+        AuthProperties.Jwt jwt = authProperties.getJwt();
+        LocalDateTime now = LocalDateTime.now();
+
+        loginUser.setRememberMe(Boolean.TRUE.equals(LoginUserContext.rememberMeHolder.get()));
+        loginUser.setLoginTime(now);
+
+        // 判断是否记住我
+        if (loginUser.getRememberMe()) { // 记住我
+            // 设置过期时间
+            loginUser.setExpireTime(now.plus(jwt.getAppTokenValidity()));
+            claims.put(JwtConstants.USER_DATA, JsonUtils.writeValueAsString(loginUser));
+        } else { // 没有记住我
+            switch (Objects.requireNonNull(loginUser.getSourceClientType())) {
+                case PC, H5, UNKNOWN -> {
+                    loginUser.setUserKey(TokenUtils.uuid());
+                    loginUser.setExpireTime(now.plus(jwt.getDefaultTokenValidity()));
+                    claims.put(JwtConstants.USER_KEY, loginUser.getUserKey());
+                }
+                case APP, MINI_APP -> {
+                    loginUser.setExpireTime(now.plus(jwt.getAppTokenValidity()));
+                    claims.put(JwtConstants.USER_DATA, JsonUtils.writeValueAsString(loginUser));
+                }
             }
         }
 
-        return generateToken(claims, expiredInSeconds);
+        return generateToken(claims, loginUser.getExpireTime());
     }
 
     /**
      * 从数据声明生成令牌
      *
      * @param claims 数据声明
-     * @param expiredInSeconds 过期时间秒数
+     * @param expiredTime 过期时间
      * @return 令牌
      */
-    public String generateToken(Map<String, Object> claims, long expiredInSeconds) {
-        // 指定加密方式
-        Algorithm algorithm = Algorithm.HMAC256(this.jwtSecret);
-        // 过期时间
-        Instant expiredTime = Instant.now().plus(expiredInSeconds, ChronoUnit.SECONDS);
-        return JWT.create()
-                .withExpiresAt(expiredTime)
-                .withPayload(claims)
-                // 签发 JWT
-                .sign(algorithm);
-    }
-
-    /**
-     * 获取生成token时的过期时间秒数
-     *
-     * @param loginUser 登录用户
-     * @return 过期时间秒数
-     */
-    public long getExpiredInSeconds(LoginUser loginUser) {
-        long expiredInSeconds = tokenValidityInSeconds;
-
-        switch (Objects.requireNonNull(loginUser.getSourceClientType())) {
-            case APP, MINI_APP -> expiredInSeconds = appTokenValidityInDays * 24 * 3600;
+    public String generateToken(Map<String, Object> claims, LocalDateTime expiredTime) {
+        AuthProperties.Jwt jwt = authProperties.getJwt();
+        if (jwt == null || StrUtil.isBlank(jwt.getSecret())) {
+            return null;
         }
 
-        return expiredInSeconds;
+        // 指定加密方式
+        Algorithm algorithm = Algorithm.HMAC256(jwt.getSecret());
+        // 过期时间
+        Instant expiredTimeInstant = expiredTime.atZone(ZoneId.systemDefault()).toInstant();
+        return JWT.create()
+                .withPayload(claims)
+                .withExpiresAt(expiredTimeInstant)
+                // 签发 JWT
+                .sign(algorithm);
     }
 
     /**
@@ -124,29 +111,24 @@ public class JwtTokenProvider {
      * @param loginUser 登录用户
      */
     public void cache(LoginUser loginUser) {
-        // 来源客户端
-        SourceClientType sourceClientType = loginUser.getSourceClientType();
-
-        LocalDateTime now = LocalDateTime.now();
-        // 设置过期时间
-        LocalDateTime expireTime = null;
-        switch (Objects.requireNonNull(sourceClientType)) {
-            case PC, H5, UNKNOWN -> expireTime = now.plusSeconds(this.tokenValidityInSeconds);
-            case APP, MINI_APP -> expireTime = now.plusDays(this.appTokenValidityInDays);
+        // 记住我
+        if (Boolean.TRUE.equals(loginUser.getRememberMe())) {
+            return;
         }
 
-        loginUser.setLoginTime(now);
-        loginUser.setExpireTime(expireTime);
+        // 来源客户端
+        SourceClientType sourceClientType = loginUser.getSourceClientType();
+        LocalDateTime now = LocalDateTime.now();
+        // 过期时间间隔
+        Duration expireTimeDuration = Duration.between(now, loginUser.getExpireTime());
 
-        String loginUserKey;
         switch (sourceClientType) {
             case PC, H5, UNKNOWN -> {
-                loginUserKey = JwtConstants.LOGIN_USER_KEY;
-                String cacheUserKey = loginUserKey.concat(":").concat(loginUser.getUserKey());
+                String cacheUserKey = JwtConstants.LOGIN_USER_KEY.concat(":").concat(loginUser.getUserKey());
 
                 // 根据tokenKey将loginUser缓存
                 this.redisTemplate.opsForValue()
-                        .set(cacheUserKey, loginUser, tokenValidityInSeconds, TimeUnit.SECONDS);
+                        .set(cacheUserKey, loginUser, expireTimeDuration.toSeconds(), TimeUnit.SECONDS);
             }
         }
     }
@@ -186,15 +168,13 @@ public class JwtTokenProvider {
      * @return 是否需要刷新令牌
      */
     public boolean needRefreshToken(LoginUser loginUser) {
+        LocalDateTime loginTime = loginUser.getLoginTime();
         LocalDateTime expireTime = loginUser.getExpireTime();
         LocalDateTime now = LocalDateTime.now();
-        // 存储会话的令牌自动续期
-        if (StringUtils.isNotEmpty(loginUser.getUserKey())) {
-            return expireTime.isAfter(now) && expireTime.isBefore(now.plusMinutes(JwtConstants.REFRESH_CACHE_MIN_MINUTE));
-        } else {
-            // 非存储会话的令牌自动续期
-            return expireTime.isAfter(now) && expireTime.isBefore(now.plusDays(JwtConstants.REFRESH_APP_MIN_DAY));
-        }
+        // 登录至过期的一半时间间隔
+        Duration mediumDuration = Duration.between(loginTime, expireTime).dividedBy(2);
+        // 令牌需要续期
+        return now.isBefore(expireTime) && now.isAfter(loginTime.plus(mediumDuration));
     }
 
     /**

@@ -3,6 +3,8 @@ package com.brycehan.cloud.common.security.config.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.time.Duration;
+
 /**
  * 认证属性
  *
@@ -16,7 +18,7 @@ public class AuthProperties {
     /**
      * Jwt 配置属性
      */
-    private Jwt jwt;
+    private Jwt jwt = new Jwt();
 
     /**
      * 忽略的资源地址
@@ -32,9 +34,9 @@ public class AuthProperties {
     public static class Jwt {
 
         /**
-         * 密钥
+         * 密钥（生产环境需要配置）
          */
-        private String secret;
+        private String secret = "UZCiSM60eRJMOFA9mbiy";;
 
         /**
          * 授权key
@@ -42,15 +44,14 @@ public class AuthProperties {
         private String authoritiesKey = "auth";
 
         /**
-         * token有效期
+         * 默认token有效期
          */
-        private long tokenValidityInSeconds = 7200L;
+        private Duration defaultTokenValidity = Duration.ofHours(2L);
 
         /**
          * App token有效期
          */
-        private long appTokenValidityInDays = 31L;
-
+        private Duration appTokenValidity =  Duration.ofDays(30L);
     }
 
     @Data

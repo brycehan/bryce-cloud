@@ -1,14 +1,15 @@
 package com.brycehan.cloud.gateway.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
+import com.brycehan.cloud.gateway.config.properties.AuthProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -24,11 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtTokenParser {
 
-    /**
-     * jwt密钥
-     */
-    @Value("${bryce.auth.jwt.secret}")
-    private final String jwtSecret = "UZCiSM60eRJMOFA9mbiy";
+    private final AuthProperties authProperties;
 
     /**
      * 获取用户key
@@ -65,7 +62,10 @@ public class JwtTokenParser {
      * @return 校验令牌是否有效（true：有效，false：无效）
      */
     public DecodedJWT validateToken(String authToken) {
-        Algorithm algorithm = Algorithm.HMAC256(this.jwtSecret);
+        if (authProperties.getJwt() == null || StrUtil.isBlank(authProperties.getJwt().getSecret())) {
+            return null;
+        }
+        Algorithm algorithm = Algorithm.HMAC256(authProperties.getJwt().getSecret());
         JWTVerifier verifier = JWT.require(algorithm).build();
         return verifier.verify(authToken);
     }

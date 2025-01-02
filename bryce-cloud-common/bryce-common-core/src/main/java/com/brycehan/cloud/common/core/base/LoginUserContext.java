@@ -18,9 +18,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @SuppressWarnings("unused")
 public class LoginUserContext {
 
-    private static final InheritableThreadLocal<String> USER_KEY_HOLDER = new TransmittableThreadLocal<>();
-    private static final InheritableThreadLocal<String> USER_DATA_HOLDER = new TransmittableThreadLocal<>();
-    private static final InheritableThreadLocal<SourceClientType> SOURCE_CLIENT_HOLDER = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<String> userKeyHolder = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<String> userDataHolder = new TransmittableThreadLocal<>();
+    public static final TransmittableThreadLocal<Boolean> rememberMeHolder = new TransmittableThreadLocal<>();
+    private static final InheritableThreadLocal<SourceClientType> sourceClientHolder = new TransmittableThreadLocal<>();
 
     /**
      * 获取当前登录用户信息
@@ -92,7 +93,7 @@ public class LoginUserContext {
      * @return 用户标识
      */
     public static String getUserKey() {
-        return USER_KEY_HOLDER.get();
+        return userKeyHolder.get();
     }
 
     /**
@@ -101,7 +102,7 @@ public class LoginUserContext {
      * @param userKey 用户标识
      */
     public static void setUserKey(String userKey) {
-        USER_KEY_HOLDER.set(userKey);
+        userKeyHolder.set(userKey);
     }
 
     /**
@@ -109,7 +110,7 @@ public class LoginUserContext {
      * @return 用户数据
      */
     public static String getUserData() {
-        return USER_DATA_HOLDER.get();
+        return userDataHolder.get();
     }
 
     /**
@@ -118,7 +119,7 @@ public class LoginUserContext {
      * @param userData 用户数据
      */
     public static void setUserData(String userData) {
-        USER_DATA_HOLDER.set(userData);
+        userDataHolder.set(userData);
     }
 
     /**
@@ -126,7 +127,7 @@ public class LoginUserContext {
      * @return 客户端类型
      */
     public static SourceClientType getSourceClient() {
-        return SOURCE_CLIENT_HOLDER.get();
+        return sourceClientHolder.get();
     }
 
     /**
@@ -135,6 +136,6 @@ public class LoginUserContext {
      * @param sourceClient 客户端类型
      */
     public static void setSourceClient(SourceClientType sourceClient) {
-        SOURCE_CLIENT_HOLDER.set(sourceClient);
+        sourceClientHolder.set(sourceClient);
     }
 }
