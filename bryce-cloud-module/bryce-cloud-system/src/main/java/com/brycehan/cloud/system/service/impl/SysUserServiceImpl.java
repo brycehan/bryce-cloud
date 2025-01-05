@@ -23,7 +23,7 @@ import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.YesNoType;
-import com.brycehan.cloud.common.core.util.ExcelUtils;
+import com.brycehan.cloud.common.core.util.excel.ExcelUtils;
 import com.brycehan.cloud.common.core.util.FileUploadUtils;
 import com.brycehan.cloud.common.core.util.MimeTypeUtils;
 import com.brycehan.cloud.common.core.util.ValidatorUtils;
