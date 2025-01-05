@@ -1,16 +1,18 @@
 package com.brycehan.cloud.email.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.constant.DataConstants;
 import com.brycehan.cloud.common.core.enums.EmailType;
+import com.brycehan.cloud.common.core.util.FileUploadUtils;
+import com.brycehan.cloud.common.core.util.MimeTypeUtils;
 import com.brycehan.cloud.email.service.EmailService;
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -21,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -65,15 +67,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendHtmlEmail(ToMailDto toMailDto, MultipartFile[] file) {
+    public void sendHtmlEmail(ToMailDto toMailDto, List<MultipartFile> file) {
         try {
             // 创建一个MimeMessage
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = getMimeMessageHelper(toMailDto, message);
 
             // 添加附件
-            if (ArrayUtils.isNotEmpty(file)) {
-                Arrays.stream(file).filter(Objects::nonNull).forEach(f -> {
+            if (CollUtil.isNotEmpty(file)) {
+                file.stream().filter(Objects::nonNull).filter(f -> !f.isEmpty()).forEach(f -> {
+                    FileUploadUtils.assertAllowed(f, MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION);
                     try {
                         messageHelper.addAttachment(Objects.requireNonNull(f.getOriginalFilename()), f);
                     } catch (Exception e) {

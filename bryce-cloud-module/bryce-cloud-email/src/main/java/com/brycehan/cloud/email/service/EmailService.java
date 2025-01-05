@@ -5,6 +5,8 @@ import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 邮件服务
  *
@@ -24,7 +26,7 @@ public interface EmailService {
      * @param toEmail 收邮件参数
      * @param file 附件
      */
-    void sendHtmlEmail(ToMailDto toEmail, MultipartFile[] file);
+    void sendHtmlEmail(ToMailDto toEmail, List<MultipartFile> file);
 
     /**
      * 发送邮件

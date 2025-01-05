@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 邮件Api
  *
@@ -39,7 +41,7 @@ public interface EmailApi {
      * @return 响应结果
      */
     @PostMapping(path = "/sendHtmlEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, @RequestPart(required = false) MultipartFile[] file);
+    ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, List<MultipartFile> file);
 
     /**
      * 发送验证码邮件

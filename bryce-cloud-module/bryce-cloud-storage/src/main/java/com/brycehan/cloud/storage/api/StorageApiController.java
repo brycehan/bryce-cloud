@@ -8,8 +8,10 @@ import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Tag(name = "上传文件存储")
 @RequestMapping(path =StorageApi.PATH)
 @RestController
+@Validated
 @RequiredArgsConstructor
 public class StorageApiController implements StorageApi {
 
@@ -37,11 +40,12 @@ public class StorageApiController implements StorageApi {
      */
     @Override
     @Operation(summary = "上传文件")
-    public ResponseResult<StorageVo> upload(MultipartFile file) {
+    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file) {
         // 是否为空
         if(file.isEmpty()) {
             return null;
         }
+
         StorageVo storageVo;
 
         try {
@@ -65,5 +69,4 @@ public class StorageApiController implements StorageApi {
 
         return ResponseResult.ok(storageVo);
     }
-
 }

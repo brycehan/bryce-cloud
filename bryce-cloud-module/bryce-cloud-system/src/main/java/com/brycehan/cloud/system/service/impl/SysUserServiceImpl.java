@@ -24,6 +24,8 @@ import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.YesNoType;
 import com.brycehan.cloud.common.core.util.ExcelUtils;
+import com.brycehan.cloud.common.core.util.FileUploadUtils;
+import com.brycehan.cloud.common.core.util.MimeTypeUtils;
 import com.brycehan.cloud.common.core.util.ValidatorUtils;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -256,9 +258,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     @Override
     public String importByExcel(MultipartFile file, boolean isUpdateSupport) {
-        if(file.isEmpty()) {
-            throw new RuntimeException("请选择需要上传的文件");
+        if (file.isEmpty()) {
+            throw new RuntimeException("请选择需要导入的用户数据文件");
         }
+        // 验证文件格式
+        FileUploadUtils.assertAllowed(file, MimeTypeUtils.EXCEL_EXTENSION);
+
         List<SysUserExcelDto> sysUserExcelDtoList = ExcelUtils.read(file, SysUserExcelDto.class);
         return saveUsers(sysUserExcelDtoList, isUpdateSupport);
     }
@@ -399,7 +404,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
     @Override
     public String updateAvatar(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new RuntimeException("用户头像不能为空");
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("上传头像文件：{}", file.getOriginalFilename());
+        }
+        // 验证文件格式
+        FileUploadUtils.assertAllowed(file, MimeTypeUtils.IMAGE_EXTENSION);
+
         ResponseResult<StorageVo> uploaded = this.storageApi.upload(file);
+
         if (!ResponseResult.isSuccess(uploaded) || uploaded.getData() == null) {
             throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);
         }

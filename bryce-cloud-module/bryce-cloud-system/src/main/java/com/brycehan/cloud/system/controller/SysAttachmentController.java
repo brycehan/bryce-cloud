@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "系统附件")
 @RequestMapping("/attachment")
 @RestController
+@Validated
 @RequiredArgsConstructor
 public class SysAttachmentController {
 

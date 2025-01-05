@@ -26,6 +26,5 @@ public interface StorageApi {
      */
     @Operation(summary = "上传文件")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<StorageVo> upload(@RequestPart MultipartFile file);
-
+    ResponseResult<StorageVo> upload(MultipartFile file);
 }

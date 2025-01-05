@@ -18,7 +18,9 @@ import java.util.Date;
  * @since 2023/10/1
  * @author Bryce Han
  */
+@SuppressWarnings("unused")
 public abstract class StorageService {
+
     public StorageProperties storageProperties;
 
     /**
@@ -51,9 +53,7 @@ public abstract class StorageService {
 
         // 如果有前缀，则也带上
         if(StrUtil.isNotEmpty(storageProperties.getConfig().getPrefix())) {
-            path = storageProperties.getConfig().getPrefix()
-                    .concat(File.separator)
-                    .concat(path);
+            path = storageProperties.getConfig().getPrefix().concat(File.separator).concat(path);
         }
 
         return path;

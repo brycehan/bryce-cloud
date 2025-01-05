@@ -10,6 +10,8 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 邮件服务熔断降级处理
  *
@@ -30,7 +32,7 @@ public class EmailApiFallbackImpl implements FallbackFactory<EmailClient> {
             }
 
             @Override
-            public ResponseResult<Void> sendHtmlEmail(ToMailDto toMailDto, MultipartFile[] file) {
+            public ResponseResult<Void> sendHtmlEmail(ToMailDto toMailDto, List<MultipartFile> file) {
                 return ResponseResult.fallback("邮件服务调用失败");
             }
 

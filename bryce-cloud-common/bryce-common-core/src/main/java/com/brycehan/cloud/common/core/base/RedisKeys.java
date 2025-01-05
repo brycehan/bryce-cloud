@@ -16,11 +16,11 @@ public class RedisKeys {
     /**
      * 获取验证码key
      *
-     * @param key 验证码uuid
+     * @param uuid 验证码uuid
      * @return 验证码key
      */
-    public static String getCaptchaKey(String key) {
-        return CacheConstants.CAPTCHA_CODE_KEY.concat(key);
+    public static String getCaptchaKey(String uuid) {
+        return CacheConstants.CAPTCHA_CODE_KEY.concat(uuid);
     }
 
     /**
@@ -49,8 +49,8 @@ public class RedisKeys {
      *
      * @return 第三方登录 key
      */
+    @SuppressWarnings("unused")
     public static String getThirdLoginKey(String state) {
         return CacheConstants.SYSTEM_THIRD_LOGIN_KEY + state;
     }
-
 }
