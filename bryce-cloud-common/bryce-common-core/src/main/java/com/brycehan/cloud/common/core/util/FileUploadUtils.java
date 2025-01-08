@@ -2,8 +2,8 @@ package com.brycehan.cloud.common.core.util;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import com.brycehan.boot.common.base.ServerException;
-import com.brycehan.boot.common.base.response.UploadResponseStatus;
+import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.base.response.UploadResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;

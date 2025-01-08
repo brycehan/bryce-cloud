@@ -4,7 +4,9 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
+import org.springframework.http.ResponseEntity;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,10 +30,11 @@ public abstract class StorageService {
      *
      * @param data 文件字节数组
      * @param path 文件路径，包含文件名
+     * @param accessType 访问类型
      * @return http资源地址
      */
-    public String upload(byte[] data, String path) {
-        return this.upload(new ByteArrayInputStream(data), path);
+    public String upload(byte[] data, String path, AccessType accessType) {
+        return this.upload(new ByteArrayInputStream(data), path, accessType);
     }
 
     /**
@@ -39,9 +42,10 @@ public abstract class StorageService {
      *
      * @param data 文件字节流
      * @param path 文件路径，包含文件名
+     * @param accessType 访问类型
      * @return http资源地址
      */
-    public abstract String upload(InputStream data, String path);
+    public abstract String upload(InputStream data, String path, AccessType accessType);
 
     /**
      * 生成路径，不包含文件名
@@ -82,4 +86,12 @@ public abstract class StorageService {
                 .concat(".")
                 .concat(suffix);
     }
+
+    /**
+     * 下载文件
+     *
+     * @param url 文件地址
+     * @param filename 文件名
+     */
+    public abstract ResponseEntity<byte[]> download(String url, String filename, AccessType accessType);
 }

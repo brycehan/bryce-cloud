@@ -3,8 +3,10 @@ package com.brycehan.cloud.storage.service;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.AliyunStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
+import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.InputStream;
@@ -22,7 +24,7 @@ public class AliyunStorageService extends StorageService {
     }
 
     @Override
-    public String upload(InputStream data, String path) {
+    public String upload(InputStream data, String path, AccessType accessType) {
         AliyunStorageProperties aliyun = this.storageProperties.getAliyun();
         OSS client = new OSSClientBuilder().build(aliyun.getEndPoint(),
                 aliyun.getAccessKeyId(),
@@ -40,5 +42,10 @@ public class AliyunStorageService extends StorageService {
         return this.storageProperties.getConfig().getDomain()
                 .concat(File.separator)
                 .concat(path);
+    }
+
+    @Override
+    public ResponseEntity<byte[]> download(String url, String name, AccessType accessType) {
+        return null;
     }
 }

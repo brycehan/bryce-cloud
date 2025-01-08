@@ -1,9 +1,11 @@
 package com.brycehan.cloud.storage.service;
 
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.HuaweiStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.obs.services.ObsClient;
+import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,7 +23,7 @@ public class HuaweiStorageService extends StorageService {
     }
 
     @Override
-    public String upload(InputStream data, String path) {
+    public String upload(InputStream data, String path, AccessType accessType) {
         HuaweiStorageProperties huawei = this.storageProperties.getHuawei();
         ObsClient client = new ObsClient(huawei.getAccessKey(),
                 huawei.getSecretKey(),
@@ -36,5 +38,10 @@ public class HuaweiStorageService extends StorageService {
         return this.storageProperties.getConfig().getDomain()
                 .concat(File.separator)
                 .concat(path);
+    }
+
+    @Override
+    public ResponseEntity<byte[]> download(String url, String name, AccessType accessType) {
+        return null;
     }
 }

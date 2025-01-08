@@ -1,6 +1,7 @@
 package com.brycehan.cloud.storage.service;
 
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.MinioStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import io.minio.BucketExistsArgs;
@@ -9,6 +10,7 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
+import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.InputStream;
@@ -35,7 +37,7 @@ public class MinioStorageService extends StorageService {
     }
 
     @Override
-    public String upload(InputStream data, String path) {
+    public String upload(InputStream data, String path, AccessType accessType) {
         MinioStorageProperties minio = this.storageProperties.getMinio();
         boolean bucketExists;
 
@@ -73,5 +75,10 @@ public class MinioStorageService extends StorageService {
                 .concat(minio.getBucketName())
                 .concat(File.separator)
                 .concat(path);
+    }
+
+    @Override
+    public ResponseEntity<byte[]> download(String url, String name, AccessType accessType) {
+        return null;
     }
 }

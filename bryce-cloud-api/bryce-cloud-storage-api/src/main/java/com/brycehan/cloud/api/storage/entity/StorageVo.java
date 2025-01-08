@@ -1,5 +1,6 @@
 package com.brycehan.cloud.api.storage.entity;
 
+import com.brycehan.cloud.common.core.enums.AccessType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
@@ -21,22 +22,28 @@ public class StorageVo {
     private String name;
 
     /**
-     * 文件地址
+     * 附件地址
      */
-    @Schema(description = "文件地址")
+    @Schema(description = "附件地址")
     private String url;
-
-    /**
-     * 文件大小（单位字节）
-     */
-    @Schema(description = "文件大小（单位字节）")
-    private Long size;
 
     /**
      * 附件名后缀
      */
     @Schema(description = "附件名后缀")
     private String suffix;
+
+    /**
+     * 访问类型
+     */
+    @Schema(description = "访问类型")
+    private AccessType accessType;
+
+    /**
+     * 文件大小（单位字节）
+     */
+    @Schema(description = "文件大小（单位字节）")
+    private Long size;
 
     /**
      * 哈希码

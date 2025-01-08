@@ -1,12 +1,10 @@
 package com.brycehan.cloud.common.core.enums;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.Set;
 
@@ -18,7 +16,6 @@ import java.util.Set;
  */
 @Slf4j
 @Component
-@Validated
 public class JacksonEnumConverter implements GenericConverter {
 
     private final ObjectMapper objectMapper;
@@ -39,7 +36,7 @@ public class JacksonEnumConverter implements GenericConverter {
 
     @SuppressWarnings("all")
     @Override
-    public Object convert(Object source, @NotNull TypeDescriptor sourceType, @NotNull TypeDescriptor targetType) {
+    public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         if (source == null) {
             return null;
         }

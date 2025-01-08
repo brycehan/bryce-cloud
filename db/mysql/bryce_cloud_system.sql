@@ -387,6 +387,7 @@ INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, d
 INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (9, '操作状态', 'sys_operate_status', 0, 1, '操作状态列表', null, 1, now(), 1, now());
 INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (10, '登录状态', 'sys_login_status', 0, 1, '登录状态列表', null, 1, now(), 1, now());
 INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (11, '参数类型', 'sys_param_type', 0, 1, '参数类型列表', null, 1, now(), 1, now());
+INSERT INTO brc_sys_dict_type (id, dict_name, dict_type, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (12, '访问类型', 'sys_access_type', 0, 1, '访问类型列表', null, 1, now(), 1, now());
 
 -- 13、系统字典数据表
 create table brc_sys_dict_data
@@ -444,6 +445,8 @@ INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_c
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (104, '账号不存在/密码错误', '3', 10, 'danger', 4, 1, '', null, 1, now(), 1, now());
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (111, '内置', '0', 11, 'primary', 0, 1, null, null, 1, now(), 1, now());
 INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (112, '应用', '1', 11, 'success', 0, 1, null, null, 1, now(), 1, now());
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (121, '公共', '0', 12, 'success', 1, 1, null, null, 1, now(), 1, now());
+INSERT INTO brc_sys_dict_data (id, dict_label, dict_value, dict_type_id, label_class, sort, status, remark, deleted, created_user_id, created_time, updated_user_id, updated_time) VALUES (122, '安全', '1', 12, 'primary', 2, 1, null, null, 1, now(), 1, now());
 
 -- 14、系统参数表
 create table brc_sys_param
@@ -478,6 +481,7 @@ create table brc_sys_attachment
     name            varchar(100) null comment '附件名称',
     url             varchar(255) null comment '附件地址',
     size            bigint       null comment '附件大小（单位字节）',
+    access_type     tinyint      null comment '访问类型（0: 公共，1: 安全）',
     suffix          varchar(10)  null comment '附件名后缀',
     hash            varchar(255) null comment '哈希码',
     platform        varchar(50)  null comment '存储平台',

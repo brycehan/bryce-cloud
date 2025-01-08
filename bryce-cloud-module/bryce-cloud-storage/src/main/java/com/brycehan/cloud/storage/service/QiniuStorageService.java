@@ -1,6 +1,7 @@
 package com.brycehan.cloud.storage.service;
 
 import com.brycehan.cloud.common.core.base.ServerException;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.QiniuStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.qiniu.http.Response;
@@ -9,6 +10,7 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.IOUtils;
+import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.io.InputStream;
@@ -35,7 +37,7 @@ public class QiniuStorageService extends StorageService {
     }
 
     @Override
-    public String upload(InputStream data, String path) {
+    public String upload(InputStream data, String path, AccessType accessType) {
         try {
             Response response = this.uploadManager.put(IOUtils.toByteArray(data), path, token);
             if(!response.isOK()) {
@@ -48,5 +50,10 @@ public class QiniuStorageService extends StorageService {
         return this.storageProperties.getConfig().getDomain()
                 .concat(File.separator)
                 .concat(path);
+    }
+
+    @Override
+    public ResponseEntity<byte[]> download(String url, String name, AccessType accessType) {
+        return null;
     }
 }

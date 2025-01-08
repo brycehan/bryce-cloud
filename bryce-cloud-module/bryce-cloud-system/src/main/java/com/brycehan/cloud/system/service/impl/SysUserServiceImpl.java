@@ -21,6 +21,7 @@ import com.brycehan.cloud.common.core.constant.ParamConstants;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.core.entity.dto.IdsDto;
 import com.brycehan.cloud.common.core.entity.dto.SysUserInfoDto;
+import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.enums.YesNoType;
 import com.brycehan.cloud.common.core.util.excel.ExcelUtils;
@@ -413,7 +414,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 验证文件格式
         FileUploadUtils.assertAllowed(file, MimeTypeUtils.IMAGE_EXTENSION);
 
-        ResponseResult<StorageVo> uploaded = this.storageApi.upload(file);
+        ResponseResult<StorageVo> uploaded = this.storageApi.upload(file, AccessType.PUBLIC);
 
         if (!ResponseResult.isSuccess(uploaded) || uploaded.getData() == null) {
             throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);

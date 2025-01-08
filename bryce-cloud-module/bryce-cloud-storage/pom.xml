@@ -25,6 +25,10 @@
         </dependency>
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-operatelog</artifactId>
         </dependency>
         <!-- API -->

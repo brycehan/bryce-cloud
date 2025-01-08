@@ -185,6 +185,7 @@ public class LoginUser implements UserDetails {
      *
      * @return true 是超级管理员
      */
+    @JsonIgnore
     public boolean isSuperAdmin() {
         return LoginUser.isSuperAdmin(this);
     }

@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -15,6 +16,7 @@ import com.brycehan.cloud.system.mapper.SysAttachmentMapper;
 import com.brycehan.cloud.system.service.SysAttachmentService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMapper, SysAttachment> implements SysAttachmentService {
+
+    private final StorageApi storageApi;
 
     /**
      * 添加系统附件
@@ -68,4 +72,13 @@ public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMappe
         return wrapper;
     }
 
+    @Override
+    public ResponseEntity<byte[]> download(Long id) {
+        SysAttachment sysAttachment = this.baseMapper.selectById(id);
+        if (sysAttachment == null) {
+            throw new RuntimeException("附件不存在");
+        }
+
+        return storageApi.download(sysAttachment.getUrl(), sysAttachment.getName(), sysAttachment.getAccessType());
+    }
 }
