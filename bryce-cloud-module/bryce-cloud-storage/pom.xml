@@ -61,6 +61,12 @@
             <groupId>com.huaweicloud</groupId>
             <artifactId>esdk-obs-java-bundle</artifactId>
         </dependency>
+        <!-- 开发工具 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional><!-- 表示依赖不会传递 -->
+        </dependency>
     </dependencies>
 
 </project>

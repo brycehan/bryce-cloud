@@ -1,7 +1,6 @@
 package com.brycehan.cloud.common.core.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum AccessType implements EnumType {
 
     PUBLIC(0, "公共"),
