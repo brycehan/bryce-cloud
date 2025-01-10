@@ -35,8 +35,7 @@ public class LocalStorageService extends StorageService {
 
         LocalStorageProperties local = this.storageProperties.getLocal();
         try {
-
-            File file = new File(local.getAccessPath(accessType).concat(path));
+            File file = new File(local.getAccessPath(path));
 
             // 没有目录，则自动创建目录
             File parent = file.getParentFile();
@@ -56,27 +55,19 @@ public class LocalStorageService extends StorageService {
         // 公共访问路径
         return this.storageProperties.getConfig().getDomain()
                 .concat(File.separator)
-                .concat(local.getUrl())
+                .concat(local.getPrefix())
                 .concat(File.separator)
                 .concat(path);
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String url, String filename, AccessType accessType) {
-        String urlPath;
+    public ResponseEntity<byte[]> download(String path, String filename) {
         LocalStorageProperties local = this.storageProperties.getLocal();
-        if (accessType == AccessType.SECURE) { // 安全访问
-            urlPath = local.getAccessPath(accessType).concat(url);
-        } else { // 公共访问
-            String path = StrUtil.subAfter(url, local.getUrl().concat("/"), false);
-            urlPath = local.getAccessPath(accessType).concat(path);
-        }
-
-        File file = new File(urlPath);
+        File file = new File(local.getAccessPath(path));
 
         // 获取文件名
         if (StrUtil.isBlank(filename)) {
-            filename = StrUtil.subAfter(url, "/", true).split("_")[0];
+            filename = StrUtil.subAfter(path, "/", true).split("_")[0];
             if (StrUtil.isBlank(filename)) {
                 filename = "download";
             }
@@ -91,6 +82,7 @@ public class LocalStorageService extends StorageService {
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
                 headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
                 headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
+                headers.setContentLength(data.length);
                 return ResponseEntity.ok()
                         .headers(headers)
                         .body(data);

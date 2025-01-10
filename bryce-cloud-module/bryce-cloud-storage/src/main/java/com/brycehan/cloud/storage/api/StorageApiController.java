@@ -6,6 +6,8 @@ import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.AccessType;
+import com.brycehan.cloud.common.core.util.FileUploadUtils;
+import com.brycehan.cloud.common.core.util.MimeTypeUtils;
 import com.brycehan.cloud.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +37,11 @@ public class StorageApiController implements StorageApi {
 
     private final StorageService storageService;
 
+    @Override
+    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file, @NotNull AccessType accessType) {
+        return upload(file, accessType, MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION);
+    }
+
     /**
      * 保存上传文件
      *
@@ -43,28 +50,31 @@ public class StorageApiController implements StorageApi {
      */
     @Override
     @Operation(summary = "上传文件")
-    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file, @NotNull AccessType accessType) {
+    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file, @NotNull AccessType accessType, @NotNull String[] allowedExtensions) {
         // 是否为空
         if(file.isEmpty()) {
             return null;
         }
 
-        StorageVo storageVo;
+        // 文件格式校验
+        FileUploadUtils.assertAllowed(file, allowedExtensions);
 
+        StorageVo storageVo;
         try {
             // 上传路径
-            String path = this.storageService.getPath(file.getOriginalFilename());
+            String path = this.storageService.getPath(file.getOriginalFilename(), accessType);
             // 上传文件
             String url = this.storageService.upload(file.getInputStream(), path, accessType);
 
             // 上传信息
             storageVo = new StorageVo();
             storageVo.setName(file.getOriginalFilename());
-            storageVo.setAccessType(accessType);
-            storageVo.setSize(file.getSize());
-            storageVo.setSuffix(FileNameUtil.getSuffix(file.getOriginalFilename()));
-            storageVo.setHash(SecureUtil.sha256(file.getInputStream()));
+            storageVo.setPath(path);
             storageVo.setUrl(url);
+            storageVo.setSuffix(FileNameUtil.getSuffix(file.getOriginalFilename()));
+            storageVo.setSize(file.getSize());
+            storageVo.setAccessType(accessType);
+            storageVo.setHash(SecureUtil.sha256(file.getInputStream()));
             storageVo.setPlatform(this.storageService.storageProperties.getConfig().getType().name());
         } catch (Exception e) {
             log.error("上传文件失败", e);
@@ -76,7 +86,7 @@ public class StorageApiController implements StorageApi {
 
     @Override
     @Operation(summary = "下载文件")
-    public ResponseEntity<byte[]> download(@NotBlank String url, @NotBlank String filename, @NotNull AccessType accessType) {
-        return this.storageService.download(url, filename, accessType);
+    public ResponseEntity<byte[]> download(@NotBlank String url, @NotBlank String filename) {
+        return this.storageService.download(url, filename);
     }
 }

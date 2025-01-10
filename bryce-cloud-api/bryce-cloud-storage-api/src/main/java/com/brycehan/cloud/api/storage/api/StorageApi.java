@@ -34,14 +34,22 @@ public interface StorageApi {
     ResponseResult<StorageVo> upload(@RequestParam @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType);
 
     /**
+     * 上传文件
+     *
+     * @param file 要上传的文件
+     * @return 响应结果
+     */
+    @Operation(summary = "上传文件")
+    @PostMapping(path = "/allowedExtensions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseResult<StorageVo> upload(@RequestParam @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType, @RequestParam @NotNull String[] allowedExtensions);
+
+    /**
      * 下载文件
      *
      * @param url           文件地址
      * @param filename      文件名
-     * @param accessType    访问类型
      */
     @Operation(summary = "下载文件")
     @GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    ResponseEntity<byte[]> download(@RequestParam @NotBlank String url, @RequestParam @NotBlank String filename,
-                                    @RequestParam @NotNull AccessType accessType);
+    ResponseEntity<byte[]> download(@RequestParam @NotBlank String url, @RequestParam @NotBlank String filename);
 }

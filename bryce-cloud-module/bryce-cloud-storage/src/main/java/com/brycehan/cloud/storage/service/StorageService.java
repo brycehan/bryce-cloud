@@ -3,7 +3,6 @@ package com.brycehan.cloud.storage.service;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import java.util.Date;
  * @since 2023/10/1
  * @author Bryce Han
  */
-@SuppressWarnings("unused")
 public abstract class StorageService {
 
     public StorageProperties storageProperties;
@@ -33,6 +31,7 @@ public abstract class StorageService {
      * @param accessType 访问类型
      * @return http资源地址
      */
+    @SuppressWarnings("unused")
     public String upload(byte[] data, String path, AccessType accessType) {
         return this.upload(new ByteArrayInputStream(data), path, accessType);
     }
@@ -49,16 +48,15 @@ public abstract class StorageService {
 
     /**
      * 生成路径，不包含文件名
+     *
+     * @param accessType 访问类型
      * @return 生成的路径
      */
-    public String getPath() {
+    public String getPath(AccessType accessType) {
         // 文件路径
         String path = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
-
         // 如果有前缀，则也带上
-        if(StrUtil.isNotEmpty(storageProperties.getConfig().getPrefix())) {
-            path = storageProperties.getConfig().getPrefix().concat(File.separator).concat(path);
-        }
+        path = storageProperties.getConfig().getAccessPrefix(accessType).concat(path);
 
         return path;
     }
@@ -66,13 +64,20 @@ public abstract class StorageService {
     /**
      * 根据文件名，生成路径
      *
+     * @param accessType 访问类型
      * @param fileName 文件名
      * @return 生成文件路径
      */
-    public String getPath(String fileName) {
-        return getPath().concat(File.separator).concat(getNewFileName(fileName));
+    public String getPath(String fileName, AccessType accessType) {
+        return getPath(accessType).concat(File.separator).concat(getNewFileName(fileName));
     }
 
+    /**
+     * 生成新文件名
+     *
+     * @param fileName 文件名
+     * @return 新文件名
+     */
     public String getNewFileName(String fileName) {
         // 主文件名，不包含扩展名
         String prefix = FileNameUtil.getPrefix(fileName);
@@ -90,8 +95,8 @@ public abstract class StorageService {
     /**
      * 下载文件
      *
-     * @param url 文件地址
+     * @param path 文件路径
      * @param filename 文件名
      */
-    public abstract ResponseEntity<byte[]> download(String url, String filename, AccessType accessType);
+    public abstract ResponseEntity<byte[]> download(String path, String filename);
 }

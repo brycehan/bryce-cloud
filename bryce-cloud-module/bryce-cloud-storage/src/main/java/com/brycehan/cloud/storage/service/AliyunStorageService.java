@@ -45,7 +45,7 @@ public class AliyunStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String url, String name, AccessType accessType) {
+    public ResponseEntity<byte[]> download(String path, String filename) {
         return null;
     }
 }

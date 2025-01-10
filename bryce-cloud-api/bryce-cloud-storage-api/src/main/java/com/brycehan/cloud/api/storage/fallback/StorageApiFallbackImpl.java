@@ -31,7 +31,12 @@ public class StorageApiFallbackImpl implements FallbackFactory<StorageClient> {
             }
 
             @Override
-            public ResponseEntity<byte[]> download(String url, String filename, AccessType accessType) {
+            public ResponseResult<StorageVo> upload(MultipartFile file, AccessType accessType, String[] allowedExtensions) {
+                return ResponseResult.fallback("存储服务调用失败");
+            }
+
+            @Override
+            public ResponseEntity<byte[]> download(String url, String filename) {
                 return ResponseEntity.ok(SerializeUtil.serialize(ResponseResult.fallback("存储服务调用失败")));
             }
         };

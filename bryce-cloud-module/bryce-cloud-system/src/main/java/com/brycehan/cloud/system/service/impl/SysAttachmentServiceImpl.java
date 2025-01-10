@@ -79,6 +79,6 @@ public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMappe
             throw new RuntimeException("附件不存在");
         }
 
-        return storageApi.download(sysAttachment.getUrl(), sysAttachment.getName(), sysAttachment.getAccessType());
+        return storageApi.download(sysAttachment.getPath(), sysAttachment.getName());
     }
 }
