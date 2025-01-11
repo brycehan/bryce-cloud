@@ -33,7 +33,7 @@ public class LocalStorageService extends StorageService {
     @Override
     public String upload(InputStream data, String path, AccessType accessType) {
 
-        LocalStorageProperties local = this.storageProperties.getLocal();
+        LocalStorageProperties local = storageProperties.getLocal();
         try {
             File file = new File(local.getAccessPath(path));
 
@@ -50,14 +50,12 @@ public class LocalStorageService extends StorageService {
 
         // 安全访问的相对路径
         if (accessType == AccessType.SECURE) {
-            return path;
+            return "";
         }
         // 公共访问路径
-        return this.storageProperties.getConfig().getDomain()
-                .concat(File.separator)
-                .concat(local.getPrefix())
-                .concat(File.separator)
-                .concat(path);
+        return this.storageProperties.getConfig().getEndpoint()
+                .concat("/").concat(local.getPrefix())
+                .concat("/").concat(path);
     }
 
     @Override
@@ -73,24 +71,25 @@ public class LocalStorageService extends StorageService {
             }
         }
 
-        if (file.exists()) {
-            try (InputStream inputStream = Files.newInputStream(file.toPath())) {
-                byte[] data = IoUtil.readBytes(inputStream);
-
-                // 设置响应头
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-                headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-                headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-                headers.setContentLength(data.length);
-                return ResponseEntity.ok()
-                        .headers(headers)
-                        .body(data);
-            } catch (IOException e) {
-                throw new RuntimeException("下载文件失败：", e);
-            }
-        } else {
+        if (!file.exists()) {
             throw new RuntimeException("文件不存在");
+        }
+
+        // 将文件输出到Response
+        try (InputStream inputStream = Files.newInputStream(file.toPath())) {
+            byte[] data = IoUtil.readBytes(inputStream);
+
+            // 设置响应头
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
+            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
+            headers.setContentLength(data.length);
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(data);
+        } catch (IOException e) {
+            throw new RuntimeException("下载文件失败：", e);
         }
     }
 }
