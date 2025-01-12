@@ -4,6 +4,7 @@ import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.brycehan.cloud.storage.service.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,7 @@ public class StorageConfig {
      * @return 存储服务
      */
     @Bean
+    @RefreshScope
     public StorageService storageService(StorageProperties storageProperties) {
         return switch (storageProperties.getConfig().getType()) {
             case LOCAL -> new LocalStorageService(storageProperties);
