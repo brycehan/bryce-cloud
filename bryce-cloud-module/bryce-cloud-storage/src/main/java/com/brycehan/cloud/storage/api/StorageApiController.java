@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 上传文件存储API
  *
@@ -50,7 +52,7 @@ public class StorageApiController implements StorageApi {
      */
     @Override
     @Operation(summary = "上传文件")
-    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file, @NotNull AccessType accessType, @NotNull String[] allowedExtensions) {
+    public ResponseResult<StorageVo> upload(@NotNull MultipartFile file, @NotNull AccessType accessType, @NotNull List<String> allowedExtensions) {
         // 是否为空
         if(file.isEmpty()) {
             return null;
@@ -87,6 +89,6 @@ public class StorageApiController implements StorageApi {
     @Override
     @Operation(summary = "下载文件")
     public ResponseEntity<byte[]> download(@NotBlank String url, @NotBlank String filename) {
-        return this.storageService.download(url, filename);
+        return storageService.download(url, filename);
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 存储服务熔断降级处理
  *
@@ -31,7 +33,7 @@ public class StorageApiFallbackImpl implements FallbackFactory<StorageClient> {
             }
 
             @Override
-            public ResponseResult<StorageVo> upload(MultipartFile file, AccessType accessType, String[] allowedExtensions) {
+            public ResponseResult<StorageVo> upload(MultipartFile file, AccessType accessType, List<String> allowedExtensions) {
                 return ResponseResult.fallback("存储服务调用失败");
             }
 

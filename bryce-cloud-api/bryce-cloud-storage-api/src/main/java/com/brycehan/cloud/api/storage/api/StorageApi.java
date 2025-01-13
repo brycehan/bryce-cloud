@@ -11,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 存储
@@ -31,7 +34,7 @@ public interface StorageApi {
      */
     @Operation(summary = "上传文件")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<StorageVo> upload(@RequestParam @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType);
+    ResponseResult<StorageVo> upload(@RequestPart @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType);
 
     /**
      * 上传文件
@@ -41,7 +44,7 @@ public interface StorageApi {
      */
     @Operation(summary = "上传文件")
     @PostMapping(path = "/allowedExtensions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<StorageVo> upload(@RequestParam @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType, @RequestParam @NotNull String[] allowedExtensions);
+    ResponseResult<StorageVo> upload(@RequestPart @NotNull MultipartFile file, @RequestParam @NotNull AccessType accessType, @RequestParam @NotNull List<String> allowedExtensions);
 
     /**
      * 下载文件
