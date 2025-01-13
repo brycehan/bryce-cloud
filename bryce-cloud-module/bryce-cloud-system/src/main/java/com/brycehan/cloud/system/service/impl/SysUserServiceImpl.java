@@ -414,7 +414,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         // 验证文件格式
         FileUploadUtils.assertAllowed(file, MimeTypeUtils.IMAGE_EXTENSION);
 
-        ResponseResult<StorageVo> uploaded = this.storageApi.upload(file, AccessType.PUBLIC);
+        ResponseResult<StorageVo> uploaded = storageApi.upload(file, AccessType.PUBLIC);
 
         if (!ResponseResult.isSuccess(uploaded) || uploaded.getData() == null) {
             throw new ServerException(UserResponseStatus.USER_PROFILE_ALTER_AVATAR_ERROR);
