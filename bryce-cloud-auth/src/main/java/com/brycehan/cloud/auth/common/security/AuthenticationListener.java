@@ -53,7 +53,7 @@ public class AuthenticationListener {
         sysUserLoginInfoDto.setId(loginUser.getId());
         sysUserLoginInfoDto.setLastLoginIp(loginUser.getLoginIp());
         sysUserLoginInfoDto.setLastLoginTime(LocalDateTime.now());
-        this.sysUserClient.updateLoginInfo(sysUserLoginInfoDto);
+        sysUserClient.updateLoginInfo(sysUserLoginInfoDto);
     }
 
     /**
@@ -72,7 +72,7 @@ public class AuthenticationListener {
         sysLoginLogDto.setUsername(username);
         sysLoginLogDto.setStatus(OperateStatus.FAIL);
         sysLoginLogDto.setInfo(LoginStatus.ACCOUNT_FAIL);
-        this.sysLoginLogClient.save(sysLoginLogDto);
+        sysLoginLogClient.save(sysLoginLogDto);
     }
 
 }

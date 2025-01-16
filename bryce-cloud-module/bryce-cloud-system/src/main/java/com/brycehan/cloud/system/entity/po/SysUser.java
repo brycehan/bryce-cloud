@@ -131,7 +131,7 @@ public class SysUser extends BaseEntity {
      */
     @SuppressWarnings("unused")
     public boolean hasRole(String roleKey) {
-        return !CollectionUtils.isEmpty(this.roleSet) && this.roleSet.contains(roleKey);
+        return !CollectionUtils.isEmpty(roleSet) && roleSet.contains(roleKey);
     }
 
     /**

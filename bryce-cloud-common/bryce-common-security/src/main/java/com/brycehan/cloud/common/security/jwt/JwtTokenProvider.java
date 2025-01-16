@@ -127,7 +127,7 @@ public class JwtTokenProvider {
                 String cacheUserKey = JwtConstants.LOGIN_USER_KEY.concat(":").concat(loginUser.getUserKey());
 
                 // 根据tokenKey将loginUser缓存
-                this.redisTemplate.opsForValue()
+                redisTemplate.opsForValue()
                         .set(cacheUserKey, loginUser, expireTimeDuration.toSeconds(), TimeUnit.SECONDS);
             }
         }
@@ -200,7 +200,7 @@ public class JwtTokenProvider {
     public LoginUser loadLoginUser(String userKey) {
         try {
             String cacheUserKey = JwtConstants.LOGIN_USER_KEY.concat(":").concat(userKey);
-            return this.redisTemplate.opsForValue().get(cacheUserKey);
+            return redisTemplate.opsForValue().get(cacheUserKey);
         } catch (Exception e) {
             log.warn("loadLoginUser, 异常：{}", e.getMessage());
         }
@@ -216,7 +216,7 @@ public class JwtTokenProvider {
     public void deleteLoginUser(String userKey) {
         if (StrUtil.isNotBlank(userKey)) {
             String loginUserKey = CacheConstants.LOGIN_USER_KEY.concat(userKey);
-            this.redisTemplate.delete(loginUserKey);
+            redisTemplate.delete(loginUserKey);
         }
     }
 

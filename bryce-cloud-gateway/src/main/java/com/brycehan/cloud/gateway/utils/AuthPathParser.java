@@ -28,7 +28,7 @@ public class AuthPathParser {
      * @return 是否匹配
      */
     public boolean authIgnoreMatch(String url) {
-        return Arrays.stream(this.authProperties.getIgnoreUrls())
+        return Arrays.stream(authProperties.getIgnoreUrls())
                 .anyMatch(ignoreUrl -> pathMatcher.match(ignoreUrl, url));
     }
 

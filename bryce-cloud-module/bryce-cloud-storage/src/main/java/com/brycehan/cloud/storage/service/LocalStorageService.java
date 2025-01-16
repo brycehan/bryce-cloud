@@ -49,14 +49,14 @@ public class LocalStorageService extends StorageService {
             return "";
         }
         // 公共访问路径
-        return this.storageProperties.getConfig().getEndpoint()
+        return storageProperties.getConfig().getEndpoint()
                 .concat("/").concat(local.getPrefix())
                 .concat("/").concat(path);
     }
 
     @Override
     public byte[] download(String path) {
-        LocalStorageProperties local = this.storageProperties.getLocal();
+        LocalStorageProperties local = storageProperties.getLocal();
         File file = new File(local.getAccessPath(path));
 
         if (!file.exists()) {

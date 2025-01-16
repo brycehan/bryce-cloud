@@ -44,11 +44,11 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
     @Override
     public void sendCode(String phone, SmsType smsType) {
-        if (!this.smsEnabled()) {
+        if (!smsEnabled()) {
             throw new RuntimeException("短信功能未开启");
         }
 
-        if (!this.smsEnabled(smsType)) {
+        if (!smsEnabled(smsType)) {
             throw new RuntimeException(smsType.getDesc() + "短信功能未开启");
         }
 
@@ -56,7 +56,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
             throw new ServerException("手机号码格式错误");
         }
 
-        ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByPhone(phone);
+        ResponseResult<LoginUser> loginUserResponseResult = sysUserApi.loadUserByPhone(phone);
         if (SmsType.LOGIN.equals(smsType)) {
             if(loginUserResponseResult.getData() == null) {
                 throw new ServerException("手机号码未注册");
@@ -64,7 +64,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
         }
 
         String smsCodeKey = RedisKeys.getSmsCodeKey(phone, smsType);
-        String smsCodeValue = this.stringRedisTemplate.opsForValue()
+        String smsCodeValue = stringRedisTemplate.opsForValue()
                 .get(smsCodeKey);
         // 生成6位验证码
         if (StrUtil.isEmpty(smsCodeValue)) {
@@ -75,7 +75,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
         params.put("code", smsCodeValue);
 
         // 发送短信
-        ResponseResult<Boolean> send = this.smsApi.send(phone, smsType, params);
+        ResponseResult<Boolean> send = smsApi.send(phone, smsType, params);
         if (send.getCode() != 200) {
             log.error("短信发送失败，手机号码：{}，验证码类型：{}，验证码：{}，原因：{}", phone, smsType, smsCodeValue, send.getMessage());
             throw new ServerException(send.getMessage());
@@ -84,7 +84,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
         log.debug("短信验证码手机号码：{}, 值：{}", phone, smsCodeValue);
 
         // 存储到 Redis
-        this.stringRedisTemplate.opsForValue()
+        stringRedisTemplate.opsForValue()
                 .set(smsCodeKey, smsCodeValue, SMS_CODE_TTL, TimeUnit.MINUTES);
     }
 
@@ -101,14 +101,14 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
         // 获取缓存验证码
         String smsCodeKey = RedisKeys.getSmsCodeKey(phone, smsType);
-        String smsCodeValue = this.stringRedisTemplate.opsForValue()
+        String smsCodeValue = stringRedisTemplate.opsForValue()
                 .get(smsCodeKey);
 
         // 校验
         boolean validated = code.equalsIgnoreCase(smsCodeValue);
         if (validated) {
             // 删除验证码
-            this.stringRedisTemplate.delete(smsCodeKey);
+            stringRedisTemplate.delete(smsCodeKey);
         }
 
         return validated;
@@ -116,7 +116,7 @@ public class AuthSmsServiceImpl implements AuthSmsService {
 
     @Override
     public boolean smsEnabled() {
-        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_SMS_ENABLED);
+        ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_SMS_ENABLED);
         return responseResult.getData();
     }
 
@@ -126,10 +126,10 @@ public class AuthSmsServiceImpl implements AuthSmsService {
             return false;
         }
         if (SmsType.LOGIN.equals(smsType)) {
-            ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_LOGIN_SMS_ENABLED);
+            ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_LOGIN_SMS_ENABLED);
             return responseResult.getData();
         } else if (SmsType.REGISTER.equals(smsType)) {
-            ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_SMS_ENABLED);
+            ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_SMS_ENABLED);
             return responseResult.getData();
         }
 

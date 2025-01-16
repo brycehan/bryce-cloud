@@ -113,10 +113,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         baseMapper.insert(sysUser);
 
         // 保存用户角色关系
-        this.sysUserRoleService.saveOrUpdate(sysUser.getId(), sysUserDto.getRoleIds());
+        sysUserRoleService.saveOrUpdate(sysUser.getId(), sysUserDto.getRoleIds());
 
         // 保存用户岗位关系
-        this.sysUserPostService.saveOrUpdate(sysUser.getId(), sysUserDto.getPostIds());
+        sysUserPostService.saveOrUpdate(sysUser.getId(), sysUserDto.getPostIds());
     }
 
     @Override
@@ -140,7 +140,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         if (StrUtil.isBlank(sysUser.getPassword())) {
             sysUser.setPassword(null);
         } else {
-            sysUser.setPassword(this.passwordEncoder.encode(sysUser.getPassword()));
+            sysUser.setPassword(passwordEncoder.encode(sysUser.getPassword()));
         }
 
         // 更新用户
@@ -151,14 +151,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
             LambdaUpdateWrapper<SysUser> updateWrapper = new LambdaUpdateWrapper<>();
             updateWrapper.set(SysUser::getOrgId, null);
             updateWrapper.eq(SysUser::getId, sysUser.getId());
-            this.update(updateWrapper);
+            update(updateWrapper);
         }
 
         // 更新用户角色关系
-        this.sysUserRoleService.saveOrUpdate(sysUserDto.getId(), sysUserDto.getRoleIds());
+        sysUserRoleService.saveOrUpdate(sysUserDto.getId(), sysUserDto.getRoleIds());
 
         // 更新用户岗位关系
-        this.sysUserPostService.saveOrUpdate(sysUserDto.getId(), sysUserDto.getPostIds());
+        sysUserPostService.saveOrUpdate(sysUserDto.getId(), sysUserDto.getPostIds());
     }
 
     @Override
@@ -171,10 +171,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         }
 
         // 删除用户角色关系
-        this.sysUserRoleService.deleteByUserIds(idsDto.getIds());
+        sysUserRoleService.deleteByUserIds(idsDto.getIds());
 
         // 删除用户岗位关系
-        this.sysUserPostService.deleteByUserIds(idsDto.getIds());
+        sysUserPostService.deleteByUserIds(idsDto.getIds());
 
         // 删除用户
         baseMapper.deleteByIds(idsDto.getIds());
@@ -183,18 +183,18 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     public SysUserVo get(Long id) {
         checkUserDataScope(SysUser.of(id));
-        SysUser sysUser = this.getById(id);
+        SysUser sysUser = getById(id);
         SysUserVo sysUserVo = SysUserConvert.INSTANCE.convert(sysUser);
 
         // 机构名称
-        sysUserVo.setOrgName(this.sysOrgService.getOrgNameById(sysUser.getOrgId()));
+        sysUserVo.setOrgName(sysOrgService.getOrgNameById(sysUser.getOrgId()));
 
         // 用户角色Ids
-        List<Long> roleIds = this.sysUserRoleService.getRoleIdsByUserId(id);
+        List<Long> roleIds = sysUserRoleService.getRoleIdsByUserId(id);
         sysUserVo.setRoleIds(roleIds);
 
         // 用户岗位Ids
-        List<Long> postIds = this.sysUserPostService.getPostIdsByUserId(id);
+        List<Long> postIds = sysUserPostService.getPostIdsByUserId(id);
         sysUserVo.setPostIds(postIds);
 
         return sysUserVo;
@@ -214,7 +214,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         List<SysUserVo> sysUserVoList = SysUserConvert.INSTANCE.convert(list);
 
         // 处理机构名称
-        Map<Long, String> orgNames = this.sysOrgService.getOrgNamesByIds(list.stream().map(SysUser::getOrgId).toList());
+        Map<Long, String> orgNames = sysOrgService.getOrgNamesByIds(list.stream().map(SysUser::getOrgId).toList());
         sysUserVoList.forEach(sysUserVo -> sysUserVo.setOrgName(orgNames.get(sysUserVo.getOrgId())));
 
         return new PageResult<>(page.getTotal(), sysUserVoList);
@@ -276,8 +276,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         }
 
         // 初始密码
-        String password = this.sysParamService.getString(ParamConstants.SYSTEM_USER_INIT_PASSWORD);
-        String encodedPassword = this.passwordEncoder.encode(password);
+        String password = sysParamService.getString(ParamConstants.SYSTEM_USER_INIT_PASSWORD);
+        String encodedPassword = passwordEncoder.encode(password);
 
         // 批量处理
         int successNum = 0;
@@ -292,7 +292,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                 LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.select(SysUser::getId);
                 queryWrapper.eq(SysUser::getUsername, sysUser.getUsername());
-                SysUser user = this.getOne(queryWrapper, false);
+                SysUser user = getOne(queryWrapper, false);
                 // 系统不存在用户时
                 if (user == null) {
                     ValidatorUtils.validate(validator, sysUserExcelDto);

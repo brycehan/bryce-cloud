@@ -44,7 +44,7 @@ public class SysParamApiController implements SysParamApi {
     public ResponseResult<Void> save(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
-        this.sysParamService.save(sysParam);
+        sysParamService.save(sysParam);
         return ResponseResult.ok();
     }
 
@@ -63,7 +63,7 @@ public class SysParamApiController implements SysParamApi {
             LambdaQueryWrapper<SysParam> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.select(SysParam::getId);
             queryWrapper.eq(SysParam::getParamKey, sysParam.getParamKey());
-            SysParam param = this.sysParamService.getOne(queryWrapper, false);
+            SysParam param = sysParamService.getOne(queryWrapper, false);
             if (param != null) {
                 sysParam.setId(param.getId());
             }
@@ -73,7 +73,7 @@ public class SysParamApiController implements SysParamApi {
             return ResponseResult.error(HttpResponseStatus.HTTP_BAD_REQUEST);
         }
 
-        this.sysParamService.updateById(sysParam);
+        sysParamService.updateById(sysParam);
 
         return ResponseResult.ok();
     }
@@ -89,7 +89,7 @@ public class SysParamApiController implements SysParamApi {
     @Operation(summary = "判断 paramKey 是否存在")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> exists(String paramKey) {
-        boolean exists = this.sysParamService.exists(paramKey);
+        boolean exists = sysParamService.exists(paramKey);
         return ResponseResult.ok(exists);
     }
 
@@ -103,7 +103,7 @@ public class SysParamApiController implements SysParamApi {
     @Operation(summary = "获取参数对象")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<SysParamVo> getByParamKey(String paramKey) {
-        com.brycehan.cloud.system.entity.vo.SysParamVo sysParamVo = this.sysParamService.getByParamKey(paramKey);
+        com.brycehan.cloud.system.entity.vo.SysParamVo sysParamVo = sysParamService.getByParamKey(paramKey);
 
         SysParamVo sysParamApiVo = new SysParamVo();
         BeanUtils.copyProperties(sysParamVo, sysParamApiVo);
@@ -121,7 +121,7 @@ public class SysParamApiController implements SysParamApi {
     @Operation(summary = "根据paramKey，查询字符串类型的参数值")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<String> getString(String paramKey) {
-        String string = this.sysParamService.getString(paramKey);
+        String string = sysParamService.getString(paramKey);
         return ResponseResult.ok(string);
     }
 
@@ -135,7 +135,7 @@ public class SysParamApiController implements SysParamApi {
     @Operation(summary = "根据paramKey，查询boolean类型的参数值")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> getBoolean(String paramKey) {
-        boolean flag = this.sysParamService.getBoolean(paramKey);
+        boolean flag = sysParamService.getBoolean(paramKey);
         return ResponseResult.ok(flag);
     }
 

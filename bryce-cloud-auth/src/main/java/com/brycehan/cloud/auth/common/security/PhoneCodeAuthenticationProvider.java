@@ -38,8 +38,8 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
 
     @Override
     public void afterPropertiesSet() {
-        Assert.notNull(this.phoneCodeUserDetailsService, "phoneCodeUserDetailsService must not be null");
-        Assert.notNull(this.phoneCodeValidateService, "phoneCodeValidateService must not be null");
+        Assert.notNull(phoneCodeUserDetailsService, "phoneCodeUserDetailsService must not be null");
+        Assert.notNull(phoneCodeValidateService, "phoneCodeValidateService must not be null");
     }
 
     @SuppressWarnings("all")
@@ -64,7 +64,7 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
             }
 
             // 短信验证码校验
-            if(this.phoneCodeValidateService.validate(phone, code)) {
+            if(phoneCodeValidateService.validate(phone, code)) {
                 return createSuccessAuthentication(authentication, userDetails);
             } else {
                 throw new BadCredentialsException("手机验证码错误");
@@ -77,7 +77,7 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
 
     private Authentication createSuccessAuthentication(Authentication authentication, UserDetails userDetails) {
         PhoneCodeAuthenticationToken authenticationToken = new PhoneCodeAuthenticationToken(userDetails, null,
-                this.authoritiesMapper.mapAuthorities(userDetails.getAuthorities()));
+                authoritiesMapper.mapAuthorities(userDetails.getAuthorities()));
         authenticationToken.setDetails(authentication.getDetails());
 
         return authenticationToken;

@@ -40,7 +40,7 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
     @Override
     public void register(RegisterDto registerDto) {
         // 验证码开关
-        boolean validated = this.validate(registerDto.getKey(), registerDto.getCode());
+        boolean validated = validate(registerDto.getKey(), registerDto.getCode());
         if (!validated) {
             throw new ServerException("验证码错误");
         }
@@ -49,29 +49,29 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(registerDto, sysUserDto);
 
-        ResponseResult<SysUserVo> responseResult = this.sysUserApi.registerUser(sysUserDto);
+        ResponseResult<SysUserVo> responseResult = sysUserApi.registerUser(sysUserDto);
         if (!responseResult.getCode().equals(200) || responseResult.getData() == null) {
             throw new ServerException("注册失败，系统内部错误");
         }
 
         log.info("注册成功，用户名：{}", registerDto.getUsername());
-        this.applicationEventPublisher.publishEvent(new RegisterSuccessEvent(responseResult.getData()));
+        applicationEventPublisher.publishEvent(new RegisterSuccessEvent(responseResult.getData()));
     }
 
     @Override
     public boolean registerEnabled() {
-        ResponseResult<Boolean> responseResult = this.sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_ENABLED);
+        ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_ENABLED);
         return responseResult.getData();
     }
 
     @Override
     public boolean validate(String key, String code) {
-        return this.authCaptchaService.validate(key, code, CaptchaType.REGISTER);
+        return authCaptchaService.validate(key, code, CaptchaType.REGISTER);
     }
 
     @Override
     public boolean checkUsernameUnique(String username) {
-        ResponseResult<Boolean> loginUserResponseResult = this.sysUserApi.checkUsernameUnique(username);
+        ResponseResult<Boolean> loginUserResponseResult = sysUserApi.checkUsernameUnique(username);
         return loginUserResponseResult.getCode() == 200 && loginUserResponseResult.getData();
     }
 

@@ -57,7 +57,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         baseMapper.insert(sysParam);
 
         // 保存到缓存
-        this.stringRedisTemplate.opsForHash()
+        stringRedisTemplate.opsForHash()
                 .put(CacheConstants.SYSTEM_PARAM_KEY, sysParam.getParamKey(), sysParam.getParamValue());
     }
 
@@ -74,7 +74,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
             }
 
             // 删除修改前的缓存
-            this.stringRedisTemplate.opsForHash()
+            stringRedisTemplate.opsForHash()
                     .delete(CacheConstants.SYSTEM_PARAM_KEY, entity.getParamKey());
         }
 
@@ -83,7 +83,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         baseMapper.updateById(sysParam);
 
         // 保存到缓存
-        this.stringRedisTemplate.opsForHash()
+        stringRedisTemplate.opsForHash()
                 .put(CacheConstants.SYSTEM_PARAM_KEY, sysParam.getParamKey(), sysParam.getParamValue());
     }
 
@@ -99,7 +99,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         List<String> paramKeys = sysParams.stream().map(SysParam::getParamKey)
                 .filter(StrUtil::isNotBlank).toList();
         if(ArrayUtil.isNotEmpty(paramKeys)) {
-            this.stringRedisTemplate.opsForHash()
+            stringRedisTemplate.opsForHash()
                     .delete(CacheConstants.SYSTEM_PARAM_KEY, paramKeys);
         }
     }
@@ -149,7 +149,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public String getString(String paramKey) {
         // 从缓存中查询
-        String paramValue = (String) this.stringRedisTemplate.opsForHash().get(CacheConstants.SYSTEM_PARAM_KEY, paramKey);
+        String paramValue = (String) stringRedisTemplate.opsForHash().get(CacheConstants.SYSTEM_PARAM_KEY, paramKey);
         if (StringUtils.isNotEmpty(paramValue)) {
             return paramValue;
         }
@@ -161,7 +161,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         }
 
         // 添加到缓存中
-        this.stringRedisTemplate.opsForHash().put(CacheConstants.SYSTEM_PARAM_KEY, sysParam.getParamKey(), sysParam.getParamValue());
+        stringRedisTemplate.opsForHash().put(CacheConstants.SYSTEM_PARAM_KEY, sysParam.getParamKey(), sysParam.getParamValue());
 
         return sysParam.getParamValue();
     }

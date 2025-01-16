@@ -26,7 +26,7 @@ public class PhoneCodeUserDetailsServiceImpl implements PhoneCodeUserDetailsServ
     @Override
     public UserDetails loadUserByPhone(String phone) throws UsernameNotFoundException {
         // 查询用户
-        ResponseResult<LoginUser> loginUserResponseResult = this.sysUserApi.loadUserByPhone(phone);
+        ResponseResult<LoginUser> loginUserResponseResult = sysUserApi.loadUserByPhone(phone);
 
         if (loginUserResponseResult.getCode() == 200 && loginUserResponseResult.getData() == null) {
             log.debug("登录用户：手机号{}不存在.", phone);

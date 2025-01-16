@@ -55,7 +55,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
+        UserDetails userDetails = sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
@@ -71,7 +71,7 @@ public class SysUserApiController implements SysUserApi {
     @Override
     public ResponseResult<LoginUser> loadUserByPhone(String phone) {
         // 查询用户
-        SysUser sysUser = this.sysUserService.getByPhone(phone);
+        SysUser sysUser = sysUserService.getByPhone(phone);
 
         if (sysUser == null) {
             log.debug("loadUserByPhone, 登录用户：{}不存在.", phone);
@@ -79,7 +79,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
+        UserDetails userDetails = sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
@@ -94,7 +94,7 @@ public class SysUserApiController implements SysUserApi {
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<LoginUser> loadUserById(Long id) {
         // 查询用户
-        SysUser sysUser = this.sysUserService.getById(id);
+        SysUser sysUser = sysUserService.getById(id);
 
         if (sysUser == null) {
             log.debug("登录用户ID：{}不存在.", id);
@@ -102,7 +102,7 @@ public class SysUserApiController implements SysUserApi {
         }
 
         // 创建用户详情
-        UserDetails userDetails = this.sysUserDetailsService.getUserDetails(sysUser);
+        UserDetails userDetails = sysUserDetailsService.getUserDetails(sysUser);
         return ResponseResult.ok((LoginUser) userDetails);
     }
 
@@ -119,7 +119,7 @@ public class SysUserApiController implements SysUserApi {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserDto, sysUser);
 
-        sysUser = this.sysUserService.registerUser(sysUser);
+        sysUser = sysUserService.registerUser(sysUser);
 
         SysUserVo sysUserVo = new SysUserVo();
         BeanUtils.copyProperties(sysUser, sysUserVo);
@@ -140,7 +140,7 @@ public class SysUserApiController implements SysUserApi {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserLoginInfoDto, sysUser);
         sysUser.setUpdatedUserId(sysUserLoginInfoDto.getId());
-        boolean updated = this.sysUserService.updateById(sysUser);
+        boolean updated = sysUserService.updateById(sysUser);
         return ResponseResult.ok(updated);
     }
 
@@ -156,7 +156,7 @@ public class SysUserApiController implements SysUserApi {
     public ResponseResult<Boolean> checkUsernameUnique(String username) {
         SysUsernameDto sysUsernameDto = new SysUsernameDto();
         sysUsernameDto.setUsername(username);
-        boolean checked = this.sysUserService.checkUsernameUnique(sysUsernameDto);
+        boolean checked = sysUserService.checkUsernameUnique(sysUsernameDto);
         return ResponseResult.ok(checked);
     }
 }
