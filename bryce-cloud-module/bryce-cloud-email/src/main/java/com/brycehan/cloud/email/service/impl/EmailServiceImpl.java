@@ -105,7 +105,7 @@ public class EmailServiceImpl implements EmailService {
         toEmailDto.setSubject(DataConstants.COMPANY_EMAIL_VERIFY_CODE_SUBJECT + toVerifyCodeEmailDto.getVerifyCode());
         toEmailDto.setContent(templateEngine.process(TemplateIds.VERIFY_CODE, context));
 
-        this.sendHtmlEmail(toEmailDto, null);
+        sendHtmlEmail(toEmailDto, null);
     }
 
     /**

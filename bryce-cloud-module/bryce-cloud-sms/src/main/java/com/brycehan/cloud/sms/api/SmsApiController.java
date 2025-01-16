@@ -46,7 +46,7 @@ public class SmsApiController implements SmsApi {
         String templateIdKey = "sms." + smsType.getValue() + "-template-id";
         String templateId = environment.getProperty(templateIdKey);
 
-        boolean send = this.smsService.send(phone, templateId, params);
+        boolean send = smsService.send(phone, templateId, params);
         return ResponseResult.ok(send);
     }
 

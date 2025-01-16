@@ -52,7 +52,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
             queryWrapper.eq(SysUserRole::getUserId, userId);
             queryWrapper.in(SysUserRole::getRoleId, deleteRoleIds);
 
-            this.remove(queryWrapper);
+            remove(queryWrapper);
         }
     }
 

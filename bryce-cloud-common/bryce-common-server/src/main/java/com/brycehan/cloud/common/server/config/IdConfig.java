@@ -59,7 +59,7 @@ public class IdConfig implements InitializingBean {
     public void afterPropertiesSet(){
         Map<String, String> metadata = nacosDiscoveryProperties.getMetadata();
         // 获取分布式可重入锁
-        RLock lock = this.redissonClient.getLock(CacheConstants.WORKER_ID_LOCK);
+        RLock lock = redissonClient.getLock(CacheConstants.WORKER_ID_LOCK);
         lock.lock();
         int workerId;
         try {

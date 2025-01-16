@@ -31,7 +31,7 @@ public class WebSecurityConfig {
     private final AdminServerProperties adminServer;
 
     public WebSecurityConfig(AdminServerProperties adminServerProperties) {
-        this.adminServer = adminServerProperties;
+        adminServer = adminServerProperties;
     }
 
     @Bean

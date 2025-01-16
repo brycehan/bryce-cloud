@@ -52,7 +52,7 @@ public class SysUserPostServiceImpl extends BaseServiceImpl<SysUserPostMapper, S
             queryWrapper.eq(SysUserPost::getUserId, userId);
             queryWrapper.in(SysUserPost::getPostId, deletePostIds);
 
-            this.remove(queryWrapper);
+            remove(queryWrapper);
         }
     }
 

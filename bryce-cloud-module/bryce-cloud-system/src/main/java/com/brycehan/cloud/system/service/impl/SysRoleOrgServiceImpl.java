@@ -52,7 +52,7 @@ public class SysRoleOrgServiceImpl extends BaseServiceImpl<SysRoleOrgMapper, Sys
             queryWrapper.eq(SysRoleOrg::getRoleId, roleId);
             queryWrapper.in(SysRoleOrg::getOrgId, deleteOrgIds);
 
-            this.remove(queryWrapper);
+            remove(queryWrapper);
         }
     }
 

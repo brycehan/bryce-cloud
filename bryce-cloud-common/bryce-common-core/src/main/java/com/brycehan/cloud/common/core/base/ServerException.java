@@ -54,20 +54,20 @@ public class ServerException extends RuntimeException {
 
     public ServerException(String message, Throwable throwable) {
         super(message, throwable);
-        this.code = HttpResponseStatus.HTTP_INTERNAL_ERROR.code();
+        code = HttpResponseStatus.HTTP_INTERNAL_ERROR.code();
         this.message = message;
     }
 
     public ServerException(ResponseStatus responseStatus) {
         super(responseStatus.message());
-        this.code = responseStatus.code();
-        this.message = responseStatus.message();
+        code = responseStatus.code();
+        message = responseStatus.message();
     }
 
     public ServerException(ResponseStatus responseStatus, Object... params) {
         super(StrUtil.format(responseStatus.message(), params));
-        this.code = responseStatus.code();
-        this.message = StrUtil.format(responseStatus.message(), params);
+        code = responseStatus.code();
+        message = StrUtil.format(responseStatus.message(), params);
     }
 
     @Override

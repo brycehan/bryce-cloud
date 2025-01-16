@@ -111,7 +111,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
 
         // 递归查询所有子机构IDs
         List<Long> subIds = new ArrayList<>();
-        this.getTree(id, orgList, subIds);
+        getTree(id, orgList, subIds);
 
         // 本机构也添加进去
         subIds.add(id);
@@ -129,7 +129,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgMapper, SysOrg> imp
     private void getTree(Long id, List<SysOrg> orgList, List<Long> subIds) {
         for (SysOrg sysOrg : orgList) {
             if (sysOrg.getParentId().equals(id)) {
-                this.getTree(sysOrg.getId(), orgList, subIds);
+                getTree(sysOrg.getId(), orgList, subIds);
                 subIds.add(sysOrg.getId());
             }
         }
