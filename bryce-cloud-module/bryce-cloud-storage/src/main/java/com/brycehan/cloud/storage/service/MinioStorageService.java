@@ -6,16 +6,10 @@ import com.brycehan.cloud.storage.config.properties.MinioStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import io.minio.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -81,20 +75,13 @@ public class MinioStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         MinioStorageProperties minio = this.storageProperties.getMinio();
 
         GetObjectResponse object = null;
-        StatObjectResponse statObjectResponse = null;
         try {// 获取对象
             object = minioClient.getObject(
                     GetObjectArgs.builder()
-                            .bucket(minio.getBucketName())
-                            .object(path)
-                            .build());
-            // 获取对象的元数据
-            statObjectResponse = minioClient.statObject(
-                    StatObjectArgs.builder()
                             .bucket(minio.getBucketName())
                             .object(path)
                             .build());
@@ -102,23 +89,12 @@ public class MinioStorageService extends StorageService {
             log.error("MinIO 连接出错：{}", e.getMessage());
         }
 
-        Assert.notNull(object, "MinIO 对象不能为空");
-        Assert.notNull(statObjectResponse, "MinIO 对象不能为空");
-        // 将文件输出到Response
-        try (InputStream inputStream = object) {
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            headers.setContentLength(statObjectResponse.size());
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(inputStream.readAllBytes());
-        } catch (Exception e) {
-            log.error("下载文件出错：{}", e.getMessage());
+        // 判断文件是否存在
+        if (object == null) {
+            return null;
         }
 
-        return ResponseEntity.notFound().build();
+        // 获取文件的字节数组
+        return getByteArrayByInputStream(object);
     }
 }

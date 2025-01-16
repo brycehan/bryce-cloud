@@ -12,15 +12,8 @@ import com.qcloud.cos.http.HttpProtocol;
 import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 /**
  * 腾讯云存储服务
@@ -47,7 +40,7 @@ public class TencentStorageService extends StorageService {
 
     @Override
     public String upload(InputStream data, String path, AccessType accessType) {
-        TencentStorageProperties tencent = this.storageProperties.getTencent();
+        TencentStorageProperties tencent = storageProperties.getTencent();
         COSClient client = new COSClient(credentials, clientConfig);
         try {
             ObjectMetadata metadata = new ObjectMetadata();
@@ -66,39 +59,29 @@ public class TencentStorageService extends StorageService {
             client.shutdown();
         }
 
-        return this.storageProperties.getConfig().getEndpoint().concat("/").concat(path);
+        return storageProperties.getConfig().getEndpoint().concat("/").concat(path);
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         TencentStorageProperties tencent = storageProperties.getTencent();
         COSClient client = new COSClient(credentials, clientConfig);
 
         COSObject object = null;
         try {// 创建GetObjectRequest对象
-            com.qcloud.cos.model.GetObjectRequest getObjectRequest = new GetObjectRequest(tencent.getBucketName(), path);
+            GetObjectRequest getObjectRequest = new GetObjectRequest(tencent.getBucketName(), path);
             // 获取文件对象
             object = client.getObject(getObjectRequest);
         }catch (Exception e) {
             log.error("Tencent COS 连接出错：{}", e.getMessage());
         }
 
-        Assert.notNull(object, "下载文件不存在");
-        // 将文件输出到Response
-        try (InputStream inputStream = object.getObjectContent()) {
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            headers.setContentLength((int) object.getObjectMetadata().getContentLength());
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(inputStream.readAllBytes());
-        } catch (Exception e) {
-            log.error("下载文件出错：{}", e.getMessage());
+        // 判断文件是否存在
+        if (object == null) {
+            return null;
         }
 
-        return ResponseEntity.notFound().build();
+        // 获取文件的字节数组
+        return getByteArrayByInputStream(object.getObjectContent());
     }
 }

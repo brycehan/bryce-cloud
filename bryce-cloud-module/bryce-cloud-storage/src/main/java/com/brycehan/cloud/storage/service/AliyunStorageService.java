@@ -9,15 +9,8 @@ import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.AliyunStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 /**
  * 本地存储服务
@@ -57,7 +50,7 @@ public class AliyunStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         AliyunStorageProperties aliyun = storageProperties.getAliyun();
 
         OSSObject object = null;
@@ -67,22 +60,12 @@ public class AliyunStorageService extends StorageService {
             log.error("Aliyun OSS 连接出错：{}", e.getMessage());
         }
 
-        Assert.notNull(object, "下载文件不存在");
-        // 将文件输出到Response
-        try (InputStream inputStream = object.getObjectContent()) {
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            headers.setContentLength(object.getResponse().getContentLength());
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(inputStream.readAllBytes());
-        } catch (Exception e) {
-            log.error("下载文件出错：{}", e.getMessage());
+        // 判断文件是否存在
+        if (object == null) {
+            return null;
         }
 
-        return ResponseEntity.notFound().build();
+        // 获取文件的字节数组
+        return getByteArrayByInputStream(object.getObjectContent());
     }
 }

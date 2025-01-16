@@ -3,6 +3,7 @@ package com.brycehan.cloud.system.entity.dto;
 import com.brycehan.cloud.common.core.base.validator.SaveGroup;
 import com.brycehan.cloud.common.core.base.validator.UpdateGroup;
 import com.brycehan.cloud.common.core.entity.BaseDto;
+import com.brycehan.cloud.common.core.enums.ParamType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,10 +48,10 @@ public class SysParamDto extends BaseDto {
     private String paramValue;
 
     /**
-     * 参数类型（built_in：内置，system：系统）
+     * 参数类型（0：内置，1：应用）
      */
-    @Schema(description = "参数类型（built_in：内置，system：系统）")
-    private String paramType;
+    @Schema(description = "参数类型（0：内置，1：应用）")
+    private ParamType paramType;
 
     /**
      * 备注

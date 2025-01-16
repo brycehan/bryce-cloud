@@ -4,6 +4,7 @@ import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.brycehan.cloud.api.storage.api.StorageApi;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
+import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.common.core.util.FileUploadUtils;
@@ -15,9 +16,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +31,6 @@ import java.util.List;
  */
 @Slf4j
 @Tag(name = "上传文件存储")
-@RequestMapping(path =StorageApi.PATH)
 @RestController
 @Validated
 @RequiredArgsConstructor
@@ -87,8 +86,17 @@ public class StorageApiController implements StorageApi {
     }
 
     @Override
+    @PreAuthorize("@auth.hasInnerCall()")
     @Operation(summary = "下载文件")
-    public ResponseEntity<byte[]> download(@NotBlank String url, @NotBlank String filename) {
-        return storageService.download(url, filename);
+    public ResponseResult<byte[]> download(@NotBlank String url, @NotBlank String filename) {
+        // 获取文件的字节数组
+        byte[] download = storageService.download(url);
+
+        // 文件不存在时
+        if (download == null) {
+            return ResponseResult.error(HttpResponseStatus.HTTP_NOT_FOUND);
+        }
+
+        return ResponseResult.ok(download);
     }
 }

@@ -12,16 +12,12 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
+import org.springframework.web.client.RestClient;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 /**
  * 七牛云存储服务
@@ -35,6 +31,7 @@ public class QiniuStorageService extends StorageService {
     private final UploadManager uploadManager;
     private final Auth auth;
     private final String token;
+    private final RestClient restClient = RestClient.builder().build();
 
     public QiniuStorageService(StorageProperties storageProperties) {
         this.storageProperties = storageProperties;
@@ -61,40 +58,24 @@ public class QiniuStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         QiniuStorageProperties qiniu = storageProperties.getQiniu();
 
-        // 下载链接
-        URL url = null;
         try {// 获取下载链接
             String encodedPath = URLEncoder.encode(path, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
             DownloadUrl downloadUrl = new DownloadUrl(qiniu.getDomain(), true, encodedPath);
             // 带有效期1小时
             long expireInSeconds = 3600;//1小时，可以自定义链接过期时间
             long deadline = System.currentTimeMillis()/1000 + expireInSeconds;
-            // 生成下载链接，并创建URL对象
-            url = new URL(downloadUrl.buildURL(auth, deadline));
+            // 生成下载链接
+            String url = downloadUrl.buildURL(auth, deadline);
+            return restClient.get()
+                    .uri(url)
+                    .accept(MediaType.APPLICATION_OCTET_STREAM)
+                    .retrieve()
+                    .body(byte[].class);
         }catch (Exception e) {
-            log.error("QINIU Obs 连接出错：{}", e.getMessage());
+            throw new ServerException("QINIU Obs 连接出错：", e);
         }
-
-        Assert.notNull(url, "下载文件不存在");
-        // 将文件输出到Response
-        try (InputStream inputStream = url.openStream()) {
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            byte[] data = inputStream.readAllBytes();
-            headers.setContentLength(data.length);
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(data);
-        } catch (Exception e) {
-            log.error("下载文件出错：{}", e.getMessage());
-        }
-
-        return ResponseEntity.notFound().build();
     }
 }

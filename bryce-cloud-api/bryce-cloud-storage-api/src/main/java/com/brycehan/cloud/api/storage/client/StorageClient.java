@@ -9,6 +9,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author Bryce Han
  * @since 2024/10/20
  */
-@FeignClient(name = ServerNames.BRYCE_CLOUD_STORAGE, path = StorageApi.PATH, contextId = "storage", fallbackFactory = StorageApiFallbackImpl.class)
+@FeignClient(name = ServerNames.BRYCE_CLOUD_STORAGE, contextId = "storage", fallbackFactory = StorageApiFallbackImpl.class)
 public interface StorageClient extends StorageApi {
 }

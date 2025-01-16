@@ -24,7 +24,8 @@ public class EmailApiFallbackImpl implements FallbackFactory<EmailClient> {
 
     @Override
     public EmailClient create(Throwable cause) {
-        log.error("邮件服务调用失败，{}", cause.getMessage());
+        log.error("邮件服务调用失败", cause);
+
         return new EmailClient() {
             @Override
             public ResponseResult<Void> sendSimpleEmail(ToMailDto toMailDto) {

@@ -120,7 +120,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         LambdaQueryWrapper<SysParam> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StringUtils.isNotEmpty(sysParamPageDto.getParamName()), SysParam::getParamName, sysParamPageDto.getParamName());
         wrapper.like(StringUtils.isNotEmpty(sysParamPageDto.getParamKey()), SysParam::getParamKey, sysParamPageDto.getParamKey());
-        wrapper.eq(StringUtils.isNotEmpty(sysParamPageDto.getParamType()), SysParam::getParamType, sysParamPageDto.getParamType());
+        wrapper.eq(sysParamPageDto.getParamType() != null, SysParam::getParamType, sysParamPageDto.getParamType());
         addTimeRangeCondition(wrapper, SysParam::getCreatedTime, sysParamPageDto.getCreatedTimeStart(), sysParamPageDto.getCreatedTimeEnd());
 
         return wrapper;

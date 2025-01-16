@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.entity.dto;
 
 import com.brycehan.cloud.common.core.entity.BasePageDto;
+import com.brycehan.cloud.common.core.enums.ParamType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,10 +39,10 @@ public class SysParamPageDto extends BasePageDto {
     private String paramKey;
 
     /**
-     * 参数类型（built_in：内置，system：系统）
+     * 参数类型（0：内置，1：应用）
      */
-    @Schema(description = "参数类型（built_in：内置，system：系统）")
-    private String paramType;
+    @Schema(description = "参数类型（0：内置，1：应用）")
+    private ParamType paramType;
 
     /**
      * 创建时间开始

@@ -1,22 +1,17 @@
 package com.brycehan.cloud.storage.service;
 
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.properties.LocalStorageProperties;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.List;
 
 /**
  * 本地存储服务
@@ -24,6 +19,7 @@ import java.util.List;
  * @since 2023/10/2
  * @author Bryce Han
  */
+@Slf4j
 public class LocalStorageService extends StorageService {
 
     public LocalStorageService(StorageProperties storageProperties) {
@@ -59,37 +55,20 @@ public class LocalStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         LocalStorageProperties local = this.storageProperties.getLocal();
         File file = new File(local.getAccessPath(path));
 
-        // 获取文件名
-        if (StrUtil.isBlank(filename)) {
-            filename = StrUtil.subAfter(path, "/", true).split("_")[0];
-            if (StrUtil.isBlank(filename)) {
-                filename = "download";
-            }
-        }
-
         if (!file.exists()) {
-            throw new RuntimeException("文件不存在");
+            return null;
         }
 
-        // 将文件输出到Response
-        try (InputStream inputStream = Files.newInputStream(file.toPath())) {
-            byte[] data = IoUtil.readBytes(inputStream);
-
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            headers.setContentLength(data.length);
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(data);
-        } catch (IOException e) {
-            throw new RuntimeException("下载文件失败：", e);
+        // 获取文件的字节数组
+        try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            Files.copy(file.toPath(), outputStream);
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            throw new ServerException("下载文件出错：", e);
         }
     }
 }

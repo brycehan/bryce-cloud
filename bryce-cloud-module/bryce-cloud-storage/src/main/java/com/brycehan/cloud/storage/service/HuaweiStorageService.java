@@ -7,15 +7,8 @@ import com.brycehan.cloud.storage.config.properties.StorageProperties;
 import com.obs.services.ObsClient;
 import com.obs.services.model.ObsObject;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 /**
  * 华为云存储服务
@@ -51,7 +44,7 @@ public class HuaweiStorageService extends StorageService {
     }
 
     @Override
-    public ResponseEntity<byte[]> download(String path, String filename) {
+    public byte[] download(String path) {
         HuaweiStorageProperties huawei = storageProperties.getHuawei();
 
         ObsObject object = null;
@@ -61,22 +54,12 @@ public class HuaweiStorageService extends StorageService {
             log.error("Huawei Obs 连接出错：{}", e.getMessage());
         }
 
-        Assert.notNull(object, "下载文件不存在");
-        // 将文件输出到Response
-        try (InputStream inputStream = object.getObjectContent()) {
-            // 设置响应头
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(filename, StandardCharsets.UTF_8));
-            headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            headers.setContentLength(object.getMetadata().getContentLength().intValue());
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(inputStream.readAllBytes());
-        } catch (Exception e) {
-            log.error("下载文件出错：{}", e.getMessage());
+        // 判断文件是否存在
+        if (object == null) {
+            return null;
         }
 
-        return ResponseEntity.notFound().build();
+        // 获取文件的字节数组
+        return getByteArrayByInputStream(object.getObjectContent());
     }
 }

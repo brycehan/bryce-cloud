@@ -20,6 +20,10 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-common-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.brycehan.cloud</groupId>
+            <artifactId>bryce-common-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

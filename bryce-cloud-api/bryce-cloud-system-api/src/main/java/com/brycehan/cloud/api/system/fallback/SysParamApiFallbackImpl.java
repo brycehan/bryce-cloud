@@ -20,7 +20,7 @@ public class SysParamApiFallbackImpl implements FallbackFactory<SysParamClient> 
 
     @Override
     public SysParamClient create(Throwable cause) {
-        log.error("系统服务调用失败，{}", cause.getMessage());
+        log.error("系统服务调用失败", cause);
 
         return new SysParamClient() {
             @Override

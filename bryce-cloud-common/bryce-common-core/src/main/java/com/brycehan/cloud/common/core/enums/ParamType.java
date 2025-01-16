@@ -1,7 +1,6 @@
-package com.brycehan.cloud.system.common;
+package com.brycehan.cloud.common.core.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.brycehan.cloud.common.core.enums.EnumType;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

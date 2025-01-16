@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 /**
  * 系统附件API
@@ -118,7 +119,7 @@ public class SysAttachmentController {
     @Operation(summary = "系统附件下载")
     @PreAuthorize("@auth.hasAuthority('system:attachment:info')")
     @GetMapping(path = "/secure/download/{id}")
-    public ResponseEntity<byte[]> download(@PathVariable Long id) {
-        return this.sysAttachmentService.download(id);
+    public ResponseEntity<StreamingResponseBody> download(@PathVariable Long id) {
+        return sysAttachmentService.download(id);
     }
 }

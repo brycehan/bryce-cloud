@@ -2,13 +2,16 @@ package com.brycehan.cloud.storage.service;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.util.StrUtil;
+import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.enums.AccessType;
 import com.brycehan.cloud.storage.config.StorageType;
 import com.brycehan.cloud.storage.config.properties.StorageProperties;
-import org.springframework.http.ResponseEntity;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.time.LocalTime;
@@ -109,7 +112,39 @@ public abstract class StorageService {
      * 下载文件
      *
      * @param path 文件路径
-     * @param filename 文件名
      */
-    public abstract ResponseEntity<byte[]> download(String path, String filename);
+    public abstract byte[] download(String path);
+
+    /**
+     * 获取文件名
+     *
+     * @param path 文件路径
+     * @return 文件名
+     */
+    @SuppressWarnings("unused")
+    public String getFilenameByPath(String path) {
+        String filename = StrUtil.subAfter(path, "/", true).split("_")[0];
+        if (StrUtil.isBlank(filename)) {
+            filename = "download";
+        }
+        return filename;
+    }
+
+    /**
+     * 获取文件字节数组
+     *
+     * @param inputStream 文件输入流
+     * @return 文件字节数组
+     */
+    public byte[] getByteArrayByInputStream(InputStream inputStream) {
+        // 获取文件的字节数组
+        try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            IoUtil.copy(inputStream, outputStream, 10240);
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            throw new ServerException("读取文件出错：", e);
+        } finally {
+            IoUtil.close(inputStream);
+        }
+    }
 }

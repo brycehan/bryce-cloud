@@ -18,7 +18,7 @@ public class SysAreaCodeApiFallbackImpl implements FallbackFactory<SysAreaCodeCl
 
     @Override
     public SysAreaCodeClient create(Throwable cause) {
-        log.error("系统服务调用失败，{}", cause.getMessage());
+        log.error("系统服务调用失败", cause);
 
         return new SysAreaCodeClient() {
             @Override

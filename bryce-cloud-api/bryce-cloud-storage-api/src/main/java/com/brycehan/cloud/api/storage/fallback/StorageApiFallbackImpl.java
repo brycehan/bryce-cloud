@@ -1,13 +1,12 @@
 package com.brycehan.cloud.api.storage.fallback;
 
-import cn.hutool.core.util.SerializeUtil;
 import com.brycehan.cloud.api.storage.client.StorageClient;
 import com.brycehan.cloud.api.storage.entity.StorageVo;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.AccessType;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,11 +20,12 @@ import java.util.List;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class StorageApiFallbackImpl implements FallbackFactory<StorageClient> {
 
     @Override
     public StorageClient create(Throwable cause) {
-        log.error("存储服务调用失败，{}", cause.getMessage());
+        log.error("存储服务调用失败", cause);
         return new StorageClient() {
             @Override
             public ResponseResult<StorageVo> upload(MultipartFile file, AccessType accessType) {
@@ -38,8 +38,8 @@ public class StorageApiFallbackImpl implements FallbackFactory<StorageClient> {
             }
 
             @Override
-            public ResponseEntity<byte[]> download(String url, String filename) {
-                return ResponseEntity.ok(SerializeUtil.serialize(ResponseResult.fallback("存储服务调用失败")));
+            public ResponseResult<byte[]> download(String url, String filename) {
+                return ResponseResult.fallback("存储服务调用失败");
             }
         };
     }

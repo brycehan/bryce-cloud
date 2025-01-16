@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.brycehan.cloud.api.storage.api.StorageApi;
+import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.entity.PageResult;
 import com.brycehan.cloud.common.mybatis.service.impl.BaseServiceImpl;
 import com.brycehan.cloud.common.server.common.IdGenerator;
@@ -15,9 +16,19 @@ import com.brycehan.cloud.system.entity.vo.SysAttachmentVo;
 import com.brycehan.cloud.system.mapper.SysAttachmentMapper;
 import com.brycehan.cloud.system.service.SysAttachmentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 系统附件服务实现
@@ -26,6 +37,7 @@ import org.springframework.stereotype.Service;
  * @author Bryce Han
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMapper, SysAttachment> implements SysAttachmentService {
 
@@ -73,12 +85,35 @@ public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMappe
     }
 
     @Override
-    public ResponseEntity<byte[]> download(Long id) {
-        SysAttachment sysAttachment = this.baseMapper.selectById(id);
+    public ResponseEntity<StreamingResponseBody> download(Long id) {
+        SysAttachment sysAttachment = baseMapper.selectById(id);
         if (sysAttachment == null) {
             throw new RuntimeException("附件不存在");
         }
 
-        return storageApi.download(sysAttachment.getPath(), sysAttachment.getName());
+        ResponseResult<byte[]> download = storageApi.download(sysAttachment.getPath(), sysAttachment.getName());
+
+        Assert.notNull(download, "远程调用存储服务失败");
+        if (download.getCode() == 404) {
+            throw new RuntimeException("附件不存在");
+        }
+
+        // 获取文件的字节数组
+        byte[] data = download.getData();
+
+        // 设置响应头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", URLEncoder.encode(sysAttachment.getName(), StandardCharsets.UTF_8));
+        headers.setAccessControlExposeHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
+        headers.setContentLength(data.length);
+
+        // 获取文件的响应体
+        StreamingResponseBody responseBody = outputStream -> outputStream.write(Objects.requireNonNull(data, "附件不存在"));
+
+        // 获取文件的字节数组
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(responseBody);
     }
 }

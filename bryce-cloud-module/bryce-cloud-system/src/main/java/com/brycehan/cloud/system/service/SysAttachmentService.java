@@ -7,6 +7,7 @@ import com.brycehan.cloud.system.entity.dto.SysAttachmentPageDto;
 import com.brycehan.cloud.system.entity.po.SysAttachment;
 import com.brycehan.cloud.system.entity.vo.SysAttachmentVo;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 /**
  * 系统附件服务
@@ -43,5 +44,5 @@ public interface SysAttachmentService extends BaseService<SysAttachment> {
      *
      * @param id 系统附件ID
      */
-    ResponseEntity<byte[]> download(Long id);
+    ResponseEntity<StreamingResponseBody> download(Long id);
 }

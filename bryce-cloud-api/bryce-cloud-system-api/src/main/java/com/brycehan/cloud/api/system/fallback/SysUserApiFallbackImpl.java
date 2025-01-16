@@ -22,7 +22,7 @@ public class SysUserApiFallbackImpl implements FallbackFactory<SysUserClient> {
 
     @Override
     public SysUserClient create(Throwable cause) {
-        log.error("系统服务调用失败，{}", cause.getMessage());
+        log.error("系统服务调用失败", cause);
 
         return new SysUserClient() {
             @Override
