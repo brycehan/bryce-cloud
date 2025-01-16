@@ -59,7 +59,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
     public void save(SysOperateLogDto sysOperateLogDto) {
         SysOperateLog sysOperateLog = SysOperateLogConvert.INSTANCE.convert(sysOperateLogDto);
         sysOperateLog.setId(IdGenerator.nextId());
-        this.baseMapper.insert(sysOperateLog);
+        baseMapper.insert(sysOperateLog);
     }
 
     /**
@@ -69,7 +69,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
      */
     public void update(SysOperateLogDto sysOperateLogDto) {
         SysOperateLog sysOperateLog = SysOperateLogConvert.INSTANCE.convert(sysOperateLogDto);
-        this.baseMapper.updateById(sysOperateLog);
+        baseMapper.updateById(sysOperateLog);
     }
 
     @Override
@@ -86,13 +86,13 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 
     @Override
     public PageResult<SysOperateLogVo> page(SysOperateLogPageDto sysOperateLogPageDto) {
-        IPage<SysOperateLog> page = this.baseMapper.selectPage(sysOperateLogPageDto.toPage(), getWrapper(sysOperateLogPageDto));
+        IPage<SysOperateLog> page = baseMapper.selectPage(sysOperateLogPageDto.toPage(), getWrapper(sysOperateLogPageDto));
         return new PageResult<>(page.getTotal(), SysOperateLogConvert.INSTANCE.convert(page.getRecords()));
     }
 
     @Override
     public void export(SysOperateLogPageDto sysOperateLogPageDto) {
-        List<SysOperateLog> sysOperateLogList = this.baseMapper.selectList(getWrapper(sysOperateLogPageDto));
+        List<SysOperateLog> sysOperateLogList = baseMapper.selectList(getWrapper(sysOperateLogPageDto));
         List<SysOperateLogVo> sysOperateLogVoList = SysOperateLogConvert.INSTANCE.convert(sysOperateLogList);
         String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
         ExcelUtils.export(SysOperateLogVo.class, "操作日志_".concat(today), "操作日志", sysOperateLogVoList);
@@ -100,7 +100,7 @@ public class SysOperateLogServiceImpl extends BaseServiceImpl<SysOperateLogMappe
 
     @Override
     public void cleanOperateLog() {
-        this.baseMapper.cleanOperateLog();
+        baseMapper.cleanOperateLog();
     }
 
     /**

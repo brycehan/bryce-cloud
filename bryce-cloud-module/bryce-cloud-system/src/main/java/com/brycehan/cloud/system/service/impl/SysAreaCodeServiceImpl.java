@@ -41,12 +41,12 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
      */
     public void update(SysAreaCodeDto sysAreaCodeDto) {
         SysAreaCode sysAreaCode = SysAreaCodeConvert.INSTANCE.convert(sysAreaCodeDto);
-        this.baseMapper.updateById(sysAreaCode);
+        baseMapper.updateById(sysAreaCode);
     }
 
     @Override
     public PageResult<SysAreaCodeVo> page(SysAreaCodePageDto sysAreaCodePageDto) {
-        IPage<SysAreaCode> page = this.baseMapper.selectPage(sysAreaCodePageDto.toPage(), getWrapper(sysAreaCodePageDto));
+        IPage<SysAreaCode> page = baseMapper.selectPage(sysAreaCodePageDto.toPage(), getWrapper(sysAreaCodePageDto));
         return new PageResult<>(page.getTotal(), SysAreaCodeConvert.INSTANCE.convert(page.getRecords()));
     }
 
@@ -64,7 +64,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
 
     @Override
     public void export(SysAreaCodePageDto sysAreaCodePageDto) {
-        List<SysAreaCode> sysAreaCodeList = this.baseMapper.selectList(getWrapper(sysAreaCodePageDto));
+        List<SysAreaCode> sysAreaCodeList = baseMapper.selectList(getWrapper(sysAreaCodePageDto));
         List<SysAreaCodeVo> sysAreaCodeVoList = SysAreaCodeConvert.INSTANCE.convert(sysAreaCodeList);
         String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
         ExcelUtils.export(SysAreaCodeVo.class, "地区编码_".concat(today), "地区编码", sysAreaCodeVoList);
@@ -74,7 +74,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public SysAreaCodeVo getByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
+        SysAreaCode sysAreaCode = baseMapper.selectOne(queryWrapper, false);
 
         return SysAreaCodeConvert.INSTANCE.convert(sysAreaCode);
     }
@@ -83,7 +83,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public String getNameByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
+        SysAreaCode sysAreaCode = baseMapper.selectOne(queryWrapper, false);
 
         if (sysAreaCode == null) {
             return null;
@@ -96,7 +96,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
     public String getExtNameByCode(String areaCode) {
         LambdaQueryWrapper<SysAreaCode> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysAreaCode::getCode, areaCode);
-        SysAreaCode sysAreaCode = this.baseMapper.selectOne(queryWrapper, false);
+        SysAreaCode sysAreaCode = baseMapper.selectOne(queryWrapper, false);
 
         if (sysAreaCode == null) {
             return null;
@@ -119,7 +119,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
             queryWrapper.in(SysAreaCode::getId, provinceId, cityId, countyId);
             queryWrapper.orderByAsc(SysAreaCode::getId);
 
-            List<SysAreaCode> areaCodes = this.baseMapper.selectList(queryWrapper);
+            List<SysAreaCode> areaCodes = baseMapper.selectList(queryWrapper);
 
             if (!CollectionUtils.isEmpty(areaCodes)) {
                 return areaCodes.stream().map(SysAreaCode::getExtName)
@@ -132,7 +132,7 @@ public class SysAreaCodeServiceImpl extends BaseServiceImpl<SysAreaCodeMapper, S
             queryWrapper.in(SysAreaCode::getId, provinceId, cityId, countyId, unitId);
             queryWrapper.orderByAsc(SysAreaCode::getId);
 
-            List<SysAreaCode> areaCodes = this.baseMapper.selectList(queryWrapper);
+            List<SysAreaCode> areaCodes = baseMapper.selectList(queryWrapper);
 
             if (!CollectionUtils.isEmpty(areaCodes)) {
                 return areaCodes.stream().map(SysAreaCode::getName)

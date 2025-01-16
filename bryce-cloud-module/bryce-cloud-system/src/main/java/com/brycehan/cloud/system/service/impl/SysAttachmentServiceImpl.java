@@ -51,7 +51,7 @@ public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMappe
     public void save(SysAttachmentDto sysAttachmentDto) {
         SysAttachment sysAttachment = SysAttachmentConvert.INSTANCE.convert(sysAttachmentDto);
         sysAttachment.setId(IdGenerator.nextId());
-        this.baseMapper.insert(sysAttachment);
+        baseMapper.insert(sysAttachment);
     }
 
     /**
@@ -61,12 +61,12 @@ public class SysAttachmentServiceImpl extends BaseServiceImpl<SysAttachmentMappe
      */
     public void update(SysAttachmentDto sysAttachmentDto) {
         SysAttachment sysAttachment = SysAttachmentConvert.INSTANCE.convert(sysAttachmentDto);
-        this.baseMapper.updateById(sysAttachment);
+        baseMapper.updateById(sysAttachment);
     }
 
     @Override
     public PageResult<SysAttachmentVo> page(SysAttachmentPageDto sysAttachmentPageDto) {
-        IPage<SysAttachment> page = this.baseMapper.selectPage(sysAttachmentPageDto.toPage(), getWrapper(sysAttachmentPageDto));
+        IPage<SysAttachment> page = baseMapper.selectPage(sysAttachmentPageDto.toPage(), getWrapper(sysAttachmentPageDto));
         return new PageResult<>(page.getTotal(), SysAttachmentConvert.INSTANCE.convert(page.getRecords()));
     }
 

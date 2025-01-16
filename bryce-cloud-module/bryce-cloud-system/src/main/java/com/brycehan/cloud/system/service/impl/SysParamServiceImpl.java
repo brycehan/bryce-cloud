@@ -47,14 +47,14 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public void save(SysParamDto sysParamDto) {
         // 判断参数键是否存在
-        boolean exists = this.baseMapper.exists(sysParamDto.getParamKey());
+        boolean exists = baseMapper.exists(sysParamDto.getParamKey());
         if (exists) {
             throw new ServerException("参数键已存在");
         }
 
         SysParam sysParam = SysParamConvert.INSTANCE.convert(sysParamDto);
         sysParam.setId(IdGenerator.nextId());
-        this.baseMapper.insert(sysParam);
+        baseMapper.insert(sysParam);
 
         // 保存到缓存
         this.stringRedisTemplate.opsForHash()
@@ -63,12 +63,12 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public void update(SysParamDto sysParamDto) {
-        SysParam entity = this.baseMapper.selectById(sysParamDto.getId());
+        SysParam entity = baseMapper.selectById(sysParamDto.getId());
 
         // 如果参数键修改过
         if (!StrUtil.equalsIgnoreCase(entity.getParamKey(), sysParamDto.getParamKey())) {
             // 判断新参数键是否存在
-            boolean exists = this.baseMapper.exists(sysParamDto.getParamKey());
+            boolean exists = baseMapper.exists(sysParamDto.getParamKey());
             if (exists) {
                 throw new ServerException("参数键已存在");
             }
@@ -80,7 +80,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
         // 修改数据
         SysParam sysParam = SysParamConvert.INSTANCE.convert(sysParamDto);
-        this.baseMapper.updateById(sysParam);
+        baseMapper.updateById(sysParam);
 
         // 保存到缓存
         this.stringRedisTemplate.opsForHash()
@@ -90,10 +90,10 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public void delete(IdsDto idsDto) {
         // 查询列表
-        List<SysParam> sysParams = this.baseMapper.selectByIds(idsDto.getIds());
+        List<SysParam> sysParams = baseMapper.selectByIds(idsDto.getIds());
 
         // 删除数据
-        this.baseMapper.deleteByIds(idsDto.getIds());
+        baseMapper.deleteByIds(idsDto.getIds());
 
         // 删除缓存
         List<String> paramKeys = sysParams.stream().map(SysParam::getParamKey)
@@ -106,7 +106,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public PageResult<SysParamVo> page(SysParamPageDto sysParamPageDto) {
-        IPage<SysParam> page = this.baseMapper.selectPage(sysParamPageDto.toPage(), getWrapper(sysParamPageDto));
+        IPage<SysParam> page = baseMapper.selectPage(sysParamPageDto.toPage(), getWrapper(sysParamPageDto));
         return new PageResult<>(page.getTotal(), SysParamConvert.INSTANCE.convert(page.getRecords()));
     }
 
@@ -128,7 +128,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
 
     @Override
     public void export(SysParamPageDto sysParamPageDto) {
-        List<SysParam> sysParamList = this.baseMapper.selectList(getWrapper(sysParamPageDto));
+        List<SysParam> sysParamList = baseMapper.selectList(getWrapper(sysParamPageDto));
         List<SysParamVo> sysParamVoList = SysParamConvert.INSTANCE.convert(sysParamList);
         String today = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN);
         ExcelUtils.export(SysParamVo.class, "参数数据_".concat(today), "参数数据", sysParamVoList);
@@ -137,12 +137,12 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
     @Override
     public boolean exists(String paramKey) {
         // 判断新参数键是否存在
-        return this.baseMapper.exists(paramKey);
+        return baseMapper.exists(paramKey);
     }
 
     @Override
     public SysParamVo getByParamKey(String paramKey) {
-        SysParam sysParam = this.baseMapper.selectOne(paramKey);
+        SysParam sysParam = baseMapper.selectOne(paramKey);
         return SysParamConvert.INSTANCE.convert(sysParam);
     }
 
@@ -155,7 +155,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         }
 
         // 缓存没有时，从数据库中查询
-        SysParam sysParam = this.baseMapper.selectOne(paramKey);
+        SysParam sysParam = baseMapper.selectOne(paramKey);
         if (Objects.isNull(sysParam)) {
             throw new ServerException("参数值不存在，paramKey：".concat(paramKey));
         }
@@ -190,7 +190,7 @@ public class SysParamServiceImpl extends BaseServiceImpl<SysParamMapper, SysPara
         queryWrapper
                 .select(SysParam::getParamKey, SysParam::getId)
                 .eq(SysParam::getParamKey, sysParamKeyDto.getParamKey());
-        SysParam sysParam = this.baseMapper.selectOne(queryWrapper, false);
+        SysParam sysParam = baseMapper.selectOne(queryWrapper, false);
 
         // 修改时，同参数键名同ID为编码唯一
         return Objects.isNull(sysParam) || Objects.equals(sysParamKeyDto.getId(), sysParam.getId());
