@@ -27,7 +27,7 @@ public class MinioStorageService extends StorageService {
         this.storageProperties = storageProperties;
 
         MinioStorageProperties minio = storageProperties.getMinio();
-        this.minioClient = MinioClient.builder()
+        minioClient = MinioClient.builder()
                 .endpoint(minio.getEndpoint())
                 .credentials(minio.getAccessKey(), minio.getSecretKey())
                 .build();
@@ -35,17 +35,17 @@ public class MinioStorageService extends StorageService {
 
     @Override
     public String upload(InputStream data, String path, AccessType accessType) {
-        MinioStorageProperties minio = this.storageProperties.getMinio();
+        MinioStorageProperties minio = storageProperties.getMinio();
         boolean bucketExists;
 
         try {
             // 查询bucketName是否存在
-            bucketExists = this.minioClient.bucketExists(BucketExistsArgs.builder()
+            bucketExists = minioClient.bucketExists(BucketExistsArgs.builder()
                     .bucket(minio.getBucketName())
                     .build());
             // 如果bucketName不存在，则创建
             if(!bucketExists) {
-                this.minioClient.makeBucket(MakeBucketArgs.builder()
+                minioClient.makeBucket(MakeBucketArgs.builder()
                         .bucket(minio.getBucketName())
                         .build());
             }
@@ -76,7 +76,7 @@ public class MinioStorageService extends StorageService {
 
     @Override
     public byte[] download(String path) {
-        MinioStorageProperties minio = this.storageProperties.getMinio();
+        MinioStorageProperties minio = storageProperties.getMinio();
 
         GetObjectResponse object = null;
         try {// 获取对象

@@ -36,7 +36,7 @@ public class SysAreaCodeApiController implements SysAreaCodeApi {
     @Operation(summary = "根据地区编码获取扩展名称")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<String> getExtNameByCode(String areaCode) {
-        String extNameByCode = this.sysAreaCodeService.getExtNameByCode(areaCode);
+        String extNameByCode = sysAreaCodeService.getExtNameByCode(areaCode);
         return ResponseResult.ok(extNameByCode);
     }
 
@@ -50,7 +50,7 @@ public class SysAreaCodeApiController implements SysAreaCodeApi {
     @Operation(summary = "获取地区位置")
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<String> getFullLocation(String areaCode) {
-        String fullLocation = this.sysAreaCodeService.getFullLocation(areaCode);
+        String fullLocation = sysAreaCodeService.getFullLocation(areaCode);
         return ResponseResult.ok(fullLocation);
     }
 }

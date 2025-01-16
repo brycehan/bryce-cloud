@@ -29,7 +29,7 @@ public class SysLoginLogApiController implements SysLoginLogApi {
     @Override
     @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Void> save(SysLoginLogDto sysLoginLogDto) {
-        this.sysLoginLogService.save(sysLoginLogDto.getUsername(),
+        sysLoginLogService.save(sysLoginLogDto.getUsername(),
                 sysLoginLogDto.getStatus(),
                 sysLoginLogDto.getInfo());
         return ResponseResult.ok();

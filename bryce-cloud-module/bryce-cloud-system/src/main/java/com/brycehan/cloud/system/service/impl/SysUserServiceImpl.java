@@ -347,7 +347,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         sysUserRole.setId(IdGenerator.nextId());
         sysUserRole.setUserId(sysUser.getId());
         sysUserRole.setRoleId(DataConstants.DEFAULT_ROLE_ID);
-        this.sysUserRoleService.save(sysUserRole);
+        sysUserRoleService.save(sysUserRole);
 
         // 保存用户
         int result = baseMapper.insert(sysUser);
@@ -368,7 +368,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         checkUserDataScope(sysUser);
 
         sysUser.setStatus(status);
-        this.updateById(sysUser);
+        updateById(sysUser);
     }
 
     @Override
@@ -394,9 +394,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         }
 
         // 更新并更新用户登录信息
-        if (this.updateById(sysUser)) {
+        if (updateById(sysUser)) {
             SysUser user = baseMapper.selectById(sysUser.getId());
-            this.applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
+            applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
             return;
         }
 
@@ -427,9 +427,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         sysUser.setAvatar(uploaded.getData().getUrl());
 
         // 更新并更新用户登录信息
-        if (this.updateById(sysUser)) {
+        if (updateById(sysUser)) {
             SysUser user = baseMapper.selectById(sysUser.getId());
-            this.applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
+            applicationEventPublisher.publishEvent(new RefreshTokenEvent(user));
             return sysUser.getAvatar();
         }
 
@@ -443,28 +443,28 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         SysUser sysUser = baseMapper.selectById(loginUser.getId());
 
         // 校验密码
-        if (!this.passwordEncoder.matches(passwordDto.getPassword(), sysUser.getPassword())) {
+        if (!passwordEncoder.matches(passwordDto.getPassword(), sysUser.getPassword())) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_NOT_MATCH);
         }
-        if (this.passwordEncoder.matches(passwordDto.getNewPassword(), sysUser.getPassword())) {
+        if (passwordEncoder.matches(passwordDto.getNewPassword(), sysUser.getPassword())) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_SAME_AS_OLD_ERROR);
         }
 
-        sysUser.setPassword(this.passwordEncoder.encode(passwordDto.getNewPassword()));
+        sysUser.setPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
 
         // 更新密码
-        if (!this.updateById(sysUser)) {
+        if (!updateById(sysUser)) {
             throw new ServerException(UserResponseStatus.USER_PASSWORD_CHANGE_ERROR);
         }
     }
 
     @Override
     public void resetPassword(SysResetPasswordDto sysResetPasswordDto) {
-        SysUser sysUser = this.getById(sysResetPasswordDto.getId());
+        SysUser sysUser = getById(sysResetPasswordDto.getId());
         checkUserAllowed(sysUser);
         checkUserDataScope(sysUser);
         sysUser.setPassword(passwordEncoder.encode(sysResetPasswordDto.getPassword()));
-        this.updateById(sysUser);
+        updateById(sysUser);
     }
 
     @Override
@@ -488,18 +488,18 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 
         // 机构名称
         CompletableFuture<String> orgNameFuture = CompletableFuture
-                .supplyAsync(() -> this.sysOrgService.getOrgNameById(sysUser.getOrgId()), executor);
+                .supplyAsync(() -> sysOrgService.getOrgNameById(sysUser.getOrgId()), executor);
 
         // 用户岗位名称列表
         CompletableFuture<String> postNameListFuture = CompletableFuture.supplyAsync(() -> {
-            List<Long> postIdList = this.sysUserPostService.getPostIdsByUserId(userId);
-            List<String> postNameList = this.sysPostService.getPostNameList(postIdList);
+            List<Long> postIdList = sysUserPostService.getPostIdsByUserId(userId);
+            List<String> postNameList = sysPostService.getPostNameList(postIdList);
             return String.join(",", postNameList);
         }, executor);
 
         // 用户角色名称列表
-        List<Long> roleIdList = this.sysUserRoleService.getRoleIdsByUserId(userId);
-        List<String> roleNameList = this.sysRoleService.getRoleNameList(roleIdList);
+        List<Long> roleIdList = sysUserRoleService.getRoleIdsByUserId(userId);
+        List<String> roleNameList = sysRoleService.getRoleNameList(roleIdList);
         if (sysUser.isSuperAdmin()) {
             roleNameList = new ArrayList<>(roleNameList);
             roleNameList.add(DataConstants.SUPER_ADMIN_NAME);
@@ -521,7 +521,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     public PageResult<SysUserVo> assignUserPage(SysAssignUserPageDto sysAssignUserPageDto) {
         // 指定角色已分配的用户ID列表
-        List<Long> userIds = this.sysUserRoleService.getUserIdsByRoleId(sysAssignUserPageDto.getRoleId());
+        List<Long> userIds = sysUserRoleService.getUserIdsByRoleId(sysAssignUserPageDto.getRoleId());
 
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(SysUser::getId, SysUser::getUsername, SysUser::getNickname, SysUser::getPhone, SysUser::getStatus, SysUser::getCreatedTime);
@@ -541,7 +541,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         dataScopeWrapper(queryWrapper);
 
         // 分页查询
-        IPage<SysUser> page = this.page(sysAssignUserPageDto.toPage(), queryWrapper);
+        IPage<SysUser> page = page(sysAssignUserPageDto.toPage(), queryWrapper);
         return new PageResult<>(page.getTotal(), SysUserConvert.INSTANCE.convert(page.getRecords()));
     }
 

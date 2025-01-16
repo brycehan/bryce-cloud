@@ -42,7 +42,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
             }).toList();
 
             // 批量新增
-            this.saveBatch(list);
+            saveBatch(list);
         }
 
         // 需要删除的角色IDs

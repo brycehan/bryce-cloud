@@ -38,22 +38,22 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
-        successHandler.setDefaultTargetUrl(this.adminServer.path("/"));
+        successHandler.setDefaultTargetUrl(adminServer.path("/"));
 
         http
                 // 授权请求
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers(
                         // 配置静态资源和登录页放行
-                                this.adminServer.path("/assets/**"),
-                                this.adminServer.path("/login"),
-                                this.adminServer.path("/actuator/info"),
-                                this.adminServer.path("/actuator/health")).permitAll()
+                                adminServer.path("/assets/**"),
+                                adminServer.path("/login"),
+                                adminServer.path("/actuator/info"),
+                                adminServer.path("/actuator/health")).permitAll()
                         // 除上面外的所有请求全部需要鉴权认证
                         .anyRequest().authenticated())
                 // 配置登录和退出
-                .formLogin(configurer -> configurer.loginPage(this.adminServer.path("/login")).successHandler(successHandler))
-                .logout(configurer -> configurer.logoutUrl(this.adminServer.path("/logout")).permitAll())
+                .formLogin(configurer -> configurer.loginPage(adminServer.path("/login")).successHandler(successHandler))
+                .logout(configurer -> configurer.logoutUrl(adminServer.path("/logout")).permitAll())
                 // 开启Http Basic支持，admin-client注册时需要使用
                 .httpBasic(Customizer.withDefaults())
                 // 禁用X-Frame-Options
@@ -64,9 +64,9 @@ public class WebSecurityConfig {
                         .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
                         // 忽略这些路径的csrf保护，以便admin-client注册
                         .ignoringRequestMatchers(
-                                new AntPathRequestMatcher(this.adminServer.path("/instances"), POST.toString()),
-                                new AntPathRequestMatcher(this.adminServer.path("/instances/*"), DELETE.toString()),
-                                new AntPathRequestMatcher(this.adminServer.path("/actuator/**"))
+                                new AntPathRequestMatcher(adminServer.path("/instances"), POST.toString()),
+                                new AntPathRequestMatcher(adminServer.path("/instances/*"), DELETE.toString()),
+                                new AntPathRequestMatcher(adminServer.path("/actuator/**"))
                                 ))
                 .rememberMe(configurer -> configurer.key(UUID.randomUUID().toString()).tokenValiditySeconds(1209600));
 

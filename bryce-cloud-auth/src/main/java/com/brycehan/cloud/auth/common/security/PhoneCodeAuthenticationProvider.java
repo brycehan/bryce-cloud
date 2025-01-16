@@ -45,7 +45,7 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
     @SuppressWarnings("all")
     @Override
     public void setMessageSource(MessageSource messageSource) {
-        this.messages = new MessageSourceAccessor(messageSource);
+        messages = new MessageSourceAccessor(messageSource);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
         String code = (String) authenticationToken.getCredentials();
 
         try {
-            UserDetails userDetails = this.phoneCodeUserDetailsService.loadUserByPhone(phone);
+            UserDetails userDetails = phoneCodeUserDetailsService.loadUserByPhone(phone);
             if(userDetails == null) {
                 throw new BadCredentialsException("Bad credentials");
             }
@@ -70,7 +70,7 @@ public class PhoneCodeAuthenticationProvider implements AuthenticationProvider, 
                 throw new BadCredentialsException("手机验证码错误");
             }
         } catch (UsernameNotFoundException e) {
-            throw new BadCredentialsException(this.messages
+            throw new BadCredentialsException(messages
                     .getMessage("PhoneCodeAuthenticationProvider.badCredentials", "Bad credentials"));
         }
     }

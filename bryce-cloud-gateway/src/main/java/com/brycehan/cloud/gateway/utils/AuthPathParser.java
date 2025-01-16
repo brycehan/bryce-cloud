@@ -39,7 +39,7 @@ public class AuthPathParser {
      * @return 是否匹配
      */
     public boolean xssIgnoreMatch(String url) {
-        return Arrays.stream(this.authProperties.getXss().getIgnoreUrls())
+        return Arrays.stream(authProperties.getXss().getIgnoreUrls())
                 .anyMatch(ignoreUrl -> pathMatcher.match(ignoreUrl, url));
     }
 

@@ -37,24 +37,24 @@ public class AuthPasswordRetryServiceImpl implements AuthPasswordRetryService {
     @Override
     public void retryCount(String username) {
         // 从缓存获取用户账号密码错误次数
-        Integer retryCount = this.redisTemplate.opsForValue().get(getPasswordErrorCountCacheKey(username));
+        Integer retryCount = redisTemplate.opsForValue().get(getPasswordErrorCountCacheKey(username));
 
         // 累加次数
         if (retryCount == null) {
             retryCount = 0;
         }
 
-        this.redisTemplate.opsForValue().set(
+        redisTemplate.opsForValue().set(
                 getPasswordErrorCountCacheKey(username),
                 ++retryCount,
-                this.lockDurationMinutes,
+                lockDurationMinutes,
                 TimeUnit.MINUTES
         );
     }
 
     @Override
     public void deleteCount(String username) {
-        this.redisTemplate.delete(getPasswordErrorCountCacheKey(username));
+        redisTemplate.delete(getPasswordErrorCountCacheKey(username));
     }
 
 }

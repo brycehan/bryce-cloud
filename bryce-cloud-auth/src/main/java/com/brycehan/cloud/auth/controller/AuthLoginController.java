@@ -90,7 +90,7 @@ public class AuthLoginController {
     @Operation(summary = "退出登录")
     @GetMapping(path = "/logout")
     public ResponseResult<Void> logout() {
-        this.authLoginService.logout();
+        authLoginService.logout();
         return ResponseResult.ok();
     }
 
