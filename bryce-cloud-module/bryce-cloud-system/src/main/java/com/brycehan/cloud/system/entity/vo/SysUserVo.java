@@ -5,7 +5,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
-import com.brycehan.cloud.common.core.enums.EnumTypeDescConverter;
+import com.brycehan.cloud.common.core.enums.EnumDescConverter;
 import com.brycehan.cloud.common.core.enums.GenderType;
 import com.brycehan.cloud.common.core.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -57,7 +57,7 @@ public class SysUserVo implements Serializable {
      * 性别（M：男，F：女，N：未知）
      */
     @Schema(description = "性别（M：男，F：女，N：未知）")
-    @ExcelProperty(value = "性别", converter = EnumTypeDescConverter.class)
+    @ExcelProperty(value = "性别", converter = EnumDescConverter.class)
     private GenderType gender;
 
     /**
@@ -111,7 +111,7 @@ public class SysUserVo implements Serializable {
      * 状态（0：停用，1：正常）
      */
     @Schema(description = "状态（0：停用，1：正常）")
-    @ExcelProperty(value = "状态", converter = EnumTypeDescConverter.class)
+    @ExcelProperty(value = "状态", converter = EnumDescConverter.class)
     private StatusType status;
 
     /**

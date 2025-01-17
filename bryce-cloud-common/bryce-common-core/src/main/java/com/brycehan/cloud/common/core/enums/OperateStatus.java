@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum OperateStatus implements EnumType {
+public enum OperateStatus {
 
     SUCCESS(1, "成功"),
     FAIL(0, "失败");
@@ -29,6 +29,7 @@ public enum OperateStatus implements EnumType {
     /**
      * 描述
      */
+    @DescValue
     private final String desc;
 
     /**
@@ -37,7 +38,7 @@ public enum OperateStatus implements EnumType {
      * @param value 值
      * @return 枚举
      */
-    public static OperateStatus getByValue(Integer value) {
+    public static OperateStatus of(Integer value) {
         for (OperateStatus operateStatus : OperateStatus.values()) {
             if (operateStatus.getValue().equals(value)) {
                 return operateStatus;

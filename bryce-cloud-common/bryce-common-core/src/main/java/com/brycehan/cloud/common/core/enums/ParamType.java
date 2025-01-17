@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum ParamType implements EnumType {
+public enum ParamType {
 
     SYSTEM(0, "内置"),
     APP(1, "应用");
@@ -22,6 +22,8 @@ public enum ParamType implements EnumType {
     @JsonValue
     @EnumValue
     private final Integer value;
+
+    @DescValue
     private final String desc;
 
     /**
@@ -30,7 +32,7 @@ public enum ParamType implements EnumType {
      * @param value 值
      * @return 枚举
      */
-    public static ParamType getByValue(Integer value) {
+    public static ParamType of(Integer value) {
         for (ParamType paramType : values()) {
             if (paramType.getValue().equals(value)) {
                 return paramType;

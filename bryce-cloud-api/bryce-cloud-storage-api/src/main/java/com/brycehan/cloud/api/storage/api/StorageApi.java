@@ -50,6 +50,6 @@ public interface StorageApi {
      * @param filename      文件名
      */
     @Operation(summary = "下载文件")
-    @GetMapping(value = "download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "download", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseResult<byte[]> download(@RequestParam @NotBlank String url, @RequestParam @NotBlank String filename);
 }

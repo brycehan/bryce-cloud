@@ -1,6 +1,7 @@
 package com.brycehan.cloud.system.common;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.brycehan.cloud.common.core.enums.DescValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ public enum MenuType {
     @EnumValue
     @JsonValue
     private final String value;
+
+    @DescValue
     private final String desc;
 
     /**
@@ -32,7 +35,7 @@ public enum MenuType {
      * @param value 类型值
      * @return 类型
      */
-    public static MenuType getByValue(String value) {
+    public static MenuType of(String value) {
         for (MenuType menuType : MenuType.values()) {
             if (menuType.getValue().equals(value)) {
                 return menuType;

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum DataScopeType implements EnumType {
+public enum DataScopeType {
 
     ALL(0, "全部数据"),
     CUSTOM(1, "自定义数据"),
@@ -33,6 +33,7 @@ public enum DataScopeType implements EnumType {
     /**
      * 描述
      */
+    @DescValue
     private final String desc;
 
     /**
@@ -41,7 +42,7 @@ public enum DataScopeType implements EnumType {
      * @param value 类型值
      * @return 枚举
      */
-    public static DataScopeType getByValue(Integer value) {
+    public static DataScopeType of(Integer value) {
         for (DataScopeType dataScopeType : DataScopeType.values()) {
             if (dataScopeType.getValue().equals(value)) {
                 return dataScopeType;

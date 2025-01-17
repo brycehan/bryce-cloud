@@ -1,6 +1,6 @@
 package com.brycehan.cloud.auth.common;
 
-import com.brycehan.cloud.common.core.enums.EnumType;
+import com.brycehan.cloud.common.core.enums.DescValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +14,15 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum CaptchaType implements EnumType {
+public enum CaptchaType {
 
     LOGIN("login", "登录"),
     REGISTER("register", "注册");
 
     @JsonValue
     private final String value;
+
+    @DescValue
     private final String desc;
 
     /**

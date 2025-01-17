@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.operatelog.annotation;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.brycehan.cloud.common.core.enums.EnumType;
+import com.brycehan.cloud.common.core.enums.DescValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 @SuppressWarnings("unused")
-public enum OperatedType implements EnumType {
+public enum OperatedType {
 
     INSERT(0, "新增"),
     UPDATE(1, "修改"),
@@ -39,6 +39,7 @@ public enum OperatedType implements EnumType {
     /**
      * 描述
      */
+    @DescValue
     private final String desc;
 
     /**

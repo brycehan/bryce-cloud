@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum GenderType implements EnumType {
+public enum GenderType {
 
     MALE("M", "男"),
     FEMALE("F", "女"),
@@ -30,6 +30,7 @@ public enum GenderType implements EnumType {
     /**
      * 描述
      */
+    @DescValue
     private final String desc;
 
     /**
@@ -38,7 +39,7 @@ public enum GenderType implements EnumType {
      * @param value 值
      * @return 枚举类型
      */
-    public static GenderType getByValue(String value) {
+    public static GenderType of(String value) {
         for (GenderType genderType : values()) {
             if (genderType.getValue().equals(value)) {
                 return genderType;

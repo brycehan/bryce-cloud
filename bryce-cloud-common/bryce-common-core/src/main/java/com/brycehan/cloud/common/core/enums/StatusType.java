@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public enum StatusType implements EnumType {
+public enum StatusType {
 
     ENABLE(1, "正常"),
     DISABLE(0, "停用");
@@ -29,6 +29,7 @@ public enum StatusType implements EnumType {
     /**
      * 描述
      */
+    @DescValue
     private final String desc;
 
     /**
@@ -37,7 +38,7 @@ public enum StatusType implements EnumType {
      * @param value 值
      * @return 枚举
      */
-    public static StatusType getByValue(Integer value) {
+    public static StatusType of(Integer value) {
         for (StatusType statusType : StatusType.values()) {
             if (statusType.getValue().equals(value)) {
                 return statusType;
