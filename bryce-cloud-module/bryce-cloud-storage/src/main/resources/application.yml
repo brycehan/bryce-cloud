@@ -21,6 +21,7 @@ spring:
       config:
         namespace: @nacos.namespace@
         group: @nacos.group@
+
   config:
     import:
       - optional:nacos:application-common.yaml

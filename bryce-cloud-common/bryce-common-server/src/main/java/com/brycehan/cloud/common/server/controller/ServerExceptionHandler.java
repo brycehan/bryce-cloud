@@ -100,7 +100,7 @@ public class ServerExceptionHandler {
      */
     @ExceptionHandler(MultipartException.class)
     public ResponseResult<Void> handleException(MultipartException e) {
-        log.error("上传文件异常，{}", e.getMessage());
+        log.error("上传文件异常", e);
         if (e instanceof MaxUploadSizeExceededException) {
             return ResponseResult.error(UploadResponseStatus.UPLOAD_EXCEED_MAX_SIZE, maxRequestSize);
         }

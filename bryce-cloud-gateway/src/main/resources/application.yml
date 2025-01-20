@@ -32,10 +32,10 @@ spring:
             data-id: sentinel-gateway-flow-rules.json
             data-type: json
             rule-type: gw_flow
+
   config:
     import:
       - optional:nacos:application-endpoint.yaml
       - optional:nacos:application-sentinel.yaml
       - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-gateway.yaml
-

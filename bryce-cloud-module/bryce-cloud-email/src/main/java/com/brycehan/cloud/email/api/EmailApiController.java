@@ -4,9 +4,9 @@ import com.brycehan.cloud.api.email.api.EmailApi;
 import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
-import com.brycehan.cloud.common.core.base.validator.NotEmptyElements;
 import com.brycehan.cloud.common.core.enums.EmailType;
 import com.brycehan.cloud.email.service.EmailService;
+import feign.Request;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Size;
@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,7 +61,7 @@ public class EmailApiController implements EmailApi {
     @Override
     @Operation(summary = "发送附件邮件")
     @PreAuthorize("@auth.hasInnerCall()")
-    public ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, @Size(max = 100) List<MultipartFile> file) {
+    public ResponseResult<Void> sendHtmlEmail(@Validated @ModelAttribute ToMailDto toMailDto, @Size(max = 100) List<MultipartFile> file, Request.Options options) {
         emailService.sendHtmlEmail(toMailDto, file);
         return ResponseResult.ok();
     }

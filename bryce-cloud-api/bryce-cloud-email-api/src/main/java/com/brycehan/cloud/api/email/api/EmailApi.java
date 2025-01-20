@@ -4,6 +4,7 @@ import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
+import feign.Request;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +42,7 @@ public interface EmailApi {
      * @return 响应结果
      */
     @PostMapping(path = "/sendHtmlEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseResult<Void> sendHtmlEmail(@Validated ToMailDto toMailDto, List<MultipartFile> file);
+    ResponseResult<Void> sendHtmlEmail(@Validated @RequestPart ToMailDto toMailDto, @RequestPart List<MultipartFile> file, Request.Options options);
 
     /**
      * 发送验证码邮件
@@ -50,7 +51,7 @@ public interface EmailApi {
      * @param emailType 邮件类型
      * @return 是否发送成功
      */
-    @PostMapping(path = "/sendValidateCode/{emailType}")
+    @PostMapping(path = "/sendValidateCodeEmail/{emailType}")
     ResponseResult<Boolean> send(@Validated @RequestBody ToVerifyCodeEmailDto toVerifyCodeEmailDto, @PathVariable EmailType emailType);
 
 }

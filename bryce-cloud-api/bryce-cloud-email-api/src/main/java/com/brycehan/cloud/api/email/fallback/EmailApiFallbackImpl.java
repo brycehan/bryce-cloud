@@ -5,6 +5,7 @@ import com.brycehan.cloud.api.email.entity.ToMailDto;
 import com.brycehan.cloud.api.email.entity.ToVerifyCodeEmailDto;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.enums.EmailType;
+import feign.Request;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class EmailApiFallbackImpl implements FallbackFactory<EmailClient> {
             }
 
             @Override
-            public ResponseResult<Void> sendHtmlEmail(ToMailDto toMailDto, List<MultipartFile> file) {
+            public ResponseResult<Void> sendHtmlEmail(ToMailDto toMailDto, List<MultipartFile> file, Request.Options options) {
                 return ResponseResult.fallback("邮件服务调用失败");
             }
 

@@ -42,6 +42,8 @@ public enum HttpResponseStatus implements ResponseStatus {
      */
     HTTP_NOT_IMPLEMENTED(501, "请求的方法不被服务器支持"),
 
+    HTTP_GATEWAY_TIMEOUT(504, "网关请求超时，当前配置{}秒"),
+
     HTTP_SYSTEM_BUSY(598, "系统繁忙"),
 
     HTTP_WARN(600, "系统警告消息"),

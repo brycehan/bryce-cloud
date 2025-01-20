@@ -1,5 +1,6 @@
 package com.brycehan.cloud.gateway.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.common.core.base.response.HttpResponseStatus;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.util.JsonUtils;
@@ -68,14 +69,14 @@ public class ReactiveUtils {
      * @param message 消息
      * @return 响应结果
      */
-    public static Mono<Void> exceptionResponse(ServerWebExchange exchange, HttpResponseStatus httpResponseStatus, String message) {
-        log.error("unauthorizedResponse，其它异常处理，请求路径，{}", exchange.getRequest().getPath());
+    public static Mono<Void> exceptionResponse(ServerWebExchange exchange, Integer code, String message) {
+        log.error("异常处理，请求路径，{}", exchange.getRequest().getPath());
 
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseResult<?> responseResult = ResponseResult.error(httpResponseStatus.code(), message);
+        ResponseResult<?> responseResult = ResponseResult.error(code, message);
 
         DataBuffer dataBuffer = response.bufferFactory().wrap(JsonUtils.writeValueAsString(responseResult).getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(dataBuffer));
@@ -88,7 +89,17 @@ public class ReactiveUtils {
      * @return 响应结果
      */
     public static Mono<Void> exceptionResponse(ServerWebExchange exchange, HttpResponseStatus httpResponseStatus) {
-        return exceptionResponse(exchange, httpResponseStatus, httpResponseStatus.message());
+        return exceptionResponse(exchange, httpResponseStatus.code(), httpResponseStatus.message());
+    }
+
+    /**
+     * 异常响应处理
+     *
+     * @param exchange exchange
+     * @return 响应结果
+     */
+    public static Mono<Void> exceptionResponse(ServerWebExchange exchange, HttpResponseStatus httpResponseStatus, Object... args) {
+        return exceptionResponse(exchange, httpResponseStatus.code(), StrUtil.format(httpResponseStatus.message(), args));
     }
 
 }
