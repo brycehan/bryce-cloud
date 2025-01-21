@@ -1,8 +1,8 @@
-# Tomcat
+# Tomcat 配置
 server:
   port: 9016
 
-# Spring
+# Spring 配置
 spring:
   application:
     name: bryce-cloud-system
@@ -34,6 +34,7 @@ spring:
       - optional:nacos:application-jwt.yaml
       - optional:nacos:bryce-cloud-system.yaml
 
+# Seata 配置
 seata:
   config:
     type: nacos
