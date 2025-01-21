@@ -137,5 +137,8 @@
         </root>
     </springProfile>
     
+    <!-- 代码生成器日志级别 -->
+    <logger name="com.brycehan.boot.generator" level="ERROR"/>
+    <!-- Alibaba日志级别 -->
     <logger name="com.alibaba" level="WARN"/>
 </configuration>

@@ -137,5 +137,6 @@
         </root>
     </springProfile>
     
+    <!-- Alibaba日志级别 -->
     <logger name="com.alibaba" level="WARN"/>
 </configuration>
