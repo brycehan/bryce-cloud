@@ -24,11 +24,6 @@ public class XxlJobProperties {
     private Admin admin;
 
     /**
-     * 执行器通讯TOKEN [选填]：非空时启用；
-     */
-    private String accessToken;
-
-    /**
      * 执行器配置
      */
     private Executor executor;
@@ -36,10 +31,21 @@ public class XxlJobProperties {
 
     @Data
     public static class Admin {
+
         /**
          * 调度中心部署根地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
          */
         private String addresses;
+
+        /**
+         * 管理端通讯TOKEN [选填]：非空时启用；
+         */
+        private String accessToken;
+
+        /**
+         * 超时，默认3秒
+         */
+        private int timeout;
     }
 
     @Data

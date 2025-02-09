@@ -59,14 +59,14 @@
         <commons-io.version>2.16.1</commons-io.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <jsoup.version>1.18.1</jsoup.version>
-        <spring-boot-admin.version>3.3.4</spring-boot-admin.version>
+        <spring-boot-admin.version>3.3.6</spring-boot-admin.version>
         <binarywang-weixin.version>4.3.0</binarywang-weixin.version>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <loki.version>1.5.2</loki.version>
-        <xxl-job.version>2.4.1</xxl-job.version>
+        <xxl-job.version>2.5.0</xxl-job.version>
     </properties>
-
+    
     <!-- 模块 -->
     <modules>
         <module>bryce-cloud-api</module>
@@ -389,7 +389,7 @@
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
-                <nacos.server-addr>127.0.0.1:8848</nacos.server-addr>
+                <nacos.server-addr>localhost:8848</nacos.server-addr>
                 <nacos.namespace>dev</nacos.namespace>
                 <nacos.group>bryce-cloud</nacos.group>
             </properties>
@@ -409,7 +409,7 @@
             <id>prod</id>
             <properties>
                 <profiles.active>prod</profiles.active>
-                <nacos.server-addr>nacos:8848</nacos.server-addr>
+                <nacos.server-addr>bryce-nacos:8848</nacos.server-addr>
                 <nacos.namespace>prod</nacos.namespace>
                 <nacos.group>bryce-cloud</nacos.group>
             </properties>

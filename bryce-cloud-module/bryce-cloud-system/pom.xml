@@ -58,7 +58,6 @@
 
     <!-- 构建 -->
     <build>
-        <finalName>${project.artifactId}</finalName>
         <!-- 插件 -->
         <plugins>
             <plugin>

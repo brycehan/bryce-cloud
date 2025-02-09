@@ -1,18 +1,21 @@
+# 基础镜像
 FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre
 
+# 作者
 LABEL org.opencontainers.image.authors="Bryce Han"
-COPY ./bryce-cloud-wechat/target/bryce-cloud-wechat.jar /app.jar
-
+# 复制jar
+COPY ./jar/bryce-cloud-system-*.jar /app.jar
+# 工作目录
 WORKDIR /
 
 # 设置时区
 ENV TZ=Asia/Shanghai
-
-EXPOSE 8092
-
+# 暴露端口
+EXPOSE 9016
+# 启动System服务
 ENTRYPOINT java \
 	-server \
-	-Dserver.port=8092 \
+	-Dserver.port=9016 \
 	-Dspring.profiles.active=prod \
 	-Djava.security.egd=file:/dev/./urandom \
 	-Dfile.encoding=UTF-8 \

@@ -61,6 +61,9 @@ public class AuthRegisterServiceImpl implements AuthRegisterService {
     @Override
     public boolean registerEnabled() {
         ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_ENABLED);
+        if (!responseResult.isSuccess()) {
+            throw new RuntimeException(responseResult.getMessage());
+        }
         return responseResult.getData();
     }
 

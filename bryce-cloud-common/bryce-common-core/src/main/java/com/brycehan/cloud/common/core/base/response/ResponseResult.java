@@ -174,6 +174,16 @@ public class ResponseResult<T> implements Serializable {
     /**
      * 是否成功
      *
+     * @return 是否成功
+     */
+    @SuppressWarnings("all")
+    public boolean isSuccess() {
+        return Objects.equals(code, HttpResponseStatus.HTTP_OK.code());
+    }
+
+    /**
+     * 是否成功
+     *
      * @param responseResult 响应结果
      * @return 是否成功
      */

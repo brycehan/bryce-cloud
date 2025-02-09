@@ -89,16 +89,22 @@ public class AuthCaptchaServiceImpl implements AuthCaptchaService {
     }
 
     @Override
-    public boolean captchaEnabled(CaptchaType captchaType) {
+    public Boolean captchaEnabled(CaptchaType captchaType) {
         if (captchaType == null) {
             return false;
         }
         if (CaptchaType.LOGIN.equals(captchaType)) {
             ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_LOGIN_CAPTCHA_ENABLED);
+            if (!responseResult.isSuccess()) {
+                throw new RuntimeException(responseResult.getMessage());
+            }
             return responseResult.getData();
         }
         if (CaptchaType.REGISTER.equals(captchaType)) {
             ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_CAPTCHA_ENABLED);
+            if (!responseResult.isSuccess()) {
+                throw new RuntimeException(responseResult.getMessage());
+            }
             return responseResult.getData();
         }
 

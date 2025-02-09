@@ -26,7 +26,7 @@ public class IndexController {
     @Operation(summary = "欢迎信息")
     @GetMapping(path = "/")
     public ResponseResult<String> index() {
-        return ResponseResult.ok("您好，项目已启动，祝您使用愉快！");
+        return ResponseResult.ok("您好，项目已启动，请通过前端地址访问。");
     }
 
 }

@@ -1,0 +1,13 @@
+server:
+  log_level: info
+
+common:
+  path_prefix: /opt/loki
+  storage:
+    filesystem:
+      chunks_directory: /opt/loki/chunks
+      rules_directory: /opt/loki/rules
+
+# 关闭匿名数据收集
+analytics:
+  reporting_enabled: false

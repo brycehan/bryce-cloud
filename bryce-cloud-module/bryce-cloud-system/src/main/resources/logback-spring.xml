@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <contextName>logback</contextName>
-
+    
     <springProperty scope="context" name="app" source="spring.application.name" />
-
+    
     <!-- 指定日志输出路径 -->
     <property name="logging.file.path" value="logs" />
     
@@ -23,18 +23,18 @@
     <property name="FILE_LOG_CHARSET" value="${FILE_LOG_CHARSET:-${file.encoding:-UTF-8}}"/>
     <property name="FILE_LOG_THRESHOLD" value="${FILE_LOG_THRESHOLD:-TRACE}"/>
     
+    <!-- 输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${CONSOLE_LOG_THRESHOLD}</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+    </appender>
+    
     <springProfile name="dev">
-        <!-- 输出到控制台 -->
-        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>${CONSOLE_LOG_THRESHOLD}</level>
-            </filter>
-            <encoder>
-                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-                <charset>${CONSOLE_LOG_CHARSET}</charset>
-            </encoder>
-        </appender>
-        
         <root level="INFO">
             <appender-ref ref="CONSOLE" />
         </root>
@@ -142,7 +142,7 @@
         <!-- 输出到LOKI日志平台 -->
         <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
             <http>
-                <url>http://192.168.0.202:3100/loki/api/v1/push</url>
+                <url>http://localhost:3100/loki/api/v1/push</url>
             </http>
             <format>
                 <label>
@@ -157,6 +157,7 @@
         </appender>
         
         <root level="INFO">
+            <appender-ref ref="CONSOLE" />
             <appender-ref ref="INFO_FILE" />
             <appender-ref ref="WARN_FILE" />
             <appender-ref ref="ERROR_FILE" />
@@ -164,8 +165,6 @@
         </root>
     </springProfile>
     
-    <!-- 代码生成器日志级别 -->
-    <logger name="com.brycehan.boot.generator" level="ERROR"/>
     <!-- Alibaba日志级别 -->
     <logger name="com.alibaba" level="WARN"/>
 </configuration>

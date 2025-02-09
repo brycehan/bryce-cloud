@@ -117,6 +117,9 @@ public class AuthSmsServiceImpl implements AuthSmsService {
     @Override
     public boolean smsEnabled() {
         ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_SMS_ENABLED);
+        if (!responseResult.isSuccess()) {
+            throw new RuntimeException(responseResult.getMessage());
+        }
         return responseResult.getData();
     }
 
@@ -127,9 +130,15 @@ public class AuthSmsServiceImpl implements AuthSmsService {
         }
         if (SmsType.LOGIN.equals(smsType)) {
             ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_LOGIN_SMS_ENABLED);
+            if (!responseResult.isSuccess()) {
+                throw new RuntimeException(responseResult.getMessage());
+            }
             return responseResult.getData();
         } else if (SmsType.REGISTER.equals(smsType)) {
             ResponseResult<Boolean> responseResult = sysParamApi.getBoolean(ParamConstants.SYSTEM_REGISTER_SMS_ENABLED);
+            if (!responseResult.isSuccess()) {
+                throw new RuntimeException(responseResult.getMessage());
+            }
             return responseResult.getData();
         }
 

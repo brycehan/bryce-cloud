@@ -38,6 +38,16 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
+        <!-- OpenFeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- Feign HttpClient 5 依赖 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-hc5</artifactId>
+        </dependency>
         <!-- Swagger 接口文档 -->
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
@@ -63,7 +73,6 @@
 
 	<!-- 构建 -->
 	<build>
-		<finalName>${project.artifactId}</finalName>
 		<!-- 插件 -->
 		<plugins>
 			<plugin>

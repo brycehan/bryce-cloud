@@ -33,6 +33,6 @@ public interface AuthCaptchaService {
      * @param captchaType 验证码类型
      * @return 开启标识（true：开启，false：关闭）
      */
-    boolean captchaEnabled(CaptchaType captchaType);
+    Boolean captchaEnabled(CaptchaType captchaType);
 
 }

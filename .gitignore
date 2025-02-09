@@ -37,3 +37,5 @@ logs/
 *.log
 .flattened-pom.xml
 qodana.yaml
+docker/**/jar/
+docker/**/db/
