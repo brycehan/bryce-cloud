@@ -3,8 +3,8 @@ name: bryce-cloud
 # 服务
 services:
   # MySQL 服务
-  bryce-mysql:
-    container_name: bryce-mysql
+  cloud-mysql:
+    container_name: cloud-mysql
     image: public.ecr.aws/docker/library/mysql:8.0.33
     ports:
       - "3306:3306"
@@ -19,8 +19,8 @@ services:
       - MYSQL_DATABASE=bryce_cloud_system
     restart: unless-stopped
   # Redis 服务
-  bryce-redis:
-    container_name: bryce-redis
+  cloud-redis:
+    container_name: cloud-redis
     image: public.ecr.aws/docker/library/redis:7.2.7
     ports:
       - "6379:6379"
@@ -33,8 +33,8 @@ services:
       - /opt/redis.conf
     restart: unless-stopped
   # nacos 服务
-  bryce-nacos:
-    container_name: bryce-nacos
+  cloud-nacos:
+    container_name: cloud-nacos
     image:  nacos/nacos-server:v2.3.2-slim
     environment:
       - MODE=standalone
@@ -50,11 +50,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-mysql
+      - cloud-mysql
     restart: unless-stopped
   # grafana 服务
-  bryce-grafana:
-    container_name: bryce-grafana
+  cloud-grafana:
+    container_name: cloud-grafana
     image: grafana/grafana:11.5.1
     environment:
       - GF_SECURITY_ADMIN_USER=user
@@ -66,11 +66,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-loki
+      - cloud-loki
     restart: unless-stopped
   # loki 服务
-  bryce-loki:
-    container_name: bryce-loki
+  cloud-loki:
+    container_name: cloud-loki
     image: grafana/loki:3.3.2
     environment:
       - MODE=standalone
@@ -84,8 +84,8 @@ services:
       - cloud
     restart: unless-stopped
   # zipkin 服务
-  bryce-zipkin:
-    container_name: bryce-zipkin
+  cloud-zipkin:
+    container_name: cloud-zipkin
     image: openzipkin/zipkin:3.4
     environment:
       - TZ=Asia/Shanghai
@@ -96,8 +96,8 @@ services:
       - cloud
     restart: unless-stopped
   # sentinel-dashboard 服务
-  bryce-sentinel-dashboard:
-    container_name: bryce-sentinel-dashboard
+  cloud-sentinel-dashboard:
+    container_name: cloud-sentinel-dashboard
     image: bladex/sentinel-dashboard:1.8.8
     ports:
       - "8858:8858"
@@ -106,22 +106,22 @@ services:
       - cloud
     restart: unless-stopped
   # xxl-job-admin 服务
-  bryce-xxl-job-admin:
-    container_name: bryce-xxl-job-admin
+  cloud-xxl-job-admin:
+    container_name: cloud-xxl-job-admin
 #    image: xuxueli/xxl-job-admin:2.5.0 # x64 镜像地址
     image: brycehan/xxl-job-admin:2.5.0 # x64 & arm 镜像地址
     environment:
-      - PARAMS=--spring.datasource.url=jdbc:mysql://bryce-mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root --xxl.job.accessToken=txuh4Pg7jKAiWVkfO4KGvVuw
+      - PARAMS=--spring.datasource.url=jdbc:mysql://cloud-mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root --xxl.job.accessToken=txuh4Pg7jKAiWVkfO4KGvVuw
     ports:
       - "9080:8080"
     networks:
       - cloud
     depends_on:
-      - bryce-mysql
+      - cloud-mysql
     restart: unless-stopped
   # 网关服务
-  bryce-gateway:
-    container_name: bryce-gateway
+  cloud-gateway:
+    container_name: cloud-gateway
     build:
       context: ./bryce/gateway
       dockerfile: Dockerfile
@@ -130,11 +130,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-redis
+      - cloud-redis
     restart: unless-stopped
   # 认证服务
-  bryce-auth:
-    container_name: bryce-auth
+  cloud-auth:
+    container_name: cloud-auth
     build:
       context: ./bryce/auth
       dockerfile: Dockerfile
@@ -143,11 +143,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-redis
+      - cloud-redis
     restart: unless-stopped
   # 系统服务
-  bryce-module-system:
-    container_name: bryce-module-system
+  cloud-module-system:
+    container_name: cloud-module-system
     build:
       context: ./bryce/module/system
       dockerfile: Dockerfile
@@ -157,12 +157,12 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-mysql
-      - bryce-redis
+      - cloud-mysql
+      - cloud-redis
     restart: unless-stopped
   # 邮件服务
-  bryce-module-email:
-    container_name: bryce-module-email
+  cloud-module-email:
+    container_name: cloud-module-email
     build:
       context: ./bryce/module/email
       dockerfile: Dockerfile
@@ -171,11 +171,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-redis
+      - cloud-redis
     restart: unless-stopped
   # 短信服务
-  bryce-module-sms:
-    container_name: bryce-module-sms
+  cloud-module-sms:
+    container_name: cloud-module-sms
     build:
       context: ./bryce/module/sms
       dockerfile: Dockerfile
@@ -184,11 +184,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-redis
+      - cloud-redis
     restart: unless-stopped
   # 存储服务
-  bryce-module-storage:
-    container_name: bryce-module-storage
+  cloud-module-storage:
+    container_name: cloud-module-storage
     build:
       context: ./bryce/module/storage
       dockerfile: Dockerfile
@@ -197,11 +197,11 @@ services:
     networks:
       - cloud
     depends_on:
-      - bryce-redis
+      - cloud-redis
     restart: unless-stopped
   # 监控服务
-  bryce-module-monitor:
-    container_name: bryce-module-monitor
+  cloud-module-monitor:
+    container_name: cloud-module-monitor
     build:
       context: ./bryce/module/monitor
       dockerfile: Dockerfile

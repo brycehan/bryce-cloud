@@ -22,12 +22,12 @@ case $1 in
 
 "base") {
   echo "-------------------- 启动 bryce-cloud 基础环境 --------------------"
-  docker compose up -d bryce-mysql bryce-redis bryce-nacos bryce-grafana bryce-loki bryce-zipkin bryce-sentinel-dashboard bryce-xxl-job-admin
+  docker compose up -d cloud-mysql cloud-redis cloud-nacos cloud-grafana cloud-loki cloud-zipkin cloud-sentinel-dashboard cloud-xxl-job-admin
 };;
 
 "module") {
    echo "-------------------- 启动 bryce-cloud 程序模块 --------------------"
-    docker compose up -d bryce-gateway bryce-auth bryce-module-system bryce-module-storage bryce-module-monitor
+    docker compose up -d cloud-gateway cloud-auth cloud-module-system cloud-module-storage cloud-module-monitor
 };;
 
 "stop") {
@@ -55,25 +55,25 @@ case $1 in
 
   # 复制 jar包
   echo "-------------------- 复制 bryce-cloud-gateway jar包 --------------------"
-  cp ../bryce-cloud-gateway/target/bryce-cloud-gateway*.jar ./bryce/gateway/jar
+  cp ../bryce-cloud-gateway/target/bryce-cloud-gateway-*.jar ./bryce/gateway/jar
 
   echo "-------------------- 复制 bryce-cloud-auth jar包 --------------------"
-  cp ../bryce-cloud-auth/target/bryce-cloud-auth*.jar ./bryce/auth/jar
+  cp ../bryce-cloud-auth/target/bryce-cloud-auth-*.jar ./bryce/auth/jar
 
   echo "-------------------- 复制 bryce-cloud-system jar包 --------------------"
-  cp ../bryce-cloud-module/bryce-cloud-system/target/bryce-cloud-system*.jar ./bryce/module/system/jar
+  cp ../bryce-cloud-module/bryce-cloud-system/target/bryce-cloud-system-*.jar ./bryce/module/system/jar
 
   echo "-------------------- 复制 bryce-cloud-storage jar包 --------------------"
-  cp ../bryce-cloud-module/bryce-cloud-storage/target/bryce-cloud-storage*.jar ./bryce/module/storage/jar
+  cp ../bryce-cloud-module/bryce-cloud-storage/target/bryce-cloud-storage-*.jar ./bryce/module/storage/jar
 
   echo "-------------------- 复制 bryce-cloud-email jar包 --------------------"
-    cp ../bryce-cloud-module/bryce-cloud-email/target/bryce-cloud-email*.jar ./bryce/module/email/jar
+    cp ../bryce-cloud-module/bryce-cloud-email/target/bryce-cloud-email-*.jar ./bryce/module/email/jar
 
   echo "-------------------- 复制 bryce-cloud-sms jar包 --------------------"
-  cp ../bryce-cloud-module/bryce-cloud-sms/target/bryce-cloud-sms*.jar ./bryce/module/sms/jar
+  cp ../bryce-cloud-module/bryce-cloud-sms/target/bryce-cloud-sms-*.jar ./bryce/module/sms/jar
 
   echo "-------------------- 复制 bryce-cloud-monitor jar包 --------------------"
-  cp ../bryce-cloud-module/bryce-cloud-monitor/target/bryce-cloud-monitor*.jar ./bryce/module/monitor/jar
+  cp ../bryce-cloud-module/bryce-cloud-monitor/target/bryce-cloud-monitor-*.jar ./bryce/module/monitor/jar
 
 };;
 
