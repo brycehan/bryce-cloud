@@ -1,6 +1,6 @@
 package com.brycehan.cloud.common.operatelog.config;
 
-import com.brycehan.cloud.common.operatelog.common.MQConstants;
+import com.brycehan.cloud.common.core.constant.MQConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,8 @@ public class OperateLogConfig {
      * @return {@link TopicExchange}
      */
     @Bean
-    public TopicExchange operateLogEventExchange() {
-        return ExchangeBuilder.topicExchange(MQConstants.OPERATE_LOG_EVENT_EXCHANGE).build();
+    public TopicExchange operateLogExchange() {
+        return ExchangeBuilder.topicExchange(MQConstants.OPERATE_LOG_EXCHANGE).build();
     }
 
     /**
@@ -41,6 +41,6 @@ public class OperateLogConfig {
      */
     @Bean
     public Binding operateLogCreateBinding() {
-        return BindingBuilder.bind(operateLogCreateQueue()).to(operateLogEventExchange()).with(MQConstants.OPERATE_LOG_CREATE_ROUTING_KEY);
+        return BindingBuilder.bind(operateLogCreateQueue()).to(operateLogExchange()).with(MQConstants.OPERATE_LOG_CREATE_ROUTING_KEY);
     }
 }

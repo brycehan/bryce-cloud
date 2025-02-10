@@ -1,10 +1,7 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.core.entity.PageResult;
-import com.brycehan.cloud.common.core.enums.LoginStatus;
-import com.brycehan.cloud.common.core.enums.OperateStatus;
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.dto.SysLoginLogPageDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
 import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
@@ -16,20 +13,6 @@ import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
  * @author Bryce Han
  */
 public interface SysLoginLogService extends BaseService<SysLoginLog> {
-
-    /**
-     * 添加系统登录日志
-     *
-     * @param sysLoginLogDto 系统登录日志Dto
-     */
-    void save(SysLoginLogDto sysLoginLogDto);
-
-    /**
-     * 更新系统登录日志
-     *
-     * @param sysLoginLogDto 系统登录日志Dto
-     */
-    void update(SysLoginLogDto sysLoginLogDto);
 
     /**
      * 系统登录日志分页查询
@@ -45,15 +28,6 @@ public interface SysLoginLogService extends BaseService<SysLoginLog> {
      * @param sysLoginLogPageDto 系统登录日志查询条件
      */
     void export(SysLoginLogPageDto sysLoginLogPageDto);
-
-    /**
-     * 保存登录日志
-     *
-     * @param username 用户账号
-     * @param status   登录状态
-     * @param info     操作信息
-     */
-    void save(String username, OperateStatus status, LoginStatus info);
 
     /**
      * 清空登录日志

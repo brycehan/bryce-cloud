@@ -1,6 +1,7 @@
 package com.brycehan.cloud.auth.service.impl;
 
-import com.brycehan.cloud.api.system.api.SysLoginLogApi;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
 import com.brycehan.cloud.auth.common.security.PhoneCodeAuthenticationToken;
@@ -11,17 +12,24 @@ import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.LoginUserContext;
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.constant.JwtConstants;
+import com.brycehan.cloud.common.core.constant.MQConstants;
 import com.brycehan.cloud.common.core.entity.dto.AccountLoginDto;
 import com.brycehan.cloud.common.core.entity.dto.PhoneLoginDto;
 import com.brycehan.cloud.common.core.entity.vo.LoginVo;
 import com.brycehan.cloud.common.core.enums.LoginStatus;
 import com.brycehan.cloud.common.core.enums.OperateStatus;
+import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.JsonUtils;
+import com.brycehan.cloud.common.core.util.LocationUtils;
+import com.brycehan.cloud.common.core.util.ServletUtils;
 import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
+import com.brycehan.cloud.common.server.common.IdGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,6 +37,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -41,7 +50,7 @@ import java.util.Objects;
 public class AuthLoginServiceImpl implements AuthLoginService {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final SysLoginLogApi sysLoginLogApi;
+    private final RabbitTemplate rabbitTemplate;
     private final AuthCaptchaService authCaptchaService;
     private final AuthPasswordRetryService authPasswordRetryService;
     private final AuthenticationManager authenticationManager;
@@ -53,11 +62,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         boolean validated = authCaptchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode(), CaptchaType.LOGIN);
         if (!validated) {
             // 保存登录日志
-            SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
-            sysLoginLogDto.setUsername(accountLoginDto.getUsername());
-            sysLoginLogDto.setStatus(OperateStatus.FAIL);
-            sysLoginLogDto.setInfo(LoginStatus.CAPTCHA_FAIL);
-            sysLoginLogApi.save(sysLoginLogDto);
+            saveLoginLog(accountLoginDto.getUsername(), OperateStatus.FAIL, LoginStatus.CAPTCHA_FAIL);
             throw new ServerException("验证码错误");
         }
 
@@ -147,11 +152,42 @@ public class AuthLoginServiceImpl implements AuthLoginService {
         }
 
         // 记录用户退出日志
-        SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
-        sysLoginLogDto.setUsername(loginUser.getUsername());
-        sysLoginLogDto.setStatus(OperateStatus.SUCCESS);
-        sysLoginLogDto.setInfo(LoginStatus.LOGOUT_SUCCESS);
-        sysLoginLogApi.save(sysLoginLogDto);
+        saveLoginLog(loginUser.getUsername(), OperateStatus.SUCCESS, LoginStatus.LOGOUT_SUCCESS);
     }
 
+    @Override
+    public void saveLoginLog(String username, OperateStatus status, LoginStatus info) {
+
+        // 记录登录日志
+        SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
+        sysLoginLogDto.setId(IdGenerator.nextId());
+        sysLoginLogDto.setUsername(username);
+        sysLoginLogDto.setStatus(status);
+        sysLoginLogDto.setInfo(info);
+
+        // 获取客户端信息
+        String userAgent = ServletUtils.getRequest().getHeader(HttpHeaders.USER_AGENT);
+        UserAgent parser = UserAgentUtil.parse(userAgent);
+
+        // 获取客户端操作系统
+        String os = parser.getOs().getName();
+        // 获取客户端浏览器
+        String browser = parser.getBrowser().getName();
+
+        // 获取客户端IP和对应登录位置
+        String ip = IpUtils.getIp(ServletUtils.getRequest());
+        String loginLocation = LocationUtils.getLocationByIP(ip);
+
+        sysLoginLogDto.setUserAgent(userAgent);
+        sysLoginLogDto.setOs(os);
+        sysLoginLogDto.setBrowser(browser);
+        sysLoginLogDto.setIp(ip);
+        sysLoginLogDto.setLocation(loginLocation);
+
+        sysLoginLogDto.setAccessTime(LocalDateTime.now());
+        sysLoginLogDto.setCreatedTime(LocalDateTime.now());
+
+        // 保存数据
+        rabbitTemplate.convertAndSend(MQConstants.LOGIN_LOG_EXCHANGE, MQConstants.LOGIN_LOG_CREATE_ROUTING_KEY, JsonUtils.writeValueAsString(sysLoginLogDto));
+    }
 }

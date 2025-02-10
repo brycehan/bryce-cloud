@@ -1,15 +1,13 @@
 package com.brycehan.cloud.auth.common.security;
 
-import com.brycehan.cloud.api.system.client.SysLoginLogClient;
 import com.brycehan.cloud.api.system.client.SysUserClient;
-import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;
+import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.enums.LoginStatus;
 import com.brycehan.cloud.common.core.enums.OperateStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
@@ -26,27 +24,22 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthenticationListener {
 
-    private final SysLoginLogClient sysLoginLogClient;
-
     private final SysUserClient sysUserClient;
+    private final AuthLoginService authLoginService;
+
 
     /**
      * 登录成功事件处理
      *
      * @param event 认证成功事件
      */
-    @Async
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
         // 用户信息
         LoginUser loginUser = (LoginUser) event.getAuthentication().getPrincipal();
 
         // 记录登录日志
-        SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
-        sysLoginLogDto.setUsername(loginUser.getUsername());
-        sysLoginLogDto.setStatus(OperateStatus.SUCCESS);
-        sysLoginLogDto.setInfo(LoginStatus.LOGIN_SUCCESS);
-        sysLoginLogClient.save(sysLoginLogDto);
+        authLoginService.saveLoginLog(loginUser.getUsername(), OperateStatus.SUCCESS, LoginStatus.LOGIN_SUCCESS);
 
         // 更新用户登录信息
         SysUserLoginInfoDto sysUserLoginInfoDto = new SysUserLoginInfoDto();
@@ -61,18 +54,13 @@ public class AuthenticationListener {
      *
      * @param authenticationFailureEvent 认证失败事件
      */
-    @Async
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent authenticationFailureEvent) {
         // 用户名
         String username = (String) authenticationFailureEvent.getAuthentication().getPrincipal();
 
         // 记录登录日志
-        SysLoginLogDto sysLoginLogDto = new SysLoginLogDto();
-        sysLoginLogDto.setUsername(username);
-        sysLoginLogDto.setStatus(OperateStatus.FAIL);
-        sysLoginLogDto.setInfo(LoginStatus.ACCOUNT_FAIL);
-        sysLoginLogClient.save(sysLoginLogDto);
+        authLoginService.saveLoginLog(username, OperateStatus.FAIL, LoginStatus.ACCOUNT_FAIL);
     }
 
 }

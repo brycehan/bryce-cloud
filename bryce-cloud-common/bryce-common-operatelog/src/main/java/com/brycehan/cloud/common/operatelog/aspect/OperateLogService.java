@@ -1,7 +1,7 @@
 package com.brycehan.cloud.common.operatelog.aspect;
 
 import com.brycehan.cloud.common.core.util.JsonUtils;
-import com.brycehan.cloud.common.operatelog.common.MQConstants;
+import com.brycehan.cloud.common.core.constant.MQConstants;
 import jakarta.annotation.Resource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,6 @@ public class OperateLogService {
     private RabbitTemplate rabbitTemplate;
 
     public void save(OperateLogDto operateLogDto) {
-        rabbitTemplate.convertAndSend(MQConstants.OPERATE_LOG_EVENT_EXCHANGE, MQConstants.OPERATE_LOG_CREATE_ROUTING_KEY, JsonUtils.writeValueAsString(operateLogDto));
+        rabbitTemplate.convertAndSend(MQConstants.OPERATE_LOG_EXCHANGE, MQConstants.OPERATE_LOG_CREATE_ROUTING_KEY, JsonUtils.writeValueAsString(operateLogDto));
     }
 }

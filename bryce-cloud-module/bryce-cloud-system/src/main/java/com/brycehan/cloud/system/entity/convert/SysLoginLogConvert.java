@@ -1,6 +1,6 @@
 package com.brycehan.cloud.system.entity.convert;
 
-import com.brycehan.cloud.system.entity.dto.SysLoginLogDto;
+import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.system.entity.po.SysLoginLog;
 import com.brycehan.cloud.system.entity.vo.SysLoginLogVo;
 import org.mapstruct.Mapper;

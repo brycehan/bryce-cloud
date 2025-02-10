@@ -2,7 +2,7 @@ package com.brycehan.cloud.system.common;
 
 import com.brycehan.cloud.common.core.util.JsonUtils;
 import com.brycehan.cloud.common.operatelog.aspect.OperateLogDto;
-import com.brycehan.cloud.common.operatelog.common.MQConstants;
+import com.brycehan.cloud.common.core.constant.MQConstants;
 import com.brycehan.cloud.common.server.common.IdGenerator;
 import com.brycehan.cloud.system.entity.convert.SysOperateLogConvert;
 import com.brycehan.cloud.system.entity.po.SysOperateLog;
@@ -38,7 +38,7 @@ public class OperateLogCreateListener {
         SysOperateLog sysOperateLog = SysOperateLogConvert.INSTANCE.convert(JsonUtils.readValue(operateLogDto, OperateLogDto.class));
         sysOperateLog.setId(IdGenerator.nextId());
         sysOperateLog.setCreatedTime(LocalDateTime.now());
-        log.info("保存操作日志：{}", sysOperateLog);
+        log.debug("保存操作日志：{}", sysOperateLog);
         sysOperateLogService.save(sysOperateLog);
     }
 }
