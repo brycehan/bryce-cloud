@@ -1,9 +1,9 @@
 package com.brycehan.cloud.common.operatelog.aspect;
 
-import com.brycehan.cloud.common.core.constant.CacheConstants;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Async;
+import com.brycehan.cloud.common.core.util.JsonUtils;
+import com.brycehan.cloud.common.operatelog.common.MQConstants;
+import jakarta.annotation.Resource;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,15 +13,12 @@ import org.springframework.stereotype.Service;
  * @author Bryce Han
  */
 @Service
-@RequiredArgsConstructor
 public class OperateLogService {
 
-    private final RedisTemplate<String, OperateLogDto> redisTemplate;
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
-    @Async
-    public void save(OperateLogDto operateLogDto){
-        // 保存到Redis队列
-        redisTemplate.opsForList()
-                .leftPush(CacheConstants.SYSTEM_OPERATE_LOG_KEY, operateLogDto);
+    public void save(OperateLogDto operateLogDto) {
+        rabbitTemplate.convertAndSend(MQConstants.OPERATE_LOG_EVENT_EXCHANGE, MQConstants.OPERATE_LOG_CREATE_ROUTING_KEY, JsonUtils.writeValueAsString(operateLogDto));
     }
 }

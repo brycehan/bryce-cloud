@@ -2,52 +2,6 @@
 
 # 启动脚本
 case $1 in
-"port") {
-  echo "-------------------- 开启 bryce-cloud 端口 --------------------"
-  firewall-cmd --zone=public --add-port=3306/tcp --permanent
-  firewall-cmd --zone=public --add-port=6379/tcp --permanent
-  firewall-cmd --zone=public --add-port=8848/tcp --permanent
-  firewall-cmd --zone=public --add-port=9848/tcp --permanent
-  firewall-cmd --zone=public --add-port=9849/tcp --permanent
-  firewall-cmd --zone=public --add-port=8090/tcp --permanent
-  firewall-cmd --zone=public --add-port=9011/tcp --permanent
-  firewall-cmd --zone=public --add-port=9012/tcp --permanent
-  firewall-cmd --zone=public --add-port=9013/tcp --permanent
-  firewall-cmd --zone=public --add-port=9014/tcp --permanent
-  firewall-cmd --zone=public --add-port=9015/tcp --permanent
-  firewall-cmd --zone=public --add-port=9016/tcp --permanent
-  # 配置立即生效
-  firewall-cmd --reload
-};;
-
-"base") {
-  echo "-------------------- 启动 bryce-cloud 基础环境 --------------------"
-  docker compose up -d cloud-mysql cloud-redis cloud-nacos cloud-grafana cloud-loki cloud-zipkin cloud-sentinel-dashboard cloud-xxl-job-admin
-};;
-
-"module") {
-   echo "-------------------- 启动 bryce-cloud 程序模块 --------------------"
-    docker compose up -d cloud-gateway cloud-auth cloud-module-system cloud-module-storage cloud-module-monitor
-};;
-
-"stop") {
-   echo "-------------------- 关闭 bryce-cloud 环境、模块 --------------------"
-   docker compose stop
-};;
-
-"rm") {
-   echo "-------------------- 删除 bryce-cloud 环境、模块 --------------------"
-   docker compose rm
-};;
-
-"ls") {
-   echo "-------------------- 查看 bryce-cloud 环境、模块状态 --------------------"
-   docker compose ls
-};;
-
-"help") {
-  echo "Usage: sh deploy.sh [port|base|module|stop|rm|status|copy|remove]"
-};;
 
 "copy") {
   echo "-------------------- 复制 bryce-cloud sql --------------------"
@@ -84,6 +38,53 @@ case $1 in
   rm -f ./bryce/gateway/jar/*.jar
   rm -f ./bryce/auth/jar/*.jar
   rm -f ./bryce/module/*/jar/*.jar
+};;
+
+"port") {
+  echo "-------------------- 开启 bryce-cloud 端口 --------------------"
+  firewall-cmd --zone=public --add-port=3306/tcp --permanent
+  firewall-cmd --zone=public --add-port=6379/tcp --permanent
+  firewall-cmd --zone=public --add-port=8848/tcp --permanent
+  firewall-cmd --zone=public --add-port=9848/tcp --permanent
+  firewall-cmd --zone=public --add-port=9849/tcp --permanent
+  firewall-cmd --zone=public --add-port=8090/tcp --permanent
+  firewall-cmd --zone=public --add-port=9011/tcp --permanent
+  firewall-cmd --zone=public --add-port=9012/tcp --permanent
+  firewall-cmd --zone=public --add-port=9013/tcp --permanent
+  firewall-cmd --zone=public --add-port=9014/tcp --permanent
+  firewall-cmd --zone=public --add-port=9015/tcp --permanent
+  firewall-cmd --zone=public --add-port=9016/tcp --permanent
+  # 配置立即生效
+  firewall-cmd --reload
+};;
+
+"base") {
+  echo "-------------------- 启动 bryce-cloud 基础环境 --------------------"
+  docker compose up -d cloud-mysql cloud-redis cloud-nacos cloud-grafana cloud-loki cloud-zipkin cloud-sentinel-dashboard cloud-xxl-job-admin cloud-rabbitmq
+};;
+
+"module") {
+   echo "-------------------- 启动 bryce-cloud 程序模块 --------------------"
+    docker compose up -d cloud-gateway cloud-auth cloud-module-system cloud-module-storage cloud-module-monitor
+};;
+
+"stop") {
+   echo "-------------------- 关闭 bryce-cloud 环境、模块 --------------------"
+   docker compose stop
+};;
+
+"rm") {
+   echo "-------------------- 删除 bryce-cloud 环境、模块 --------------------"
+   docker compose rm
+};;
+
+"ls") {
+   echo "-------------------- 查看 bryce-cloud 环境、模块状态 --------------------"
+   docker compose ls
+};;
+
+"help") {
+  echo "Usage: sh deploy.sh [ port｜copy | remove | base | module | stop | rm | status ]"
 };;
 
 esac

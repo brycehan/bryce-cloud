@@ -5,11 +5,15 @@
 
 ## 应用架构
 
-该项目包含 3 个服务
+该项目包含 7 个服务
 
-* bryce-cloud-gateway - 网关
-* bryce-cloud-system - 系统
-* bryce-cloud-wechat - 微信
+* bryce-cloud-gateway - 网关服务
+* bryce-cloud-auth - 认证服务
+* bryce-cloud-system - 系统服务
+* bryce-cloud-email - 邮件服务
+* bryce-cloud-sms - 短信服务
+* bryce-cloud-monitor - 监控服务
+* bryce-cloud-storage - 存储服务
 
 ## 开源汇总
 

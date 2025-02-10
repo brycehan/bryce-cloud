@@ -119,6 +119,26 @@ services:
     depends_on:
       - cloud-mysql
     restart: unless-stopped
+  # xxl-job-admin 服务
+  cloud-rabbitmq:
+    container_name: cloud-rabbitmq
+    image: rabbitmq:4.0-management
+    environment:
+      - TZ=Asia/Shanghai
+      - RABBITMQ_DEFAULT_VHOST=/
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq-plugins:/plugins
+    networks:
+      - cloud
+    depends_on:
+      - cloud-mysql
+    restart: unless-stopped
   # 网关服务
   cloud-gateway:
     container_name: cloud-gateway
@@ -219,6 +239,8 @@ volumes:
   nacos-logs: {}
   grafana-data: {}
   loki-data: {}
+  rabbitmq-data: {}
+  rabbitmq-plugins: {}
 
 # 网络
 networks:
