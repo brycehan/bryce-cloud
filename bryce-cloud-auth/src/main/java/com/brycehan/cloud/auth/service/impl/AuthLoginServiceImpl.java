@@ -59,7 +59,7 @@ public class AuthLoginServiceImpl implements AuthLoginService {
     public LoginVo loginByAccount(AccountLoginDto accountLoginDto) {
         log.debug("loginByAccount，账号认证");
         // 校验验证码
-        boolean validated = authCaptchaService.validate(accountLoginDto.getKey(), accountLoginDto.getCode(), CaptchaType.LOGIN);
+        boolean validated = authCaptchaService.validate(accountLoginDto.getUuid(), accountLoginDto.getCode(), CaptchaType.LOGIN);
         if (!validated) {
             // 保存登录日志
             saveLoginLog(accountLoginDto.getUsername(), OperateStatus.FAIL, LoginStatus.CAPTCHA_FAIL);
