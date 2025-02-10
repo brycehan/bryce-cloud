@@ -1,7 +1,7 @@
-package com.brycehan.cloud.auth.common.security.service.impl;
+package com.brycehan.cloud.auth.security.service.impl;
 
 import com.brycehan.cloud.api.system.api.SysUserApi;
-import com.brycehan.cloud.auth.common.security.service.PhoneCodeUserDetailsService;
+import com.brycehan.cloud.auth.security.service.PhoneCodeUserDetailsService;
 import com.brycehan.cloud.common.core.base.LoginUser;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
-package com.brycehan.cloud.auth.common.security.config;
+package com.brycehan.cloud.auth.security.config;
 
-import com.brycehan.cloud.auth.common.security.PhoneCodeAuthenticationProvider;
-import com.brycehan.cloud.auth.common.security.service.PhoneCodeUserDetailsService;
-import com.brycehan.cloud.auth.common.security.service.PhoneCodeValidateService;
+import com.brycehan.cloud.auth.security.PhoneCodeAuthenticationProvider;
+import com.brycehan.cloud.auth.security.service.PhoneCodeUserDetailsService;
+import com.brycehan.cloud.auth.security.service.PhoneCodeValidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;

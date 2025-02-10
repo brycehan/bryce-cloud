@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security.config;
+package com.brycehan.cloud.auth.security.config;
 
 import lombok.Data;
 import lombok.Getter;

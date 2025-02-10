@@ -1,6 +1,6 @@
-package com.brycehan.cloud.auth.common.security.service.impl;
+package com.brycehan.cloud.auth.security.service.impl;
 
-import com.brycehan.cloud.auth.common.security.service.PhoneCodeValidateService;
+import com.brycehan.cloud.auth.security.service.PhoneCodeValidateService;
 import com.brycehan.cloud.auth.service.AuthSmsService;
 import com.brycehan.cloud.common.core.enums.SmsType;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security.service;
+package com.brycehan.cloud.auth.security.service;
 
 /**
  * 手机短信登录，验证码校验

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security.service;
+package com.brycehan.cloud.auth.security.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

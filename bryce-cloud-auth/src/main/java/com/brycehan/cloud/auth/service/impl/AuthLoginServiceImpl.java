@@ -4,7 +4,7 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.brycehan.cloud.api.system.entity.dto.SysLoginLogDto;
 import com.brycehan.cloud.auth.common.CaptchaType;
-import com.brycehan.cloud.auth.common.security.PhoneCodeAuthenticationToken;
+import com.brycehan.cloud.auth.security.PhoneCodeAuthenticationToken;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.auth.service.AuthLoginService;
 import com.brycehan.cloud.auth.service.AuthPasswordRetryService;

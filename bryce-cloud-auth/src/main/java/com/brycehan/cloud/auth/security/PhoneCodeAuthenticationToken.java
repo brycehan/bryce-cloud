@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security;
+package com.brycehan.cloud.auth.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security;
+package com.brycehan.cloud.auth.security;
 
 import com.brycehan.cloud.api.system.client.SysUserClient;
 import com.brycehan.cloud.api.system.entity.dto.SysUserLoginInfoDto;

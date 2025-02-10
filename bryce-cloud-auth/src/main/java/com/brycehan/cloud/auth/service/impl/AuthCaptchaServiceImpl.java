@@ -3,7 +3,7 @@ package com.brycehan.cloud.auth.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.brycehan.cloud.api.system.api.SysParamApi;
 import com.brycehan.cloud.auth.common.CaptchaType;
-import com.brycehan.cloud.auth.common.security.config.CaptchaProperties;
+import com.brycehan.cloud.auth.security.config.CaptchaProperties;
 import com.brycehan.cloud.auth.entity.vo.CaptchaVo;
 import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;

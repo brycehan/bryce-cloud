@@ -1,4 +1,4 @@
-package com.brycehan.cloud.auth.common.security;
+package com.brycehan.cloud.auth.security;
 
 import com.brycehan.cloud.common.core.base.ServerException;
 import com.brycehan.cloud.common.core.base.response.UserResponseStatus;
