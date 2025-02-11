@@ -296,10 +296,9 @@ spring:
     context-propagation: auto', 'bb499c4778fe39a53a1f9462ee4d1977', '2025-02-11 05:38:49', '2025-02-11 05:38:49', null, '172.30.0.1', '', '', '', null, null, 'yaml', null, '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (6, 'bryce-cloud-auth.yaml', 'bryce-cloud', '# 自定义配置
 bryce:
-  auth:  # 权限过滤
+  auth: # 权限过滤
     ignore-urls:
       all:
-        - /easyTrans/proxy/**
         - /register/**
         - /captcha/**
         - /sms/**
@@ -318,7 +317,7 @@ bryce:
         - /loginByAccount
         - /loginByPhone
 
-    # 用户配置
+  # 用户配置
   user:
     password:
       # 密码最大错误次数
@@ -361,12 +360,12 @@ spring:
       compression:
         request:
           enabled: true
-          min-request-size: 4096
+          min-request-size: 8192
         response:
           enabled: true
 feign:
   sentinel:
-    enabled: false', '95e43c2f31b1eec1883788de6e34002a', '2025-02-11 05:38:49', '2025-02-11 05:38:49', null, '172.30.0.1', '', '', '', null, null, 'yaml', null, '');
+    enabled: true', '95e43c2f31b1eec1883788de6e34002a', '2025-02-11 05:38:49', '2025-02-11 05:38:49', null, '172.30.0.1', '', '', '', null, null, 'yaml', null, '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (8, 'application-rabbitmq.yaml', 'bryce-cloud', '# Spring
 spring:
   rabbitmq:
@@ -561,12 +560,19 @@ spring:
         max-lifetime: 1800000     # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认：30分钟
         connection-test-query: select 1
       datasource:
+        # 主库数据源
         master:
           # MySQL 8.0
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/bryce_cloud_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullDatabaseMeansCurrent=true&useServerPrepStmts=true&cachePrepStmts=true
           username: root
           password: root
+        # 从库数据源
+        # slave:
+          # driver-class-name: com.mysql.cj.jdbc.Driver
+          # url:
+          # username:
+          # password:
           # postgresql
           # driver-class-name: org.postgresql.Driver
           # url: jdbc:postgresql://localhost:5432/postgres
@@ -951,7 +957,7 @@ spring:
   boot:
     admin:
       ui:
-        title: Bryce Cloud 服务状态监控
+        title: 布莱斯服务状态监控
 ', '392b9c5f96bec40a312ca1244c6a5dab', '2025-02-11 05:38:49', '2025-02-11 12:45:21', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (20, 'bryce-cloud-email.yaml', 'bryce-cloud', '# Spring 配置
 spring:
