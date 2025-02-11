@@ -390,7 +390,7 @@
             <properties>
                 <profiles.active>dev</profiles.active>
                 <nacos.server-addr>localhost:8848</nacos.server-addr>
-                <nacos.namespace>dev</nacos.namespace>
+                <nacos.namespace>public</nacos.namespace>
                 <nacos.group>bryce-cloud</nacos.group>
             </properties>
         </profile>

@@ -100,7 +100,7 @@ services:
     container_name: cloud-sentinel-dashboard
     image: bladex/sentinel-dashboard:1.8.8
     ports:
-      - "8858:8858"
+      - "8718:8858"
       - "8719:8719"
     networks:
       - cloud
