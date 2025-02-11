@@ -324,7 +324,7 @@ bryce:
       # 密码最大错误次数
       max-retry-count: 5
       # 密码锁定间隔（默认10分钟）
-      lock-duration-minutes: 10
+      lock-duration: 10m
 
   # 验证码配置
   captcha:
