@@ -76,6 +76,12 @@ public class XssFilter implements GlobalFilter {
         return StringUtils.startsWithIgnoreCase(contentType, MediaType.APPLICATION_JSON_VALUE);
     }
 
+    /**
+     * 构建装饰器
+     *
+     * @param request request
+     * @return ServerHttpRequestDecorator
+     */
     private ServerHttpRequestDecorator httpRequestDecorator(ServerHttpRequest request) {
 
         return new ServerHttpRequestDecorator(request){
