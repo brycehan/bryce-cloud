@@ -1,6 +1,5 @@
 package com.brycehan.cloud.common.security.config;
 
-import com.brycehan.cloud.common.security.config.properties.AuthProperties;
 import com.brycehan.cloud.common.security.jwt.JwtAccessDeniedHandler;
 import com.brycehan.cloud.common.security.jwt.JwtAuthenticationEntryPoint;
 import com.brycehan.cloud.common.security.jwt.JwtAuthenticationFilter;

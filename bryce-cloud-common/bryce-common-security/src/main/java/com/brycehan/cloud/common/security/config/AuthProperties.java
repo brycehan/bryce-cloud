@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.config.properties;
+package com.brycehan.cloud.common.security.config;
 
 import com.brycehan.cloud.common.core.constant.JwtConstants;
 import jakarta.annotation.PostConstruct;

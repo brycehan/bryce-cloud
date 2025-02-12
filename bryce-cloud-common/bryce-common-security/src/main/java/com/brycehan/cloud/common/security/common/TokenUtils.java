@@ -1,4 +1,4 @@
-package com.brycehan.cloud.common.security.common.utils;
+package com.brycehan.cloud.common.security.common;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;

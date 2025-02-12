@@ -9,7 +9,7 @@ import com.brycehan.cloud.common.core.enums.StatusType;
 import com.brycehan.cloud.common.core.util.IpUtils;
 import com.brycehan.cloud.common.core.util.LocationUtils;
 import com.brycehan.cloud.common.core.util.ServletUtils;
-import com.brycehan.cloud.common.security.common.utils.TokenUtils;
+import com.brycehan.cloud.common.security.common.TokenUtils;
 import com.brycehan.cloud.system.entity.convert.SysUserConvert;
 import com.brycehan.cloud.system.entity.po.SysUser;
 import com.brycehan.cloud.system.service.SysAuthorityService;

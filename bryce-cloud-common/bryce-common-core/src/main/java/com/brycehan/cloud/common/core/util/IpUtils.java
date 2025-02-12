@@ -19,6 +19,14 @@ public class IpUtils {
     /**
      * 获取客户端IP
      *
+     * @return IP地址
+     */
+    public static String getIp() {
+        return getIp(ServletUtils.getRequest());
+    }
+    /**
+     * 获取客户端IP
+     *
      * @param request 请求对象
      * @return IP地址
      */

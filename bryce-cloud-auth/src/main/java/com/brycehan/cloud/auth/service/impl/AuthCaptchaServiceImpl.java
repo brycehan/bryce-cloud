@@ -9,7 +9,7 @@ import com.brycehan.cloud.auth.service.AuthCaptchaService;
 import com.brycehan.cloud.common.core.base.RedisKeys;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import com.brycehan.cloud.common.core.constant.ParamConstants;
-import com.brycehan.cloud.common.security.common.utils.TokenUtils;
+import com.brycehan.cloud.common.security.common.TokenUtils;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
