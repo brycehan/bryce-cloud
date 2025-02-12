@@ -327,10 +327,11 @@ bryce:
 
   # 验证码配置
   captcha:
-    width: 235
-    height: 30
-    length: 5
-    expiration: 10', '3ddbfb58506bcbb8b6aa455b31bdc88d', '2025-02-11 05:38:49', '2025-02-11 12:35:54', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
+    width: 300
+    height: 80
+    font-size: 54
+    length: 2
+    expiration: 5m', '3ddbfb58506bcbb8b6aa455b31bdc88d', '2025-02-11 05:38:49', '2025-02-11 12:35:54', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (7, 'application-feign.yaml', 'bryce-cloud', '# Spring
 spring:
   cloud:

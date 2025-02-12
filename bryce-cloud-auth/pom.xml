@@ -43,10 +43,15 @@
             <groupId>com.brycehan.cloud</groupId>
             <artifactId>bryce-cloud-sms-api</artifactId>
         </dependency>
-        <!-- 验证码 -->
+        <!-- 验证码组件 -->
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
+        </dependency>
+        <!-- 验证码组件算法类型时需要 -->
+        <dependency>
+            <groupId>org.openjdk.nashorn</groupId>
+            <artifactId>nashorn-core</artifactId>
         </dependency>
         <!-- 开发工具 -->
         <dependency>
