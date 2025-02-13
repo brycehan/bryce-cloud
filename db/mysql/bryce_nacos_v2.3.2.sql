@@ -303,7 +303,6 @@ bryce:
         - /captcha/**
         - /sms/**
         - /logout
-        - /api/**
       get:
         - /
         - /error
@@ -624,9 +623,6 @@ bryce:
   # 权限过滤
   auth:
     ignore-urls:
-      all:
-        - /generator-ui/**
-        - /api/**
       get:
         - /
         - /error

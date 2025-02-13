@@ -66,6 +66,7 @@ public class SecurityFilterConfig implements Ordered {
                         .requestMatchers(HttpMethod.GET, authProperties.getIgnoreUrls().getGet()).permitAll()
                         .requestMatchers(HttpMethod.POST, authProperties.getIgnoreUrls().getPost()).permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         // 除上面外的所有请求全部需要鉴权认证
                         .anyRequest().authenticated())

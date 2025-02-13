@@ -29,9 +29,10 @@ import java.util.List;
  */
 @Slf4j
 @Tag(name = "邮件")
-@RequestMapping(path = EmailApi.PATH)
-@RestController
 @Validated
+@RestController
+@PreAuthorize("@auth.hasInnerCall()")
+@RequestMapping(path = EmailApi.PATH)
 @RequiredArgsConstructor
 public class EmailApiController implements EmailApi {
 
@@ -45,7 +46,6 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送简单邮件")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Void> sendSimpleEmail(ToMailDto toMailDto) {
         emailService.sendSimpleEmail(toMailDto);
         return ResponseResult.ok();
@@ -60,7 +60,6 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送附件邮件")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Void> sendHtmlEmail(@Validated @ModelAttribute ToMailDto toMailDto, @Size(max = 100) List<MultipartFile> file, Request.Options options) {
         emailService.sendHtmlEmail(toMailDto, file);
         return ResponseResult.ok();
@@ -75,7 +74,6 @@ public class EmailApiController implements EmailApi {
      */
     @Override
     @Operation(summary = "发送验证码邮件")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> send(ToVerifyCodeEmailDto toVerifyCodeEmailDto, EmailType emailType) {
         emailService.send(toVerifyCodeEmailDto, emailType);
         return ResponseResult.ok(Boolean.TRUE);

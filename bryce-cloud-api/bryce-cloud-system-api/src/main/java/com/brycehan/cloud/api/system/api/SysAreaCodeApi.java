@@ -3,7 +3,6 @@ package com.brycehan.cloud.api.system.api;
 import com.brycehan.cloud.common.core.base.response.ResponseResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 地区编码Api
@@ -22,7 +21,7 @@ public interface SysAreaCodeApi {
      * @return 扩展名称
      */
     @GetMapping(path = "/extNameByCode/{areaCode}")
-    ResponseResult<String> getExtNameByCode(@PathVariable @RequestParam String areaCode);
+    ResponseResult<String> getExtNameByCode(@PathVariable String areaCode);
 
     /**
      * 获取地区位置
@@ -31,6 +30,6 @@ public interface SysAreaCodeApi {
      * @return 地区位置
      */
     @GetMapping(path = "/fullLocation/{areaCode}")
-    ResponseResult<String> getFullLocation(@PathVariable @RequestParam String areaCode);
+    ResponseResult<String> getFullLocation(@PathVariable String areaCode);
 
 }

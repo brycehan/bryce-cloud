@@ -26,8 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @Tag(name = "系统参数Api")
-@RequestMapping(path = SysParamApi.PATH)
 @RestController
+@PreAuthorize("@auth.hasInnerCall()")
+@RequestMapping(path = SysParamApi.PATH)
 @RequiredArgsConstructor
 public class SysParamApiController implements SysParamApi {
 
@@ -40,7 +41,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "添加系统参数")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Void> save(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
@@ -55,7 +55,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "更新系统参数")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Void> update(SysParamDto sysParamDto) {
         SysParam sysParam = new SysParam();
         BeanUtils.copyProperties(sysParamDto, sysParam);
@@ -87,7 +86,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "判断 paramKey 是否存在")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> exists(String paramKey) {
         boolean exists = sysParamService.exists(paramKey);
         return ResponseResult.ok(exists);
@@ -101,7 +99,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "获取参数对象")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<SysParamVo> getByParamKey(String paramKey) {
         com.brycehan.cloud.system.entity.vo.SysParamVo sysParamVo = sysParamService.getByParamKey(paramKey);
 
@@ -119,7 +116,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "根据paramKey，查询字符串类型的参数值")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<String> getString(String paramKey) {
         String string = sysParamService.getString(paramKey);
         return ResponseResult.ok(string);
@@ -133,7 +129,6 @@ public class SysParamApiController implements SysParamApi {
      */
     @Override
     @Operation(summary = "根据paramKey，查询boolean类型的参数值")
-    @PreAuthorize("@auth.hasInnerCall()")
     public ResponseResult<Boolean> getBoolean(String paramKey) {
         boolean flag = sysParamService.getBoolean(paramKey);
         return ResponseResult.ok(flag);
