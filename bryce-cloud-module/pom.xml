@@ -16,6 +16,7 @@
 
     <modules>
         <module>bryce-cloud-email</module>
+        <module>bryce-cloud-generator</module>
         <module>bryce-cloud-monitor</module>
         <module>bryce-cloud-sms</module>
         <module>bryce-cloud-storage</module>

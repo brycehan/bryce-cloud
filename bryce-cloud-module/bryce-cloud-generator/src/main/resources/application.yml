@@ -1,11 +1,11 @@
 # Tomcat
 server:
-  port: 9015
+  port: 9013
 
 # Spring
 spring:
   application:
-    name: bryce-cloud-sms
+    name: bryce-cloud-generator
   mvc:
     servlet:
       load-on-startup: 0
@@ -25,8 +25,4 @@ spring:
     import:
       - optional:nacos:application-common.yaml
       - optional:nacos:application-endpoint.yaml
-      - optional:nacos:application-sentinel.yaml
-      - optional:nacos:application-jwt.yaml
-      - optional:nacos:application-cache.yaml
-      - optional:nacos:application-rabbitmq.yaml
-      - optional:nacos:bryce-cloud-sms.yaml
+      - optional:nacos:bryce-cloud-generator.yaml

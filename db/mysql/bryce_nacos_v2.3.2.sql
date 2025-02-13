@@ -590,7 +590,6 @@ mybatis-plus:
   # mapper.xml 映射文件位置
   mapper-locations:
     - classpath*:com/brycehan/cloud/*/mapper/xml/*Mapper.xml
-    - classpath*:com/brycehan/boot/*/mapper/xml/*Mapper.xml
   type-aliases-package: com.brycehan.cloud.*.entity.po
   # 原生配置
   configuration:
@@ -980,3 +979,54 @@ spring:
           starttls:
             enable: true
             required: true', '9a34ab3be4cccf1d7e476de2140cbe72', '2025-02-11 05:38:49', '2025-02-11 12:45:53', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
+INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (21, 'bryce-cloud-generator.yaml', 'bryce-cloud', '# Spring 配置
+spring:
+  # 数据源配置
+  datasource:
+    # MySQL 8.0
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bryce_generator?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullDatabaseMeansCurrent=true&useServerPrepStmts=true&cachePrepStmts=true
+    username: root
+    password: root
+    # postgresql
+    # driver-class-name: org.postgresql.Driver
+    # url: jdbc:postgresql://localhost:5432/postgres
+    # username: bryce_generator
+    # password: 123456
+    # 达梦
+    # driver-class-name: dm.jdbc.driver.DmDriver
+    # url: jdbc:dm://localhost:5436/bryce_generator?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullDatabaseMeansCurrent=true
+    # username: bryce_generator
+    # password: 123456
+
+# mybatis plus 配置
+mybatis-plus:
+  # mapper.xml 映射文件位置
+  mapper-locations:
+    - classpath*:com/brycehan/boot/*/mapper/xml/*Mapper.xml
+  type-aliases-package: com.brycehan.boot.*.entity.po
+  # 原生配置
+  configuration:
+    # 是否开启下划线和驼峰命名的映射
+    map-underscore-to-camel-case: true
+    # 是否开启二级缓存
+    cache-enabled: false
+    # 查询返回map的时候，是否返回null值对应的字段的entry
+    call-setters-on-nulls: true
+    # 设置参数值为null的字段的jdbcType为null
+    jdbc-type-for-null: \'null\'
+    # 枚举类型处理器
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  # 全局配置
+  global-config:
+    # 是否显示banner
+    banner: false
+    # 数据库相关配置
+    db-config:
+      # 用户输入ID
+      id-type: input
+
+bryce:
+  # 代码生成
+  generator:
+    table-prefix: brc_', '3788effcd58b185bff29e60172811e1a', '2025-02-13 05:15:46', '2025-02-13 05:32:35', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');

@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                 // 开启Http Basic支持，admin-client注册时需要使用
                 .httpBasic(Customizer.withDefaults())
                 // 禁用X-Frame-Options
-                .headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(configurer -> configurer
                         // 开启基于Cookie的csrf保护
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -68,7 +68,7 @@ public class WebSecurityConfig {
                                 new AntPathRequestMatcher(adminServer.path("/instances/*"), DELETE.toString()),
                                 new AntPathRequestMatcher(adminServer.path("/actuator/**"))
                                 ))
-                .rememberMe(configurer -> configurer.key(UUID.randomUUID().toString()).tokenValiditySeconds(1209600));
+                .rememberMe(configurer -> configurer.key(UUID.randomUUID().toString()).tokenValiditySeconds(120_9600)); // 2周
 
         return http.build();
     }

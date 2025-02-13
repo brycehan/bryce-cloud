@@ -1,6 +1,6 @@
 # Tomcat 配置
 server:
-  port: 9016
+  port: 9017
 
 # Spring 配置
 spring:

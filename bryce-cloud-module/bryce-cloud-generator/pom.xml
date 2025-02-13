@@ -7,50 +7,48 @@
         <artifactId>bryce-cloud-module</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>bryce-cloud-system</artifactId>
+    <artifactId>bryce-cloud-generator</artifactId>
     <version>${revision}</version>
-    <name>bryce-cloud-system</name>
-    <description>bryce-cloud-system</description>
+    <name>bryce-cloud-generator</name>
+    <description>bryce-cloud-generator</description>
 
     <!-- 依赖 -->
     <dependencies>
+        <!-- 通用 Cloud 依赖 -->
         <dependency>
             <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-server</artifactId>
+            <artifactId>bryce-common-cloud</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-operatelog</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-common-xxl-job</artifactId>
-        </dependency>
-        <!-- API -->
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-system-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.brycehan.cloud</groupId>
-            <artifactId>bryce-cloud-storage-api</artifactId>
-        </dependency>
-        <!-- 开发工具 -->
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional><!-- 表示依赖不会传递 -->
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- 代码生成器 -->
+        <dependency>
+            <groupId>com.brycehan.boot</groupId>
+            <artifactId>bryce-generator-boot-starter</artifactId>
+        </dependency>
+        <!-- MySQL 驱动 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- PostgreSQL驱动 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- 达梦驱动 -->
+        <dependency>
+            <groupId>com.dameng</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
-
+    
     <!-- 构建 -->
     <build>
         <!-- 插件 -->
@@ -68,5 +66,5 @@
             </plugin>
         </plugins>
     </build>
-
+    
 </project>

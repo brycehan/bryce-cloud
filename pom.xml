@@ -129,12 +129,6 @@
                 <artifactId>bryce-cloud-system-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 认证模块 -->
-            <dependency>
-                <groupId>com.brycehan.cloud</groupId>
-                <artifactId>bryce-cloud-auth</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <!-- 公共模块 -->
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
@@ -168,12 +162,12 @@
             </dependency>
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
-                <artifactId>bryce-common-security</artifactId>
+                <artifactId>bryce-common-rabbitmq</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.brycehan.cloud</groupId>
-                <artifactId>bryce-common-rabbitmq</artifactId>
+                <artifactId>bryce-common-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
