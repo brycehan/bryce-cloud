@@ -50,7 +50,7 @@ bryce-cloud
 │       └── mysql                                     // MySQL数据库
 │       └── postgresql                                // PG数据库
 ├── docker                   // 容器模块
-├──pom.xml                   // 公共依赖
+├── pom.xml                  // 公共依赖
 ~~~
 
 ## 架构图
