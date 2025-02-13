@@ -11,11 +11,11 @@ WORKDIR /
 # 设置时区
 ENV TZ=Asia/Shanghai
 # 暴露端口
-EXPOSE 9013
+EXPOSE 9014
 # 启动System服务
 ENTRYPOINT java \
 	-server \
-	-Dserver.port=9013 \
+	-Dserver.port=9014 \
 	-Dspring.profiles.active=prod \
 	-Djava.security.egd=file:/dev/./urandom \
 	-Dfile.encoding=UTF-8 \

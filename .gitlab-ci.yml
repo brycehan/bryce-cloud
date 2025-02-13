@@ -1,19 +1,22 @@
+# GitLab CI/CD 阶段定义
 stages:
   - build
   - package
   - deploy
 
+# 变量
 variables:
   HARBOR_HOST: core.harbor.brycehan.com
   APP_HOST: api.cloud.brycehan.com
   NAMESPACE: bryce-cloud
+  WORKLOAD_AUTH: bryce-cloud-auth
   WORKLOAD_GATEWAY: bryce-cloud-gateway
   WORKLOAD_SYSTEM: bryce-cloud-system
-  WORKLOAD_WECHAT: bryce-cloud-wechat
+  IMAGE_NAME_AUTH: $HARBOR_HOST/bryce/bryce-cloud-auth:latest
   IMAGE_NAME_GATEWAY: $HARBOR_HOST/bryce/bryce-cloud-gateway:latest
   IMAGE_NAME_SYSTEM: $HARBOR_HOST/bryce/bryce-cloud-system:latest
-  IMAGE_NAME_WECHAT: $HARBOR_HOST/bryce/bryce-cloud-wechat:latest
 
+# 构建
 build:
   stage: build
   image: $HARBOR_HOST/bryce-docker/maven:latest
@@ -26,12 +29,13 @@ build:
     name: "${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     expire_in: 1hrs
     paths:
+      - bryce-cloud-auth/target/*.jar
       - bryce-cloud-gateway/target/*.jar
-      - bryce-cloud-system/target/*.jar
-      - bryce-cloud-wechat/target/*.jar
+      - bryce-cloud-module/bryce-cloud-system/target/*.jar
   tags:
     - bryce-runner
 
+# 打包
 package:
   stage: package
   image: $HARBOR_HOST/bryce-docker/buildah:latest
@@ -39,12 +43,13 @@ package:
   only:
     - main
   script:
-    - /buildah.sh -f=deploy/gateway/Dockerfile -t=$IMAGE_NAME_GATEWAY
-    - /buildah.sh -f=deploy/system/Dockerfile -t=$IMAGE_NAME_SYSTEM
-    - /buildah.sh -f=deploy/wechat/Dockerfile -t=$IMAGE_NAME_WECHAT
+    - /buildah.sh -f=deploy/bryce/auth/Dockerfile -t=$IMAGE_NAME_AUTH
+    - /buildah.sh -f=docker/bryce/gateway/Dockerfile -t=$IMAGE_NAME_GATEWAY
+    - /buildah.sh -f=docker/bryce/module/system/Dockerfile -t=$IMAGE_NAME_SYSTEM
   tags:
     - bryce-runner
 
+# 部署
 deploy:
   stage: deploy
   image: $HARBOR_HOST/bryce-docker/kubectl:latest
@@ -52,8 +57,8 @@ deploy:
   only:
     - main
   script:
+    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_AUTH -i=$IMAGE_NAME_WECHAT -r=2 -p=9011
     - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_GATEWAY -i=$IMAGE_NAME_GATEWAY -h=$APP_HOST -p=8090
-    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_SYSTEM -i=$IMAGE_NAME_SYSTEM -r=2 -p=8091
-    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_WECHAT -i=$IMAGE_NAME_WECHAT -r=2 -p=8092
+    - /deploy.sh -n=$NAMESPACE -w=$WORKLOAD_SYSTEM -i=$IMAGE_NAME_SYSTEM -r=2 -p=9017
   tags:
     - bryce-runner
