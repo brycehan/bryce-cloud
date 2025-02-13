@@ -1,14 +1,18 @@
 ## Bryce Cloud
 
-* 本项目是一个基于 Vue/Element Plus 和 Spring Boot/Spring Cloud & Alibaba 前后端分离的分布式微服务架构。
+本项目是一个基于 Vue/Element Plus 和 Spring Boot/Spring Cloud & Alibaba 前后端分离的分布式微服务架构。
+
 * 前端工程：[https://github.com/brycehan/bryce-admin](https://github.com/brycehan/bryce-admin)
+* 开发平台后端工程（单体版）：[https://github.com/brycehan/bryce-boot](https://github.com/brycehan/bryce-boot)
+* 开发平台后端工程（微服务）：[https://github.com/brycehan/bryce-cloud](https://github.com/brycehan/bryce-cloud)
+* 超好用的代码生成器：[https://github.com/brycehan/bryce-generator](https://github.com/brycehan/bryce-generator)
 
 ## 平台简介
 
 布莱斯是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
 
-* 采用前后端分离的模式，微服务版本前端技术栈（[Vue3](https://v3.cn.vuejs.org) [Element Plus](https://element-plus.org/zh-CN) [Vite](https://cn.vitejs.dev)）。
-* 后端采用Spring Boot、Spring Cloud & Alibaba。
+* 采用前后端分离的模式，前端技术栈（[Vue3](https://v3.cn.vuejs.org) [Element Plus](https://element-plus.org/zh-CN) [Vite](https://cn.vitejs.dev)）。
+* 后端采用Spring Boot、Spring Cloud & Alibaba，分为单体版和微服务两个版本。
 * 注册中心、配置中心选型Nacos，权限认证使用Redis。
 * 流量控制框架选型Sentinel，分布式事务选型Seata。
 * 如需不分微服务架构，请移步 [bryce-boot](https://github.com/brycehan/bryce-boot)。
@@ -82,11 +86,4 @@ bryce-cloud
 | ![bryce-cloud服务监控](images/11.png) | ![bryce-cloud系统服务监控](images/12.png) |
 | ![bryce-cloud代码生成](images/13.png) | ![bryce-cloud代码生成编辑](images/14.png) |
 | ![bryce-cloud登录日志](images/15.png) | ![bryce-cloud操作日志](images/16.png)   |
-
-## 开源汇总
-
-* 前端工程：[https://github.com/brycehan/bryce-admin](https://github.com/brycehan/bryce-admin)
-* 开发平台后端工程（单体版）：[https://github.com/brycehan/bryce-boot](https://github.com/brycehan/bryce-boot)
-* 开发平台后端工程（微服务）：[https://github.com/brycehan/bryce-cloud](https://github.com/brycehan/bryce-cloud)
-* 超好用的代码生成器：[https://github.com/brycehan/bryce-generator](https://github.com/brycehan/bryce-generator)
 
