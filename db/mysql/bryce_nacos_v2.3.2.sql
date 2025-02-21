@@ -927,9 +927,7 @@ bryce:
         - /swagger-ui/**
         - /swagger-resources/**
         - /v3/api-docs/**
-        - /doc.html
-      all:
-        - /easyTrans/proxy/**', '213867b4db718f36615d25e26b66cab6', '2025-02-11 05:38:49', '2025-02-11 12:40:57', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
+        - /doc.html', '213867b4db718f36615d25e26b66cab6', '2025-02-11 05:38:49', '2025-02-11 12:40:57', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (18, 'application-jwt.yaml', 'bryce-cloud', '# 自定义配置
 bryce:
   # 认证配置
@@ -974,7 +972,20 @@ spring:
           auth: true
           starttls:
             enable: true
-            required: true', '9a34ab3be4cccf1d7e476de2140cbe72', '2025-02-11 05:38:49', '2025-02-11 12:45:53', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
+            required: true
+
+# 自定义配置
+bryce:
+  auth:  # 权限过滤
+    ignore-urls:
+      get:
+        - /
+        - /error
+        - /webjars/**
+        - /swagger-ui/**
+        - /swagger-resources/**
+        - /v3/api-docs/**
+        - /doc.html', '9a34ab3be4cccf1d7e476de2140cbe72', '2025-02-11 05:38:49', '2025-02-11 12:45:53', null, '172.30.0.1', '', '', '', '', '', 'yaml', '', '');
 INSERT INTO config_info (id, data_id, group_id, content, md5, gmt_create, gmt_modified, src_user, src_ip, app_name, tenant_id, c_desc, c_use, effect, type, c_schema, encrypted_data_key) VALUES (21, 'bryce-cloud-generator.yaml', 'bryce-cloud', '# Spring 配置
 spring:
   # 数据源配置
