@@ -76,9 +76,9 @@ public class SysUser extends BaseEntity {
     private Integer sort;
 
     /**
-     * 机构ID
+     * 部门ID
      */
-    private Long orgId;
+    private Long deptId;
 
     /**
      * 状态（0：停用，1：正常）

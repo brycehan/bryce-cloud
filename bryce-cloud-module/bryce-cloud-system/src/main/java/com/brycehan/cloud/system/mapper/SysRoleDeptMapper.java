@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.brycehan.cloud.system.entity.po.SysRoleOrg;
+import com.brycehan.cloud.system.entity.po.SysRoleDept;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @author Bryce Han
  */
 @Mapper
-public interface SysRoleOrgMapper extends BaseMapper<SysRoleOrg> {
+public interface SysRoleDeptMapper extends BaseMapper<SysRoleDept> {
 
     /**
      * 获取用户的数据权限列表
@@ -21,6 +21,6 @@ public interface SysRoleOrgMapper extends BaseMapper<SysRoleOrg> {
      * @param userId 用户ID
      * @return 数据权限列表
      */
-    List<Long> getDataScopeOrgIds(Long userId);
+    List<Long> getDataScopeDeptIds(Long userId);
 
 }

@@ -27,7 +27,7 @@ import com.brycehan.cloud.system.entity.po.SysRole;
 import com.brycehan.cloud.system.entity.vo.SysRoleVo;
 import com.brycehan.cloud.system.mapper.SysRoleMapper;
 import com.brycehan.cloud.system.service.SysRoleMenuService;
-import com.brycehan.cloud.system.service.SysRoleOrgService;
+import com.brycehan.cloud.system.service.SysRoleDeptService;
 import com.brycehan.cloud.system.service.SysRoleService;
 import com.brycehan.cloud.system.service.SysUserRoleService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
     private final SysRoleMenuService sysRoleMenuService;
 
-    private final SysRoleOrgService sysRoleOrgService;
+    private final SysRoleDeptService sysRoleDeptService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -105,7 +105,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
         sysRoleMenuService.deleteByRoleIds(idsDto.getIds());
 
         // 删除角色数据权限关系
-        sysRoleOrgService.deleteByRoleIds(idsDto.getIds());
+        sysRoleDeptService.deleteByRoleIds(idsDto.getIds());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
     private Wrapper<SysRole> getWrapper(SysRolePageDto sysRolePageDto) {
         LambdaQueryWrapper<SysRole> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Objects.nonNull(sysRolePageDto.getStatus()), SysRole::getStatus, sysRolePageDto.getStatus());
-        wrapper.eq(Objects.nonNull(sysRolePageDto.getOrgId()), SysRole::getOrgId, sysRolePageDto.getOrgId());
+        wrapper.eq(Objects.nonNull(sysRolePageDto.getDeptId()), SysRole::getDeptId, sysRolePageDto.getDeptId());
         wrapper.like(StringUtils.isNotEmpty(sysRolePageDto.getName()), SysRole::getName, sysRolePageDto.getName());
         wrapper.like(StringUtils.isNotEmpty(sysRolePageDto.getCode()), SysRole::getCode, sysRolePageDto.getCode());
         addTimeRangeCondition(wrapper, SysRole::getCreatedTime, sysRolePageDto.getCreatedTimeStart(), sysRolePageDto.getCreatedTimeEnd());
@@ -176,22 +176,22 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
     @Override
     @Transactional
-    public void assignDataScope(SysRoleOrgDto sysRoleOrgDto) {
-        SysRole sysRole = baseMapper.selectById(sysRoleOrgDto.getId());
+    public void assignDataScope(SysRoleDeptDto sysRoleDeptDto) {
+        SysRole sysRole = baseMapper.selectById(sysRoleDeptDto.getId());
         if (sysRole == null) {
             return;
         }
         checkRoleAllowed(sysRole);
-        checkRoleDataScope(sysRoleOrgDto.getId());
+        checkRoleDataScope(sysRoleDeptDto.getId());
         // 更新角色
-        sysRole.setDataScope(sysRoleOrgDto.getDataScope());
+        sysRole.setDataScope(sysRoleDeptDto.getDataScope());
         baseMapper.updateById(sysRole);
 
         // 更新角色数据范围关系
-        if (sysRoleOrgDto.getDataScope() == DataScopeType.CUSTOM) {
-            sysRoleOrgService.saveOrUpdate(sysRoleOrgDto.getId(), sysRoleOrgDto.getOrgIds());
+        if (sysRoleDeptDto.getDataScope() == DataScopeType.CUSTOM) {
+            sysRoleDeptService.saveOrUpdate(sysRoleDeptDto.getId(), sysRoleDeptDto.getDeptIds());
         } else {
-            sysRoleOrgService.deleteByRoleIds(Collections.singletonList(sysRoleOrgDto.getId()));
+            sysRoleDeptService.deleteByRoleIds(Collections.singletonList(sysRoleDeptDto.getId()));
         }
     }
 

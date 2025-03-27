@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统角色Dto")
-public class SysRoleOrgDto extends BaseDto {
+public class SysRoleDeptDto extends BaseDto {
 
     /**
      * ID
@@ -35,9 +35,9 @@ public class SysRoleOrgDto extends BaseDto {
     private DataScopeType dataScope;
 
     /**
-     * 机构IDs
+     * 部门IDs
      */
-    @Schema(description = "机构IDs")
-    private List<Long> orgIds;
+    @Schema(description = "部门IDs")
+    private List<Long> deptIds;
 
 }

@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 系统角色机构entity
+ * 系统角色部门entity
  *
  * @since 2023/09/15
  * @author Bryce Han
@@ -16,7 +16,7 @@ import java.io.Serial;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("brc_sys_role_org")
-public class SysRoleOrg extends BaseEntity {
+public class SysRoleDept extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,8 +27,8 @@ public class SysRoleOrg extends BaseEntity {
     private Long roleId;
 
     /**
-     * 机构ID
+     * 部门ID
      */
-    private Long orgId;
+    private Long deptId;
 
 }

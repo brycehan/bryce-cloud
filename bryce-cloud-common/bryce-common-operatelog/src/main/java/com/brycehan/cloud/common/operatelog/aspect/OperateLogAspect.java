@@ -127,8 +127,8 @@ public class OperateLogAspect {
         if(currentUser != null) {
             operateLogDto.setUserId(currentUser.getId());
             operateLogDto.setUsername(currentUser.getUsername());
-            operateLogDto.setOrgId(currentUser.getOrgId());
-            operateLogDto.setOrgName(currentUser.getOrgName());
+            operateLogDto.setDeptId(currentUser.getDeptId());
+            operateLogDto.setDeptName(currentUser.getDeptName());
             operateLogDto.setSourceClient(currentUser.getSourceClientType());
         }
 

@@ -52,17 +52,17 @@ public class LoginUserContext {
     }
 
     /**
-     * 获取当前登录用户的机构ID
+     * 获取当前登录用户的部门ID
      *
-     * @return 当前登录用户的机构ID
+     * @return 当前登录用户的部门ID
      */
-    public static Long currentOrgId() {
+    public static Long currentDeptId() {
         LoginUser loginUser = currentUser();
         if(loginUser == null){
             return null;
         }
 
-        return loginUser.getOrgId();
+        return loginUser.getDeptId();
     }
 
     public static String currentOpenId() {

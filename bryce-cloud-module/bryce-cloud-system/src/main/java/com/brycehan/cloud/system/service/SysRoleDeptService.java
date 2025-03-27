@@ -1,7 +1,7 @@
 package com.brycehan.cloud.system.service;
 
 import com.brycehan.cloud.common.mybatis.service.BaseService;
-import com.brycehan.cloud.system.entity.po.SysRoleOrg;
+import com.brycehan.cloud.system.entity.po.SysRoleDept;
 
 import java.util.List;
 
@@ -11,23 +11,23 @@ import java.util.List;
  * @since 2023/09/15
  * @author Bryce Han
  */
-public interface SysRoleOrgService extends BaseService<SysRoleOrg> {
+public interface SysRoleDeptService extends BaseService<SysRoleDept> {
 
     /**
      * 保存或修改
      *
      * @param roleId 角色ID
-     * @param orgIds 机构IDs
+     * @param deptIds 部门IDs
      */
-    void saveOrUpdate(Long roleId, List<Long> orgIds);
+    void saveOrUpdate(Long roleId, List<Long> deptIds);
 
     /**
-     * 查询角色对应的机构IDs
+     * 查询角色对应的部门IDs
      *
      * @param roleId 角色ID
-     * @return 角色拥有的机构IDs
+     * @return 角色拥有的部门IDs
      */
-    List<Long> getOrgIdsByRoleId(Long roleId);
+    List<Long> getDeptIdsByRoleId(Long roleId);
 
     /**
      * 根据角色IDs，删除角色数据权限关系

@@ -45,10 +45,10 @@ public class SysUserInfoVo implements Serializable {
     private String email;
 
     /**
-     * 机构名称
+     * 部门名称
      */
-    @Schema(description = "机构名称")
-    private String orgName;
+    @Schema(description = "部门名称")
+    private String deptName;
 
     /**
      * 创建时间

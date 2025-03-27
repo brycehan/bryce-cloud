@@ -9,7 +9,7 @@ import com.brycehan.cloud.common.security.jwt.JwtTokenProvider;
 import com.brycehan.cloud.system.entity.convert.SysUserOnlineConvert;
 import com.brycehan.cloud.system.entity.dto.SysUserOnlinePageDto;
 import com.brycehan.cloud.system.entity.vo.SysUserOnlineVo;
-import com.brycehan.cloud.system.service.SysOrgService;
+import com.brycehan.cloud.system.service.SysDeptService;
 import com.brycehan.cloud.system.service.SysUserOnlineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,7 +30,7 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
 
     private final RedisTemplate<String, LoginUser> redisTemplate;
     private final JwtTokenProvider jwtTokenProvider;
-    private final SysOrgService sysOrgService;
+    private final SysDeptService sysDeptService;
 
     @Override
     public PageResult<SysUserOnlineVo> pageByUsernameAndLoginIp(SysUserOnlinePageDto onlineUserPageDto) {
@@ -64,9 +64,9 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         // 逻辑分页
         List<SysUserOnlineVo> sysUserOnlineVoList = ListUtil.page(onlineUserPageDto.getCurrent() - 1, onlineUserPageDto.getSize(), list);
 
-        // 分页数据，处理机构名称
-        Map<Long, String> orgNames = sysOrgService.getOrgNamesByIds(sysUserOnlineVoList.stream().map(SysUserOnlineVo::getOrgId).toList());
-        sysUserOnlineVoList.forEach(sysUserOnlineVo -> sysUserOnlineVo.setOrgName(orgNames.get(sysUserOnlineVo.getOrgId())));
+        // 分页数据，处理部门名称
+        Map<Long, String> deptNames = sysDeptService.getDeptNamesByIds(sysUserOnlineVoList.stream().map(SysUserOnlineVo::getDeptId).toList());
+        sysUserOnlineVoList.forEach(sysUserOnlineVo -> sysUserOnlineVo.setDeptName(deptNames.get(sysUserOnlineVo.getDeptId())));
 
         return new PageResult<>(sysUserOnlineVoList.size(), sysUserOnlineVoList);
     }
@@ -146,9 +146,9 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         });
         list.sort(Comparator.comparing(SysUserOnlineVo::getLoginTime).reversed());
 
-        // 处理机构名称
-        Map<Long, String> orgNames = sysOrgService.getOrgNamesByIds(list.stream().map(SysUserOnlineVo::getOrgId).toList());
-        list.forEach(sysUserOnlineVo -> sysUserOnlineVo.setOrgName(orgNames.get(sysUserOnlineVo.getOrgId())));
+        // 处理部门名称
+        Map<Long, String> deptNames = sysDeptService.getDeptNamesByIds(list.stream().map(SysUserOnlineVo::getDeptId).toList());
+        list.forEach(sysUserOnlineVo -> sysUserOnlineVo.setDeptName(deptNames.get(sysUserOnlineVo.getDeptId())));
 
         return new PageResult<>(keys.size(), list);
     }

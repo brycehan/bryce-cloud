@@ -117,14 +117,14 @@ public class SysOperateLog implements Serializable {
     private String username;
 
     /**
-     * 机构ID
+     * 部门ID
      */
-    private Long orgId;
+    private Long deptId;
 
     /**
-     * 机构名称
+     * 部门名称
      */
-    private String orgName;
+    private String deptName;
 
     /**
      * 创建时间
