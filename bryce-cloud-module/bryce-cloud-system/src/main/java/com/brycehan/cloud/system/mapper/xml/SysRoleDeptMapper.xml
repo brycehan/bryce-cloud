@@ -23,7 +23,7 @@
     <select id="getDataScopeDeptIds" resultType="java.lang.Long">
         select sro.dept_id
         from brc_sys_user_role sur
-        inner join brc_sys_role_org sro on sur.role_id = sro.role_id
+        inner join brc_sys_role_dept sro on sur.role_id = sro.role_id
         where sro.deleted is null
           and sur.deleted is null
           and sur.user_id = #{userId}

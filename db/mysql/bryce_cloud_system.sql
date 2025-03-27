@@ -11,7 +11,7 @@ use bryce_cloud_system;
     drop table if exists brc_sys_user_post;
     drop table if exists brc_sys_menu;
     drop table if exists brc_sys_role_menu;
-    drop table if exists brc_sys_role_org;
+    drop table if exists brc_sys_role_dept;
     drop table if exists brc_sys_login_log;
     drop table if exists brc_sys_operate_log;
     drop table if exists brc_sys_dict_type;
@@ -304,7 +304,7 @@ create index idx_role_id on brc_sys_role_menu (role_id);
 create index idx_menu_id on brc_sys_role_menu (menu_id);
 
 -- 9、系统角色部门关联表
-create table brc_sys_role_org
+create table brc_sys_role_dept
 (
     id              bigint   primary key comment 'ID',
     role_id         bigint   not null comment '角色ID',
