@@ -1,5 +1,5 @@
 # 基础镜像
-FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre
+FROM public.ecr.aws/docker/library/eclipse-temurin:21-jre
 
 # 作者
 LABEL org.opencontainers.image.authors="Bryce Han"
