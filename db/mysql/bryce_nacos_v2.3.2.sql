@@ -586,10 +586,6 @@ spring:
 
 # mybatis plus 配置
 mybatis-plus:
-  # mapper.xml 映射文件位置
-  mapper-locations:
-    - classpath*:com/brycehan/cloud/*/mapper/xml/*Mapper.xml
-  type-aliases-package: com.brycehan.cloud.*.entity.po
   # 原生配置
   configuration:
     # 是否开启下划线和驼峰命名的映射
@@ -1008,10 +1004,6 @@ spring:
 
 # mybatis plus 配置
 mybatis-plus:
-  # mapper.xml 映射文件位置
-  mapper-locations:
-    - classpath*:com/brycehan/boot/*/mapper/xml/*Mapper.xml
-  type-aliases-package: com.brycehan.boot.*.entity.po
   # 原生配置
   configuration:
     # 是否开启下划线和驼峰命名的映射
