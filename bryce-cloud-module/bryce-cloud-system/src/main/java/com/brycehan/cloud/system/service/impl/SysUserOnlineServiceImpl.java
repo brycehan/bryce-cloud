@@ -39,7 +39,7 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         Set<String> keys = redisTemplate.keys(patternKeys);
 
         if (keys == null) {
-            return new PageResult<>(0, new ArrayList<>(0));
+            return PageResult.empty();
         }
 
         List<SysUserOnlineVo> list = new ArrayList<>();
@@ -68,7 +68,7 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         Map<Long, String> deptNames = sysDeptService.getDeptNamesByIds(sysUserOnlineVoList.stream().map(SysUserOnlineVo::getDeptId).toList());
         sysUserOnlineVoList.forEach(sysUserOnlineVo -> sysUserOnlineVo.setDeptName(deptNames.get(sysUserOnlineVo.getDeptId())));
 
-        return new PageResult<>(sysUserOnlineVoList.size(), sysUserOnlineVoList);
+        return PageResult.of(sysUserOnlineVoList, sysUserOnlineVoList.size());
     }
 
     /**
@@ -130,7 +130,7 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         Set<String> keys = redisTemplate.keys(patternKeys);
 
         if (keys == null) {
-            return new PageResult<>(0, new ArrayList<>(0));
+            return PageResult.empty();
         }
 
         // 逻辑分页
@@ -150,7 +150,7 @@ public class SysUserOnlineServiceImpl implements SysUserOnlineService {
         Map<Long, String> deptNames = sysDeptService.getDeptNamesByIds(list.stream().map(SysUserOnlineVo::getDeptId).toList());
         list.forEach(sysUserOnlineVo -> sysUserOnlineVo.setDeptName(deptNames.get(sysUserOnlineVo.getDeptId())));
 
-        return new PageResult<>(keys.size(), list);
+        return PageResult.of(list, keys.size());
     }
 
     @Override
